@@ -1,0 +1,25 @@
+{
+  "name": "witches",
+  "version": "1.0.0",
+  "description": "My groundbreaking Nuxt.js project",
+  "author": "Richard Lawson",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "leaflet": "^1.5.1",
+    "leaflet.markercluster": "^1.4.1",
+    "nuxt": "^2.0.0",
+    "nuxt-leaflet": "0.0.19",
+    "vue2-leaflet": "^2.2.1",
+    "vue2-leaflet-markercluster": "^3.0.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "nodemon": "^1.18.9"
+  }
+}
