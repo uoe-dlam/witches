@@ -15,11 +15,12 @@
     "leaflet.markercluster": "^1.4.1",
     "nuxt": "^2.0.0",
     "nuxt-leaflet": "0.0.19",
+    "vue-slider-component": "^3.0.34",
     "vue2-leaflet": "^2.2.1",
     "vue2-leaflet-markercluster": "^3.0.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^1.0.0",
+    "@nuxtjs/tailwindcss": "^1.1.1",
     "nodemon": "^1.18.9"
   }
 }

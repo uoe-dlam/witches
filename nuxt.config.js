@@ -24,20 +24,22 @@ export default {
   */
   css: [
       "leaflet.markercluster/dist/MarkerCluster.css",
-      "leaflet.markercluster/dist/MarkerCluster.Default.css"
+      "leaflet.markercluster/dist/MarkerCluster.Default.css",
+      "vue-slider-component/theme/default.css"
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    {src: "~/plugins/markercluster",ssr: false}
+    {src: "~/plugins/markercluster",ssr: false},
+    {src: "~/plugins/slider",ssr: false}
   ],
   /*
   ** Nuxt.js dev-modules
   */
   devModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    //'@nuxtjs/tailwindcss',
+    '@nuxtjs/tailwindcss',
   ],
   /*
   ** Nuxt.js modules

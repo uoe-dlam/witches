@@ -2,7 +2,7 @@
     <div id="outer">
         <div id="inner">
             <div id="map-filters" class="p-6">
-                <h1>Places of residence for accused witches</h1><br>
+                <h1>Places of death for accused witches</h1><br>
                 <div>
                     <span v-for="(tile, index) in tiles">
                         <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
@@ -35,40 +35,34 @@
                 <no-ssr>
                     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center">
                         <l-tile-layer :url="url"></l-tile-layer>
-                        <v-marker-cluster ref="clusterRef" :options="clusterOptions">
-                             <l-marker v-for="(marker, index) in activeMarkers"
-                                          :lat-lng="marker.longLat">
-                                    <l-popup class="adapted-popup">
-                                        <h2>{{marker.location}}</h2><br>
-                                        <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
-                                            <div v-for="(witch, index) in marker.witches">
-                                                <strong>{{ witch.name }}</strong><br>
-                                                Gender: {{ witch.sex }}<br>
-                                                Occupation: {{ witch.occupation }}<br>
-                                                Social Class: {{ witch.socialClassification }}<br>
-                                                <div v-if="witch.placeOfDeath !== ''">
-                                                    Place of Death: {{ witch.placeOfDeath }}<br>
-                                                </div>
-                                                <div v-if="witch.mannerOfDeath !== ''">
-                                                    Manner of Death: {{ witch.mannerOfDeath }}<br>
-                                                </div>
-                                                <div v-if="witch.wikiPage !== ''">
-                                                    <a :href="witch.wikiPage" target="_blank">View Wiki Page</a><br>
-                                                </div>
-                                                <a :href="witch.link" target="_blank">More Info</a><br><br>
+                         <l-marker v-for="(marker, index) in activeMarkers"
+                                      :lat-lng="marker.longLat">
+                                <l-popup class="adapted-popup">
+                                    <h2>{{marker.location}}</h2><br>
+                                    <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
+                                        <div v-for="(witch, index) in marker.witches">
+                                            <strong>{{ witch.name }}</strong><br>
+                                            Gender: {{ witch.sex }}<br>
+                                            Residence: {{ witch.residence }}<br>
+                                            Manner Of Death: {{ witch.mannerOfDeath }}<br>
+                                            Occupation: {{ witch.occupation }}<br>
+                                            Social Class: {{ witch.socialClassification }}<br>
+                                            <div v-if="witch.wikiPage !== ''">
+                                                <a :href="witch.wikiPage" target="_blank">View Wiki Page</a><br>
                                             </div>
+                                            <a :href="witch.link" target="_blank">More Info</a><br><br>
                                         </div>
-                                    </l-popup>
-                                    <l-icon :icon-anchor="iconAnchor" :key="marker">
-                                      <div class="icon-wrapper">
-                                          <div v-if="hasWikiEntry(marker)" class="icon-wiki">W</div>
-                                          <div v-if="marker.witches.length > 1" class="icon-text">{{marker.witches.length}}</div>
-                                          <img :src="getIcon(marker)" width="100%"/>
-                                          <img class="icon-shadow" :src="shadowUrl"/>
-                                      </div>
-                                    </l-icon>
-                            </l-marker>
-                        </v-marker-cluster>
+                                    </div>
+                                </l-popup>
+                                <l-icon :icon-anchor="iconAnchor" :key="marker">
+                                  <div class="icon-wrapper">
+                                      <div v-if="hasWikiEntry(marker)" class="icon-wiki">W</div>
+                                      <div v-if="marker.witches.length > 1" class="icon-text">{{marker.witches.length}}</div>
+                                      <img :src="getIcon(marker)" width="100%"/>
+                                      <img class="icon-shadow" :src="shadowUrl"/>
+                                  </div>
+                                </l-icon>
+                        </l-marker>
                     </l-map>
                 </no-ssr>
             </div>
@@ -87,12 +81,6 @@ export default {
         attribution: 'Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
         zoom: 8,
         center: [55.95, -3.198888888],
-        clusterOptions: { iconCreateFunction: function (cluster) {
-            //var markers = cluster.getAllChildMarkers();
-            //var html = '<div class="circle">' + markers.length + '</div>';
-            var html = '<div><img src="/images/witches-cluster-composite.png" width="72" height="54"></div>';
-            return L.divIcon({ html: html, className: 'mycluster', iconSize: L.point(72, 54) });
-        }},
         wikiPages: [],
         markers: [],
         originalMarkers: [],
@@ -180,19 +168,18 @@ export default {
             });   
         },
         loadAccussed : function() {
-            const sparqlQuery = `#Places of residence of accused witches in Scotland 1563-1736
-            SELECT ?item ?residenceLabel ?sexLabel ?coords ?itemLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?mannerOfDeathLabel
+            const sparqlQuery = `SELECT ?item ?residenceLabel ?deathLocationLabel ?sexLabel ?coords ?itemLabel ?link ?mannerOfDeathLabel ?occupationLabel ?socialClassificationLabel
             WHERE
             {
               ?item wdt:P4478 ?witch .
               ?item wdt:P551 ?residence .
+              ?item wdt:P20 ?deathLocation .
               optional { ?item wdt:P21 ?sex } .
-              ?residence wdt:P625 ?coords .
+              ?deathLocation wdt:P625 ?coords .
               ?item wdt:P4478 ?link .
+              optional { ?item wdt:P1196 ?mannerOfDeath}
               optional { ?item wdt:P106 ?occupation}
               optional { ?item wdt:P3716 ?socialClassification}
-              optional { ?item wdt:P20 ?placeOfDeath}
-              optional { ?item wdt:P1196 ?mannerOfDeath}
               SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             }`;
 
@@ -204,8 +191,7 @@ export default {
                     let sex = item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown';
                     let occupation = item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown';
                     let socialClassification = item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown';
-                    let placeOfDeath = item.hasOwnProperty('placeOfDeathLabel') ? item.placeOfDeathLabel.value : '';
-                    let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
+                    let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : 'unknown';
 
                     if(!this.occupations.find(item => item.type === occupation)){
                         this.occupations.push({type: occupation, active: true, iconUrl: this.icons[this.occupations.length]});
@@ -227,16 +213,16 @@ export default {
 
                     let witch = {
                         id: item.item.value,
-                        location: item.residenceLabel.value,
+                        location: item.deathLocationLabel.value,
+                        residence: item.residenceLabel.value,
                         name: item.itemLabel.value,
                         link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
                         longLat: this.convertPointToLongLatArray(item.coords.value),
+                        mannerOfDeath: mannerOfDeath,
                         sex: sex,
                         occupation: occupation,
                         socialClassification: socialClassification,
-                        wikiPage: wikiPage,
-                        placeOfDeath: placeOfDeath,
-                        mannerOfDeath: mannerOfDeath
+                        wikiPage: wikiPage
                     }
 
                     let marker = this.markers.find( marker => {
@@ -247,7 +233,7 @@ export default {
                         marker.witches.push(witch);
                     } else {
                         let marker = {
-                            location: item.residenceLabel.value,
+                            location: item.deathLocationLabel.value,
                             longLat: this.convertPointToLongLatArray(item.coords.value),
                             witches: [witch],
                         }
@@ -353,6 +339,7 @@ export default {
     },
     mounted: function() {
         this.loadWikiEntries();
+        //this.loadAccussed();
     }
 };
 </script>
