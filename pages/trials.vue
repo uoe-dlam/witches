@@ -2,7 +2,7 @@
     <div id="outer">
         <div id="inner">
             <div id="map-filters"  class="p-6">
-                <h1>Locations of trials for accused witches</h1><br>
+                <h1>Locations of trials for accused witches  <span v-if="noItems > 0">(total no trials: {{noItems}})</span></h1><br>
                 <div>
                     <span v-for="(tile, index) in tiles">
                         <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
@@ -54,16 +54,17 @@ import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 export default {
     data: () => ({
         sparqlUrl: 'https://query.wikidata.org/sparql',
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
         attribution: 'Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
-        zoom: 8,
+        zoom: 7,
         center: [55.95, -3.198888888],
         markers: [],
         originalMarkers: [],
-        currentTileName : 'modern map',
-        tiles: [{name: 'modern map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'historic map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
+        currentTileName : 'Historic Map',
+        tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
         sliderYear: 1750,
         sliderYears: [1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750],
+        noItems: '',
     }),
     methods: {
         convertPointToLongLatArray: function(pointString) {
@@ -89,7 +90,9 @@ export default {
 
             const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
             queryDispatcher.query( sparqlQuery ).then( result => {
-                
+
+                this.noItems = result.results.bindings.length;
+
                 for (let i = 0; i < result.results.bindings.length; i++) {
                     let item = result.results.bindings[i];
 
@@ -98,12 +101,16 @@ export default {
 
                     let trialYear = item.date.value;
                     trialYear =  trialDate.substr(0, 4);
+                    let trialMonth =  trialDate.substr(5,2);
+                    let trialDay =   trialDate.substr(8,2);
+
+                    trialDate = trialDay + '/' + trialMonth + '/' + trialYear;
 
                     let trial = {
                         id: item.item.value,
                         location: item.residenceLabel.value,
                         witchName: item.personLabel.value,
-                        link: 'http://http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.trialrecord&search_string&trialref=' + item.link.value,
+                        link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.trialrecord&search_string&trialref=' + item.link.value,
                         longLat: this.convertPointToLongLatArray(item.coords.value),
                         date: trialDate,
                         year: trialYear,
@@ -238,20 +245,6 @@ export default {
 div.leaflet-popup.leaflet-zoom-animated{
     bottom: 1px !important;
 }
-
-/*
-div.leaflet-marker-icon.marker-cluster.marker-cluster-small.leaflet-zoom-animated.leaflet-interactive span{
-    display: none;
-}
-
-div.leaflet-marker-icon.marker-cluster.marker-cluster-medium.leaflet-zoom-animated.leaflet-interactive span{
-    display: none;
-}
-
-div.leaflet-marker-icon.marker-cluster.marker-cluster-large.leaflet-zoom-animated.leaflet-interactive span{
-    display: none;
-}
-*/
 
 
 </style>

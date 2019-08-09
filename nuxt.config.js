@@ -25,14 +25,14 @@ export default {
   css: [
       "leaflet.markercluster/dist/MarkerCluster.css",
       "leaflet.markercluster/dist/MarkerCluster.Default.css",
-      "vue-slider-component/theme/default.css"
+      "vue-slider-component/theme/default.css",
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     {src: "~/plugins/markercluster",ssr: false},
-    {src: "~/plugins/slider",ssr: false}
+    {src: "~/plugins/slider",ssr: false},
   ],
   /*
   ** Nuxt.js dev-modules
@@ -47,6 +47,17 @@ export default {
   modules: [
       'nuxt-leaflet',
   ],
+  purgeCSS: {
+      whitelist: ['lvml'],
+      whitelistPatterns: [
+          /leaflet-.+$/,
+          /vue-slider.+$/
+      ],
+      whitelistPatternsChildren: [
+          /leaflet-.+$/
+          ,/vue-slider.+$/
+      ]
+  },
   /*
   ** Build configuration
   */

@@ -2,7 +2,7 @@
     <div id="outer">
         <div id="inner">
             <div id="map-filters" class="p-6">
-                <h1>Places of death for accused witches</h1><br>
+                <h1>Places of death for accused witches <span v-if="noItems > 0">(total no witches: {{noItems}})</span></h1><br>
                 <div>
                     <span v-for="(tile, index) in tiles">
                         <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
@@ -30,10 +30,15 @@
                         <input type="checkbox" v-model="social.active" @change="filterMarkers()"/>&nbsp;<img :src="social.iconUrl" width="12" height="20"/>&nbsp;{{social.type}}&nbsp;
                     </span>
                 </div>
+                <div v-if="currentLayer.id === 'wikis'" >
+                    <span v-for="(wiki, index) in wikis" class="flex items-center float-left">
+                        <input type="checkbox" v-model="wiki.active" @change="filterMarkers()"/>&nbsp;<img :src="wiki.iconUrl" width="12" height="20"/>&nbsp;{{wiki.type}}&nbsp;
+                    </span>
+                </div>
             </div>
             <div id="map-wrapper">
                 <no-ssr>
-                    <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center">
+                    <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" ref="myMap">
                         <l-tile-layer :url="url"></l-tile-layer>
                          <l-marker v-for="(marker, index) in activeMarkers"
                                       :lat-lng="marker.longLat">
@@ -43,10 +48,20 @@
                                         <div v-for="(witch, index) in marker.witches">
                                             <strong>{{ witch.name }}</strong><br>
                                             Gender: {{ witch.sex }}<br>
-                                            Residence: {{ witch.residence }}<br>
-                                            Manner Of Death: {{ witch.mannerOfDeath }}<br>
                                             Occupation: {{ witch.occupation }}<br>
                                             Social Class: {{ witch.socialClassification }}<br>
+                                            <div v-if="witch.residence !== ''">
+                                                Residence: <a @click="flyTo(witch.residenceCoords)" :style="{ cursor: 'pointer'}">{{ witch.residence }}</a><br>
+                                            </div>
+                                            <div v-if="witch.detentionLocation !== ''">
+                                                Place of Detention: <a @click="flyTo(witch.detentionLocationCoords)" :style="{ cursor: 'pointer'}">{{ witch.detentionLocation }}</a><br>
+                                            </div>
+                                            <div v-if="witch.placeOfDeath !== ''">
+                                                Place of Death: <a @click="flyTo(witch.placeOfDeathCoords)" :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}</a><br>
+                                            </div>
+                                            <div v-if="witch.mannerOfDeath !== ''">
+                                                Manner of Death: {{ witch.mannerOfDeath }}<br>
+                                            </div>
                                             <div v-if="witch.wikiPage !== ''">
                                                 <a :href="witch.wikiPage" target="_blank">View Wiki Page</a><br>
                                             </div>
@@ -76,19 +91,21 @@ import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 
 export default {
     data: () => ({
+        noItems: 0,
         sparqlUrl: 'https://query.wikidata.org/sparql',
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
         attribution: 'Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
-        zoom: 8,
+        zoom: 7,
         center: [55.95, -3.198888888],
         wikiPages: [],
         markers: [],
         originalMarkers: [],
-        currentTileName : 'modern map',
-        tiles: [{name: 'modern map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'historic map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
-        layers: [{id: 'sexes', label: 'gender', property : 'sex'}, {id: 'socials', label: 'social classification', property : 'socialClassification'}, {id: 'occupations', label: 'occupations', property : 'occupation'}],
+        currentTileName : 'Historic Map',
+        tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
+        layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wiki Entries', property : 'hasWikiPage'}],
         currentLayer : {id: 'sexes', label: 'gender', property : 'sex'},
         sexes: [{type: 'male', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'},{type: 'female', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'}, {type: 'unknown', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png'}],
+        wikis: [{type: 'has wiki', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'},{type: 'no wiki', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'}],
         socials: [],
         occupations: [],
         icons: ['https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
@@ -168,30 +185,46 @@ export default {
             });   
         },
         loadAccussed : function() {
-            const sparqlQuery = `SELECT ?item ?residenceLabel ?deathLocationLabel ?sexLabel ?coords ?itemLabel ?link ?mannerOfDeathLabel ?occupationLabel ?socialClassificationLabel
+            const sparqlQuery = `SELECT ?item ?itemLabel ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
             WHERE
             {
               ?item wdt:P4478 ?witch .
-              ?item wdt:P551 ?residence .
-              ?item wdt:P20 ?deathLocation .
+              optional {
+                  ?item wdt:P551 ?residence .
+                  ?residence wdt:P625 ?residenceCoords .
+              }
               optional { ?item wdt:P21 ?sex } .
-              ?deathLocation wdt:P625 ?coords .
               ?item wdt:P4478 ?link .
-              optional { ?item wdt:P1196 ?mannerOfDeath}
               optional { ?item wdt:P106 ?occupation}
               optional { ?item wdt:P3716 ?socialClassification}
+              ?item wdt:P20 ?placeOfDeath .
+              ?placeOfDeath wdt:P625 ?placeOfDeathCoords
+              optional { ?item wdt:P1196 ?mannerOfDeath}
+              optional {
+                ?item wdt:P2632 ?detentionLocation .
+                ?detentionLocation wdt:P625 ?detentionLocationCoords
+              }
               SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             }`;
 
             const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
             queryDispatcher.query( sparqlQuery ).then( result => {
-                
+
+                this.noItems = result.results.bindings.length;
+
                 for (let i = 0; i < result.results.bindings.length; i++) {
                     let item = result.results.bindings[i];
                     let sex = item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown';
                     let occupation = item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown';
+                    let residence = item.hasOwnProperty('residenceLabel') ? item.residenceLabel.value : '';
+                    let residenceCoords = item.hasOwnProperty('residenceCoords') ? this.convertPointToLongLatArray(item.residenceCoords.value) : '';
                     let socialClassification = item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown';
-                    let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : 'unknown';
+                    let placeOfDeath = item.hasOwnProperty('placeOfDeathLabel') ? item.placeOfDeathLabel.value : '';
+                    let placeOfDeathCoords = item.hasOwnProperty('placeOfDeathCoords') ? this.convertPointToLongLatArray(item.placeOfDeathCoords.value) : '';
+                    let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
+                    let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
+                    let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
+                    let wikiPage = this.getItemWikiPage(item);
 
                     if(!this.occupations.find(item => item.type === occupation)){
                         this.occupations.push({type: occupation, active: true, iconUrl: this.icons[this.occupations.length]});
@@ -200,46 +233,28 @@ export default {
                     if(!this.socials.find(item => item.type === socialClassification)){
                         this.socials.push({type: socialClassification, active: true, iconUrl: this.icons[this.socials.length]});
                     }
-                    
-                    let wikiPage = '';
-                
-                    for(let i = 0; i < this.wikiPages.length; i++){
-                        if(this.wikiPages[i].id === item.item.value){
-                            wikiPage = this.wikiPages[i].pageTitle;
-                            wikiPage.split(' ').join('_');
-                            wikiPage = 'https://en.wikipedia.org/wiki/' + wikiPage;
-                        }
-                    }
 
                     let witch = {
                         id: item.item.value,
-                        location: item.deathLocationLabel.value,
-                        residence: item.residenceLabel.value,
+                        location: placeOfDeath,
                         name: item.itemLabel.value,
                         link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
-                        longLat: this.convertPointToLongLatArray(item.coords.value),
-                        mannerOfDeath: mannerOfDeath,
+                        longLat: placeOfDeathCoords,
                         sex: sex,
                         occupation: occupation,
                         socialClassification: socialClassification,
-                        wikiPage: wikiPage
+                        wikiPage: wikiPage,
+                        hasWikiPage: wikiPage === '' ? 'no wiki' : 'has wiki',
+                        residence: residence,
+                        residenceCoords: residenceCoords,
+                        placeOfDeath: placeOfDeath,
+                        placeOfDeathCoords: placeOfDeathCoords,
+                        mannerOfDeath: mannerOfDeath,
+                        detentionLocation: detentionLocation,
+                        detentionLocationCoords: detentionLocationCoords,
                     }
 
-                    let marker = this.markers.find( marker => {
-                        return marker.location === witch.location;
-                    });
-
-                    if(marker){
-                        marker.witches.push(witch);
-                    } else {
-                        let marker = {
-                            location: item.deathLocationLabel.value,
-                            longLat: this.convertPointToLongLatArray(item.coords.value),
-                            witches: [witch],
-                        }
-                        
-                        this.markers.push(marker);
-                    }
+                    this.addWitchToMarkers(witch);
                 }
                 
                 this.originalMarkers = JSON.parse(JSON.stringify( this.markers ));
@@ -247,10 +262,24 @@ export default {
 
 
         },
-        toggleSex : function( type ){
-            let sex = this.sexes.find( sex => type === sex.type);
-            sex.active = !sex.active;
-            this.filterMarkers();
+        addWitchToMarkers: function( witch ){
+            // find marker for current location so you can add witch
+            let marker = this.markers.find( marker => {
+                return marker.location === witch.location;
+            });
+
+            // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
+            if(marker){
+                marker.witches.push(witch);
+            } else {
+                let marker = {
+                    location: witch.location,
+                    longLat: witch.longLat,
+                    witches: [witch],
+                }
+
+                this.markers.push(marker);
+            }
         },
         filterMarkers : function(){
             let markers = JSON.parse(JSON.stringify( this.originalMarkers));
@@ -269,6 +298,19 @@ export default {
             let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
             return witchesWithEntry.length > 0;
         },
+        getItemWikiPage : function( item ){
+            let wikiPage = '';
+
+            for(let i = 0; i < this.wikiPages.length; i++){
+                if(this.wikiPages[i].id === item.item.value){
+                    wikiPage = this.wikiPages[i].pageTitle;
+                    wikiPage.split(' ').join('_');
+                    wikiPage = 'https://en.wikipedia.org/wiki/' + wikiPage;
+                }
+            }
+
+            return wikiPage;
+        },
         getIcon : function( marker ) {
             let layerCollection = this[this.currentLayer.id];
             let type = this.getMarkerType( marker, layerCollection, this.currentLayer.property );
@@ -281,19 +323,7 @@ export default {
                 iconUrl = item.iconUrl;
             }
             
-            /*
-            L.icon({
-                iconUrl: iconUrl,
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
-            });
-            */
-            
             return iconUrl;
-        
         },
         getMarkerType : function( marker, layerCollection, property) {
             let type = '';
@@ -323,6 +353,9 @@ export default {
             this.currentLayer = layer;
             this.filterMarkers();
         },
+        flyTo : function( coords ){
+            this.$refs.myMap.mapObject.flyTo(coords ,18);
+        }
     },
     computed : {
         activeMarkers : function() {
@@ -411,20 +444,6 @@ export default {
 div.leaflet-popup.leaflet-zoom-animated{
     bottom: 1px !important;
 }
-
-/*
-div.leaflet-marker-icon.marker-cluster.marker-cluster-small.leaflet-zoom-animated.leaflet-interactive span{
-    display: none;
-}
-
-div.leaflet-marker-icon.marker-cluster.marker-cluster-medium.leaflet-zoom-animated.leaflet-interactive span{
-    display: none;
-}
-
-div.leaflet-marker-icon.marker-cluster.marker-cluster-large.leaflet-zoom-animated.leaflet-interactive span{
-    display: none;
-}
-*/
 
 
 </style>

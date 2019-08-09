@@ -31,6 +31,7 @@ export default {
         links : [
             { name : 'Residences', url : '/' },
             { name : 'Death Locations', url : '/death' },
+            { name : 'Detention Locations', url : '/detention' },
             { name : 'Trial Locations', url : '/trials' }
         ]
     }
