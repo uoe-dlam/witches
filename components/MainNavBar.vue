@@ -37,7 +37,7 @@ export default {
             { name : 'Trial Locations', url : '/trials', external: false },
             { name : 'GIS Map', url : '/gismap', external: false },
             { name : 'About', url : '/about', external: false },
-            { name : 'Blog', url : 'https://blogs.ed.ac.uk', external: true }
+            { name : 'Blog', url : ' https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation/', external: true }
         ]
     }
   },
