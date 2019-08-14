@@ -1,8 +1,19 @@
 <template>
     <div id="outer">
         <div id="inner">
-            <div id="map-filters"  class="p-6">
-                <h1>Locations of trials for accused witches  <span v-if="noItems > 0">(total no trials: {{noItems}})</span></h1><br>
+            <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
+               <br>
+                <div class="flex content-start items-center mb-5">
+                    <h1 class="text-sm md:text-xl lg:text-2xl">Locations of trials for accused witches
+                        <span v-if="noItems > 0">(total no trials: {{noItems}})</span>
+                    </h1>
+                    <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
+                        <!-- icon by feathericons.com -->
+                        <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
+                           <line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line>
+                        </svg>
+                    </span>
+                </div>
                 <div>
                     <span v-for="(tile, index) in tiles">
                         <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
@@ -155,6 +166,16 @@ export default {
             });
 
             this.markers = markers;
+        },
+        showPageInfo(){
+            this.$swal({
+                title: 'Trial Location Map',
+                html: '<div>This map indicates the location of trial for the accused witches taken from the Scottish Survey of Witchcraft Database. There is the option to change the year to understand how the volume of trial changed with time. Many people had <b class="font-bold">multiple</b> trials and these could have been held <b class="font-bold">in different locations</b>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are only geographical locations noted for <b class="font-bold">432</b> trials, meaning that many trial locations were not recorded.</div>',
+                footer: 'witches.is.ed.ac.uk',
+                confirmButtonText: 'Close',
+                type: 'info',
+                showCloseButton: true,
+            });
         }
     },
     computed : {
@@ -178,40 +199,6 @@ export default {
 
 <style>
 
-#map-filters{
-    font-size:12px;
-}
-
-#map-wrapper {
-  background-color: #DDDDDD;
-  flex-grow : 1;
-}
-
-.icon-wrapper{
-  position: relative;
-  text-align: center;
-  width: 25px;
-  height: 41px;
-  font-color: #fff;
-}
-
-.icon-text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-}
-
-.icon-wiki{
-    position: absolute;
-    top: -5px;
-    left: 13px;
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-}
-
 .icon-shadow{
     position: absolute;
     top: 15px !important;
@@ -220,31 +207,5 @@ export default {
     width: 32px;
     height: 22px !important;
 }
-
-.witch-scroller{
-    height:225px; 
-    overflow:scroll;
-    padding-right:5px;
-}
-
-.no-witch-scroller{
-
-}
-
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-
-div.leaflet-popup.leaflet-zoom-animated{
-    bottom: 1px !important;
-}
-
 
 </style>

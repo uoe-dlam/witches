@@ -46,6 +46,7 @@ export default {
   */
   modules: [
       'nuxt-leaflet',
+      'vue-sweetalert2/nuxt',
   ],
   purgeCSS: {
       whitelist: ['lvml'],

@@ -1,40 +1,68 @@
 <template>
     <div id="outer">
         <div id="inner">
-            <div id="map-filters" class="p-6">
-                <h1>Places of detention for accused witches <span v-if="noItems > 0">(total no witches: {{noItems}})</span></h1><br>
-                <div>
-                    <span v-for="(tile, index) in tiles">
-                        <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
+            <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
+                <div class="flex content-start items-center">
+                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of detention for accused witches
+                        <span v-if="noItems > 0">(total no witches: {{noItems}})</span>
+                    </h1>
+                    <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
+                        <!-- icon by feathericons.com -->
+                        <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
+                           <line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line>
+                        </svg>
                     </span>
                 </div>
-                <br>
-                <div>
-                    <span v-for="(layer, index) in layers">
-                        <input type="radio" name="layer" :checked="layer.id === currentLayer.id" @change="filterLayers(layer)"/>&nbsp;{{layer.label}}&nbsp;
-                    </span>
+                <div id="map-filters" :class="filters ? 'block': 'hidden'" class="pt-2">
+                    <div>
+                        <span v-for="(tile, index) in tiles">
+                            <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
+                        </span>
+                    </div>
+                    <br>
+                    <div>
+                        <span v-for="(layer, index) in layers">
+                            <input type="radio" name="layer" :checked="layer.id === currentLayer.id" @change="filterLayers(layer)"/>&nbsp;{{layer.label}}&nbsp;
+                        </span>
+                    </div>
+                    <br>
+                    <div v-if="currentLayer.id === 'sexes'" >
+                        <span v-for="(sex, index) in sexes" class="flex items-center float-left">
+                            <input type="checkbox" v-model="sex.active" @change="filterMarkers()"/>&nbsp;<img :src="sex.iconUrl" width="12" height="20"/>&nbsp;{{sex.type}}&nbsp;
+                        </span>
+                    </div>
+                    <div v-if="currentLayer.id === 'occupations'" >
+                        <span v-for="(occupation, index) in occupations" class="flex items-center float-left">
+                            <input type="checkbox" v-model="occupation.active" @change="filterMarkers()"/>&nbsp;<img :src="occupation.iconUrl" width="12" height="20"/>&nbsp;{{occupation.type}}&nbsp;
+                        </span>
+                    </div>
+                    <div v-if="currentLayer.id === 'socials'" >
+                        <span v-for="(social, index) in socials" class="flex items-center float-left">
+                            <input type="checkbox" v-model="social.active" @change="filterMarkers()"/>&nbsp;<img :src="social.iconUrl" width="12" height="20"/>&nbsp;{{social.type}}&nbsp;
+                        </span>
+                    </div>
+                    <div v-if="currentLayer.id === 'wikis'" >
+                        <span v-for="(wiki, index) in wikis" class="flex items-center float-left">
+                            <input type="checkbox" v-model="wiki.active" @change="filterMarkers()"/>&nbsp;<img :src="wiki.iconUrl" width="12" height="20"/>&nbsp;{{wiki.type}}&nbsp;
+                        </span>
+                    </div>
                 </div>
-                <br>
-                <div v-if="currentLayer.id === 'sexes'" >
-                    <span v-for="(sex, index) in sexes" class="flex items-center float-left">
-                        <input type="checkbox" v-model="sex.active" @change="filterMarkers()"/>&nbsp;<img :src="sex.iconUrl" width="12" height="20"/>&nbsp;{{sex.type}}&nbsp;
-                    </span>
-                </div>
-                <div v-if="currentLayer.id === 'occupations'" >
-                    <span v-for="(occupation, index) in occupations" class="flex items-center float-left">
-                        <input type="checkbox" v-model="occupation.active" @change="filterMarkers()"/>&nbsp;<img :src="occupation.iconUrl" width="12" height="20"/>&nbsp;{{occupation.type}}&nbsp;
-                    </span>
-                </div>
-                <div v-if="currentLayer.id === 'socials'" >
-                    <span v-for="(social, index) in socials" class="flex items-center float-left">
-                        <input type="checkbox" v-model="social.active" @change="filterMarkers()"/>&nbsp;<img :src="social.iconUrl" width="12" height="20"/>&nbsp;{{social.type}}&nbsp;
-                    </span>
-                </div>
-                <div v-if="currentLayer.id === 'wikis'" >
-                    <span v-for="(wiki, index) in wikis" class="flex items-center float-left">
-                        <input type="checkbox" v-model="wiki.active" @change="filterMarkers()"/>&nbsp;<img :src="wiki.iconUrl" width="12" height="20"/>&nbsp;{{wiki.type}}&nbsp;
-                    </span>
-                </div>
+            </div>
+            <div class="border border-gray p-1 bg-gray-200" v-if="!loading">
+                <span class="flex items-center float-left">
+                    &nbsp;Filters
+                </span>
+                <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2 float-left">
+                    <!-- icon by feathericons.com -->
+                    <svg v-if="!filters" aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="toggleFilters()">
+                        <polyline points="6 9 12 15 18 9">
+                        </polyline>
+                    </svg>
+                    <svg v-if="filters" aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="toggleFilters()">
+                       <polyline points="18 15 12 9 6 15">
+                        </polyline>
+                    </svg>
+                </span>
             </div>
             <div id="map-wrapper">
                 <no-ssr>
@@ -51,11 +79,19 @@
                                             Gender: {{ witch.sex }}<br>
                                             Occupation: {{ witch.occupation }}<br>
                                             Social Class: {{ witch.socialClassification }}<br>
-                                            <div v-if="witch.residence !== ''">
-                                                Residence: <a @click="flyTo(witch.residenceCoords)" :style="{ cursor: 'pointer'}">{{ witch.residence }}</a><br>
+                                            <div v-if="witch.residences.length > 0">
+                                                Residences:
+                                                <template v-for="(residence, index) in witch.residences">
+                                                    <a @click="flyTo(residence.coords)" :style="{ cursor: 'pointer'}">{{ residence.location }}</a><template v-if="index < witch.residences.length - 1">, </template>
+                                                </template>
+                                                <br>
                                             </div>
-                                            <div v-if="witch.detentionLocation !== ''">
-                                                Place of Detention: <a @click="flyTo(witch.detentionLocationCoords)" :style="{ cursor: 'pointer'}">{{ witch.detentionLocation }}</a><br>
+                                            <div v-if="witch.detentions.length > 0">
+                                                Places of Detention:
+                                                <template v-for="(detention, index) in witch.detentions">
+                                                    <a @click="flyTo(detention.coords)" :style="{ cursor: 'pointer'}">{{ detention.location }}</a><template v-if="index < witch.detentions.length - 1">, </template>
+                                                </template>
+                                                <br>
                                             </div>
                                             <div v-if="witch.placeOfDeath !== ''">
                                                 Place of Death: <a @click="flyTo(witch.placeOfDeathCoords)" :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}</a><br>
@@ -94,6 +130,7 @@ import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 export default {
     data: () => ({
         noItems: 0,
+        filters: false,
         sparqlUrl: 'https://query.wikidata.org/sparql',
         url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
         attribution: 'Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
@@ -195,7 +232,7 @@ export default {
             });   
         },
         loadAccussed : function() {
-            const sparqlQuery = ` SELECT ?item ?itemLabel ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
+            const sparqlQuery = `SELECT ?item ?itemLabel ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
             WHERE
             {
               ?item wdt:P4478 ?witch .
@@ -220,62 +257,101 @@ export default {
             const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
             queryDispatcher.query( sparqlQuery ).then( result => {
 
-                this.noItems = result.results.bindings.length;
+                    let witches = [];
 
-                for (let i = 0; i < result.results.bindings.length; i++) {
-                    let item = result.results.bindings[i];
-                    let sex = item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown';
-                    let occupation = item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown';
-                    let residence = item.hasOwnProperty('residenceLabel') ? item.residenceLabel.value : '';
-                    let residenceCoords = item.hasOwnProperty('residenceCoords') ? this.convertPointToLongLatArray(item.residenceCoords.value) : '';
-                    let socialClassification = item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown';
-                    let placeOfDeath = item.hasOwnProperty('placeOfDeathLabel') ? item.placeOfDeathLabel.value : '';
-                    let placeOfDeathCoords = item.hasOwnProperty('placeOfDeathCoords') ? this.convertPointToLongLatArray(item.placeOfDeathCoords.value) : '';
-                    let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
-                    let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
-                    let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
-                    let wikiPage = this.getItemWikiPage(item);
+                    for (let i = 0; i < result.results.bindings.length; i++) {
 
-                    if(!this.occupations.find(item => item.type === occupation)){
-                        this.occupations.push({type: occupation, active: true, iconUrl: this.icons[this.occupations.length]});
+                        let item = result.results.bindings[i];
+                        let id = item.item.value;
+                        let sex = item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown';
+                        let occupation = item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown';
+                        let residence = item.hasOwnProperty('residenceLabel') ? item.residenceLabel.value : '';
+                        let residenceCoords = item.hasOwnProperty('residenceCoords') ? this.convertPointToLongLatArray(item.residenceCoords.value) : '';
+                        let socialClassification = item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown';
+                        let placeOfDeath = item.hasOwnProperty('placeOfDeathLabel') ? item.placeOfDeathLabel.value : '';
+                        let placeOfDeathCoords = item.hasOwnProperty('placeOfDeathCoords') ? this.convertPointToLongLatArray(item.placeOfDeathCoords.value) : '';
+                        let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
+                        let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
+                        let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
+                        let wikiPage = this.getItemWikiPage(item);
+
+                        // add to list of occupations
+                        if(!this.occupations.find(obj => obj.type === occupation)){
+                            this.occupations.push({type: occupation, active: true, iconUrl: this.icons[this.occupations.length]});
+                        }
+
+                        // add to list of social classes
+                        if(!this.socials.find(obj => obj.type === socialClassification)){
+                            this.socials.push({type: socialClassification, active: true, iconUrl: this.icons[this.socials.length]});
+                        }
+
+                        // find if witch has already exists
+                        let witch = witches.find( witch => {
+                            return witch.id ===  id;
+                        });
+
+                        // if witch exists we have a duplicate. this witch must have either multiple residence or multiple detentions
+                        // push
+                        if(witch){
+
+                            if(detentionLocation !== ''){
+                                if(!witch.detentions.find( obj => obj.location === detentionLocation)) {
+                                    witch.detentions.push({location: detentionLocation, coords: detentionLocationCoords});
+                                    this.addWitchToMarkers(witch, detentionLocation, detentionLocationCoords);
+                                    continue;
+                                }
+                            }
+
+                            if(residence !== ''){
+                                if(!witch.residences.find( obj => obj.location === residence)) {
+                                    witch.residences.push({location: residence, coords: residenceCoords});
+                                    continue;
+                                }
+                            }
+
+                        } else {
+
+                            witch = {
+                                id: id,
+                                location: residence,
+                                name: item.itemLabel.value,
+                                link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
+                                longLat: residenceCoords,
+                                sex: sex,
+                                occupation: occupation,
+                                socialClassification: socialClassification,
+                                wikiPage: wikiPage,
+                                hasWikiPage: wikiPage === '' ? 'no wiki' : 'has wiki',
+                                residences: [],
+                                placeOfDeath: placeOfDeath,
+                                placeOfDeathCoords: placeOfDeathCoords,
+                                mannerOfDeath: mannerOfDeath,
+                                detentions: []
+                            }
+
+                            if(residence !== ''){
+                                witch.residences.push({location: residence, coords : residenceCoords});
+                            }
+
+                            if(detentionLocation !== ''){
+                                witch.detentions.push({location: detentionLocation, coords : detentionLocationCoords});
+                            }
+
+                            witches.push(witch);
+                            this.addWitchToMarkers(witch, detentionLocation, detentionLocationCoords);
+                        }
+
                     }
 
-                    if(!this.socials.find(item => item.type === socialClassification)){
-                        this.socials.push({type: socialClassification, active: true, iconUrl: this.icons[this.socials.length]});
-                    }
-
-                    let witch = {
-                        id: item.item.value,
-                        location: detentionLocation,
-                        name: item.itemLabel.value,
-                        link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
-                        longLat: detentionLocationCoords,
-                        sex: sex,
-                        occupation: occupation,
-                        socialClassification: socialClassification,
-                        wikiPage: wikiPage,
-                        hasWikiPage: wikiPage === '' ? 'no wiki' : 'has wiki',
-                        residence: residence,
-                        residenceCoords: residenceCoords,
-                        placeOfDeath: placeOfDeath,
-                        placeOfDeathCoords: placeOfDeathCoords,
-                        mannerOfDeath: mannerOfDeath,
-                        detentionLocation: detentionLocation,
-                        detentionLocationCoords: detentionLocationCoords,
-                    }
-
-                    this.addWitchToMarkers(witch);
-                }
-                
-                this.originalMarkers = JSON.parse(JSON.stringify( this.markers ));
-            });
-
+                    this.noItems = witches.length;
+                    this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+            })
 
         },
-        addWitchToMarkers: function( witch ){
+        addWitchToMarkers: function( witch, location, locationCoords ){
             // find marker for current location so you can add witch
             let marker = this.markers.find( marker => {
-                return marker.location === witch.location;
+                return marker.location === location;
             });
 
             // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
@@ -283,8 +359,8 @@ export default {
                 marker.witches.push(witch);
             } else {
                 let marker = {
-                    location: witch.location,
-                    longLat: witch.longLat,
+                    location: location,
+                    longLat: locationCoords,
                     witches: [witch],
                 }
 
@@ -364,7 +440,20 @@ export default {
             this.filterMarkers();
         },
         flyTo : function( coords ){
-            this.$refs.myMap.mapObject.flyTo(coords ,18);
+            this.$refs.myMap.mapObject.flyTo(coords ,14);
+        },
+        toggleFilters : function() {
+            this.filters = ! this.filters;
+        },
+        showPageInfo(){
+            this.$swal({
+                title: 'Places of Detention Map',
+                html: '<div>This map shows the different locations for accused witches place of detention taken from the Scottish Survey of Witchcraft Database. These people were imprisoned either before or after their witchcraft trial and could be <b class="font-bold">imprisoned multiple times and in different locations</b>. This dataset has records for only <b class="font-bold">564</b> instances of imprisonment for the 3212 witches. It is thought that a large volume of arrests were not formally recorded. </div>',
+                footer: 'witches.is.ed.ac.uk',
+                confirmButtonText: 'Close',
+                type: 'info',
+                showCloseButton: true,
+            });
         }
     },
     computed : {
@@ -388,72 +477,5 @@ export default {
 </script>
 
 <style>
-
-#map-filters{
-    font-size:12px;
-}
-
-#map-wrapper {
-  background-color: #DDDDDD;
-  flex-grow : 1;
-}
-
-.icon-wrapper{
-  position: relative;
-  text-align: center;
-  width: 25px; 
-  height: 41px;
-  font-color: #fff;
-}
-
-.icon-text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-}
-
-.icon-wiki{
-    position: absolute;
-    top: -5px;
-    left: 13px;
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-}
-
-.icon-shadow{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.witch-scroller{
-    height:225px; 
-    overflow:scroll;
-    padding-right:5px;
-}
-
-.no-witch-scroller{
-
-}
-
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-
-div.leaflet-popup.leaflet-zoom-animated{
-    bottom: 1px !important;
-}
-
 
 </style>
