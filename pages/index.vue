@@ -3,7 +3,7 @@
         <div id="inner">
             <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
                 <div class="flex content-start items-center">
-                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of residence for accused witches.
+                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of residence for accused witches
                         <span v-if="noItems > 0">(total accused witches: {{noItems}})</span>
                     </h1>
                     <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
