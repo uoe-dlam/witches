@@ -11,7 +11,7 @@
           </div>
           <div :class="open ? 'block': 'hidden'" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
-                <main-nav-bar-item v-for="link in links" :url="link.url" :key="link.url" :external="link.external">
+                <main-nav-bar-item v-for="link in links" :url="link.url" :key="link.url" :external="link.external" :subpages="link.subpages">
                     {{link.name}}
                 </main-nav-bar-item>
             </div>
@@ -31,13 +31,14 @@ export default {
     return {
         open : false,
         links : [
-            { name : 'Residences', url : '/', external: false  },
-            { name : 'Death Locations', url : '/death' },
-            { name : 'Detention Locations', url : '/detention', external: false  },
-            { name : 'Trial Locations', url : '/trials', external: false },
-            { name : 'GIS Map', url : '/gismap', external: false },
-            { name : 'About', url : '/about', external: false },
-            { name : 'Blog', url : ' https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation/', external: true }
+            { name : 'Residences', url : '/', external: false, subpages : [
+                { name : 'GIS Map', url : '/gismap', external: false },
+            ] },
+            { name : 'Death Locations', url : '/death', subpages : [] },
+            { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
+            { name : 'Trial Locations', url : '/trials', external: false, subpages : [] },
+            { name : 'About', url : '/about', external: false, subpages : [] },
+            { name : 'Blog', url : ' https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation/', external: true, subpages : [] }
         ]
     }
   },
