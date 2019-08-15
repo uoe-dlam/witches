@@ -3,7 +3,7 @@
         <div id="inner">
             <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
                <br>
-                <div class="flex content-start items-center mb-5">
+                <div class="flex content-start items-center">
                     <h1 class="text-sm md:text-xl lg:text-2xl">Locations of trials for accused witches
                         <span v-if="noItems > 0">(total no trials: {{noItems}})</span>
                     </h1>
@@ -15,12 +15,13 @@
                     </span>
                 </div>
                 <div>
+                    <br>
                     <span v-for="(tile, index) in tiles">
                         <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
                     </span>
                 </div>
                 <br>
-                <h2>Year: {{ sliderYear }}</h2>
+                <h2>Year: {{ sliderYear[0] }} - {{ sliderYear[1] }}</h2>
                 <vue-slider v-model="sliderYear" :adsorb="false" :data="sliderYears" :marks="true" @change="filterDates()"></vue-slider>
                 <br><br>
             </div>
@@ -73,7 +74,7 @@ export default {
         originalMarkers: [],
         currentTileName : 'Historic Map',
         tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
-        sliderYear: 1750,
+        sliderYear: [1550, 1750],
         sliderYears: [1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750],
         noItems: '',
     }),
@@ -162,7 +163,7 @@ export default {
             let markers = JSON.parse(JSON.stringify(this.originalMarkers));
 
             markers.forEach(marker => {
-                marker.trials = marker.trials.filter(trial => trial.year <= this.sliderYear);
+                marker.trials = marker.trials.filter(trial => trial.year >= this.sliderYear[0] && trial.year <= this.sliderYear[1]);
             });
 
             this.markers = markers;
