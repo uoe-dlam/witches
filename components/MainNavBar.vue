@@ -32,7 +32,7 @@ export default {
         open : false,
         links : [
             { name : 'Residences', url : '/', external: false, subpages : [
-                { name : 'GIS Map', url : '/gismap', external: false },
+                { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
             ] },
             { name : 'Death Locations', url : '/death', subpages : [] },
             { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },

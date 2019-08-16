@@ -448,7 +448,7 @@ export default {
         showPageInfo(){
             this.$swal({
                 title: 'Places of Detention Map',
-                html: '<div>This map shows the different locations for accused witches place of detention taken from the Scottish Survey of Witchcraft Database. These people were imprisoned either before or after their witchcraft trial and could be <b class="font-bold">imprisoned multiple times and in different locations</b>. This dataset has records for only <b class="font-bold">564</b> instances of imprisonment for the 3212 witches. It is thought that a large volume of arrests were not formally recorded. </div>',
+                html: '<div>This map shows the different locations for accused witches place of detention. These people were imprisoned either before or after their witchcraft trial and could be <b class="font-bold">imprisoned multiple times and in different locations</b>. This dataset has records for only <b class="font-bold">564</b> instances of imprisonment for the <b class="font-bold">564</b>3212</b> named witches. Again, for most of the accused witches, the surviving documentation does not provide information about their imprisonment.</div>',
                 footer: 'witches.is.ed.ac.uk',
                 confirmButtonText: 'Close',
                 type: 'info',

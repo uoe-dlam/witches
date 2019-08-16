@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
-            <h1 class="text-sm md:text-xl lg:text-2xl">GIS Map [Name of map needs to be added and menu name needs updated]</h1>
+            <h1 class="text-sm md:text-xl lg:text-2xl">Residence Map Visualised on ArcGIS Online</h1>
 
         </div>
         <div>
@@ -26,7 +26,9 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
+    
 };
+
 </script>
 
 <style>
