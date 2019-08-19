@@ -15,7 +15,7 @@
         <p class="mb-3">Statistical Accounts (2019). Statistical Accounts of Scotland. [online] Available at: https://stataccscot.edina.ac.uk/static/statacc/dist/home [Accessed 16 Aug. 2019].</p>
         <p class="mb-3">Stewart, J (1987). Shetland place-names, Hillhead, Lerwick: Shetland Library and Museum.</p>
         <p class="mb-3">Watson, W.J., 1904. Place-names of Ross and Cromarty, Inverness: The Northern Counties Printing and Publishing Company.</p>
-        <hr></hr>
+        <br/>
         <p class="mb-3">Further place-name advice provided by – the Scottish Place-Name Society, Louise Yeoman, Julian Goodare, Simon Taylor, Bruce Gittings, Chris Fleet and Dòmhnall Uilleam Stiùbhart. </p>
         <p class="mb-3">Wikimedia support – Ewan McAndrew, Navino Evans, Martin Poulter and Simon Cobb.</p>
         <p class="mb-3"><b class="font-bold">Geographical data located and ArcGIS Online maps produced by Emma Carroll.</b><p class="mb-3">

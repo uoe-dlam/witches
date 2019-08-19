@@ -1,7 +1,15 @@
 <template>
     <div>
         <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
-            <h1 class="text-sm md:text-xl lg:text-2xl">Linking Residence to Place of Death</h1>
+              <div class="flex content-start items-center">
+                 <h1 class="text-sm md:text-xl lg:text-2xl">Linking Residence to Place of Death</h1>
+                  <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
+                    <!-- icon by feathericons.com -->
+                    <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
+                       <line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line>
+                    </svg>
+                </span>
+            </div>
 
         </div>
         <div>
@@ -19,6 +27,15 @@ export default {
 
     }),
     methods: {
+     showPageInfo(){
+        this.$swal({
+            title: 'Linking Residence to Place of Death',
+            html: '<div>This map shows the geographical relationship between an accused witches place of residence and place of death. The accused witches recorded within this dataset were executed as a punishment for being guilty of witchcraft. There are only 111 places of death recorded within the dataset. When selecting a coloured line, the recorded  <b class="font-bold">first location</b> is where the <b class="font-bold">person died, second location</b> is where the <b class="font-bold">accused witch resided</b> and <b class="font-bold">below</b> these places is the <b class="font-bold">name</b> of the accused witch </div>',
+            footer: 'witches.is.ed.ac.uk',
+            confirmButtonText: 'Close',
+            type: 'info',
+            showCloseButton: true,
+        });
 
     },
     computed : {
@@ -27,7 +44,7 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
-    
+    }
 };
 
 </script>
