@@ -156,7 +156,7 @@ export default {
         originalMarkers: [],
         currentTileName : 'Historic Map',
         tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
-        layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wiki Entries', property : 'hasWikiPage'}],
+        layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
         currentLayer : {id: 'sexes', label: 'Gender', property : 'sex'},
         sexes: [{type: 'male', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'},{type: 'female', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'}, {type: 'unknown', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png'}],
         wikis: [{type: 'has wiki', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'},{type: 'no wiki', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'}],
@@ -479,7 +479,8 @@ export default {
         showPageInfo(){
             this.$swal({
                 title: 'Places of Residence Map',
-                html: '<div>This map highlights the geographical residence location for each accused witch in Scotland taken from the Scottish Survey of Witchcraft Database from 1563-1736. Out of the <b class="font-bold">3212</b> accused witches, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the settlement while others range from parish to county depending on the records acquired for each accused witch. There is a total of 821 different locations recorded in the database and from these places all but 25 were identified using a variety of different records. These unidentified place-names are currently recorded as \'County of\' on the map.</div>',
+                html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
+                
                 footer: 'witches.is.ed.ac.uk',
                 confirmButtonText: 'Close',
                 type: 'info',

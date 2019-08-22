@@ -32,12 +32,19 @@ export default {
         open : false,
         links : [
             { name : 'Residences', url : '/', external: false, subpages : [
-                { name : 'GIS Map', url : '/gismap', external: false },
+                { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
+                { name : 'Residences Within Each Parish', url : '/parish', external: false },
             ] },
-            { name : 'Death Locations', url : '/death', subpages : [] },
             { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
-            { name : 'Trial Locations', url : '/trials', external: false, subpages : [] },
-            { name : 'About', url : '/about', external: false, subpages : [] },
+            { name : 'Trial Locations', url : '/trials', external: false, subpages : [
+             { name : 'Trials in Each Modern Authority', url : '/council', external: false },
+            ] },
+            { name : 'Death Locations', url : '/death', subpages : [
+                 { name : 'Linking Residence to Place of Death', url : '/link', external: false },
+            ] },
+            { name : 'About', url : '/about', external: false, subpages : [ 
+                 { name : 'References', url : '/reference', external: false },
+            ] },
             { name : 'Blog', url : ' https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation/', external: true, subpages : [] }
         ]
     }

@@ -171,7 +171,7 @@ export default {
         showPageInfo(){
             this.$swal({
                 title: 'Trial Location Map',
-                html: '<div>This map indicates the location of trial for the accused witches taken from the Scottish Survey of Witchcraft Database. There is the option to change the year to understand how the volume of trial changed with time. Many people had <b class="font-bold">multiple</b> trials and these could have been held <b class="font-bold">in different locations</b>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are only geographical locations noted for <b class="font-bold">432</b> trials, meaning that many trial locations were not recorded.</div>',
+                html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <b class="font-bold">multiple trials</b>, which could have been held in <b class="font-bold">different locations</b>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <b class="font-bold">432</b> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
                 footer: 'witches.is.ed.ac.uk',
                 confirmButtonText: 'Close',
                 type: 'info',
