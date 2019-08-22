@@ -34,6 +34,7 @@ export default {
             { name : 'Residences', url : '/', external: false, subpages : [
                 { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
                 { name : 'Residences Within Each Parish', url : '/parish', external: false },
+                { name : 'Types of Torture at Different Residence Locations', url : '/torture', external: false },
             ] },
             { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
             { name : 'Trial Locations', url : '/trials', external: false, subpages : [
@@ -41,6 +42,10 @@ export default {
             ] },
             { name : 'Death Locations', url : '/death', subpages : [
                  { name : 'Linking Residence to Place of Death', url : '/link', external: false },
+            ] },
+            { name : 'People Associated', url : '/people', external: false, subpages : [
+            { name : 'People Associated Residence', url : '/peopleloc', external: false },
+            { name : 'A Witch-Prickers Journey', url : '/john', external: false },
             ] },
             { name : 'About', url : '/about', external: false, subpages : [ 
                  { name : 'References', url : '/reference', external: false },
