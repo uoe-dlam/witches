@@ -35,7 +35,7 @@ export default {
             type: 'info',
             showCloseButton: true,
         });
-
+      }
     },
     computed : {
 
@@ -43,7 +43,6 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
-    }
 };
 
 </script>

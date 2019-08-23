@@ -27,15 +27,16 @@ export default {
 
     }),
     methods: {
-     showPageInfo(){
-        this.$swal({
-            title: 'Linking Residence to Place of Death',
-            html: '<div>This map shows the geographical relationship between an accused witches place of residence and place of death. The accused witches recorded within this dataset were executed as a punishment for being guilty of witchcraft. There are only 111 places of death recorded within the dataset. When selecting a coloured line, the recorded  <b class="font-bold">first location</b> is where the <b class="font-bold">person died, second location</b> is where the <b class="font-bold">accused witch resided</b> and <b class="font-bold">below</b> these places is the <b class="font-bold">name</b> of the accused witch </div>',
-            footer: 'witches.is.ed.ac.uk',
-            confirmButtonText: 'Close',
-            type: 'info',
-            showCloseButton: true,
-        });
+     showPageInfo() {
+         this.$swal({
+             title: 'Linking Residence to Place of Death',
+             html: '<div>This map shows the geographical relationship between an accused witches place of residence and place of death. The accused witches recorded within this dataset were executed as a punishment for being guilty of witchcraft. There are only 111 places of death recorded within the dataset. When selecting a coloured line, the recorded  <b class="font-bold">first location</b> is where the <b class="font-bold">person died, second location</b> is where the <b class="font-bold">accused witch resided</b> and <b class="font-bold">below</b> these places is the <b class="font-bold">name</b> of the accused witch </div>',
+             footer: 'witches.is.ed.ac.uk',
+             confirmButtonText: 'Close',
+             type: 'info',
+             showCloseButton: true,
+         });
+      }
 
     },
     computed : {
@@ -44,7 +45,6 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
-    }
 };
 
 </script>

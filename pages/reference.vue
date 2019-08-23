@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
         <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Project References</h1>
         <p class="mb-3">Alexander, W.M.C. & Third Spalding Club, 1952. The place-names of Aberdeenshire, Aberdeen: Printed for the Third Spalding Club.</p>

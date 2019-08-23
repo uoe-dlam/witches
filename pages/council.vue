@@ -20,30 +20,30 @@
 
 <script>
 
-
 export default {
     data: () => ({
 
     }),
     methods: {
-     showPageInfo(){
-        this.$swal({
-            title: 'Number of Trials Recorded in Each Modern Council Authority',
-            html: '<div>This map indicates the number of trials which have taken place in each authority in Scotland. The authority boundaries have been all been in place since 1996 (source: Ordnance Survey Boundary-Line Map). Thus, the authority boundaries and names greatly differ from the burghs and counties recorded within the original dataset. </div>',    
-            footer: 'witches.is.ed.ac.uk',
-            confirmButtonText: 'Close',
-            type: 'info',
-            showCloseButton: true,
-        });
-
+     showPageInfo() {
+         this.$swal({
+             title: 'Number of Trials Recorded in Each Modern Council Authority',
+             html: '<div>This map indicates the number of trials which have taken place in each authority in Scotland. The authority boundaries have been all been in place since 1996 (source: Ordnance Survey Boundary-Line Map). Thus, the authority boundaries and names greatly differ from the burghs and counties recorded within the original dataset. </div>',
+             footer: 'witches.is.ed.ac.uk',
+             confirmButtonText: 'Close',
+             type: 'info',
+             showCloseButton: true,
+         });
+      }
     },
     computed : {
 
     },
     mounted: function() {
+
     },
-    layout: 'basic'
-    }
+    layout: 'basic',
+
 };
 
 </script>
