@@ -26,16 +26,16 @@ export default {
 
     }),
     methods: {
-     showPageInfo(){
-        this.$swal({
-            title: 'Types of Torture at Different Residence Locations',
-            html: '<div>This map shows the location of accused witches which are recorded to have suffered torture during their witchcraft investigations. During the period of witchcraft investigations in Scotland it is thought that torture types such as sleep deprivation were very common during witchcraft invastigations. Therefore, the cases of torture may have often not been offically recorded. None of the tortures are technically judicial torture. <b class="font-bold">The are records of torture for 55 cases out of the 3212 accused witches </b>. From these recorded cases of torture it has been found that multiple types of torture could be enforced on a single accused witch.</div>',    
-            footer: 'witches.is.ed.ac.uk',
-            confirmButtonText: 'Close',
-            type: 'info',
-            showCloseButton: true,
-        });
-
+     showPageInfo() {
+         this.$swal({
+             title: 'Types of Torture at Different Residence Locations',
+             html: '<div>This map shows the location of accused witches which are recorded to have suffered torture during their witchcraft investigations. During the period of witchcraft investigations in Scotland it is thought that torture types such as sleep deprivation were very common during witchcraft invastigations. Therefore, the cases of torture may have often not been offically recorded. None of the tortures are technically judicial torture. <b class="font-bold">The are records of torture for 55 cases out of the 3212 accused witches </b>. From these recorded cases of torture it has been found that multiple types of torture could be enforced on a single accused witch.</div>',
+             footer: 'witches.is.ed.ac.uk',
+             confirmButtonText: 'Close',
+             type: 'info',
+             showCloseButton: true,
+         });
+      }
     },
     computed : {
 
@@ -43,7 +43,6 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
-    }
 };
 
 </script>

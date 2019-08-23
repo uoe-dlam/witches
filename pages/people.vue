@@ -26,16 +26,16 @@ export default {
 
     }),
     methods: {
-     showPageInfo(){
-        this.$swal({
-            title: 'Residence Location and Occupation for People Associated with the Witch Trials',
-            html: '<div>This map shows the residence location of the different people that were associated with the witchcraft trials and their occupation. These people played key roles in the witchcraft trials from Ministers to Sheriff Deputies and so had a great influence in the outcome of the different witchcraft trials. There are a total of <b class="font-bold">2355</b> people that were recorded as being part of the trials from 1563 to 1736 many of which have no recorded occupation. From this number, there are currently <b class="font-bold">789 people out of 906</b> people which are recorded within the database with a residence location and occupation that have so far been geographically located in Scotland and projected onto this map. </div>',    
-            footer: 'witches.is.ed.ac.uk',
-            confirmButtonText: 'Close',
-            type: 'info',
-            showCloseButton: true,
-        });
-
+     showPageInfo() {
+         this.$swal({
+             title: 'Residence Location and Occupation for People Associated with the Witch Trials',
+             html: '<div>This map shows the residence location of the different people that were associated with the witchcraft trials and their occupation. These people played key roles in the witchcraft trials from Ministers to Sheriff Deputies and so had a great influence in the outcome of the different witchcraft trials. There are a total of <b class="font-bold">2355</b> people that were recorded as being part of the trials from 1563 to 1736 many of which have no recorded occupation. From this number, there are currently <b class="font-bold">789 people out of 906</b> people which are recorded within the database with a residence location and occupation that have so far been geographically located in Scotland and projected onto this map. </div>',
+             footer: 'witches.is.ed.ac.uk',
+             confirmButtonText: 'Close',
+             type: 'info',
+             showCloseButton: true,
+         });
+      }
     },
     computed : {
 
@@ -43,7 +43,6 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
-    }
 };
 
 </script>

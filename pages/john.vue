@@ -26,16 +26,16 @@ export default {
 
     }),
     methods: {
-     showPageInfo(){
-        this.$swal({
-            title: 'The Journey of a Witch-Pricker',
-            html: '<div>John Kincaid was a famous Witch-pricker in the 17th century known for this cruel ordeals in search for evidence of witchcraft. Although John Kincaid resided in Tranent and mainly worked in Lothian, he moved through the east coast of Scotland and even down to England. Kincaid was an active Witch-pricker from 1649 to 1662 and was involved with many different cases over this time. <b class="font-bold">Move around the map and read about the different cases that John Kincaid was involved in by clicking on the different symbols on the map.</b></div>',    
-            footer: 'witches.is.ed.ac.uk',
-            confirmButtonText: 'Close',
-            type: 'info',
-            showCloseButton: true,
-        });
-
+     showPageInfo() {
+         this.$swal({
+             title: 'The Journey of a Witch-Pricker',
+             html: '<div>John Kincaid was a famous Witch-pricker in the 17th century known for this cruel ordeals in search for evidence of witchcraft. Although John Kincaid resided in Tranent and mainly worked in Lothian, he moved through the east coast of Scotland and even down to England. Kincaid was an active Witch-pricker from 1649 to 1662 and was involved with many different cases over this time. <b class="font-bold">Move around the map and read about the different cases that John Kincaid was involved in by clicking on the different symbols on the map.</b></div>',
+             footer: 'witches.is.ed.ac.uk',
+             confirmButtonText: 'Close',
+             type: 'info',
+             showCloseButton: true,
+         });
+      }
     },
     computed : {
 
@@ -43,7 +43,7 @@ export default {
     mounted: function() {
     },
     layout: 'basic'
-    }
+
 };
 
 </script>
