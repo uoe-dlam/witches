@@ -47,6 +47,10 @@ export default {
   modules: [
       'nuxt-leaflet',
       'vue-sweetalert2/nuxt',
+      ['@nuxtjs/google-analytics', {
+          id: 'UA-57361601-29'
+      }],
+      'nuxt-webfontloader',
   ],
   purgeCSS: {
       whitelist: ['lvml'],
@@ -58,6 +62,11 @@ export default {
           /leaflet-.+$/
           ,/vue-slider.+$/
       ]
+  },
+  webfontloader: {
+      google: {
+          families: ['EB+Garamond:400,700'] //Loads Lato font with weights 400 and 700
+      }
   },
   /*
   ** Build configuration

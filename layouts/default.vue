@@ -168,6 +168,14 @@ div.leaflet-popup.leaflet-zoom-animated{
   bottom: 1px !important;
 }
 
+h1 {
+    font-family: 'EB Garamond';
+}
+
+#main-nav {
+  font-family: 'EB Garamond';
+}
+
 
 
 </style>

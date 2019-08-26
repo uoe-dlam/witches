@@ -1,8 +1,9 @@
 <template>
-    <div>
+    <div id="main-nav">
         <nav class="flex items-center justify-between flex-wrap bg-white p-5 w-full">
-          <div class="flex items-center text-white mr-6">
-            <img src="~/assets/main-logo.png" alt="logo" width="250">
+          <div class="flex items-center mr-6">
+              <h1 class="text-3xl sm:text-4xl mr-4">Witches</h1><img src="/images/witches-cluster-composite.png" alt="logo" width="100" >
+              <img class="block lg:hidden" src="~/assets/main-logo-badge.png" alt="logo" width="75">
           </div>
           <div class="block lg:hidden">
             <button @click="toggle" class="flex items-center px-3 py-2 border rounded text-grey border-grey hover:text-grey hover:border-grey-dark">
@@ -10,11 +11,14 @@
             </button>
           </div>
           <div :class="open ? 'block': 'hidden'" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <div class="text-sm lg:flex-grow">
+            <div class="text-md lg:flex-grow">
                 <main-nav-bar-item v-for="link in links" :url="link.url" :key="link.url" :external="link.external" :subpages="link.subpages">
                     {{link.name}}
                 </main-nav-bar-item>
             </div>
+          </div>
+          <div class="flex items-center text-white mr-6 hidden lg:block">
+            <img src="~/assets/main-logo.png" alt="logo" width="250">
           </div>
         </nav>
     </div>
