@@ -151,51 +151,59 @@ export default {
         tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
         layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
         currentLayer : {id: 'sexes', label: 'gender', property : 'sex'},
-        sexes: [{type: 'male', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'},{type: 'female', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'}, {type: 'unknown', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png'}],
-        wikis: [{type: 'has wiki', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png'},{type: 'no wiki', active: true, iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png'}],
+        sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
+        wikis: [{type: 'has wiki', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'no wiki', active: true, iconUrl: '/images/witch-single-orange.png'}],
         socials: [],
         occupations: [],
-        icons: ['https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-                'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-               ]
+        icons: ['/images/witch-single-blue.png',
+            '/images/witch-single-orange.png',
+            '/images/witch-single-pink.png',
+            '/images/witch-single-red.png',
+            '/images/witch-single-brown.png',
+            '/images/witch-single-green.png',
+            '/images/witch-single-pale-blue.png',
+            '/images/witch-single-yellow.png',
+            '/images/witch-single-blue.png',
+            '/images/witch-single-orange.png',
+            '/images/witch-single-pink.png',
+            '/images/witch-single-red.png',
+            '/images/witch-single-brown.png',
+            '/images/witch-single-green.png',
+            '/images/witch-single-pale-blue.png',
+            '/images/witch-single-yellow.png',
+            '/images/witch-single-blue.png',
+            '/images/witch-single-orange.png',
+            '/images/witch-single-pink.png',
+            '/images/witch-single-red.png',
+            '/images/witch-single-brown.png',
+            '/images/witch-single-green.png',
+            '/images/witch-single-pale-blue.png',
+            '/images/witch-single-yellow.png',
+            '/images/witch-single-blue.png',
+            '/images/witch-single-orange.png',
+            '/images/witch-single-pink.png',
+            '/images/witch-single-red.png',
+            '/images/witch-single-brown.png',
+            '/images/witch-single-green.png',
+            '/images/witch-single-pale-blue.png',
+            '/images/witch-single-yellow.png',
+            '/images/witch-single-blue.png',
+            '/images/witch-single-orange.png',
+            '/images/witch-single-pink.png',
+            '/images/witch-single-red.png',
+            '/images/witch-single-brown.png',
+            '/images/witch-single-green.png',
+            '/images/witch-single-pale-blue.png',
+            '/images/witch-single-yellow.png',
+            '/images/witch-single-blue.png',
+            '/images/witch-single-orange.png',
+            '/images/witch-single-pink.png',
+            '/images/witch-single-red.png',
+            '/images/witch-single-brown.png',
+            '/images/witch-single-green.png',
+            '/images/witch-single-pale-blue.png',
+            '/images/witch-single-yellow.png',
+        ]
     }),
     methods: {
         convertPointToLongLatArray: function(pointString) {
@@ -403,7 +411,7 @@ export default {
             let iconUrl = '';
 
             if( type === 'mixed' ) {
-                iconUrl = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png';
+                iconUrl = '/images/witch-single-purple.png';
             } else {
                 let item = layerCollection.find( item => item.type === type );
                 iconUrl = item.iconUrl;
@@ -466,7 +474,7 @@ export default {
             return [11, 41];
         },
         shadowUrl : function() {
-            return 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png';
+            return '/images/North-Berwick-witch-shadow.png';
         }
     },
     mounted: function() {
@@ -477,5 +485,14 @@ export default {
 </script>
 
 <style>
+
+.icon-shadow{
+    position: absolute;
+    top: 15px !important;
+    left: 0;
+    z-index: -1;
+    width: 32px;
+    height: 22px !important;
+}
 
 </style>
