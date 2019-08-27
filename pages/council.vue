@@ -28,7 +28,7 @@ export default {
      showPageInfo() {
          this.$swal({
              title: 'Number of Trials Recorded in Each Modern Council Authority',
-             html: '<div>This map indicates the number of trials which have taken place in each authority in Scotland. The authority boundaries have been all been in place since 1996 (source: Ordnance Survey Boundary-Line Map). Thus, the authority boundaries and names greatly differ from the burghs and counties recorded within the original dataset. </div>',
+             html: '<div>This map indicates the number of trials which took place in each local authority area in Scotland. The local authority boundaries date from 1996 (source: Ordnance Survey Boundary-Line Map). These are not the same as the counties, presbyteries and burghs that existed during the period of the witchcraft trials.</div>',
              footer: 'witches.is.ed.ac.uk',
              confirmButtonText: 'Close',
              type: 'info',

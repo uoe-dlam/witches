@@ -48,7 +48,7 @@ export default {
                  { name : 'Linking Residence to Place of Death', url : '/link', external: false },
             ] },
             { name : 'People Associated', url : '/people', external: false, subpages : [
-            { name : 'People Associated Residence', url : '/peopleloc', external: false },
+            { name : 'People Associated with the Witch Trials: Residence', url : '/peopleloc', external: false },
             { name : 'A Witch-Prickers Journey', url : '/john', external: false },
             ] },
             { name : 'About', url : '/about', external: false, subpages : [ 
