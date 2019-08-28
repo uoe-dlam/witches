@@ -73,7 +73,7 @@
                 </div>
                 <no-ssr v-else>
                     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" ref="myMap">
-                        <l-tile-layer :url="url"></l-tile-layer>
+                        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
                         <v-marker-cluster ref="clusterRef" :options="clusterOptions">
                              <l-marker v-for="(marker, index) in activeMarkers"
                                           :lat-lng="marker.longLat">

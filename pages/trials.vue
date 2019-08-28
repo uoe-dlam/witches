@@ -28,7 +28,7 @@
             <div id="map-wrapper">
                 <no-ssr>
                     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center">
-                        <l-tile-layer :url="url"></l-tile-layer>
+                        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 
                         <l-marker v-for="(marker, index) in activeMarkers"
                                       :lat-lng="marker.longLat">
