@@ -2,7 +2,7 @@
     <div id="main-nav">
         <nav class="flex items-center justify-between flex-wrap bg-white p-5 w-full">
           <div class="flex items-center mr-6">
-              <h1 class="text-3xl sm:text-4xl mr-4">Witches</h1><img src="/images/witches-cluster-composite.png" alt="logo" width="100" >
+              <h1 class="text-2xl sm:text-4xl mr-4">Witches</h1><img src="/images/witches-cluster-composite.png" alt="logo" width="100" >
               <img class="block lg:hidden" src="~/assets/main-logo-badge.png" alt="logo" width="75">
           </div>
           <div class="block lg:hidden">
