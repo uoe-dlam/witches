@@ -57,7 +57,7 @@ export default {
              ] },
             { name : 'About', url : '/about', external: false, subpages : [ 
                  { name : 'References', url : '/reference', external: false },
-                 { name : 'Resources', url : '/Resources', external: false },
+                 { name : 'Resources', url : '/resources', external: false },
                  { name : 'Contact', url : '/contact', external: false },
             ] },
             { name : 'Blog', url : ' https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation/', external: true, subpages : [] }
