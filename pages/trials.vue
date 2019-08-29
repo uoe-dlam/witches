@@ -28,7 +28,7 @@
             <div id="map-wrapper">
                 <no-ssr>
                     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center">
-                        <l-tile-layer :url="url"></l-tile-layer>
+                        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 
                         <l-marker v-for="(marker, index) in activeMarkers"
                                       :lat-lng="marker.longLat">
@@ -66,14 +66,14 @@ import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 export default {
     data: () => ({
         sparqlUrl: 'https://query.wikidata.org/sparql',
-        url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
         zoom: 7,
         center: [55.95, -3.198888888],
         markers: [],
         originalMarkers: [],
-        currentTileName : 'Historic Map',
-        tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
+        currentTileName : 'Modern Map',
+        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
         sliderYear: [1550, 1750],
         sliderYears: [1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750],
         noItems: '',
