@@ -38,7 +38,6 @@ export default {
             { name : 'Residences', url : '/', external: false, subpages : [
                 { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
                 { name : 'Residences Within Each Parish', url : '/parish', external: false },
-                { name : 'Types of Torture at Different Residence Locations', url : '/torture', external: false },
             ] },
             { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
             { name : 'Trial Locations', url : '/trials', external: false, subpages : [
@@ -48,11 +47,18 @@ export default {
                  { name : 'Linking Residence to Place of Death', url : '/link', external: false },
             ] },
             { name : 'People Associated', url : '/people', external: false, subpages : [
-            { name : 'People Associated Residence', url : '/peopleloc', external: false },
+            { name : 'People Associated with the Witch Trials: Residence', url : '/peopleloc', external: false },
             { name : 'A Witch-Prickers Journey', url : '/john', external: false },
             ] },
+             { name : 'Extra Visualisations', url : '/extravisual', external: false, subpages : [
+             { name : 'Types of Torture at Different Residence Locations', url : '/torture', external: false },
+             { name : 'The Story of Isobel Young', url : '/storymap', external: false },
+             { name : 'Ordeal Bubble Chart', url : '/ordeal', external: false },
+             ] },
             { name : 'About', url : '/about', external: false, subpages : [ 
                  { name : 'References', url : '/reference', external: false },
+                 { name : 'Resources', url : '/Resources', external: false },
+                 { name : 'Contact', url : '/contact', external: false },
             ] },
             { name : 'Blog', url : ' https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation/', external: true, subpages : [] }
         ]

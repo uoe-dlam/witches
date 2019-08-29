@@ -15,13 +15,17 @@
         <p class="mb-3">Statistical Accounts (2019). Statistical Accounts of Scotland. [online] Available at: https://stataccscot.edina.ac.uk/static/statacc/dist/home [Accessed 16 Aug. 2019].</p>
         <p class="mb-3">Stewart, J (1987). Shetland place-names, Hillhead, Lerwick: Shetland Library and Museum.</p>
         <p class="mb-3">Watson, W.J., 1904. Place-names of Ross and Cromarty, Inverness: The Northern Counties Printing and Publishing Company.</p>
+        <p class="mb-3">Witch icon remixed by Stewart Cromar from North Berwick Witches.jpg, Public domain via Wikimedia Commons.</p>
         <br/>
-        <p class="mb-3">Further place-name advice provided by – the Scottish Place-Name Society, Louise Yeoman, Julian Goodare, Simon Taylor, Bruce Gittings, Chris Fleet and Dòmhnall Uilleam Stiùbhart. </p>
+        <p class="mb-3"><b class="font-bold">Acknowledgments</b></p>
+        <p class="mb-3">Geographical data located and ArcGIS Online maps produced by Emma Carroll.<p class="mb-3">
+        <p class="mb-3">Wikidata upload from the Survey of Scottish Witchcraft by Emma Carroll and Ewan McAndrew.</p>
+        <p class="mb-3">Website and Leaflet map produced by Richard Lawson</p>
+        <p class="mb-3">Further place-name advice provided by – the Scottish Place-Name Society, Louise Yeoman, Julian Goodare, Simon Taylor, Bruce Gittings, Chris Fleet, Gilbert Márkus and Dòmhnall Uilleam Stiùbhart. </p>
         <p class="mb-3">Wikimedia support – Ewan McAndrew, Navino Evans, Martin Poulter and Simon Cobb.</p>
-        <p class="mb-3"><b class="font-bold">Geographical data located and ArcGIS Online maps produced by Emma Carroll.</b><p class="mb-3">
-        <p class="mb-3"><b class="font-bold">Wikidata upload from the Survey of Scottish Witchcraft by Emma Carroll and Ewan McAndrew.</b></p>
-        <p class="mb-3"><b class="font-bold">Website and Leaflet map produced by Richard Lawson with Stewart Cromar designing the map icons.</b></p>
-
+        <p class="mb-3">Map icons designed by Stewart Cromar</p>
+        <p class="mb-3">Query Service linked map produced by Martin Poulter</p>
+        <p class="mb-3">Isobel Young story map produced by Ewan McAndrew</p>
     </div>
 </template>
 

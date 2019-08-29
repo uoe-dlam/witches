@@ -30,8 +30,8 @@ export default {
     
     showPageInfo(){
         this.$swal({
-            title: 'Trial Location Map',
-            html: '<div>This map shows the number of accused witches that resided within each civil parish boundary. The parish boundaries displayed (source: Scottish National Records) are the most recent records of civil parish boundaries dating from 1930. Therefore, the parish boundaries within this map, differ from the parish boundaries recorded during the era that the Scottish witch accusations were taking place. </div>',
+            title: 'Number of Accused Witches That Resided In Each Modern Civil Parish',
+            html: '<div>This map shows the number of accused witches who resided within each civil parish. The parish boundaries displayed (source: National Records of Scotland) are from the 1930s. These boundaries are sometimes different from the parish boundaries during the period of the witchcraft trials. </div>',
             footer: 'witches.is.ed.ac.uk',
             confirmButtonText: 'Close',
             type: 'info',

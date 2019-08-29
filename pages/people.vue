@@ -2,7 +2,7 @@
     <div>
       <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
               <div class="flex content-start items-center">
-                 <h1 class="text-sm md:text-xl lg:text-2xl">Residence Location and Occupation for People Associated with the Witch Trials</h1>
+                 <h1 class="text-sm md:text-xl lg:text-2xl">People Associated with the Witch Trials: Residence and Occupation</h1>
                   <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
                     <!-- icon by feathericons.com -->
                     <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
@@ -28,8 +28,8 @@ export default {
     methods: {
      showPageInfo() {
          this.$swal({
-             title: 'Residence Location and Occupation for People Associated with the Witch Trials',
-             html: '<div>This map shows the residence location of the different people that were associated with the witchcraft trials and their occupation. These people played key roles in the witchcraft trials from Ministers to Sheriff Deputies and so had a great influence in the outcome of the different witchcraft trials. There are a total of <b class="font-bold">2355</b> people that were recorded as being part of the trials from 1563 to 1736 many of which have no recorded occupation. From this number, there are currently <b class="font-bold">789 people out of 906</b> people which are recorded within the database with a residence location and occupation that have so far been geographically located in Scotland and projected onto this map. </div>',
+             title: 'People Associated with the Witch Trials: Residence and Occupation',
+             html: '<div>This map shows the occupations of the people associated with the trials, where that is recorded. There are quite a few parish ministers and bailies (local magistrates in burghs), and a variety of other such occupations are recorded in smaller numbers. </div>',
              footer: 'witches.is.ed.ac.uk',
              confirmButtonText: 'Close',
              type: 'info',

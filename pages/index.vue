@@ -3,8 +3,7 @@
         <div id="inner">
             <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
                 <div class="flex content-start items-center">
-                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of residence for accused witches
-                        <span v-if="noItems > 0">(total accused witches: {{noItems}})</span>
+                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of Residence for Accused Witches (total named accused witches: 3141)
                     </h1>
                     <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
                         <!-- icon by feathericons.com -->
@@ -486,7 +485,7 @@ export default {
         },
         showPageInfo(){
             this.$swal({
-                title: 'Places of Residence Map',
+                title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
                 html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
                 
                 footer: 'witches.is.ed.ac.uk',

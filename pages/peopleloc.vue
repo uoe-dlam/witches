@@ -2,7 +2,7 @@
     <div>
       <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
               <div class="flex content-start items-center">
-                 <h1 class="text-sm md:text-xl lg:text-2xl">Residence Location for People Associated with the Witch Trials</h1>
+                 <h1 class="text-sm md:text-xl lg:text-2xl">People Associated with the Witch Trials: Residence</h1>
                   <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
                     <!-- icon by feathericons.com -->
                     <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
@@ -28,8 +28,8 @@ export default {
     methods: {
      showPageInfo() {
          this.$swal({
-             title: 'Residence Location and Occupation for People Associated with the Witch Trials',
-             html: '<div>This map shows the residence location of the different people that were associated with the witchcraft trials. These people played key roles in the witchcraft trials from Ministers to Sheriff Deputies and so had a great influence in the outcome of the different witchcraft trials. There are a total of <b class="font-bold">2355</b> people that are recorded as being part of the trials from 1563 to 1736. However, not all of these people are shown on the map as there are only <b class="font-bold">1982</b> people with recorded locations and from this number there are <b class="font-bold">600</b> people that have yet to have their location geographically located on a map.</div>',
+             title: 'People Associated with the Witch Trials: Residence',
+             html: '<div>The people on this map were not accused of witchcraft; instead they played other roles in the trials, typically as accusers, judges or investigators of some kind. This map shows the residence location for those people for whom that can be determined. There are currently another 600 recorded people that are yet to have their residence located.</div>',
              footer: 'witches.is.ed.ac.uk',
              confirmButtonText: 'Close',
              type: 'info',
