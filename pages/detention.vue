@@ -132,13 +132,13 @@ export default {
         noItems: 0,
         filters: false,
         sparqlUrl: 'https://query.wikidata.org/sparql',
-        url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
         zoom: 7,
         center: [55.95, -3.198888888],
         clusterOptions: {
             iconCreateFunction: function (cluster) {
-                var html = '<div><img src="/images/witches-cluster-composite.png" width="72" height="54"></div>';
+                var html = '<div><img src="/images/witches-cluster-composite-yellow.png" width="72" height="54"></div>';
                 return L.divIcon({ html: html, className: 'mycluster', iconSize: L.point(72, 54) });
             },
             disableClusteringAtZoom : 12,
@@ -147,8 +147,8 @@ export default {
         wikiPages: [],
         markers: [],
         originalMarkers: [],
-        currentTileName : 'Historic Map',
-        tiles: [{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false},{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true}],
+        currentTileName : 'Modern Map',
+        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
         layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
         currentLayer : {id: 'sexes', label: 'gender', property : 'sex'},
         sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
