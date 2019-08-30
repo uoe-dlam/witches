@@ -1,6 +1,9 @@
  <template>
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
         <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Project References</h1>
+        <p class="mb-3"><b class="font-bold">Database Source:</b> Julian Goodare, Lauren Martin, Joyce Miller and Louise Yeoman, 'The Survey of Scottish Witchcraft', <a href="http://www.shca.ed.ac.uk/witches/"    target="_blank">http://www.shca.ed.ac.uk/witches/</a>(archived January 2003)</p>
+        <br/>
+        <p class="mb-3"><b class="font-bold">Place-Name References</b>
         <p class="mb-3">Alexander, W.M.C. & Third Spalding Club (1952). The place-names of Aberdeenshire, Aberdeen: Printed for the Third Spalding Club.</p>
         <p class="mb-3">Blaeu, J (1654). Blaeu's Atlas novus, volume V.</p>       
         <p class="mb-3">Johnston, J.B. & Royal Scottish Geographical Society (1940). The place-names of Berwickshire, Edinburgh: Royal Scottish Geographical Society.</p>
