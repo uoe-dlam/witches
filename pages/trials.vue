@@ -22,7 +22,9 @@
                 </div>
                 <br>
                 <h2>Year: {{ sliderYear[0] }} - {{ sliderYear[1] }}</h2>
-                <vue-slider v-model="sliderYear" :adsorb="false" :data="sliderYears" :marks="true" @change="filterDates()"></vue-slider>
+                <div class="p-2">
+                    <vue-slider v-model="sliderYear" :adsorb="false" :data="sliderYears" :marks="true" @change="filterDates()"></vue-slider>
+                </div>
                 <br><br>
             </div>
             <div id="map-wrapper">

@@ -3,7 +3,7 @@
         <div id="inner">
             <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
                 <div class="flex content-start items-center">
-                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of Residence for Accused Witches <template v-if="noItems > 0">(total named accused witches: 3141)</template>
+                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of Residence for Accused Witches With Timeline <template v-if="noItems > 0">(total named accused witches: 3141)</template>
                     </h1>
                     <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
                         <!-- icon by feathericons.com -->
@@ -45,6 +45,11 @@
                             <input type="checkbox" v-model="wiki.active" @change="filterMarkers()"/>&nbsp;<img :src="wiki.iconUrl" width="12" height="20"/>&nbsp;{{wiki.type}}&nbsp;
                         </span>
                     </div>
+                    <br><br>
+                    <h2>Year: {{ sliderYear[0] }} - {{ sliderYear[1] }}</h2>
+                    <div class="p-2">
+                        <vue-slider v-model="sliderYear" :adsorb="false" :data="sliderYears" :marks="true" @change="filterMarkers()"></vue-slider>
+                    </div>
                 </div>
             </div>
             <div class="border border-gray p-1 bg-gray-200" v-if="!loading">
@@ -73,7 +78,7 @@
                 <no-ssr v-else>
                     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" ref="myMap">
                         <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-                        <v-marker-cluster ref="clusterRef" :options="clusterOptions">
+                        <!-- <v-marker-cluster ref="clusterRef" :options="clusterOptions"> -->
                              <l-marker v-for="(marker, index) in activeMarkers"
                                           :lat-lng="marker.longLat">
                                     <l-popup class="adapted-popup">
@@ -121,7 +126,7 @@
                                       </div>
                                     </l-icon>
                             </l-marker>
-                        </v-marker-cluster>
+                        <!-- </v-marker-cluster> -->
                     </l-map>
                 </no-ssr>
             </div>
@@ -419,6 +424,10 @@ export default {
                 }
             }
 
+            markers.forEach(marker => {
+              marker.witches = marker.witches.filter(witch => witch.year >= this.sliderYear[0] && witch.year <= this.sliderYear[1]);
+            });
+
             this.markers = markers;
         },
         hasWikiEntry : function( marker ){
@@ -486,23 +495,23 @@ export default {
         hasLocalStorageExpired : function(){
             let hours = 24; // Reset when storage is more than 24hours
             let now = new Date().getTime();
-            let setupTime = localStorage.getItem('setupTime');
+            let setupTime = localStorage.getItem('timeline_setupTime');
             return setupTime === null || (now - setupTime > hours*60*60*1000);
         },
         loadDataFromLocalStorage : function(){
-            this.occupations = JSON.parse(localStorage.getItem('occupations'));
-            this.socials = JSON.parse(localStorage.getItem('socials'));
-            this.markers = JSON.parse(localStorage.getItem('markers'));
+            this.occupations = JSON.parse(localStorage.getItem('timeline_occupations'));
+            this.socials = JSON.parse(localStorage.getItem('timeline_socials'));
+            this.markers = JSON.parse(localStorage.getItem('timeline_markers'));
             this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-            this.noItems = localStorage.getItem('noItems');
+            this.noItems = localStorage.getItem('timeline_noItems');
         },
         saveDataToLocalStorage : function(){
             let now = new Date().getTime();
-            localStorage.setItem('setupTime', now);
-            localStorage.setItem('markers', JSON.stringify(this.markers));
-            localStorage.setItem('noItems', this.noItems);
-            localStorage.setItem('occupations', JSON.stringify(this.occupations));
-            localStorage.setItem('socials', JSON.stringify(this.socials));
+            localStorage.setItem('timeline_setupTime', now);
+            localStorage.setItem('timeline_markers', JSON.stringify(this.markers));
+            localStorage.setItem('timeline_noItems', this.noItems);
+            localStorage.setItem('timeline_occupations', JSON.stringify(this.occupations));
+            localStorage.setItem('timeline_socials', JSON.stringify(this.socials));
         },
         toggleFilters : function() {
             this.filters = ! this.filters;
@@ -526,6 +535,15 @@ export default {
         },
         getYearFromWikiDate(wikiDate){
             return wikiDate.substr(0, 4);
+        },
+        filterDates : function(){
+          let markers = JSON.parse(JSON.stringify(this.originalMarkers));
+
+          markers.forEach(marker => {
+            marker.witches = marker.witches.filter(witch => witch.year >= this.sliderYear[0] && witch.year <= this.sliderYear[1]);
+          });
+
+          this.markers = markers;
         },
     },
     computed : {
