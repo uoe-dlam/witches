@@ -1,6 +1,6 @@
 <template>
     <div id="main-nav">
-        <nav class="flex items-center justify-between flex-wrap bg-white p-5 w-full">
+        <nav class="flex items-center justify-between flex-wrap bg-white pl-5 pr-5 pt-5 pb-3 w-full">
           <div class="flex items-center mr-3">
               <h1 class="text-xl lg:text-4xl mr-4">Witches</h1><img src="/images/witches-cluster-composite.png" alt="logo" width="90" >
               <img class="block lg:hidden" src="~/assets/main-logo-badge.png" alt="logo" width="75">
@@ -21,6 +21,9 @@
             <img src="~/assets/main-logo.png" alt="logo" width="225">
           </div>
         </nav>
+        <div class="pr-12 border border-gray-200 bg-white pt-1 pb-1 text-xs w-full block float-left">
+            <nuxt-link to="/accessibility-statement" class="font-sans float-right text-gray-500">Accessibility</nuxt-link>
+        </div>
     </div>
 </template>
 
