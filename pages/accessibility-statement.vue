@@ -15,16 +15,10 @@
         <h2 class="mb-3">How accessible this website is</h2>
         <p class="mb-3">We know some parts of this website are not fully accessible:</p>
         <ul class="ml-5 mb-3">
-            <li class="list-disc">There are some elements without sufficient contrast</li>
-            <li class="list-disc">page html elements do not have a lang attribute</li>
-            <li class="list-disc">some form inputs do not have labels</li>
-            <li class="list-disc">layout tables are used for presentation. These should be replaced with divs</li>
-            <li class="list-disc">pages do not always have a level-one heading</li>
-            <li class="list-disc">some images are missing alternative text.</li>
-            <li class="list-disc">most page pages don't have one main landmark</li>
-            <li class="list-disc">the text will not reflow in a single column when you change the size of the browser window</li>
-            <li class="list-disc">you cannot modify the line height or spacing of text</li>
-            <li class="list-disc">some of our online forms and visualisations are difficult to navigate using just a keyboard</li>
+            <li class="list-disc">Page html elements do not have a lang attribute</li>
+            <li class="list-disc">Some images are missing alternative text.</li>
+            <li class="list-disc">Pages don't have one main landmark</li>
+            <li class="list-disc">Some links (e.g. drop downs on main menu and filters) are not navigable using keyboard only</li>
         </ul>
 
         <h2 class="mb-3">Feedback and contact information</h2>
