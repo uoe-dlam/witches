@@ -1,9 +1,10 @@
 {
   "name": "witches",
   "version": "1.0.0",
-  "description": "My groundbreaking Nuxt.js project",
-  "author": "Richard Lawson",
-  "private": true,
+  "description": "Witches",
+  "author": "DLAM Applications Development Team, University of Edinburgh",
+  "private": false,
+  "homepage": "https://github.com/uoe-dlam/witches",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
