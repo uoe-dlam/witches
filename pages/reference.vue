@@ -1,5 +1,5 @@
  <template>
-    <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
+    <div id="main-content" class="text-wrapper">
         <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Project References</h1>
         <p class="mb-3"><b class="font-bold">Database Source:</b> Julian Goodare, Lauren Martin, Joyce Miller and Louise Yeoman, 'The Survey of Scottish Witchcraft', <a href="http://www.shca.ed.ac.uk/witches/" target="_blank">http://www.shca.ed.ac.uk/witches/</a>(archived January 2003)</p>
         <br/>

@@ -1,5 +1,5 @@
 <template>
-    <main id="main-content" class="pl-5 pr-5 pt-3 pb-3">
+    <main id="main-content" class="text-wrapper">
         <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Accessibility statement for witches.is.ed.ac.uk</h1>
         <p class="mb-3">This accessibility statement applies to witches.is.ed.ac.uk</p>
         <p class="mb-3">We want as many people as possible to be able to use this website. For example, that means you should be able to:</p>
