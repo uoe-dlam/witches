@@ -1,5 +1,5 @@
 <template>
-    <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
+    <div id="main-content" class="text-wrapper">
         <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Contact Details</h1>
         <p class="mb-3">Ewan McAndrew</p> 
         <p class="mb-3">Wikimedian in Residence</p> 

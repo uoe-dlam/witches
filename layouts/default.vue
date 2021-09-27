@@ -29,6 +29,7 @@ body{
 
 h1 {
     @apply text-2xl;
+    font-family: 'EB Garamond';
 }
 h2 {
     @apply text-xl;
@@ -168,14 +169,12 @@ div.leaflet-popup.leaflet-zoom-animated{
   bottom: 1px !important;
 }
 
-h1 {
-    font-family: 'EB Garamond';
-}
-
 #main-nav {
   font-family: 'EB Garamond';
 }
 
-
+.text-wrapper {
+  @apply mx-auto max-w-screen-lg px-5 py-3;
+}
 
 </style>

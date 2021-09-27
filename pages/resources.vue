@@ -1,5 +1,5 @@
  <template>
-    <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
+    <div id="main-content" class="text-wrapper">
         <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Resources</h1>
         <p class="mb-3"><a href="ArcGIS Online Files.zip">Download zipfile of CSV files for ArcGIS Online</a></p>
         <p class="mb-3"><a href="https://docs.google.com/spreadsheets/d/14W8cWmqTaTgkwTFOjMYzV-BzqJgrGz8dKafmGfeuFPs/edit?usp=sharing" target="_blank">Spreadsheet of unfound place-names</a></p>
