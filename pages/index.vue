@@ -63,6 +63,9 @@
                     </svg>
                 </span>
             </div>
+            <leaflet-map :isLoading="loading" :mapUrl="url"  
+                         :markers="activeMarkers"></leaflet-map>
+            <!--
             <div id="map-wrapper">
                 <div class="mx-auto max-w-md bg-white rounded shadow-md mt-10" v-if="loading">
                     <div class="pt-8 pb-12 pl-8 pr-8">
@@ -125,6 +128,7 @@
                     </l-map>
                 </no-ssr>
             </div>
+            -->
         </div>
     </div>
 </template>
@@ -132,8 +136,11 @@
 <script>
 
 import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
+import LeafletMap from '../components/leafletMap.vue';
+
 
 export default {
+  components: { LeafletMap },
     data: () => ({
         loading: true,
         filters: false,
@@ -556,23 +563,4 @@ export default {
 </script>
 
 <style>
-.cluster-img {
-    float: left;
-    width: 72px;
-    height: 55px;
-}
-.zoomed-in-img {
-    float: left;
-    width: 25px;
-    height: 38px;
-}
-.icon-shadow{
-    position: absolute;
-    top: 15px !important;
-    left: 0;
-    z-index: -1;
-    width: 32px;
-    height: 22px !important;
-}
-
 </style>
