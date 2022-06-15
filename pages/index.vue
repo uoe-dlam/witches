@@ -64,7 +64,7 @@
                 </span>
             </div>
             <leaflet-map :isLoading="loading" :mapUrl="url"  
-                         :markers="activeMarkers"></leaflet-map>
+                         :mapMarkers="markers"></leaflet-map>
             <!--
             <div id="map-wrapper">
                 <div class="mx-auto max-w-md bg-white rounded shadow-md mt-10" v-if="loading">
@@ -412,13 +412,14 @@ export default {
                     location: location,
                     longLat: locationCoords,
                     witches: [witch],
+                    markerIcon: null
                 }
 
                 this.markers.push(marker);
             }
         },
         filterMarkers : function(){
-            let markers = JSON.parse(JSON.stringify(this.originalMarkers));
+            let markers = this.originalMarkers;
             let layerCollection = this[this.currentLayer.id];
             for (let i = 0; i < layerCollection.length; i++) {
                 if (layerCollection[i].active === false) {
@@ -447,7 +448,26 @@ export default {
 
             return wikiPage;
         },
-        getIcon : function( marker ) {
+        getMarkerType : function( marker, layerCollection, property) {
+            let markerType = '';
+            let noDifferntTypes = 0;
+            for(let i = 0; i < layerCollection.length; i++){
+                let witches = marker.witches.filter( witch => {
+                    return witch[property] === layerCollection[i].type;
+                });
+
+                if(witches.length > 0){
+                    markerType = layerCollection[i].type;
+                    noDifferntTypes++;
+                }
+
+                if(noDifferntTypes > 1){
+                    return 'mixed';
+                }
+            }
+            return markerType;
+        },
+        setIcon : function( marker ) {
             let layerCollection = this[this.currentLayer.id];
             let type = this.getMarkerType( marker, layerCollection, this.currentLayer.property );
             let iconUrl = '';
@@ -458,28 +478,11 @@ export default {
                 let item = layerCollection.find( item => item.type === type );
                 iconUrl = item.iconUrl;
             }
-
-            return iconUrl;
+            marker.markerIcon = iconUrl;
         },
-        getMarkerType : function( marker, layerCollection, property) {
-            let type = '';
-            let noDifferntTypes = 0;
-            for(let i = 0; i < layerCollection.length; i++){
-                let witches = marker.witches.filter( witch => {
-                    return witch[property] === layerCollection[i].type;
-                });
-
-                if(witches.length > 0){
-                    type = layerCollection[i].type;
-                    noDifferntTypes++;
-                }
-
-                if(noDifferntTypes > 1){
-                    return 'mixed';
-                }
-            }
-
-            return type;
+        setMarkerIcons: function(){
+            this.originalMarkers.forEach(this.setIcon);
+            this.markers = this.originalMarkers;
         },
         filterTiles : function( tile ){
             this.currentTileName = tile.name;
@@ -487,7 +490,8 @@ export default {
         },
         filterLayers : function( layer ){
             this.currentLayer = layer;
-            this.filterMarkers();
+            this.setMarkerIcons();
+            window.alert("Filtered layers")
         },
         flyTo : function( coords ){
             this.$refs.myMap.mapObject.flyTo(coords ,14);
@@ -558,6 +562,7 @@ export default {
            this.loadDataFromLocalStorage();
            this.loading = false;
         }
+        this.setMarkerIcons();
     }
 };
 </script>

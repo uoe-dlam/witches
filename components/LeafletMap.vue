@@ -20,7 +20,7 @@
         <!-- Cluster maker; options specified in script data. -->
         <v-marker-cluster ref="clusterRef" :options="clusterOptions">
           <!-- Map markers, with or without cluster: -->
-          <l-marker v-for="(marker, index) in markers"
+          <l-marker v-for="(marker, index) in mapMarkers"
                     :lat-lng="marker.longLat">
             
             <!-- Marker popup -->
@@ -78,7 +78,7 @@
                 <div v-if="marker.witches.length > 1" class="icon-text">
                   {{marker.witches.length}}
                 </div>
-                <img :src="getIcon(marker)" class="zoomed-in-img"/>
+                <img :src="marker.markerIcon" class="zoomed-in-img"/>
                 <img class="icon-shadow" :src="shadowUrl"/>
               </div>
             </l-icon>
@@ -101,7 +101,7 @@ export default {
       type: String,
       required: true
     },
-    markers: {
+    mapMarkers: {
       type: Array,
       required: true
     }
@@ -120,7 +120,56 @@ export default {
           },
         disableClusteringAtZoom : 12,
         spiderfyOnMaxZoom: false
-      }
+      },
+      icons: ['/images/witch-single-blue.png',
+              '/images/witch-single-orange.png',
+              '/images/witch-single-pink.png',
+              '/images/witch-single-red.png',
+              '/images/witch-single-brown.png',
+              '/images/witch-single-green.png',
+              '/images/witch-single-pale-blue.png',
+              '/images/witch-single-yellow.png',
+              '/images/witch-single-blue.png',
+              '/images/witch-single-orange.png',
+              '/images/witch-single-pink.png',
+              '/images/witch-single-red.png',
+              '/images/witch-single-brown.png',
+              '/images/witch-single-green.png',
+              '/images/witch-single-pale-blue.png',
+              '/images/witch-single-yellow.png',
+              '/images/witch-single-blue.png',
+              '/images/witch-single-orange.png',
+              '/images/witch-single-pink.png',
+              '/images/witch-single-red.png',
+              '/images/witch-single-brown.png',
+              '/images/witch-single-green.png',
+              '/images/witch-single-pale-blue.png',
+              '/images/witch-single-yellow.png',
+              '/images/witch-single-blue.png',
+              '/images/witch-single-orange.png',
+              '/images/witch-single-pink.png',
+              '/images/witch-single-red.png',
+              '/images/witch-single-brown.png',
+              '/images/witch-single-green.png',
+              '/images/witch-single-pale-blue.png',
+              '/images/witch-single-yellow.png',
+              '/images/witch-single-blue.png',
+              '/images/witch-single-orange.png',
+              '/images/witch-single-pink.png',
+              '/images/witch-single-red.png',
+              '/images/witch-single-brown.png',
+              '/images/witch-single-green.png',
+              '/images/witch-single-pale-blue.png',
+              '/images/witch-single-yellow.png',
+              '/images/witch-single-blue.png',
+              '/images/witch-single-orange.png',
+              '/images/witch-single-pink.png',
+              '/images/witch-single-red.png',
+              '/images/witch-single-brown.png',
+              '/images/witch-single-green.png',
+              '/images/witch-single-pale-blue.png',
+              '/images/witch-single-yellow.png',
+            ]
     }
   },
   methods: {
