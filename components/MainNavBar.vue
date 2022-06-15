@@ -65,7 +65,7 @@ export default {
                  { name : 'Resources', url : '/resources', external: false },
                  { name : 'Contact', url : '/contact', external: false },
             ] },
-            { name : 'Blog', url : ' https://blogs.ed.ac.uk/witchcraft_visualisation/', external: true, subpages : [] }
+            { name : 'Blog', url : 'https://blogs.ed.ac.uk/witchcraft_visualisation/', external: true, subpages : [] }
         ]
     }
   },
