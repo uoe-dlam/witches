@@ -141,8 +141,11 @@ export default {
         tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
         layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
         currentLayer : {id: 'sexes', label: 'gender', property : 'sex'},
-        sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
-        wikis: [{type: 'has wiki', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'no wiki', active: true, iconUrl: '/images/witch-single-orange.png'}],
+        sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},
+                {type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, 
+                {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
+        wikis: [{type: 'has wiki', active: true, iconUrl: '/images/witch-single-blue.png'},
+                {type: 'no wiki', active: true, iconUrl: '/images/witch-single-orange.png'}],
         socials: [],
         occupations: [],
         icons: ['/images/witch-single-blue.png',
@@ -487,6 +490,7 @@ export default {
     width: 25px;
     height: 38px;
 }
+
 .icon-shadow {
     position: absolute;
     top: 15px !important;

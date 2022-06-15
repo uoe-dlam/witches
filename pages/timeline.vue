@@ -150,7 +150,7 @@ export default {
         center: [55.95, -3.198888888],
         clusterOptions: {
             iconCreateFunction: function (cluster) {
-                var html = '<div><img src="/images/witches-cluster-composite-yellow.png" width="72" height="54"></div>';
+                let html = '<div><img src="/images/witches-cluster-composite-yellow.png" width="72" height="54"></div>';
                 return L.divIcon({ html: html, className: 'mycluster', iconSize: L.point(72, 54) });
             },
             disableClusteringAtZoom : 12,
@@ -577,6 +577,7 @@ export default {
     width: 25px;
     height: 38px;
 }
+
 .icon-shadow{
     position: absolute;
     top: 15px !important;

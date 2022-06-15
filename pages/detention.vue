@@ -138,7 +138,7 @@ export default {
         center: [55.95, -3.198888888],
         clusterOptions: {
             iconCreateFunction: function (cluster) {
-                var iconHtml = '<img class="cluster-img" src="/images/witches-cluster-composite-yellow.png">';
+                let iconHtml = '<img class="cluster-img" src="/images/witches-cluster-composite-yellow.png">';
                 return L.divIcon({ html: iconHtml, 
                     className: 'mycluster', 
                     iconSize: null});
@@ -492,11 +492,13 @@ export default {
     width: 72px;
     height: 55px;
 }
+
 .zoomed-in-img {
     float: left;
     width: 25px;
     height: 38px;
 }
+
 .icon-shadow{
     position: absolute;
     top: 15px !important;
