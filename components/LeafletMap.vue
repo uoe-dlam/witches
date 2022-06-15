@@ -1,6 +1,8 @@
 <template>
   <div id="map-wrapper" class="h-full">
+
     <!-- Loading icon. -->
+    <button @click="printToConsole()">Testing</button>
     <div class="mx-auto max-w-md bg-white 
                 rounded shadow-md mt-10" 
                 v-if="loading">
@@ -10,19 +12,17 @@
       </div>
     </div>
 
-
     <!-- Leaflet map. -->
     <no-ssr v-else>
       <l-map style="height: 100%; width: 100%" :zoom="zoom" 
             :center="center" ref="myMap">
         <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
-
         <!-- Cluster maker; options specified in script data. -->
         <v-marker-cluster ref="clusterRef" :options="clusterOptions">
+
           <!-- Map markers, with or without cluster: -->
           <l-marker v-for="(marker, index) in mapMarkers"
                     :lat-lng="marker.longLat">
-            
             <!-- Marker popup -->
             <l-popup class="adapted-popup">
               <h2>{{marker.location}}</h2><br>
@@ -120,62 +120,16 @@ export default {
           },
         disableClusteringAtZoom : 12,
         spiderfyOnMaxZoom: false
-      },
-      icons: ['/images/witch-single-blue.png',
-              '/images/witch-single-orange.png',
-              '/images/witch-single-pink.png',
-              '/images/witch-single-red.png',
-              '/images/witch-single-brown.png',
-              '/images/witch-single-green.png',
-              '/images/witch-single-pale-blue.png',
-              '/images/witch-single-yellow.png',
-              '/images/witch-single-blue.png',
-              '/images/witch-single-orange.png',
-              '/images/witch-single-pink.png',
-              '/images/witch-single-red.png',
-              '/images/witch-single-brown.png',
-              '/images/witch-single-green.png',
-              '/images/witch-single-pale-blue.png',
-              '/images/witch-single-yellow.png',
-              '/images/witch-single-blue.png',
-              '/images/witch-single-orange.png',
-              '/images/witch-single-pink.png',
-              '/images/witch-single-red.png',
-              '/images/witch-single-brown.png',
-              '/images/witch-single-green.png',
-              '/images/witch-single-pale-blue.png',
-              '/images/witch-single-yellow.png',
-              '/images/witch-single-blue.png',
-              '/images/witch-single-orange.png',
-              '/images/witch-single-pink.png',
-              '/images/witch-single-red.png',
-              '/images/witch-single-brown.png',
-              '/images/witch-single-green.png',
-              '/images/witch-single-pale-blue.png',
-              '/images/witch-single-yellow.png',
-              '/images/witch-single-blue.png',
-              '/images/witch-single-orange.png',
-              '/images/witch-single-pink.png',
-              '/images/witch-single-red.png',
-              '/images/witch-single-brown.png',
-              '/images/witch-single-green.png',
-              '/images/witch-single-pale-blue.png',
-              '/images/witch-single-yellow.png',
-              '/images/witch-single-blue.png',
-              '/images/witch-single-orange.png',
-              '/images/witch-single-pink.png',
-              '/images/witch-single-red.png',
-              '/images/witch-single-brown.png',
-              '/images/witch-single-green.png',
-              '/images/witch-single-pale-blue.png',
-              '/images/witch-single-yellow.png',
-            ]
+      }
     }
   },
   methods: {
     hasWikiEntry : function( marker ){
       let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
       return witchesWithEntry.length > 0;
+    },
+    printToConsole: function(){
+      console.log(this.mapMarkers);
     }
   },
   computed: {
