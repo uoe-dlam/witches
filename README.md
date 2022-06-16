@@ -21,6 +21,7 @@ The commands will:
 - Generate the static web files used to serve the site
 - Run a local web server, so you can visit the site served from your local machine
 
+Note that all packages are now up to date with their latest versions, appart from @nuxtjs/tailwindcss, the latest verion of which is not yet supported. We have instead used the newest working version. 
 ## Support
 
 For technical support, please email ltw-apps-dev@ed.ac.uk. For questions or comments regarding the content of this site,
@@ -56,4 +57,5 @@ The map icons are licensed under the [CC BY 4.0 license](https://creativecommons
 
 ## Project Status
 
-This project is actively maintained by the University of Edinburgh's Digital Learning Applications and Media Team
+This project is actively maintained by the University of Edinburgh's Digital Learning Applications and Media Team.
+
