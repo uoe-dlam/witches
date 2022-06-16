@@ -3,46 +3,83 @@
         <div id="inner">
             <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
                 <div class="flex content-start items-center">
-                    <h1 class="text-sm md:text-xl lg:text-2xl">Places of Residence for Accused Witches <template v-if="noItems > 0">(total named accused witches: 3141)</template>
+                    <h1 class="text-sm md:text-xl lg:text-2xl">
+                        Places of Residence for Accused Witches 
+                        <template v-if="noItems > 0">
+                            (total named accused witches: 3141)
+                        </template>
                     </h1>
-                    <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2">
+                    <span class="rounded-full border-r border-l border-gray-400 
+                                 w-6 h-6 flex items-center justify-center ml-2">
                         <!-- icon by feathericons.com -->
-                        <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
-                           <line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line>
+                        <svg aria-hidden="true" class="" data-reactid="266" 
+                             fill="none" height="24" stroke="#606F7B" stroke-linecap="round" 
+                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" 
+                             width="24" xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
+                           <line x1="12" y1="16" x2="12" y2="12"></line>
+                           <line x1="12" y1="8" x2="12" y2="8"></line>
                         </svg>
                     </span>
                 </div>
+
+                <!-- Map filters -->
                 <div id="map-filters" :class="filters ? 'block': 'hidden'" class="pt-2">
                     <div>
                         <span v-for="(tile, index) in tiles">
-                            <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)"/>&nbsp;{{tile.name}}&nbsp;
+                            <input type="radio" name="tile" 
+                                   :checked="tile.name === currentTileName" 
+                                   @change="filterTiles(tile)"/>
+                            &nbsp;{{tile.name}}&nbsp;
                         </span>
                     </div>
                     <br>
                     <div>
                         <span v-for="(layer, index) in layers">
-                            <input type="radio" name="layer" :checked="layer.id === currentLayer.id" @change="filterLayers(layer)"/>&nbsp;{{layer.label}}&nbsp;
+                            <input type="radio" name="layer" 
+                            :checked="layer.id === currentLayer.id" 
+                            @change="filterLayers(layer)"/>
+                            &nbsp;{{layer.label}}&nbsp;
                         </span>
                     </div>
                     <br>
                     <div v-if="currentLayer.id === 'sexes'" >
-                        <span v-for="(sex, index) in sexes" class="flex items-center float-left">
-                            <input type="checkbox" v-model="sex.active" @change="filterMarkers()"/>&nbsp;<img :src="sex.iconUrl" width="12" height="20"/>&nbsp;{{sex.type}}&nbsp;
+                        <span class="flex items-center float-left" 
+                              v-for="(sex, index) in sexes">
+                            <input type="checkbox" v-model="sex.active" 
+                                   @change="filterMarkers()"/>
+                            &nbsp;
+                            <img :src="sex.iconUrl" width="12" height="20"/>
+                            &nbsp;{{sex.type}}&nbsp;
                         </span>
                     </div>
                     <div v-if="currentLayer.id === 'occupations'" >
-                        <span v-for="(occupation, index) in occupations" class="flex items-center float-left">
-                            <input type="checkbox" v-model="occupation.active" @change="filterMarkers()"/>&nbsp;<img :src="occupation.iconUrl" width="12" height="20"/>&nbsp;{{occupation.type}}&nbsp;
+                        <span class="flex items-center float-left"
+                              v-for="(occupation, index) in occupations">
+                            <input type="checkbox" v-model="occupation.active" 
+                                   @change="filterMarkers()"/>
+                            &nbsp;
+                            <img :src="occupation.iconUrl" width="12" height="20"/>
+                            &nbsp;{{occupation.type}}&nbsp;
                         </span>
                     </div>
                     <div v-if="currentLayer.id === 'socials'" >
-                        <span v-for="(social, index) in socials" class="flex items-center float-left">
-                            <input type="checkbox" v-model="social.active" @change="filterMarkers()"/>&nbsp;<img :src="social.iconUrl" width="12" height="20"/>&nbsp;{{social.type}}&nbsp;
+                        <span class="flex items-center float-left" 
+                              v-for="(social, index) in socials" >
+                            <input type="checkbox" v-model="social.active" 
+                                   @change="filterMarkers()"/>
+                            &nbsp;
+                            <img :src="social.iconUrl" width="12" height="20"/>
+                            &nbsp;{{social.type}}&nbsp;
                         </span>
                     </div>
                     <div v-if="currentLayer.id === 'wikis'" >
-                        <span v-for="(wiki, index) in wikis" class="flex items-center float-left">
-                            <input type="checkbox" v-model="wiki.active" @change="filterMarkers()"/>&nbsp;<img :src="wiki.iconUrl" width="12" height="20"/>&nbsp;{{wiki.type}}&nbsp;
+                        <span class="flex items-center float-left"
+                              v-for="(wiki, index) in wikis">
+                            <input type="checkbox" v-model="wiki.active" 
+                                   @change="filterMarkers()"/>
+                            &nbsp;
+                            <img :src="wiki.iconUrl" width="12" height="20"/>
+                            &nbsp;{{wiki.type}}&nbsp;
                         </span>
                     </div>
                 </div>
@@ -51,25 +88,38 @@
                 <span class="flex items-center float-left">
                     &nbsp;Filters
                 </span>
-                <span class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2 float-left">
+                <span class="rounded-full border-r border-l border-gray-400 
+                             w-6 h-6 flex items-center justify-center 
+                             ml-2 float-left">
                     <!-- icon by feathericons.com -->
-                    <svg v-if="!filters" aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="toggleFilters()">
+                    <svg v-if="!filters" aria-hidden="true" class="" 
+                         data-reactid="266" fill="none" height="24" 
+                         stroke="#606F7B" stroke-linecap="round" 
+                         stroke-linejoin="round" stroke-width="2" 
+                         viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" 
+                         @click="toggleFilters()">
                         <polyline points="6 9 12 15 18 9">
                         </polyline>
                     </svg>
-                    <svg v-if="filters" aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" @click="toggleFilters()">
+                    <svg v-if="filters" aria-hidden="true" class="" 
+                         data-reactid="266" fill="none" height="24" stroke="#606F7B" 
+                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                         viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" 
+                         @click="toggleFilters()">
                        <polyline points="18 15 12 9 6 15">
                         </polyline>
                     </svg>
                 </span>
             </div>
             <leaflet-map :isLoading="loading" :mapUrl="url"  
-                         :mapMarkers="markers"></leaflet-map>
+                         :mapMarkers="markers">
+            </leaflet-map>
         </div>
     </div>
 </template>
 
 <script>
+import func from 'vue-editor-bridge';
 
 import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 import LeafletMap from '../components/leafletMap.vue';
@@ -80,6 +130,7 @@ export default {
     data: () => ({
         loading: true,
         filters: false,
+        noFiltersOn: 0;
         noItems: 0,
         sparqlUrl: 'https://query.wikidata.org/sparql',
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -89,11 +140,17 @@ export default {
         markers: [],
         originalMarkers: [],
         currentTileName : 'Modern Map',
-        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
-        layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
+        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
+                {name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
+        layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, 
+                 {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, 
+                 {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
         currentLayer : {id: 'sexes', label: 'Gender', property : 'sex'},
-        sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
-        wikis: [{type: 'has wiki', active: true, iconUrl: '/images/witch-single-blue.png'},{type: 'no wiki', active: true, iconUrl: '/images/witch-single-orange.png'}],
+        sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},
+                {type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, 
+                {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
+        wikis: [{type: 'has wiki', active: true, iconUrl: '/images/witch-single-blue.png'},
+                {type: 'no wiki', active: true, iconUrl: '/images/witch-single-orange.png'}],
         socials: [],
         occupations: [],
         icons: ['/images/witch-single-blue.png',
@@ -335,48 +392,11 @@ export default {
                     location: location,
                     longLat: locationCoords,
                     witches: [witch],
-                    markerIcon: null
+                    markerIcon: null,
+                    onOff: true // Determines whether the marker is showing.
                 }
-
                 this.markers.push(marker);
             }
-        },
-        filterMarkers : function(){
-            // Filtering markers and removing empty ones that 
-            // arise. This saves an iterating in computed: activeMarkers.
-
-            let originalMarkers = JSON.parse(JSON.stringify(this.originalMarkers));
-            let newMarkers = []
-            let layerCollection = this[this.currentLayer.id];
-            for (let i = 0; i < layerCollection.length; i++) {
-                if (layerCollection[i].active === false) {
-                    originalMarkers.forEach(marker => {
-                        marker.witches = marker.witches.filter(witch => layerCollection[i].type !== witch[this.currentLayer.property]);
-                        if (marker.witches.length > 0) {
-                            this.setIcon(marker);
-                            newMarkers.push(marker)
-                        }
-                    });
-                }
-            }
-            this.markers = newMarkers;
-        },
-        hasWikiEntry : function( marker ){
-            let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
-            return witchesWithEntry.length > 0;
-        },
-        getItemWikiPage : function( item ){
-            let wikiPage = '';
-
-            for(let i = 0; i < this.wikiPages.length; i++){
-                if(this.wikiPages[i].id === item.item.value){
-                    wikiPage = this.wikiPages[i].pageTitle;
-                    wikiPage.split(' ').join('_');
-                    wikiPage = 'https://en.wikipedia.org/wiki/' + wikiPage;
-                }
-            }
-
-            return wikiPage;
         },
         getMarkerType : function( marker, layerCollection, property) {
             let markerType = '';
@@ -409,6 +429,65 @@ export default {
                 iconUrl = item.iconUrl;
             }
             marker.markerIcon = iconUrl;
+        },
+        updateMarkerState: function(marker) {
+            // Updates the state of a marker after it being 
+            // filtered. Specifically, its marker Icon and 
+            // if it needs to be on or off.
+            if (marker.witches.length > 0) {
+                    this.setIcon(marker);
+                }
+            else {marker.onOff = false;}
+        },
+        filterMarkersOff : function(filterType){
+            // Filters off. It goes through the current markers 
+            // and removes the withces which meet filterType.
+            let newMarkers = JSON.parse(JSON.stringify(this.markers));
+            let property = this.currentLayer.property;
+            newMarkers.forEach(marker => {
+                marker.witches = marker.witches.filter(witch => witch[property] !==  filterType);
+                this.updateMarkerState();
+            });
+            this.markers = newMarkers;
+            this.noFiltersOn += 1;
+        },
+        filterMarkersOn: function(filterType){
+            // Filters on. If only one filter was off then it reverts
+            // to the original markers. Otherwise, it goes through the 
+            // markers and adds the witches from the corresponding original
+            // marker that meet filterType.
+            if (this.noFiltersOn === 1) {
+                this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
+            }
+            else {            
+                let newMarkers = JSON.parse(JSON.stringify(this.markers));
+                let property = this.currentLayer.property;
+                newMarkers.forEach((marker, index) => {
+                    let originalWitches = this.originalMarkers[index].witches;
+                    let recoveredWitches = originalWitches.filter(witch => witch[property] ===  filterType)
+                    marker.witches = marker.witches.concat(recoveredWitches);
+                    this.updateMarkerState();
+                    this.markers = newMarkers;
+                 })
+            }
+            this.noFiltersOn -= 1;
+        };
+        hasWikiEntry : function( marker ){
+            let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
+            return witchesWithEntry.length > 0;
+        },
+        getItemWikiPage : function( item ){
+            let wikiPage = '';
+
+            for(let i = 0; i < this.wikiPages.length; i++){
+                if(this.wikiPages[i].id === item.item.value){
+                    wikiPage = this.wikiPages[i].pageTitle;
+                    wikiPage.split(' ').join('_');
+                    wikiPage = 'https://en.wikipedia.org/wiki/' + wikiPage;
+                }
+            }
+
+            return wikiPage;
         },
         setMarkerIcons: function(){
             this.originalMarkers.forEach(this.setIcon);
