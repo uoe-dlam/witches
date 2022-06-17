@@ -22,7 +22,7 @@
 
           <!-- Map markers, with or without cluster: -->
           <l-marker v-for="(marker, index) in mapMarkers"
-                    :lat-lng="marker.longLat">
+                    v-if="marker.onOff" :lat-lng="marker.longLat">
             <!-- Marker popup -->
             <l-popup class="adapted-popup">
               <h2>{{marker.location}}</h2><br>
@@ -44,6 +44,7 @@
                     </template>
                     <br>
                   </div>
+
                   <div v-if="witch.detentions.length > 0">
                     Places of Detention:
                     <template v-for="(detention, index) in witch.detentions">
@@ -54,17 +55,21 @@
                     </template>
                      <br>
                   </div>
+
                   <div v-if="witch.placeOfDeath !== ''">
                     Place of Death: 
                     <a @click="flyTo(witch.placeOfDeathCoords)" 
                        :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}
                     </a><br>
                   </div>
+
                   <div v-if="witch.mannerOfDeath !== ''">
                     Manner of Death: {{ witch.mannerOfDeath }}<br>
                   </div>
                   <div v-if="witch.wikiPage !== ''">
-                    <a :href="witch.wikiPage" target="_blank">View Wiki Page</a><br>
+                    <a :href="witch.wikiPage" target="_blank">
+                      View Wiki Page
+                    </a><br>
                   </div>
                   <a :href="witch.link" target="_blank">More Info</a><br><br>
                 </div>

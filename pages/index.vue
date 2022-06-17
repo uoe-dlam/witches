@@ -33,55 +33,27 @@
                         </span>
                     </div>
                     <br>
-                    <div>
-                        <span v-for="(layer, index) in layers">
+                    <div class="flex flex-col">
+                        <div>
+                        <span v-for="(layer, index) in filterLayers">
                             <input type="radio" name="layer" 
-                            :checked="layer.id === currentLayer.id" 
-                            @change="filterLayers(layer)"/>
+                            :checked="index === currentLayer" 
+                            @change="setFilterLayers(index)"/>
                             &nbsp;{{layer.label}}&nbsp;
                         </span>
+                        </div>
+                        <div>
+                        <span class="flex items-center float-left" 
+                              v-for="(item, filterType) in filterLayers[currentLayer].filters">
+                            <input type="checkbox" v-model="item.active" 
+                                   @change="filterMarkers(filterType)"/>
+                            &nbsp;
+                            <img :src="item.iconUrl" width="12" height="20"/>
+                            &nbsp;{{item.label}}&nbsp;
+                        </span>
+                        </div>
                     </div>
                     <br>
-                    <div v-if="currentLayer.id === 'sexes'" >
-                        <span class="flex items-center float-left" 
-                              v-for="(sex, index) in sexes">
-                            <input type="checkbox" v-model="sex.active" 
-                                   @change="filterMarkers()"/>
-                            &nbsp;
-                            <img :src="sex.iconUrl" width="12" height="20"/>
-                            &nbsp;{{sex.type}}&nbsp;
-                        </span>
-                    </div>
-                    <div v-if="currentLayer.id === 'occupations'" >
-                        <span class="flex items-center float-left"
-                              v-for="(occupation, index) in occupations">
-                            <input type="checkbox" v-model="occupation.active" 
-                                   @change="filterMarkers()"/>
-                            &nbsp;
-                            <img :src="occupation.iconUrl" width="12" height="20"/>
-                            &nbsp;{{occupation.type}}&nbsp;
-                        </span>
-                    </div>
-                    <div v-if="currentLayer.id === 'socials'" >
-                        <span class="flex items-center float-left" 
-                              v-for="(social, index) in socials" >
-                            <input type="checkbox" v-model="social.active" 
-                                   @change="filterMarkers()"/>
-                            &nbsp;
-                            <img :src="social.iconUrl" width="12" height="20"/>
-                            &nbsp;{{social.type}}&nbsp;
-                        </span>
-                    </div>
-                    <div v-if="currentLayer.id === 'wikis'" >
-                        <span class="flex items-center float-left"
-                              v-for="(wiki, index) in wikis">
-                            <input type="checkbox" v-model="wiki.active" 
-                                   @change="filterMarkers()"/>
-                            &nbsp;
-                            <img :src="wiki.iconUrl" width="12" height="20"/>
-                            &nbsp;{{wiki.type}}&nbsp;
-                        </span>
-                    </div>
                 </div>
             </div>
             <div class="border border-gray p-1 bg-gray-200" v-if="!loading">
@@ -119,8 +91,6 @@
 </template>
 
 <script>
-import func from 'vue-editor-bridge';
-
 import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 import LeafletMap from '../components/leafletMap.vue';
 
@@ -130,7 +100,7 @@ export default {
     data: () => ({
         loading: true,
         filters: false,
-        noFiltersOn: 0;
+        noFiltersOn: 0,
         noItems: 0,
         sparqlUrl: 'https://query.wikidata.org/sparql',
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -142,17 +112,47 @@ export default {
         currentTileName : 'Modern Map',
         tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                 {name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
-        layers: [{id: 'sexes', label: 'Gender', property : 'sex'}, 
-                 {id: 'socials', label: 'Social Classification', property : 'socialClassification'}, 
-                 {id: 'occupations', label: 'Occupations', property : 'occupation'},  {id: 'wikis', label: 'Wikipedia Page', property : 'hasWikiPage'}],
-        currentLayer : {id: 'sexes', label: 'Gender', property : 'sex'},
-        sexes: [{type: 'male', active: true, iconUrl: '/images/witch-single-blue.png'},
-                {type: 'female', active: true, iconUrl: '/images/witch-single-orange.png'}, 
-                {type: 'unknown', active: true, iconUrl: '/images/witch-single-BW.png'}],
-        wikis: [{type: 'has wiki', active: true, iconUrl: '/images/witch-single-blue.png'},
-                {type: 'no wiki', active: true, iconUrl: '/images/witch-single-orange.png'}],
-        socials: [],
-        occupations: [],
+        currentLayer: 0, // Index in filter layers corresponding to current layer.
+        filterLayers: [
+            {
+                label: 'Gender', property : 'sex',
+                filters: {
+                    male: {
+                        label: 'Male', active: true, 
+                        iconUrl: '/images/witch-single-blue.png'
+                    },
+                    female: {
+                        label: 'Female', active: true, 
+                        iconUrl: '/images/witch-single-orange.png'
+                    },
+                    unknown: {
+                        label: 'Unknown', active: true, 
+                        iconUrl: '/images/witch-single-BW.png'
+                    }
+                }
+            },
+            {
+                label: 'Social Classification', property : 'socialClassification',
+                filters: {}
+            },
+            {
+                label: 'Occupations', property : 'occupation',
+                filters: {}
+            },
+            {
+                label: 'Wikipedia Page', property : 'hasWikiPage',
+                filters: {
+                    hasWiki: {
+                        label: "Has wiki", active: true, 
+                        iconUrl: '/images/witch-single-blue.png'
+                    },
+                    noWiki: {
+                        label: "No wiki", active: true, 
+                        iconUrl: '/images/witch-single-orange.png'
+                    }
+                }
+            }
+        ],
         icons: ['/images/witch-single-blue.png',
                 '/images/witch-single-orange.png',
                 '/images/witch-single-pink.png',
@@ -295,14 +295,17 @@ export default {
                       investigationDate = this.convertWikiDateToFriendlyDate(investigationDate);
                     }
 
-                    // add to list of occupations
-                    if(!this.occupations.find(obj => obj.type === occupation)){
-                        this.occupations.push({type: occupation, active: true, iconUrl: this.icons[this.occupations.length]});
+
+                    // add to social class filter if doesn't exist already.
+                    let socialsFound = Object.keys(this.filterLayers[1].filters);
+                    if(!socialsFound.find(socialFound => socialFound === socialClassification)){
+                        this.filterLayers[1].filters[socialClassification] = {label:socialClassification, active: true, iconUrl: this.icons[socialsFound.length]};
                     }
 
-                    // add to list of social classes
-                    if(!this.socials.find(obj => obj.type === socialClassification)){
-                        this.socials.push({type: socialClassification, active: true, iconUrl: this.icons[this.socials.length]});
+                    // add to occupations filters if doesn't exist already.
+                    let occupationsFound = Object.keys(this.filterLayers[2].filters);
+                    if(!occupationsFound.find(occupationFound => occupationFound === occupation)){
+                        this.filterLayers[2].filters[occupation] = {label:occupation, active: true, iconUrl: this.icons[occupationsFound.length]};
                     }
 
                     // find if witch has already exists
@@ -372,6 +375,7 @@ export default {
 
                 this.noItems = witches.length;
                 this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+                console.log(this.originalMarkers);
                 this.saveDataToLocalStorage();
                 this.loading = false;
             });
@@ -398,37 +402,27 @@ export default {
                 this.markers.push(marker);
             }
         },
-        getMarkerType : function( marker, layerCollection, property) {
+        // Filtering functions:
+        getMarkerType : function(marker) {
             let markerType = '';
-            let noDifferntTypes = 0;
-            for(let i = 0; i < layerCollection.length; i++){
-                let witches = marker.witches.filter( witch => {
-                    return witch[property] === layerCollection[i].type;
-                });
-
-                if(witches.length > 0){
-                    markerType = layerCollection[i].type;
-                    noDifferntTypes++;
+            marker.witches.forEach((witch, index) => {
+                if (index === 0) {
+                    markerType = witch[this.currentFilterProperty];
                 }
-
-                if(noDifferntTypes > 1){
+                else if (witch[this.currentFilterProperty] != markerType) {
                     return 'mixed';
                 }
-            }
+            })
             return markerType;
         },
         setIcon : function( marker ) {
-            let layerCollection = this[this.currentLayer.id];
-            let type = this.getMarkerType( marker, layerCollection, this.currentLayer.property );
-            let iconUrl = '';
-
-            if( type === 'mixed' ) {
-                iconUrl = '/images/witch-single-purple.png';
-            } else {
-                let item = layerCollection.find( item => item.type === type );
-                iconUrl = item.iconUrl;
+            let markerType = this.getMarkerType(marker);
+            if( markerType === 'mixed' ) {
+                marker.markerIcon = '/images/witch-single-purple.png';
+            } 
+            else {
+                marker.markerIcon = this.filterLayers[this.currentLayer].filters[markerType].iconUrl;
             }
-            marker.markerIcon = iconUrl;
         },
         updateMarkerState: function(marker) {
             // Updates the state of a marker after it being 
@@ -436,17 +430,18 @@ export default {
             // if it needs to be on or off.
             if (marker.witches.length > 0) {
                     this.setIcon(marker);
-                }
+            }
             else {marker.onOff = false;}
         },
         filterMarkersOff : function(filterType){
             // Filters off. It goes through the current markers 
             // and removes the withces which meet filterType.
             let newMarkers = JSON.parse(JSON.stringify(this.markers));
-            let property = this.currentLayer.property;
             newMarkers.forEach(marker => {
-                marker.witches = marker.witches.filter(witch => witch[property] !==  filterType);
-                this.updateMarkerState();
+                marker.witches = marker.witches.filter((witch) => {
+                    witch[this.currentFilterProperty] !==  filterType;
+                });
+                this.updateMarkerState(marker);
             });
             this.markers = newMarkers;
             this.noFiltersOn += 1;
@@ -461,17 +456,27 @@ export default {
             }
             else {            
                 let newMarkers = JSON.parse(JSON.stringify(this.markers));
-                let property = this.currentLayer.property;
                 newMarkers.forEach((marker, index) => {
                     let originalWitches = this.originalMarkers[index].witches;
-                    let recoveredWitches = originalWitches.filter(witch => witch[property] ===  filterType)
+                    let recoveredWitches = originalWitches.filter((witch) => {
+                        witch[this.currentFilterProperty] ===  filterType;
+                    })
                     marker.witches = marker.witches.concat(recoveredWitches);
-                    this.updateMarkerState();
-                    this.markers = newMarkers;
+                    this.updateMarkerState(marker);
                  })
+                this.markers = newMarkers;
             }
             this.noFiltersOn -= 1;
-        };
+        },
+        filterMarkers: function(filterType){
+            let isActive = this.filterLayers[this.currentLayer].filters[filterType].active;
+            if (isActive) {
+                this.filterMarkersOn(filterType);
+            }
+            else {
+                this.filterMarkersOff(filterType);
+            }
+        },
         hasWikiEntry : function( marker ){
             let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
             return witchesWithEntry.length > 0;
@@ -490,15 +495,17 @@ export default {
             return wikiPage;
         },
         setMarkerIcons: function(){
+            window.alert("HHEEEEYYY");
             this.originalMarkers.forEach(this.setIcon);
+            window.alert(this.originalMarkers);
             this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
         },
         filterTiles : function( tile ){
             this.currentTileName = tile.name;
             this.url = tile.url;
         },
-        filterLayers : function( layer ){
-            this.currentLayer = layer;
+        setFilterLayers : function( layerIndex ){
+            this.currentLayer = layerIndex;
             this.setMarkerIcons();
             window.alert("Filtered layers")
         },
@@ -561,16 +568,21 @@ export default {
         },
         shadowUrl : function() {
             return '/images/North-Berwick-witch-shadow.png';
+        },
+        currentFilterProperty: function() {
+            return this.filterLayers[this.currentLayer].property;
         }
     },
     mounted: function() {
-        if(this.hasLocalStorageExpired()){
-          localStorage.clear();
-          this.loadWikiEntries();
-        } else {
-           this.loadDataFromLocalStorage();
-           this.loading = false;
-        }
+        //if(this.hasLocalStorageExpired()){
+          //localStorage.clear();
+          //this.loadWikiEntries();
+        //} else {
+           //this.loadDataFromLocalStorage();
+           //this.loading = false;
+        //}
+        this.loadWikiEntries();
+        window.alert(this.originalMarkers);
         this.setMarkerIcons();
     }
 };
