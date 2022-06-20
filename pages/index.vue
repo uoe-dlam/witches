@@ -35,22 +35,22 @@
                     <br>
                     <div class="flex flex-col">
                         <div>
-                        <span v-for="(layer, index) in filterLayers">
-                            <input type="radio" name="layer" 
-                            :checked="index === currentLayer" 
-                            @change="setFilterLayers(index)"/>
-                            &nbsp;{{layer.label}}&nbsp;
-                        </span>
+                            <span v-for="(layer, index) in filterLayers">
+                                <input type="radio" name="layer" 
+                                :checked="index === currentLayer" 
+                                @change="toggleFilterLayers(index)"/>
+                                &nbsp;{{layer.label}}&nbsp;
+                            </span>
                         </div>
-                        <div>
-                        <span class="flex items-center float-left" 
-                              v-for="(item, filterType) in filterLayers[currentLayer].filters">
-                            <input type="checkbox" v-model="item.active" 
-                                   @change="filterMarkers(filterType)"/>
-                            &nbsp;
-                            <img :src="item.iconUrl" width="12" height="20"/>
-                            &nbsp;{{item.label}}&nbsp;
-                        </span>
+                        <div class="pt-2">
+                            <span class="flex items-center float-left" 
+                                v-for="(item, filterType) in filterLayers[currentLayer].filters">
+                                <input type="checkbox" v-model="item.active" 
+                                       @change="filterMarkers(filterType)"/>
+                                &nbsp;
+                                <img :src="item.iconUrl" width="12" height="20"/>
+                                &nbsp;{{item.label}}&nbsp;
+                            </span>
                         </div>
                     </div>
                     <br>
@@ -349,7 +349,7 @@ export default {
                             occupation: occupation,
                             socialClassification: socialClassification,
                             wikiPage: wikiPage,
-                            hasWikiPage: wikiPage === '' ? 'no wiki' : 'has wiki',
+                            hasWikiPage: wikiPage === '' ? 'noWiki' : 'hasWiki',
                             residences: [],
                             placeOfDeath: placeOfDeath,
                             placeOfDeathCoords: placeOfDeathCoords,
@@ -375,7 +375,6 @@ export default {
 
                 this.noItems = witches.length;
                 this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-                console.log(this.originalMarkers);
                 this.saveDataToLocalStorage();
                 this.loading = false;
             });
@@ -391,12 +390,14 @@ export default {
             // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
             if(marker){
                 marker.witches.push(witch);
+                this.setIcon(marker);
             } else {
+                let markerType = witch[this.currentFilterProperty];
                 let marker = {
                     location: location,
                     longLat: locationCoords,
                     witches: [witch],
-                    markerIcon: null,
+                    markerIcon: this.filterLayers[this.currentLayer].filters[markerType].iconUrl,
                     onOff: true // Determines whether the marker is showing.
                 }
                 this.markers.push(marker);
@@ -404,15 +405,22 @@ export default {
         },
         // Filtering functions:
         getMarkerType : function(marker) {
+            // Returns the marker type. If it detects that 
+            // one witch has a different type to the others,
+            // returns mixed straight away. Otherwise returns 
+            // markerType, which will be common to all witches.
             let markerType = '';
-            marker.witches.forEach((witch, index) => {
-                if (index === 0) {
-                    markerType = witch[this.currentFilterProperty];
+            let witches = marker.witches;
+            for (let i = 0, len = witches.length; i < len; i++) {
+                let witch = witches[i];
+                let witchType = witch[this.currentFilterProperty];
+                if (i === 0) {
+                    markerType = witchType;
                 }
-                else if (witch[this.currentFilterProperty] != markerType) {
+                else if (witchType !== markerType) {
                     return 'mixed';
                 }
-            })
+            }
             return markerType;
         },
         setIcon : function( marker ) {
@@ -436,14 +444,14 @@ export default {
         filterMarkersOff : function(filterType){
             // Filters off. It goes through the current markers 
             // and removes the withces which meet filterType.
-            let newMarkers = JSON.parse(JSON.stringify(this.markers));
-            newMarkers.forEach(marker => {
+            //let newMarkers = JSON.parse(JSON.stringify(this.markers));
+            this.markers.forEach(marker => {
                 marker.witches = marker.witches.filter((witch) => {
                     witch[this.currentFilterProperty] !==  filterType;
                 });
                 this.updateMarkerState(marker);
             });
-            this.markers = newMarkers;
+            //this.markers = newMarkers;
             this.noFiltersOn += 1;
         },
         filterMarkersOn: function(filterType){
@@ -455,8 +463,8 @@ export default {
                 this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
             }
             else {            
-                let newMarkers = JSON.parse(JSON.stringify(this.markers));
-                newMarkers.forEach((marker, index) => {
+                //let newMarkers = JSON.parse(JSON.stringify(this.markers));
+                this.markers.forEach((marker, index) => {
                     let originalWitches = this.originalMarkers[index].witches;
                     let recoveredWitches = originalWitches.filter((witch) => {
                         witch[this.currentFilterProperty] ===  filterType;
@@ -464,7 +472,7 @@ export default {
                     marker.witches = marker.witches.concat(recoveredWitches);
                     this.updateMarkerState(marker);
                  })
-                this.markers = newMarkers;
+                //this.markers = newMarkers;
             }
             this.noFiltersOn -= 1;
         },
@@ -476,6 +484,62 @@ export default {
             else {
                 this.filterMarkersOff(filterType);
             }
+        },
+        setAllMarkerIcons: function(){
+            // Goes through all markers changing the icons,
+            // called in toggleFilterLayers when user changes 
+            // layers.
+            this.originalMarkers.forEach(this.updateMarkerState);
+            this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
+        },
+        toggleFilterLayers : function( layerIndex ){
+            this.currentLayer = layerIndex;
+            this.setAllMarkerIcons();
+        },
+        filterTiles : function( tile ){
+            this.currentTileName = tile.name;
+            this.url = tile.url;
+        },
+        toggleFilters : function() {
+            this.filters = ! this.filters;
+        },
+        // ----------
+        flyTo : function( coords ){
+            this.$refs.myMap.mapObject.flyTo(coords ,14);
+        },
+        // Local storage functions:
+        hasLocalStorageExpired : function(){
+            let hours = 24; // Reset when storage is more than 24hours
+            let now = new Date().getTime();
+            let setupTime = localStorage.getItem('setupTime');
+            return setupTime === null || (now - setupTime > hours*60*60*1000);
+        },
+        loadDataFromLocalStorage : function(){
+            this.filterLayers[2].filters = JSON.parse(localStorage.getItem('occupations'));
+            this.filterLayers[1].filters = JSON.parse(localStorage.getItem('socials'));
+            this.markers = JSON.parse(localStorage.getItem('markers'));
+            this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+            this.noItems = localStorage.getItem('noItems');
+        },
+        saveDataToLocalStorage : function(){
+            let now = new Date().getTime();
+            localStorage.setItem('setupTime', now);
+            localStorage.setItem('markers', JSON.stringify(this.markers));
+            localStorage.setItem('noItems', this.noItems);
+            localStorage.setItem('occupations', JSON.stringify(this.filterLayers[2].filters));
+            localStorage.setItem('socials', JSON.stringify(this.filterLayers[1].filters));
+        },
+        // --------------------
+        showPageInfo(){
+            this.$swal({
+                title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
+                html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
+
+                footer: 'witches.is.ed.ac.uk',
+                confirmButtonText: 'Close',
+                type: 'info',
+                showCloseButton: true,
+            });
         },
         hasWikiEntry : function( marker ){
             let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
@@ -493,59 +557,6 @@ export default {
             }
 
             return wikiPage;
-        },
-        setMarkerIcons: function(){
-            window.alert("HHEEEEYYY");
-            this.originalMarkers.forEach(this.setIcon);
-            window.alert(this.originalMarkers);
-            this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
-        },
-        filterTiles : function( tile ){
-            this.currentTileName = tile.name;
-            this.url = tile.url;
-        },
-        setFilterLayers : function( layerIndex ){
-            this.currentLayer = layerIndex;
-            this.setMarkerIcons();
-            window.alert("Filtered layers")
-        },
-        flyTo : function( coords ){
-            this.$refs.myMap.mapObject.flyTo(coords ,14);
-        },
-        hasLocalStorageExpired : function(){
-            let hours = 24; // Reset when storage is more than 24hours
-            let now = new Date().getTime();
-            let setupTime = localStorage.getItem('setupTime');
-            return setupTime === null || (now - setupTime > hours*60*60*1000);
-        },
-        loadDataFromLocalStorage : function(){
-            this.occupations = JSON.parse(localStorage.getItem('occupations'));
-            this.socials = JSON.parse(localStorage.getItem('socials'));
-            this.markers = JSON.parse(localStorage.getItem('markers'));
-            this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-            this.noItems = localStorage.getItem('noItems');
-        },
-        saveDataToLocalStorage : function(){
-            let now = new Date().getTime();
-            localStorage.setItem('setupTime', now);
-            localStorage.setItem('markers', JSON.stringify(this.markers));
-            localStorage.setItem('noItems', this.noItems);
-            localStorage.setItem('occupations', JSON.stringify(this.occupations));
-            localStorage.setItem('socials', JSON.stringify(this.socials));
-        },
-        toggleFilters : function() {
-            this.filters = ! this.filters;
-        },
-        showPageInfo(){
-            this.$swal({
-                title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
-                html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
-
-                footer: 'witches.is.ed.ac.uk',
-                confirmButtonText: 'Close',
-                type: 'info',
-                showCloseButton: true,
-            });
         },
         convertWikiDateToFriendlyDate(wikiDate){
           let dateYear = wikiDate.substr(0, 4);
@@ -574,17 +585,14 @@ export default {
         }
     },
     mounted: function() {
-        //if(this.hasLocalStorageExpired()){
-          //localStorage.clear();
-          //this.loadWikiEntries();
-        //} else {
-           //this.loadDataFromLocalStorage();
-           //this.loading = false;
-        //}
-        this.loadWikiEntries();
-        window.alert(this.originalMarkers);
-        this.setMarkerIcons();
-    }
+        if(this.hasLocalStorageExpired()){
+          localStorage.clear();
+          this.loadWikiEntries();
+        } else {
+           this.loadDataFromLocalStorage();
+           this.loading = false;
+        }
+    }   
 };
 </script>
 

@@ -5,7 +5,7 @@
     <button @click="printToConsole()">Testing</button>
     <div class="mx-auto max-w-md bg-white 
                 rounded shadow-md mt-10" 
-                v-if="loading">
+                v-if="isLoading">
       <div class="pt-8 pb-12 pl-8 pr-8">
         <div class="float-left align-text-bottom">Loading map&nbsp</div>
         <div class="lds-facebook float-left"></div>
@@ -134,7 +134,10 @@ export default {
       return witchesWithEntry.length > 0;
     },
     printToConsole: function(){
-      console.log(this.mapMarkers);
+      let badMarker = this.mapMarkers.find( marker => {
+         return marker.location === "Lamlash";
+      });
+      console.log(badMarker);
     }
   },
   computed: {
