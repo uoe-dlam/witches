@@ -54,6 +54,7 @@ export default {
         wikiPages: [],
         markers: [],
         originalMarkers: [],
+        startingLayer: 0, // The first layer to be showing.
         currentTileName : 'Modern Map',
         filterLayers: [
             {
@@ -330,16 +331,21 @@ export default {
             });
 
             // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
+            let startingProperty = this.filterLayers[this.startingLayer].property;
             if(marker){
                 marker.witches.push(witch);
-                this.setIcon(marker);
+                for (let i = 0, len = marker.witches.length; i < len; i++) {
+                    if (marker.witches[i][startingProperty] !== witch[startingProperty]){
+                        marker.markerIcon = '/images/witch-single-purple.png'
+                    }
+                }
             } else {
-                let markerType = witch[this.currentFilterProperty];
+                let markerType = witch[startingProperty];
                 let marker = {
                     location: location,
                     longLat: locationCoords,
                     witches: [witch],
-                    markerIcon: this.filterLayers[this.currentLayer].filters[markerType].iconUrl,
+                    markerIcon: this.filterLayers[this.startingLayer].filters[markerType].iconUrl,
                     onOff: true // Determines whether the marker is showing.
                 }
                 this.markers.push(marker);
