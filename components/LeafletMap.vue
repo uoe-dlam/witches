@@ -2,14 +2,11 @@
   <div id="map-wrapper" class="h-full">
 
     <!-- Loading icon. -->
-    <button @click="printToConsole()">Testing</button>
-    <div class="mx-auto max-w-md bg-white 
-                rounded shadow-md mt-10" 
-                v-if="isLoading">
+    <div class="mx-auto max-w-md bg-white rounded shadow-md mt-10" v-if="loading">
       <div class="pt-8 pb-12 pl-8 pr-8">
         <div class="float-left align-text-bottom">Loading map&nbsp</div>
-        <div class="lds-facebook float-left"></div>
-      </div>
+          <div class="lds-facebook float-left"><div></div><div></div><div></div></div>
+       </div>
     </div>
 
     <!-- Leaflet map. -->
@@ -21,13 +18,14 @@
         <v-marker-cluster ref="clusterRef" :options="clusterOptions">
 
           <!-- Map markers, with or without cluster: -->
-          <l-marker v-for="(marker, index) in mapMarkers"
-                    v-if="marker.onOff" :lat-lng="marker.longLat">
+          <l-marker v-for="(marker, index) in activeMarkers" :key="index"
+                    :lat-lng="marker.longLat">
             <!-- Marker popup -->
             <l-popup class="adapted-popup">
               <h2>{{marker.location}}</h2><br>
               <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
-                <div v-for="(witch, index) in marker.witches">
+                <div v-for="(witch, index) in marker.witches" :key="index">
+
                   <strong>{{ witch.name }}</strong><br>
                   Investigation Date: {{ witch.investigationDate }}<br>
                   Gender: {{ witch.sex }}<br>
@@ -133,14 +131,19 @@ export default {
       let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
       return witchesWithEntry.length > 0;
     },
+    flyTo : function( coords ){
+      this.$refs.myMap.mapObject.flyTo(coords ,14);
+    },
     printToConsole: function(){
-      let badMarker = this.mapMarkers.find( marker => {
-         return marker.location === "Lamlash";
-      });
-      console.log(badMarker);
+      console.log(this.mapMarkers);
     }
   },
   computed: {
+    activeMarkers: function() {
+      return this.mapMarkers.filter(function(marker) {
+        return marker.onOff === true;
+      });
+    },
     iconAnchor : function() {
       return [11, 41];
     },

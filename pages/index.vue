@@ -21,68 +21,14 @@
                         </svg>
                     </span>
                 </div>
+            </div>
+            <map-filters :startingMarkers="originalMarkers"
+                         :filterLayers="filterLayers"
+                         :isLoading="loading"
+                         @updatedMarkers="markers = $event"
+                         @updatedTile="url = $event">
 
-                <!-- Map filters -->
-                <div id="map-filters" :class="filters ? 'block': 'hidden'" class="pt-2">
-                    <div>
-                        <span v-for="(tile, index) in tiles">
-                            <input type="radio" name="tile" 
-                                   :checked="tile.name === currentTileName" 
-                                   @change="filterTiles(tile)"/>
-                            &nbsp;{{tile.name}}&nbsp;
-                        </span>
-                    </div>
-                    <br>
-                    <div class="flex flex-col">
-                        <div>
-                            <span v-for="(layer, index) in filterLayers">
-                                <input type="radio" name="layer" 
-                                :checked="index === currentLayer" 
-                                @change="toggleFilterLayers(index)"/>
-                                &nbsp;{{layer.label}}&nbsp;
-                            </span>
-                        </div>
-                        <div class="pt-2">
-                            <span class="flex items-center float-left" 
-                                v-for="(item, filterType) in filterLayers[currentLayer].filters">
-                                <input type="checkbox" v-model="item.active" 
-                                       @change="filterMarkers(filterType)"/>
-                                &nbsp;
-                                <img :src="item.iconUrl" width="12" height="20"/>
-                                &nbsp;{{item.label}}&nbsp;
-                            </span>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-            </div>
-            <div class="border border-gray p-1 bg-gray-200" v-if="!loading">
-                <span class="flex items-center float-left">
-                    &nbsp;Filters
-                </span>
-                <span class="rounded-full border-r border-l border-gray-400 
-                             w-6 h-6 flex items-center justify-center 
-                             ml-2 float-left">
-                    <!-- icon by feathericons.com -->
-                    <svg v-if="!filters" aria-hidden="true" class="" 
-                         data-reactid="266" fill="none" height="24" 
-                         stroke="#606F7B" stroke-linecap="round" 
-                         stroke-linejoin="round" stroke-width="2" 
-                         viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" 
-                         @click="toggleFilters()">
-                        <polyline points="6 9 12 15 18 9">
-                        </polyline>
-                    </svg>
-                    <svg v-if="filters" aria-hidden="true" class="" 
-                         data-reactid="266" fill="none" height="24" stroke="#606F7B" 
-                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                         viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" 
-                         @click="toggleFilters()">
-                       <polyline points="18 15 12 9 6 15">
-                        </polyline>
-                    </svg>
-                </span>
-            </div>
+            </map-filters>
             <leaflet-map :isLoading="loading" :mapUrl="url"  
                          :mapMarkers="markers">
             </leaflet-map>
@@ -93,14 +39,13 @@
 <script>
 import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
 import LeafletMap from '../components/leafletMap.vue';
+import MapFilters from '../components/MapFilters.vue';
 
 
 export default {
-  components: { LeafletMap },
+  components: { LeafletMap, MapFilters },
     data: () => ({
         loading: true,
-        filters: false,
-        noFiltersOn: 0,
         noItems: 0,
         sparqlUrl: 'https://query.wikidata.org/sparql',
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -110,9 +55,6 @@ export default {
         markers: [],
         originalMarkers: [],
         currentTileName : 'Modern Map',
-        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
-                {name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
-        currentLayer: 0, // Index in filter layers corresponding to current layer.
         filterLayers: [
             {
                 label: 'Gender', property : 'sex',
@@ -403,110 +345,6 @@ export default {
                 this.markers.push(marker);
             }
         },
-        // Filtering functions:
-        getMarkerType : function(marker) {
-            // Returns the marker type. If it detects that 
-            // one witch has a different type to the others,
-            // returns mixed straight away. Otherwise returns 
-            // markerType, which will be common to all witches.
-            let markerType = '';
-            let witches = marker.witches;
-            for (let i = 0, len = witches.length; i < len; i++) {
-                let witch = witches[i];
-                let witchType = witch[this.currentFilterProperty];
-                if (i === 0) {
-                    markerType = witchType;
-                }
-                else if (witchType !== markerType) {
-                    return 'mixed';
-                }
-            }
-            return markerType;
-        },
-        setIcon : function( marker ) {
-            let markerType = this.getMarkerType(marker);
-            if( markerType === 'mixed' ) {
-                marker.markerIcon = '/images/witch-single-purple.png';
-            } 
-            else {
-                marker.markerIcon = this.filterLayers[this.currentLayer].filters[markerType].iconUrl;
-            }
-        },
-        updateMarkerState: function(marker) {
-            // Updates the state of a marker after it being 
-            // filtered. Specifically, its marker Icon and 
-            // if it needs to be on or off.
-            if (marker.witches.length > 0) {
-                    this.setIcon(marker);
-            }
-            else {marker.onOff = false;}
-        },
-        filterMarkersOff : function(filterType){
-            // Filters off. It goes through the current markers 
-            // and removes the withces which meet filterType.
-            //let newMarkers = JSON.parse(JSON.stringify(this.markers));
-            this.markers.forEach(marker => {
-                marker.witches = marker.witches.filter((witch) => {
-                    witch[this.currentFilterProperty] !==  filterType;
-                });
-                this.updateMarkerState(marker);
-            });
-            //this.markers = newMarkers;
-            this.noFiltersOn += 1;
-        },
-        filterMarkersOn: function(filterType){
-            // Filters on. If only one filter was off then it reverts
-            // to the original markers. Otherwise, it goes through the 
-            // markers and adds the witches from the corresponding original
-            // marker that meet filterType.
-            if (this.noFiltersOn === 1) {
-                this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
-            }
-            else {            
-                //let newMarkers = JSON.parse(JSON.stringify(this.markers));
-                this.markers.forEach((marker, index) => {
-                    let originalWitches = this.originalMarkers[index].witches;
-                    let recoveredWitches = originalWitches.filter((witch) => {
-                        witch[this.currentFilterProperty] ===  filterType;
-                    })
-                    marker.witches = marker.witches.concat(recoveredWitches);
-                    this.updateMarkerState(marker);
-                 })
-                //this.markers = newMarkers;
-            }
-            this.noFiltersOn -= 1;
-        },
-        filterMarkers: function(filterType){
-            let isActive = this.filterLayers[this.currentLayer].filters[filterType].active;
-            if (isActive) {
-                this.filterMarkersOn(filterType);
-            }
-            else {
-                this.filterMarkersOff(filterType);
-            }
-        },
-        setAllMarkerIcons: function(){
-            // Goes through all markers changing the icons,
-            // called in toggleFilterLayers when user changes 
-            // layers.
-            this.originalMarkers.forEach(this.updateMarkerState);
-            this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
-        },
-        toggleFilterLayers : function( layerIndex ){
-            this.currentLayer = layerIndex;
-            this.setAllMarkerIcons();
-        },
-        filterTiles : function( tile ){
-            this.currentTileName = tile.name;
-            this.url = tile.url;
-        },
-        toggleFilters : function() {
-            this.filters = ! this.filters;
-        },
-        // ----------
-        flyTo : function( coords ){
-            this.$refs.myMap.mapObject.flyTo(coords ,14);
-        },
         // Local storage functions:
         hasLocalStorageExpired : function(){
             let hours = 24; // Reset when storage is more than 24hours
@@ -529,7 +367,7 @@ export default {
             localStorage.setItem('occupations', JSON.stringify(this.filterLayers[2].filters));
             localStorage.setItem('socials', JSON.stringify(this.filterLayers[1].filters));
         },
-        // --------------------
+        // Wiki functions:
         showPageInfo(){
             this.$swal({
                 title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
@@ -569,19 +407,11 @@ export default {
         },
     },
     computed : {
-        activeMarkers : function() {
-            return this.markers.filter(function(marker) {
-                return marker.witches.length > 0;
-            });
-        },
         iconAnchor : function() {
             return [11, 41];
         },
         shadowUrl : function() {
             return '/images/North-Berwick-witch-shadow.png';
-        },
-        currentFilterProperty: function() {
-            return this.filterLayers[this.currentLayer].property;
         }
     },
     mounted: function() {
