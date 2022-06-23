@@ -75,7 +75,7 @@ export default {
         markers: [],
         originalMarkers: [],
         currentTileName : 'Modern Map',
-        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
+        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},{name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
         sliderYear: [1550, 1750],
         sliderYears: [1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750],
         noItems: '',
