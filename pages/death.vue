@@ -196,6 +196,7 @@ export default {
               ?item wdt:P20 ?placeOfDeath .
               ?placeOfDeath wdt:P625 ?placeOfDeathCoords
               optional { ?item wdt:P1196 ?mannerOfDeath}
+              BIND(IF(BOUND(?investigationPoint), ?investigationPoint, ?investigationStart) as ?investigationDate)
               optional {
                 ?item wdt:P2632 ?detentionLocation .
                 ?detentionLocation wdt:P625 ?detentionLocationCoords
@@ -223,6 +224,8 @@ export default {
                     let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
                     let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
                     let wikiPage = this.getItemWikiPage(item);
+                    let investigationDate = item.hasOwnProperty('investigationDate') ? item.investigationDate.value : 'N/A';
+                    let year = 1650;
 
                     if(investigationDate!=='N/A') {
                       year = this.getYearFromWikiDate(investigationDate);
@@ -290,7 +293,6 @@ export default {
                             mannerOfDeath: mannerOfDeath,
                             detentions: [],
                             investigationDate: investigationDate,
-                            year: year,
                         }
 
                         if(residence !== ''){
@@ -309,8 +311,9 @@ export default {
 
                 this.noItems = witches.length;
                 this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-                this.saveDataToLocalStorage();
                 this.loading = false;
+
+                    
             });
 
 
@@ -322,30 +325,25 @@ export default {
             });
 
             // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
+            let startingProperty = this.filterLayers[this.startingLayer].property;
             if(marker){
                 marker.witches.push(witch);
+                for (let i = 0, len = marker.witches.length; i < len; i++) {
+                    if (marker.witches[i][startingProperty] !== witch[startingProperty]){
+                        marker.markerIcon = '/images/witch-single-purple.png'
+                    }
+                }
             } else {
+                let markerType = witch[startingProperty];
                 let marker = {
                     location: location,
                     longLat: locationCoords,
                     witches: [witch],
+                    markerIcon: this.filterLayers[this.startingLayer].filters[markerType].iconUrl,
+                    onOff: true // Determines whether the marker is showing.
                 }
-
                 this.markers.push(marker);
             }
-        },
-        filterMarkers : function(){
-            let markers = JSON.parse(JSON.stringify( this.originalMarkers));
-            let layerCollection = this[this.currentLayer.id];
-            for (let i = 0; i < layerCollection.length; i++) {
-                if (layerCollection[i].active === false) {
-                    markers.forEach(marker => {
-                        marker.witches = marker.witches.filter(witch => layerCollection[i].type !== witch[this.currentLayer.property]);
-                    });
-                }
-            }
-
-            this.markers = markers;
         },
         hasWikiEntry : function( marker ){
             let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
@@ -364,53 +362,11 @@ export default {
 
             return wikiPage;
         },
-        getIcon : function( marker ) {
-            let layerCollection = this[this.currentLayer.id];
-            let type = this.getMarkerType( marker, layerCollection, this.currentLayer.property );
-            let iconUrl = '';
-
-            if( type === 'mixed' ) {
-                iconUrl = '/images/witch-single-purple.png';
-            } else {
-                let item = layerCollection.find( item => item.type === type );
-                iconUrl = item.iconUrl;
-            }
-            
-            return iconUrl;
-        },
-        getMarkerType : function( marker, layerCollection, property) {
-            let type = '';
-            let noDifferntTypes = 0;
-            for(let i = 0; i < layerCollection.length; i++){
-                let witches = marker.witches.filter( witch => {
-                    return witch[property] === layerCollection[i].type;
-                });
-
-                if(witches.length > 0){
-                    type = layerCollection[i].type;
-                    noDifferntTypes++;
-                }
-
-                if(noDifferntTypes > 1){
-                    return 'mixed';
-                }
-            }
-
-            return type;
-        },
-        filterTiles : function( tile ){
-            this.currentTileName = tile.name;
-            this.url = tile.url;
-        },
-        filterLayers : function( layer ){
-            this.currentLayer = layer;
-            this.filterMarkers();
-        },
-        flyTo : function( coords ){
-            this.$refs.myMap.mapObject.flyTo(coords ,14);
-        },
-        toggleFilters : function() {
-            this.filters = ! this.filters;
+        convertWikiDateToFriendlyDate(wikiDate){
+          let dateYear = wikiDate.substr(0, 4);
+          let dateMonth = wikiDate.substr(5, 2);
+          let dateDay = wikiDate.substr(8, 2);
+          return dateDay + '/' + dateMonth + '/' + dateYear;
         },
         showPageInfo(){
             this.$swal({
@@ -424,21 +380,13 @@ export default {
         }
     },
     computed : {
-        activeMarkers : function() {
-            return this.markers.filter(function(marker) {
-                return marker.witches.length > 0;
-            });
-        },
-        iconAnchor : function() {
-            return [11, 41];
-        },
         shadowUrl : function() {
             return '/images/North-Berwick-witch-shadow.png';
         }
     },
     mounted: function() {
         this.loadWikiEntries();
-        //this.loadAccussed();
+        this.loading = false;
     }
 };
 </script>
