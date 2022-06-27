@@ -91,7 +91,7 @@ export default {
             originalMarkers: [],
             currentTileName : 'Modern Map',
             tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
-                    {name: 'Historic Map', url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg', active : false}],
+                    {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
             currentLayer: 0, // Index in filterLayers corresponding to current layer.
         }
     },

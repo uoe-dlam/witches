@@ -18,7 +18,7 @@
         <v-marker-cluster ref="clusterRef" :options="clusterOptions">
 
           <!-- Map markers, with or without cluster: -->
-          <l-marker v-for="(marker, index) in activeMarkers" :key="index"
+          <l-marker v-for="(marker, index) in mapMarkers" :key="index"
                     :lat-lng="marker.longLat">
             <!-- Marker popup -->
             <l-popup class="adapted-popup">
@@ -111,7 +111,7 @@ export default {
   },
   data () {
     return {
-      attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
+      attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw">NLS Maps API</a>',
       zoom: 7,
       center: [55.95, -3.198888888],
       clusterOptions: {
@@ -139,11 +139,6 @@ export default {
     }
   },
   computed: {
-    activeMarkers: function() {
-      return this.mapMarkers.filter(function(marker) {
-        return marker.onOff === true;
-      });
-    },
     iconAnchor : function() {
       return [11, 41];
     },

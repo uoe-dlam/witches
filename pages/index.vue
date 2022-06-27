@@ -30,7 +30,7 @@
 
             </map-filters>
             <leaflet-map :isLoading="loading" :mapUrl="url"  
-                         :mapMarkers="markers">
+                         :mapMarkers="activeMarkers">
             </leaflet-map>
         </div>
     </div>
@@ -413,8 +413,10 @@ export default {
         },
     },
     computed : {
-        iconAnchor : function() {
-            return [11, 41];
+        activeMarkers: function() {
+            return this.markers.filter(function(marker) {
+                return marker.onOff === true;
+            });
         },
         shadowUrl : function() {
             return '/images/North-Berwick-witch-shadow.png';
