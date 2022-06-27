@@ -204,8 +204,8 @@ export default {
               OPTIONAL {?significantEventStatement pq:P580 ?investigationStart }
               }
               BIND(IF(BOUND(?investigationPoint), ?investigationPoint, ?investigationStart) as ?investigationDate)
-              optional {  ?item wdt:P2632 ?detentionLocation .
-                ?detentionLocation wdt:P625 ?detentionLocationCoords .}
+              ?item wdt:P2632 ?detentionLocation .
+              ?detentionLocation wdt:P625 ?detentionLocationCoords .
 
               SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             }`;
