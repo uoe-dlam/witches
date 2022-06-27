@@ -1,6 +1,5 @@
 <template>
-  <div id="map-wrapper" class="h-full">
-
+  <div id="map-wrapper" class="w-full h-full">
     <!-- Loading icon. -->
     <div class="mx-auto max-w-md bg-white rounded shadow-md mt-10" v-if="isLoading">
       <div class="pt-8 pb-12 pl-8 pr-8">
@@ -11,7 +10,22 @@
 
     <!-- Leaflet map. -->
     <no-ssr v-else>
-      <l-map style="height: 100%; width: 100%" :zoom="zoom" 
+      <div id="map" class="w-full h-full relative">
+
+      <div class="absolute flex justify-center w-100
+                  md:w-200 items-center top-0 right-0 z-10 
+                  bg-gray-400/80 px-2 py-0.5">
+        <h3 class="mr-2 font-medium" 
+            style="font-family:EB Garamond;">
+          Group by clusters:
+        </h3>
+        <label class="switch relative pr-2">
+          <input v-model="clustersOnOff" type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+
+      <l-map class="w-full h-full z-0 absolute" :zoom="zoom" 
             :center="center" ref="myMap">
         <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
         <!-- Cluster maker; options specified in script data. -->
@@ -89,6 +103,7 @@
           </l-marker>
         </v-marker-cluster>
       </l-map>
+      </div>
     </no-ssr>
   </div>
 </template>
@@ -107,6 +122,10 @@ export default {
     mapMarkers: {
       type: Array,
       required: true
+    },
+    clustersInitial: {
+      type: Boolean,
+      required: true
     }
   },
   data () {
@@ -123,7 +142,8 @@ export default {
           },
         disableClusteringAtZoom : 12,
         spiderfyOnMaxZoom: false
-      }
+      },
+      clustersOnOff: this.clustersInitial
     }
   },
   methods: {
@@ -155,17 +175,80 @@ export default {
   width: 72px;
   height: 55px;
 }
+
 .zoomed-in-img {
   float: left;
   width: 25px;
   height: 38px;
 }
+
 .icon-shadow {
   position: absolute;
   top: 15px !important;
   left: 0;
   z-index: -1;
-  width: 32px;
-  height: 22px !important;
+  width: 25.6px;
+  height: 17.6px !important;
+}
+
+.switch {
+   display: inline-block;
+   width: 38.4px;
+   height: 21.76px;
+}
+
+ /* Hide default HTML checkbox */
+.switch input {
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+
+ /* The slider */
+.slider {
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #ccc;
+   -webkit-transition: .4s;
+   transition: .4s;
+   width: 38.4px;
+}
+
+.slider:before {
+   position: absolute;
+   content: "";
+   height: 16.64px;
+   width: 16.64px;
+   left: 2.56px;
+   bottom: 2.56px;
+   background-color: white;
+   -webkit-transition: .4s;
+   transition: .4s;
+}
+
+input:checked + .slider {
+   background-color: #eeb518e1;
+}
+
+input:focus + .slider {
+   box-shadow: 0 0 1px #eeb518e1;
+}
+
+input:checked + .slider:before {
+   -webkit-transform: translateX(16.64px);
+   -ms-transform: translateX(16.64px);
+   transform: translateX(16.64px);
+}
+
+.slider.round {
+   border-radius: 21.76px;
+}
+
+.slider.round:before {
+   border-radius: 50%;
 }
 </style>
