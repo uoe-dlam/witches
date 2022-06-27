@@ -217,7 +217,7 @@ export default {
 
                 for (let i = 0; i < result.results.bindings.length; i++) {
 
-                    let item = result.results.bindings[i];
+                     let item = result.results.bindings[i];
                     let id = item.item.value;
                     let sex = item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown';
                     let occupation = item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown';
@@ -256,72 +256,67 @@ export default {
                         return witch.id ===  id;
                     });
 
-                    // if witch exists we have a duplicate. this witch must have either multiple residence or multiple detentions
-                    // push
-                    if(witch){
+                        // if witch exists we have a duplicate. this witch must have either multiple residence or multiple detentions
+                        // push
+                        if(witch){
 
-                        if(detentionLocation !== ''){
-                            if(!witch.detentions.find( obj => obj.location === detentionLocation)) {
-                                witch.detentions.push({location: detentionLocation, coords: detentionLocationCoords});
-                                continue;
+                            if(detentionLocation !== ''){
+                                if(!witch.detentions.find( obj => obj.location === detentionLocation)) {
+                                    witch.detentions.push({location: detentionLocation, coords: detentionLocationCoords});
+                                    this.addWitchToMarkers(witch, detentionLocation, detentionLocationCoords);
+                                    continue;
+                                }
                             }
-                        }
 
-                        if(residence !== ''){
-                            if(!witch.residences.find( obj => obj.location === residence)) {
-                                witch.residences.push({location: residence, coords: residenceCoords});
-                                this.addWitchToMarkers(witch, residence, residenceCoords);
-                                continue;
+                            if(residence !== ''){
+                                if(!witch.residences.find( obj => obj.location === residence)) {
+                                    witch.residences.push({location: residence, coords: residenceCoords});
+                                    continue;
+                                }
                             }
+
+                            if(investigationDate !== 'N/A' && witch.investigationDate === 'N/A') {
+                                witch.investigationDate = investigationDate;
+                                witch.year = year;
+                            }
+
+                        } else {
+
+                            witch = {
+                                id: id,
+                                location: residence,
+                                name: item.itemLabel.value,
+                                link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
+                                longLat: residenceCoords,
+                                sex: sex,
+                                occupation: occupation,
+                                socialClassification: socialClassification,
+                                wikiPage: wikiPage,
+                                hasWikiPage: wikiPage === '' ? 'no wiki' : 'has wiki',
+                                residences: [],
+                                placeOfDeath: placeOfDeath,
+                                placeOfDeathCoords: placeOfDeathCoords,
+                                mannerOfDeath: mannerOfDeath,
+                                detentions: []
+                            }
+
+                            if(residence !== ''){
+                                witch.residences.push({location: residence, coords : residenceCoords});
+                            }
+
+                            if(detentionLocation !== ''){
+                                witch.detentions.push({location: detentionLocation, coords : detentionLocationCoords});
+                            }
+
+                            witches.push(witch);
+                            this.addWitchToMarkers(witch, detentionLocation, detentionLocationCoords);
                         }
 
-                        if(investigationDate !== 'N/A' && witch.investigationDate === 'N/A') {
-                            witch.investigationDate = investigationDate;
-                            witch.year = year;
-                        }
-
-                    } else {
-
-                        witch = {
-                            id: id,
-                            location: residence,
-                            name: item.itemLabel.value,
-                            link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
-                            longLat: residenceCoords,
-                            sex: sex,
-                            occupation: occupation,
-                            socialClassification: socialClassification,
-                            wikiPage: wikiPage,
-                            hasWikiPage: wikiPage === '' ? 'noWiki' : 'hasWiki',
-                            residences: [],
-                            placeOfDeath: placeOfDeath,
-                            placeOfDeathCoords: placeOfDeathCoords,
-                            mannerOfDeath: mannerOfDeath,
-                            detentions: [],
-                            investigationDate: investigationDate,
-                            year: year,
-                        }
-
-                        if(residence !== ''){
-                            witch.residences.push({location: residence, coords : residenceCoords});
-                        }
-
-                        if(detentionLocation !== ''){
-                            witch.detentions.push({location: detentionLocation, coords : detentionLocationCoords});
-                        }
-
-                        witches.push(witch);
-                        this.addWitchToMarkers(witch, detentionLocation, detentionLocationCoords);
                     }
 
-                }
-
-                this.noItems = witches.length;
-                this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-                this.loading = false;
+                    this.noItems = witches.length;
+                    this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
             });
-
-
         },
         addWitchToMarkers: function( witch, location, locationCoords ){
             // find marker for current location so you can add witch

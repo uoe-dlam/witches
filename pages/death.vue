@@ -264,7 +264,7 @@ export default {
                         if(residence !== ''){
                             if(!witch.residences.find( obj => obj.location === residence)) {
                                 witch.residences.push({location: residence, coords: residenceCoords});
-                                this.addWitchToMarkers(witch, residence, residenceCoords);
+                                this.addWitchToMarkers(witch, placeOfDeath, placeOfDeathCoords);
                                 continue;
                             }
                         }
