@@ -30,7 +30,7 @@
 
             </map-filters>
             <leaflet-map :isLoading="loading" :mapUrl="url"  
-                         :mapMarkers="activeMarkers">
+                         :mapMarkers="activeMarkers" :clustersInitial="true">
             </leaflet-map>
         </div>
     </div>

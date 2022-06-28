@@ -20,21 +20,18 @@
           Group by clusters:
         </h3>
         <label class="switch relative pr-2">
-          <input v-model="clustersOnOff" type="checkbox">
+          <input v-model="clustersOnOff"  type="checkbox">
           <span class="slider round"></span>
         </label>
+        <button @click="displayZoom()">Zoom</button>
       </div>
 
       <l-map class="w-full h-full z-0 absolute" :zoom="zoom" 
             :center="center" ref="myMap">
         <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
-        <!-- Cluster maker; options specified in script data. -->
-        <v-marker-cluster ref="clusterRef" :options="clusterOptions">
-
-          <!-- Map markers, with or without cluster: -->
+        <v-marker-cluster v-if="clustersOnOff" ref="clusterRef" :options="clusterOptions">
           <l-marker v-for="(marker, index) in mapMarkers" :key="index"
                     :lat-lng="marker.longLat">
-            <!-- Marker popup -->
             <l-popup class="adapted-popup">
               <h2>{{marker.location}}</h2><br>
               <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
@@ -87,8 +84,6 @@
                 </div>
               </div>
             </l-popup>
-
-            <!-- Witch marker icon. Icon size defined in the css. -->
             <l-icon :icon-anchor="iconAnchor" :key="marker">
               <div class="icon-wrapper">
                 <div v-if="hasWikiEntry(marker)" class="icon-wiki">W</div>
@@ -156,6 +151,10 @@ export default {
     },
     printToConsole: function(){
       console.log(this.mapMarkers);
+    },
+    displayZoom: function () {
+      console.log(this.$refs.myMap.mapObject.getZoom());
+      console.log(this.$refs.myMap.mapObject.getCenter())
     }
   },
   computed: {
