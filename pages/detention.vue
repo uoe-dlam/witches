@@ -150,7 +150,7 @@
      ]
    }),
    methods: {
-     convertPointToLongLatArray: function(pointString) {
+     convertPointToLongLatArray: function (pointString) {
        pointString = pointString.substr(6);
        pointString = pointString.slice(0,-1);
        let pointArray = pointString.split(' ');
@@ -158,7 +158,7 @@
        return longLatArray;
 
      },
-     loadWikiEntries : function() {
+     loadWikiEntries: function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
             WHERE {
               ?item wdt:P4478 ?witch .
@@ -183,7 +183,7 @@
          this.loadAccussed();
        });
      },
-     loadAccussed : function() {
+     loadAccussed: function () {
 
        const sparqlQuery = `SELECT distinct ?item ?itemLabel ?investigationDate
             ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel
@@ -321,7 +321,7 @@
          this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
        });
      },
-     addWitchToMarkers: function( witch, location, locationCoords ){
+     addWitchToMarkers: function (witch, location, locationCoords){
        // find marker for current location so you can add witch
        let marker = this.markers.find( marker => {
          return marker.location === location;
@@ -348,7 +348,7 @@
          this.markers.push(marker);
        }
      },
-     showPageInfo(){
+     showPageInfo: function () {
        this.$swal({
          title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
          html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
@@ -359,11 +359,11 @@
          showCloseButton: true,
        });
      },
-     hasWikiEntry : function( marker ){
+     hasWikiEntry: function(marker) {
        let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
        return witchesWithEntry.length > 0;
      },
-     getItemWikiPage : function( item ){
+     getItemWikiPage: function (item ) { 
        let wikiPage = '';
 
        for(let i = 0; i < this.wikiPages.length; i++){
@@ -376,27 +376,27 @@
 
        return wikiPage;
      },
-     convertWikiDateToFriendlyDate(wikiDate){
+     convertWikiDateToFriendlyDate: function (wikiDate) {
        let dateYear = wikiDate.substr(0, 4);
        let dateMonth = wikiDate.substr(5, 2);
        let dateDay = wikiDate.substr(8, 2);
        return dateDay + '/' + dateMonth + '/' + dateYear;
      },
-     getYearFromWikiDate(wikiDate){
+     getYearFromWikiDate: function (wikiDate) {
        return wikiDate.substr(0, 4);
      },
    },
    computed : {
-     activeMarkers: function() {
+     activeMarkers: function () {
        return this.markers.filter(function(marker) {
          return marker.onOff === true;
        });
      },
-     shadowUrl : function() {
+     shadowUrl : function () {
        return '/images/North-Berwick-witch-shadow.png';
      }
    },
-   mounted: function() {
+   mounted: function () {
      this.loadWikiEntries();
      //this.loadAccussed();
      this.loading = false;

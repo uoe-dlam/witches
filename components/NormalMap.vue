@@ -100,14 +100,19 @@
      }
    },
    methods: {
-     hasWikiEntry : function( marker ){
+     hasWikiEntry: function(marker) {
        let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
        return witchesWithEntry.length > 0;
      },
-     flyTo : function( coords ){
+     flyTo: function (coords) {
        this.$refs.myMap.mapObject.flyTo(coords ,14);
      },
      emitMapData: function () {
+       // Emmits an object containing the information about
+       // where the center of the map is, the zoom, and what
+       // map type to change to when the map is turned off,
+       // in this case changing to clustersOn.
+
        let centerInfo = this.$refs.myMap.mapObject.getCenter();
        let centerArray = [centerInfo.lat, centerInfo.lng];
        let changeInfo = {
@@ -119,15 +124,12 @@
      }
    },
    computed: {
-     iconAnchor : function() {
+     iconAnchor: function () {
        return [11, 41];
      },
-     shadowUrl : function() {
+     shadowUrl: function () {
        return '/images/North-Berwick-witch-shadow.png';
      }
-   },
-   mounted: function () {
-     console.log(this.center);
    },
    beforeDestroy: function () {
      this.emitMapData();

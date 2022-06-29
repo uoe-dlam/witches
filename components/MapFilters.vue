@@ -104,15 +104,12 @@
      }
    },
    methods: {
-     printToConsole: function() {
-       console.log(this.startingMarkers);
-       console.log(this.originalMarkers);
-     },
-     getMarkerType : function(marker) {
+     getMarkerType : function (marker) {
        // Returns the marker type. If it detects that
        // one witch has a different type to the others,
        // returns mixed straight away. Otherwise returns
        // markerType, which will be common to all witches.
+
        let markerType = '';
        let witches = marker.witches;
        for (let i = 0, len = witches.length; i < len; i++) {
@@ -120,40 +117,42 @@
          let witchType = witch[this.currentFilterProperty];
          if (i === 0) {
            markerType = witchType;
-         }
-         else if (witchType !== markerType) {
+         } else if (witchType !== markerType) {
            return 'mixed';
          }
        }
        return markerType;
      },
-     getMarkerIcon: function(marker) {
+     getMarkerIcon: function (marker) {
        // Sets the incon of a marker depending on its
        // marker type, which it gets from calling
        // getMarkerType.
+
        let markerType = this.getMarkerType(marker);
        if( markerType === 'mixed' ) {
          return '/images/witch-single-purple.png';
-       }
-       else {
+       } else {
          return this.filterLayers[this.currentLayer].filters[markerType].iconUrl;
        }
      },
-     updateMarkerState: function(marker) {
+     updateMarkerState: function (marker) {
        // Updates the state of a marker after it being
        // filtered. Specifically, its marker Icon and
        // if it needs to be on or off depending on whether
        // all the witches have been filtered out.
+
        if (marker.witches.length > 0) {
          marker.markerIcon = this.getMarkerIcon(marker);
          marker.onOff = true;
+       } else {
+         marker.onOff = false;
        }
-       else {marker.onOff = false;}
        return marker;
      },
-     removeWitchesFromArray: function(witches, filterType) {
+     removeWitchesFromArray: function (witches, filterType) {
        // Given an array of witches, it filters out the
        // witches that meet the property filterType.
+
        let fwitches = [];
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
@@ -163,9 +162,10 @@
        }
        return fwitches;
      },
-     getWitchesFromArray: function(witches, filterType) {
+     getWitchesFromArray: function (witches, filterType) {
        // Given an array of witches, it returns the an array
        // with the ones that meet the property filterType.
+
        let fwitches = [];
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
@@ -175,34 +175,37 @@
        }
        return fwitches;
      },
-     recoverWitches: function(witches, filterType, index) {
+     recoverWitches: function (witches, filterType, index) {
        // Recovers the witches that meet filterType
-       // from the original marker at index <index>
+       // from the original marker at index <index>.
+
        let originalWitches = this.originalMarkers[index].witches;
        let recoveredWitches = this.getWitchesFromArray(originalWitches, filterType);
        return witches.concat(recoveredWitches);
      },
-     filterOff : function(filterType){
+     filterOff: function (filterType){
        // Filters <filterType> off. It goes through the current markers
        // and removes the witches which meet filterType using
        // filterWitchesArray. It then updates the marker state.
+
        this.markers.forEach(marker => {
          marker.witches = this.removeWitchesFromArray(marker.witches, filterType);
          this.updateMarkerState(marker);
        });
        this.noFiltersOff += 1; // Keeping track of the number of inactive filters.
      },
-     filterOn: function(filterType){
+     filterOn: function (filterType) {
        // Filters <filterType> on. It goes through the
        // markers and adds the witches from the corresponding original
        // marker that meet filterType. It recovers the witches using
        // recoverWitches. It then updates the marker state.
+
        this.markers.forEach((marker, index) => {
          marker.witches = this.recoverWitches(marker.witches, filterType, index);
          this.updateMarkerState(marker);
        })
      },
-     filterMarkers: function(filterType){
+     filterMarkers: function (filterType) {
        let isActive = this.filterLayers[this.currentLayer].filters[filterType].active;
        if (isActive) {
          this.filterOn(filterType);
@@ -212,23 +215,24 @@
        }
        this.$emit("updatedMarkers", this.markers);
      },
-     setAllMarkerIcons: function(){
+     setAllMarkerIcons: function () {
        // Goes through all markers changing the icons,
        // called in toggleFilterLayers when user changes
        // layers, so that the marker "legend" updates.
+
        this.originalMarkers.forEach(this.updateMarkerState);
        this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
      },
-     toggleFilterLayers : function( layerIndex ){
+     toggleFilterLayers: function (layerIndex) {
        this.currentLayer = layerIndex;
        this.setAllMarkerIcons()
        this.$emit("updatedMarkers", this.markers);
      },
-     filterTiles : function( tile ){
+     filterTiles: function (tile) {
        this.currentTileName = tile.name;
        this.$emit("updatedTile", tile.url);
      },
-     toggleFilters : function() {
+     toggleFilters: function () {
        this.filters = ! this.filters;
      }
    },

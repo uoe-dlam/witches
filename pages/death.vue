@@ -150,7 +150,7 @@
      ]
    }),
    methods: {
-     convertPointToLongLatArray: function(pointString) {
+     convertPointToLongLatArray: function (pointString) {
        pointString = pointString.substr(6);
        pointString = pointString.slice(0,-1);
        let pointArray = pointString.split(' ');
@@ -158,7 +158,7 @@
        return longLatArray;
 
      },
-     loadWikiEntries : function() {
+     loadWikiEntries: function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
             WHERE {
               ?item wdt:P4478 ?witch .
@@ -183,7 +183,7 @@
          this.loadAccussed();
        });
      },
-     loadAccussed : function() {
+     loadAccussed: function () {
        const sparqlQuery = `SELECT ?item ?itemLabel ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
             WHERE
             {
@@ -321,7 +321,7 @@
 
 
      },
-     addWitchToMarkers: function( witch, location, locationCoords ){
+     addWitchToMarkers: function(witch, location, locationCoords) {
        // find marker for current location so you can add witch
        let marker = this.markers.find( marker => {
          return marker.location === location;
@@ -348,11 +348,11 @@
          this.markers.push(marker);
        }
      },
-     hasWikiEntry : function( marker ){
+     hasWikiEntry: function (marker) {
        let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
        return witchesWithEntry.length > 0;
      },
-     getItemWikiPage : function( item ){
+     getItemWikiPage: function (item) {
        let wikiPage = '';
 
        for(let i = 0; i < this.wikiPages.length; i++){
@@ -365,13 +365,13 @@
 
        return wikiPage;
      },
-     convertWikiDateToFriendlyDate(wikiDate){
+     convertWikiDateToFriendlyDate: function (wikiDate) {
        let dateYear = wikiDate.substr(0, 4);
        let dateMonth = wikiDate.substr(5, 2);
        let dateDay = wikiDate.substr(8, 2);
        return dateDay + '/' + dateMonth + '/' + dateYear;
      },
-     showPageInfo(){
+     showPageInfo: function () {
        this.$swal({
          title: 'Places of Death Map',
          html: '<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <b class="font-bold">execution under the charge of witchcraft</b>. Although there were <b class="font-bold">3212</b> accused witches named, there are recorded places of death for only <b class="font-bold">111</b> of them. Many of these locations are recorded as precise sites of execution. There are another <b class="font-bold">119</b> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>',
@@ -383,12 +383,12 @@
      }
    },
    computed : {
-     activeMarkers: function() {
+     activeMarkers: function () {
        return this.markers.filter(function(marker) {
          return marker.onOff === true;
        });
      },
-     shadowUrl : function() {
+     shadowUrl: function () {
        return '/images/North-Berwick-witch-shadow.png';
      }
    },

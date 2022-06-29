@@ -73,14 +73,22 @@
    },
    methods: {
      changeMaps: function (changeInfo) {
+       // Called when either of the two map components emits
+       // "changeMaps". It sets the map state inherited from the
+       // map being turned off, and turns the new map on, which will
+       // in turn inherit the map state so that the new map appears in the 
+       // same place, same zoom as the old one.  
+
        this.center = changeInfo.center;
        this.zoom = changeInfo.zoom;
        this.clusterState[changeInfo.changeTo] = true;
      },
      toggleActive: function () {
+       // Turns whichever map is on to false to trigger a map
+       // change.
+
        if (this.clusterState.clustersOn) {
          this.clusterState.clustersOn = false;
-         console.log(this.clusterState.clustersOn);
        } else {
          this.clusterState.clustersOff = false;
        }
