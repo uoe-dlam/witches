@@ -1,10 +1,12 @@
 <template>
-  <l-map class="w-full h-full z-0 absolute" :zoom="zoom" 
-        :center="center" ref="myMap">
+  <l-map class="w-full h-full z-0 absolute" :zoom="zoom"
+         :center="center" ref="myMap">
     <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
+
     <l-marker v-for="(marker, index) in mapMarkers" :key="index"
               :lat-lng="marker.longLat">
       <l-popup class="adapted-popup">
+
         <h2>{{marker.location}}</h2><br>
         <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
           <div v-for="(witch, index) in marker.witches" :key="index">
@@ -18,8 +20,8 @@
             <div v-if="witch.residences.length > 0">
               Residences:
               <template v-for="(residence, index) in witch.residences">
-                <a @click="flyTo(residence.coords)" 
-                    :style="{ cursor: 'pointer'}">{{ residence.location }}
+                <a @click="flyTo(residence.coords)"
+                          :style="{ cursor: 'pointer'}">{{ residence.location }}
                 </a>
                 <template v-if="index < witch.residences.length - 1">, </template>
               </template>
@@ -29,18 +31,18 @@
             <div v-if="witch.detentions.length > 0">
               Places of Detention:
               <template v-for="(detention, index) in witch.detentions">
-                <a @click="flyTo(detention.coords)" 
-                    :style="{ cursor: 'pointer'}">{{ detention.location }}
+                <a @click="flyTo(detention.coords)"
+                          :style="{ cursor: 'pointer'}">{{ detention.location }}
                 </a>
                 <template v-if="index < witch.detentions.length - 1">, </template>
               </template>
-                <br>
+              <br>
             </div>
 
             <div v-if="witch.placeOfDeath !== ''">
-              Place of Death: 
-              <a @click="flyTo(witch.placeOfDeathCoords)" 
-                  :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}
+              Place of Death:
+              <a @click="flyTo(witch.placeOfDeathCoords)"
+                 :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}
               </a><br>
             </div>
 
@@ -56,6 +58,7 @@
           </div>
         </div>
       </l-popup>
+
       <l-icon :icon-anchor="iconAnchor" :key="marker">
         <div class="icon-wrapper">
           <div v-if="hasWikiEntry(marker)" class="icon-wiki">W</div>
@@ -69,69 +72,88 @@
 
     </l-marker>
   </l-map>
-  
 </template>
 
 <script>
-export default {
-  props: {
-    mapMarkers: {
-      type: Array,
-      required: true
-    }
-    center: {
-      type: Array,
-      required: true
-    },
-    zoom: {
-      type: Number,
-      requried: true
-    }
-  },
-  methods: {
-    hasWikiEntry : function( marker ){
-      let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
-      return witchesWithEntry.length > 0;
-    },
-    flyTo : function( coords ){
-      this.$refs.myMap.mapObject.flyTo(coords ,14);
-    }
-  },
-  computed: {
-    iconAnchor : function() {
-      return [11, 41];
-    },
-    shadowUrl : function() {
-      return '/images/North-Berwick-witch-shadow.png';
-    }
-  },
-  unmounted: function () {
-    this.$emit("centerInfo", this.$refs.myMap.mapObject.getCenter());
-    this.$emit("zoomInfo", this.$refs.myMap.mapObject.getZoom());
-  }
-
-}
+ export default {
+   props: {
+     mapMarkers: {
+       type: Array,
+       required: true
+     },
+     mapUrl: {
+       type: String,
+       required: true
+     },
+     center: {
+       type: Array,
+       required: true
+     },
+     zoom: {
+       type: Number,
+       requried: true
+     }
+   },
+   data () {
+     return {
+       attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw">NLS Maps API</a>'
+     }
+   },
+   methods: {
+     hasWikiEntry : function( marker ){
+       let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
+       return witchesWithEntry.length > 0;
+     },
+     flyTo : function( coords ){
+       this.$refs.myMap.mapObject.flyTo(coords ,14);
+     },
+     emitMapData: function () {
+       let centerInfo = this.$refs.myMap.mapObject.getCenter();
+       let centerArray = [centerInfo.lat, centerInfo.lng];
+       let changeInfo = {
+         center: centerArray,
+         zoom: this.$refs.myMap.mapObject.getZoom(),
+         changeTo: "clustersOn"
+       };
+       this.$emit("changeMaps", changeInfo);
+     }
+   },
+   computed: {
+     iconAnchor : function() {
+       return [11, 41];
+     },
+     shadowUrl : function() {
+       return '/images/North-Berwick-witch-shadow.png';
+     }
+   },
+   mounted: function () {
+     console.log(this.center);
+   },
+   beforeDestroy: function () {
+     this.emitMapData();
+   }
+ }
 </script>
 
 <style>
-.cluster-img {
-  float: left;
-  width: 72px;
-  height: 55px;
-}
+ .cluster-img {
+   float: left;
+   width: 72px;
+   height: 55px;
+ }
 
-.zoomed-in-img {
-  float: left;
-  width: 25px;
-  height: 38px;
-}
+ .zoomed-in-img {
+   float: left;
+   width: 25px;
+   height: 38px;
+ }
 
-.icon-shadow {
-  position: absolute;
-  top: 15px !important;
-  left: 0;
-  z-index: -1;
-  width: 25.6px;
-  height: 17.6px !important;
-}
+ .icon-shadow {
+   position: absolute;
+   top: 15px !important;
+   left: 0;
+   z-index: -1;
+   width: 25.6px;
+   height: 17.6px !important;
+ }
 </style>
