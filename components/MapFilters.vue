@@ -104,7 +104,7 @@
      }
    },
    methods: {
-     getMarkerType : function (marker) {
+     getMarkerType: function (marker) {
        // Returns the marker type. If it detects that
        // one witch has a different type to the others,
        // returns mixed straight away. Otherwise returns

@@ -58,46 +58,46 @@
      originalMarkers: [],
      startingLayer: 0, // The first layer to be showing.
      currentTileName : 'Modern Map',
-     filterLayers: [
-       {
-         label: 'Gender', property : 'sex',
-         filters: {
-           male: {
-             label: 'Male', active: true,
-             iconUrl: '/images/witch-single-blue.png'
-           },
-           female: {
-             label: 'Female', active: true,
-             iconUrl: '/images/witch-single-orange.png'
-           },
-           unknown: {
-             label: 'Unknown', active: true,
-             iconUrl: '/images/witch-single-BW.png'
-           }
-         }
+     filterProperties: {
+       gender: {
+         label: 'Gender', 
+         filters: ['male', 'female', 'unknown']
        },
-       {
-         label: 'Social Classification', property : 'socialClassification',
-         filters: {}
+       socialClass: {
+         label: 'Social Classification',
+         filters: []
        },
-       {
-         label: 'Occupations', property : 'occupation',
-         filters: {}
+       occupation: {
+         label: 'Occupations',
+         filters: []
        },
-       {
-         label: 'Wikipedia Page', property : 'hasWikiPage',
-         filters: {
-           hasWiki: {
-             label: "Has wiki", active: true,
-             iconUrl: '/images/witch-single-blue.png'
-           },
-           noWiki: {
-             label: "No wiki", active: true,
-             iconUrl: '/images/witch-single-orange.png'
-           }
-         }
+       hasWikiPage: {
+         label: 'Has Wiki',
+         filters: ['hasWiki', 'noWiki'] 
        }
-     ],
+     },
+     allFilters: {
+        male: {
+          label: 'Male', active: true,
+          iconUrl: '/images/witch-single-blue.png'
+        },
+        female: {
+          label: 'Female', active: true,
+          iconUrl: '/images/witch-single-orange.png'
+        },
+        unknown: {
+          label: 'Unknown', active: true,
+          iconUrl: '/images/witch-single-BW.png'
+        },
+        hasWiki: {
+          label: "Has wiki", active: true,
+          iconUrl: '/images/witch-single-blue.png'
+        },
+        noWiki: {
+          label: "No wiki", active: true,
+          iconUrl: '/images/witch-single-orange.png'
+        }
+     },
      icons: ['/images/witch-single-blue.png',
              '/images/witch-single-orange.png',
              '/images/witch-single-pink.png',
@@ -327,7 +327,7 @@
 
 
      },
-     addWitchToMarkers: function( witch, location, locationCoords ){
+     addWitchToMarkers: function (witch, location, locationCoords) {
        // find marker for current location so you can add witch
        let marker = this.markers.find( marker => {
          return marker.location === location;
