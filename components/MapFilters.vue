@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- Filters -->
-    <div class="border border-gray p-1 bg-gray-200 h-10
-                align-middle"
+    <div class="border border-gray p-1 bg-gray-200 h-8
+                flex items-center"
          v-if="!isLoading">
       <span class="flex items-center float-left">
         &nbsp;Filters
@@ -51,7 +51,7 @@
             &nbsp;{{layer.label}}&nbsp;
           </span>
         </div>
-        <div class="pt-2">
+        <div class="pt-4">
           <span class="flex items-center float-left"
                 v-for="(item, filterType) in filterLayers[currentLayer].filters">
             <input type="checkbox" v-model="item.active"
@@ -112,15 +112,18 @@
 
        let markerType = '';
        let witches = marker.witches;
+
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i];
          let witchType = witch[this.currentFilterProperty];
+
          if (i === 0) {
            markerType = witchType;
          } else if (witchType !== markerType) {
            return 'mixed';
          }
        }
+
        return markerType;
      },
      getMarkerIcon: function (marker) {
@@ -129,7 +132,8 @@
        // getMarkerType.
 
        let markerType = this.getMarkerType(marker);
-       if( markerType === 'mixed' ) {
+
+       if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
        } else {
          return this.filterLayers[this.currentLayer].filters[markerType].iconUrl;
@@ -147,6 +151,7 @@
        } else {
          marker.onOff = false;
        }
+
        return marker;
      },
      removeWitchesFromArray: function (witches, filterType) {
@@ -154,41 +159,47 @@
        // witches that meet the property filterType.
 
        let fwitches = [];
+
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
+
          if (witch[this.currentFilterProperty] !== filterType) {
            fwitches.push(witch);
          }
        }
+
        return fwitches;
      },
      getWitchesFromArray: function (witches, filterType) {
        // Given an array of witches, it returns the an array
        // with the ones that meet the property filterType.
+       let filteredWitches = [];
 
-       let fwitches = [];
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
+
          if (witch[this.currentFilterProperty] === filterType) {
-           fwitches.push(witch);
+           filteredWitches.push(witch);
          }
        }
-       return fwitches;
+
+       return filteredWitches;
      },
      recoverWitches: function (witches, filterType, index) {
        // Recovers the witches that meet filterType
        // from the original marker at index <index>.
-
        let originalWitches = this.originalMarkers[index].witches;
        let recoveredWitches = this.getWitchesFromArray(originalWitches, filterType);
+
        return witches.concat(recoveredWitches);
      },
-     filterOff: function (filterType){
+     filterOff: function (filterType) {
        // Filters <filterType> off. It goes through the current markers
        // and removes the witches which meet filterType using
-       // filterWitchesArray. It then updates the marker state.
+       // removeWitchesFromArray. It then updates the marker state.
 
        this.markers.forEach(marker => {
+
          marker.witches = this.removeWitchesFromArray(marker.witches, filterType);
          this.updateMarkerState(marker);
        });
@@ -201,12 +212,14 @@
        // recoverWitches. It then updates the marker state.
 
        this.markers.forEach((marker, index) => {
+
          marker.witches = this.recoverWitches(marker.witches, filterType, index);
          this.updateMarkerState(marker);
        })
      },
      filterMarkers: function (filterType) {
        let isActive = this.filterLayers[this.currentLayer].filters[filterType].active;
+
        if (isActive) {
          this.filterOn(filterType);
        }

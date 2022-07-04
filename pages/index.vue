@@ -244,12 +244,14 @@
 
            // add to social class filter if doesn't exist already.
            let socialsFound = Object.keys(this.filterLayers[1].filters);
+           
            if(!socialsFound.find(socialFound => socialFound === socialClassification)){
              this.filterLayers[1].filters[socialClassification] = {label:socialClassification, active: true, iconUrl: this.icons[socialsFound.length]};
            }
 
            // add to occupations filters if doesn't exist already.
            let occupationsFound = Object.keys(this.filterLayers[2].filters);
+           
            if(!occupationsFound.find(occupationFound => occupationFound === occupation)){
              this.filterLayers[2].filters[occupation] = {label:occupation, active: true, iconUrl: this.icons[occupationsFound.length]};
            }
@@ -335,8 +337,10 @@
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
        let startingProperty = this.filterLayers[this.startingLayer].property;
-       if(marker){
+
+       if (marker) {
          marker.witches.push(witch);
+
          for (let i = 0, len = marker.witches.length; i < len; i++) {
            if (marker.witches[i][startingProperty] !== witch[startingProperty]){
              marker.markerIcon = '/images/witch-single-purple.png'
@@ -359,6 +363,7 @@
        let hours = 24; // Reset when storage is more than 24hours
        let now = new Date().getTime();
        let setupTime = localStorage.getItem('setupTime');
+
        return setupTime === null || (now - setupTime > hours*60*60*1000);
      },
      loadDataFromLocalStorage: function () {
@@ -396,6 +401,7 @@
        let wikiPage = ''; 
 
        for(let i = 0; i < this.wikiPages.length; i++){
+
          if(this.wikiPages[i].id === item.item.value){
            wikiPage = this.wikiPages[i].pageTitle;
            wikiPage.split(' ').join('_');
@@ -409,6 +415,7 @@
        let dateYear = wikiDate.substr(0, 4);
        let dateMonth = wikiDate.substr(5, 2);
        let dateDay = wikiDate.substr(8, 2);
+
        return dateDay + '/' + dateMonth + '/' + dateYear;
      },
      getYearFromWikiDate: function (wikiDate) {
