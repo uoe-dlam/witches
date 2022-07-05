@@ -5,9 +5,9 @@
       <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
         <div class="flex content-start items-center">
           <h1 class="text-sm md:text-xl lg:text-2xl">
-            Places of Residence for Accused Witches
+            Places of Detention for Accused Witches
             <template v-if="noItems > 0">
-              (total named accused witches: 3141)
+              (total named accused witches: 502)
             </template>
           </h1>
           <span class="rounded-full border-r border-l border-gray-400
@@ -40,10 +40,10 @@
 </template>
 
 <script>
+
  import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
  import LeafletMap from '../components/leafletMap.vue';
  import MapFilters from '../components/MapFilters.vue';
-
 
  export default {
    components: { LeafletMap, MapFilters },
@@ -185,33 +185,27 @@
      },
      loadAccussed: function () {
 
-       const sparqlQuery = `SELECT distinct ?item ?itemLabel ?investigationDate
-            ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel
-            ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
-            WHERE
-            {
-              ?item wdt:P4478 ?witch .
+     const sparqlQuery = `SELECT ?item ?itemLabel ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
+          WHERE
+          {
+            ?item wdt:P4478 ?witch .
+            optional {
               ?item wdt:P551 ?residence .
               ?residence wdt:P625 ?residenceCoords .
-              optional { ?item wdt:P21 ?sex } .
-              ?item wdt:P4478 ?link .
-              optional { ?item wdt:P106 ?occupation .}
-              optional { ?item wdt:P3716 ?socialClassification .}
-              optional {
-                ?item wdt:P20 ?placeOfDeath .
-                ?placeOfDeath wdt:P625 ?placeOfDeathCoords .}
-              optional { ?item wdt:P1196 ?mannerOfDeath .}
-              optional { ?item p:P793 ?significantEventStatement .
-              ?significantEventStatement ps:P793 wd:Q66458810 .
-              OPTIONAL {?significantEventStatement pq:P585 ?investigationPoint }.
-              OPTIONAL {?significantEventStatement pq:P580 ?investigationStart }
-              }
-              BIND(IF(BOUND(?investigationPoint), ?investigationPoint, ?investigationStart) as ?investigationDate)
-              ?item wdt:P2632 ?detentionLocation .
-              ?detentionLocation wdt:P625 ?detentionLocationCoords .
-
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-            }`;
+            }
+            optional { ?item wdt:P21 ?sex } .
+            ?item wdt:P4478 ?link .
+            optional { ?item wdt:P106 ?occupation}
+            optional { ?item wdt:P3716 ?socialClassification}
+            optional {
+              ?item wdt:P20 ?placeOfDeath .
+              ?placeOfDeath wdt:P625 ?placeOfDeathCoords
+            }
+            optional { ?item wdt:P1196 ?mannerOfDeath}
+            ?item wdt:P2632 ?detentionLocation .
+            ?detentionLocation wdt:P625 ?detentionLocationCoords
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+          }`;
 
        const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
        queryDispatcher.query( sparqlQuery ).then( result => {
@@ -233,23 +227,17 @@
            let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
            let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
            let wikiPage = this.getItemWikiPage(item);
-           let investigationDate = item.hasOwnProperty('investigationDate') ? item.investigationDate.value : 'N/A';
-           let year = 1650;
-
-           if(investigationDate!=='N/A') {
-             year = this.getYearFromWikiDate(investigationDate);
-             investigationDate = this.convertWikiDateToFriendlyDate(investigationDate);
-           }
-
 
            // add to social class filter if doesn't exist already.
            let socialsFound = Object.keys(this.filterLayers[1].filters);
+           
            if(!socialsFound.find(socialFound => socialFound === socialClassification)){
              this.filterLayers[1].filters[socialClassification] = {label:socialClassification, active: true, iconUrl: this.icons[socialsFound.length]};
            }
 
            // add to occupations filters if doesn't exist already.
            let occupationsFound = Object.keys(this.filterLayers[2].filters);
+
            if(!occupationsFound.find(occupationFound => occupationFound === occupation)){
              this.filterLayers[2].filters[occupation] = {label:occupation, active: true, iconUrl: this.icons[occupationsFound.length]};
            }
@@ -276,11 +264,6 @@
                  witch.residences.push({location: residence, coords: residenceCoords});
                  continue;
                }
-             }
-
-             if(investigationDate !== 'N/A' && witch.investigationDate === 'N/A') {
-               witch.investigationDate = investigationDate;
-               witch.year = year;
              }
 
            } else {
@@ -329,8 +312,10 @@
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
        let startingProperty = this.filterLayers[this.startingLayer].property;
-       if(marker){
+
+       if (marker) {
          marker.witches.push(witch);
+
          for (let i = 0, len = marker.witches.length; i < len; i++) {
            if (marker.witches[i][startingProperty] !== witch[startingProperty]){
              marker.markerIcon = '/images/witch-single-purple.png'
@@ -359,10 +344,6 @@
          showCloseButton: true,
        });
      },
-     hasWikiEntry: function(marker) {
-       let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
-       return witchesWithEntry.length > 0;
-     },
      getItemWikiPage: function (item ) { 
        let wikiPage = '';
 
@@ -379,7 +360,8 @@
      convertWikiDateToFriendlyDate: function (wikiDate) {
        let dateYear = wikiDate.substr(0, 4);
        let dateMonth = wikiDate.substr(5, 2);
-       let dateDay = wikiDate.substr(8, 2);
+       let dateDay = wikiDate.substr(8, 2); 
+
        return dateDay + '/' + dateMonth + '/' + dateYear;
      },
      getYearFromWikiDate: function (wikiDate) {
@@ -410,11 +392,13 @@
    width: 72px;
    height: 55px;
  }
+
  .zoomed-in-img {
    float: left;
    width: 25px;
    height: 38px;
  }
+
  .icon-shadow{
    position: absolute;
    top: 15px !important;
