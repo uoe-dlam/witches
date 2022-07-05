@@ -363,10 +363,6 @@
          showCloseButton: true,
        });
      },
-     hasWikiEntry: function(marker) {
-       let witchesWithEntry = marker.witches.filter( witch => witch.wikiPage !== '');
-       return witchesWithEntry.length > 0;
-     },
      getItemWikiPage: function (item ) { 
        let wikiPage = '';
 

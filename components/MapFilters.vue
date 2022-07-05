@@ -158,17 +158,17 @@
        // Given an array of witches, it filters out the
        // witches that meet the property filterType.
 
-       let fwitches = [];
+       let filteredWitches = [];
 
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
 
          if (witch[this.currentFilterProperty] !== filterType) {
-           fwitches.push(witch);
+           filteredWitches.push(witch);
          }
        }
 
-       return fwitches;
+       return filteredWitches;
      },
      getWitchesFromArray: function (witches, filterType) {
        // Given an array of witches, it returns the an array
@@ -199,10 +199,10 @@
        // removeWitchesFromArray. It then updates the marker state.
 
        this.markers.forEach(marker => {
-
          marker.witches = this.removeWitchesFromArray(marker.witches, filterType);
          this.updateMarkerState(marker);
        });
+
        this.noFiltersOff += 1; // Keeping track of the number of inactive filters.
      },
      filterOn: function (filterType) {
@@ -212,7 +212,6 @@
        // recoverWitches. It then updates the marker state.
 
        this.markers.forEach((marker, index) => {
-
          marker.witches = this.recoverWitches(marker.witches, filterType, index);
          this.updateMarkerState(marker);
        })
