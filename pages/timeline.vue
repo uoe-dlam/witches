@@ -577,6 +577,7 @@
    width: 25px;
    height: 38px;
  }
+
  .icon-shadow{
    position: absolute;
    top: 15px !important;

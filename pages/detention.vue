@@ -40,10 +40,10 @@
 </template>
 
 <script>
+
  import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
  import LeafletMap from '../components/leafletMap.vue';
  import MapFilters from '../components/MapFilters.vue';
-
 
  export default {
    components: { LeafletMap, MapFilters },
@@ -392,11 +392,13 @@
    width: 72px;
    height: 55px;
  }
+
  .zoomed-in-img {
    float: left;
    width: 25px;
    height: 38px;
  }
+
  .icon-shadow{
    position: absolute;
    top: 15px !important;

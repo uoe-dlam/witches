@@ -316,7 +316,7 @@
        });
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-       let startingProperty = this.filterLayers[this.startingLayer].property; 
+       let startingProperty = this.filterLayers[this.startingLayer].property;
 
        if (marker) {
          marker.witches.push(witch);
@@ -392,6 +392,7 @@
    width: 25px;
    height: 38px;
  }
+
  .icon-shadow {
    position: absolute;
    top: 15px !important;

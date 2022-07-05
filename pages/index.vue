@@ -43,7 +43,6 @@
  import LeafletMap from '../components/leafletMap.vue';
  import MapFilters from '../components/MapFilters.vue';
 
-
  export default {
    components: { LeafletMap, MapFilters },
    data: () => ({
@@ -442,4 +441,26 @@
 </script>
 
 <style>
+.cluster-img {
+    float: left;
+    width: 72px;
+    height: 55px;
+}
+
+.zoomed-in-img {
+    float: left;
+    width: 25px;
+    height: 38px;
+}
+
+.icon-shadow{
+    position: absolute;
+    top: 15px !important;
+    left: 0;
+    z-index: -1;
+    width: 32px;
+    height: 22px !important;
+}
+
 </style>
+
