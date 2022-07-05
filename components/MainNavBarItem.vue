@@ -14,32 +14,32 @@
 
 <script>
 
-export default {
-  props: ['url', 'external', 'subpages'],
-  methods: {
-      isSubActive : function(url){
-          return url === this.$route.path;
-      }
-  },
-  computed: {
-    isActive : function(){
-        return this.url === this.$route.path;
-    }
-  }
-}
+ export default {
+   props: ['url', 'external', 'subpages'],
+   methods: {
+     isSubActive : function(url){
+       return url === this.$route.path;
+     }
+   },
+   computed: {
+     isActive : function(){
+       return this.url === this.$route.path;
+     }
+   }
+ }
 </script>
 
 <style>
 
-    a.menuActive {
-        color: #000;
-    }
+ a.menuActive {
+   color: #000;
+ }
 
-    .dropdown-content {
-      min-width: 160px;
-      z-index: 1;
-    }
+ .dropdown-content {
+   min-width: 160px;
+   z-index: 1;
+ }
 
-    .dropdown:hover .dropdown-content {display: block;}
+ .dropdown:hover .dropdown-content {display: block;}
 
 </style>
