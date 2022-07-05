@@ -1,10 +1,8 @@
 <template>
-  <l-map class="w-full h-full z-0 absolute" :zoom="zoom"
-         :center="center" ref="myMap">
+  <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
     <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
 
-    <l-marker v-for="(marker, index) in mapMarkers" :key="index"
-              :lat-lng="marker.longLat">
+    <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
       <l-popup class="adapted-popup">
 
         <h2>{{marker.location}}</h2><br>
@@ -12,7 +10,9 @@
           <div v-for="(witch, index) in marker.witches" :key="index">
 
             <strong>{{ witch.name }}</strong><br>
-            Investigation Date: {{ witch.investigationDate }}<br>
+            <div v-if="witch.hasOwnProperty('investigationDate')">
+              Investigation Date: {{ witch.investigationDate }}<br>
+            </div>
             Gender: {{ witch.sex }}<br>
             Occupation: {{ witch.occupation }}<br>
             Social Class: {{ witch.socialClassification }}<br>
@@ -20,8 +20,7 @@
             <div v-if="witch.residences.length > 0">
               Residences:
               <template v-for="(residence, index) in witch.residences">
-                <a @click="flyTo(residence.coords)"
-                          :style="{ cursor: 'pointer'}">{{ residence.location }}
+                <a @click="flyTo(residence.coords)" :style="{ cursor: 'pointer'}">{{ residence.location }}
                 </a>
                 <template v-if="index < witch.residences.length - 1">, </template>
               </template>
@@ -31,8 +30,7 @@
             <div v-if="witch.detentions.length > 0">
               Places of Detention:
               <template v-for="(detention, index) in witch.detentions">
-                <a @click="flyTo(detention.coords)"
-                          :style="{ cursor: 'pointer'}">{{ detention.location }}
+                <a @click="flyTo(detention.coords)" :style="{ cursor: 'pointer'}">{{ detention.location }}
                 </a>
                 <template v-if="index < witch.detentions.length - 1">, </template>
               </template>
@@ -41,8 +39,7 @@
 
             <div v-if="witch.placeOfDeath !== ''">
               Place of Death:
-              <a @click="flyTo(witch.placeOfDeathCoords)"
-                 :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}
+              <a @click="flyTo(witch.placeOfDeathCoords)" :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}
               </a><br>
             </div>
 
@@ -65,8 +62,8 @@
           <div v-if="marker.witches.length > 1" class="icon-text">
             {{marker.witches.length}}
           </div>
-          <img :src="marker.markerIcon" class="zoomed-in-img"/>
-          <img class="icon-shadow" :src="shadowUrl"/>
+          <img :src="marker.markerIcon" class="zoomed-in-img" />
+          <img class="icon-shadow" :src="shadowUrl" />
         </div>
       </l-icon>
 

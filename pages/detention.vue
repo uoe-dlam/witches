@@ -5,9 +5,9 @@
       <div id="page-intro" class="pl-5 pr-5 pt-3 pb-3">
         <div class="flex content-start items-center">
           <h1 class="text-sm md:text-xl lg:text-2xl">
-            Places of Residence for Accused Witches
+            Places of Detention for Accused Witches
             <template v-if="noItems > 0">
-              (total named accused witches: 3141)
+              (total named accused witches: 502)
             </template>
           </h1>
           <span class="rounded-full border-r border-l border-gray-400
@@ -185,33 +185,27 @@
      },
      loadAccussed: function () {
 
-       const sparqlQuery = `SELECT distinct ?item ?itemLabel ?investigationDate
-            ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel
-            ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
-            WHERE
-            {
-              ?item wdt:P4478 ?witch .
+     const sparqlQuery = `SELECT ?item ?itemLabel ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
+          WHERE
+          {
+            ?item wdt:P4478 ?witch .
+            optional {
               ?item wdt:P551 ?residence .
               ?residence wdt:P625 ?residenceCoords .
-              optional { ?item wdt:P21 ?sex } .
-              ?item wdt:P4478 ?link .
-              optional { ?item wdt:P106 ?occupation .}
-              optional { ?item wdt:P3716 ?socialClassification .}
-              optional {
-                ?item wdt:P20 ?placeOfDeath .
-                ?placeOfDeath wdt:P625 ?placeOfDeathCoords .}
-              optional { ?item wdt:P1196 ?mannerOfDeath .}
-              optional { ?item p:P793 ?significantEventStatement .
-              ?significantEventStatement ps:P793 wd:Q66458810 .
-              OPTIONAL {?significantEventStatement pq:P585 ?investigationPoint }.
-              OPTIONAL {?significantEventStatement pq:P580 ?investigationStart }
-              }
-              BIND(IF(BOUND(?investigationPoint), ?investigationPoint, ?investigationStart) as ?investigationDate)
-              ?item wdt:P2632 ?detentionLocation .
-              ?detentionLocation wdt:P625 ?detentionLocationCoords .
-
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-            }`;
+            }
+            optional { ?item wdt:P21 ?sex } .
+            ?item wdt:P4478 ?link .
+            optional { ?item wdt:P106 ?occupation}
+            optional { ?item wdt:P3716 ?socialClassification}
+            optional {
+              ?item wdt:P20 ?placeOfDeath .
+              ?placeOfDeath wdt:P625 ?placeOfDeathCoords
+            }
+            optional { ?item wdt:P1196 ?mannerOfDeath}
+            ?item wdt:P2632 ?detentionLocation .
+            ?detentionLocation wdt:P625 ?detentionLocationCoords
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+          }`;
 
        const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
        queryDispatcher.query( sparqlQuery ).then( result => {
@@ -233,14 +227,6 @@
            let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
            let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
            let wikiPage = this.getItemWikiPage(item);
-           let investigationDate = item.hasOwnProperty('investigationDate') ? item.investigationDate.value : 'N/A';
-           let year = 1650;
-
-           if(investigationDate!=='N/A') {
-             year = this.getYearFromWikiDate(investigationDate);
-             investigationDate = this.convertWikiDateToFriendlyDate(investigationDate);
-           }
-
 
            // add to social class filter if doesn't exist already.
            let socialsFound = Object.keys(this.filterLayers[1].filters);
@@ -278,11 +264,6 @@
                  witch.residences.push({location: residence, coords: residenceCoords});
                  continue;
                }
-             }
-
-             if(investigationDate !== 'N/A' && witch.investigationDate === 'N/A') {
-               witch.investigationDate = investigationDate;
-               witch.year = year;
              }
 
            } else {
