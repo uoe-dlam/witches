@@ -25,7 +25,6 @@
       </div>
 
       <map-filters :startingMarkers="originalMarkers"
-                   :filterLayers="filterLayers"
                    :isLoading="loading"
                    @updatedMarkers="markers = $event"
                    @updatedTile="url = $event">
@@ -39,7 +38,8 @@
 </template>
 
 <script>
- import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
+ import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher'
+ import APIDataHandler from '~/assets/js/APIDataHandler';
  import LeafletMap from '../components/leafletMap.vue';
  import MapFilters from '../components/MapFilters.vue';
 
@@ -56,106 +56,16 @@
      markers: [],
      originalMarkers: [],
      startingLayer: 0, // The first layer to be showing.
-     currentTileName : 'Modern Map',
-     filterProperties: {
-       gender: {
-         label: 'Gender', 
-         filters: ['male', 'female', 'unknown']
-       },
-       socialClass: {
-         label: 'Social Classification',
-         filters: []
-       },
-       occupation: {
-         label: 'Occupations',
-         filters: []
-       },
-       hasWikiPage: {
-         label: 'Has Wiki',
-         filters: ['hasWiki', 'noWiki'] 
-       }
-     },
-     allFilters: {
-        male: {
-          label: 'Male', active: true,
-          iconUrl: '/images/witch-single-blue.png'
-        },
-        female: {
-          label: 'Female', active: true,
-          iconUrl: '/images/witch-single-orange.png'
-        },
-        unknown: {
-          label: 'Unknown', active: true,
-          iconUrl: '/images/witch-single-BW.png'
-        },
-        hasWiki: {
-          label: "Has wiki", active: true,
-          iconUrl: '/images/witch-single-blue.png'
-        },
-        noWiki: {
-          label: "No wiki", active: true,
-          iconUrl: '/images/witch-single-orange.png'
-        }
-     },
-     icons: ['/images/witch-single-blue.png',
-             '/images/witch-single-orange.png',
-             '/images/witch-single-pink.png',
-             '/images/witch-single-red.png',
-             '/images/witch-single-brown.png',
-             '/images/witch-single-green.png',
-             '/images/witch-single-pale-blue.png',
-             '/images/witch-single-yellow.png',
-             '/images/witch-single-blue.png',
-             '/images/witch-single-orange.png',
-             '/images/witch-single-pink.png',
-             '/images/witch-single-red.png',
-             '/images/witch-single-brown.png',
-             '/images/witch-single-green.png',
-             '/images/witch-single-pale-blue.png',
-             '/images/witch-single-yellow.png',
-             '/images/witch-single-blue.png',
-             '/images/witch-single-orange.png',
-             '/images/witch-single-pink.png',
-             '/images/witch-single-red.png',
-             '/images/witch-single-brown.png',
-             '/images/witch-single-green.png',
-             '/images/witch-single-pale-blue.png',
-             '/images/witch-single-yellow.png',
-             '/images/witch-single-blue.png',
-             '/images/witch-single-orange.png',
-             '/images/witch-single-pink.png',
-             '/images/witch-single-red.png',
-             '/images/witch-single-brown.png',
-             '/images/witch-single-green.png',
-             '/images/witch-single-pale-blue.png',
-             '/images/witch-single-yellow.png',
-             '/images/witch-single-blue.png',
-             '/images/witch-single-orange.png',
-             '/images/witch-single-pink.png',
-             '/images/witch-single-red.png',
-             '/images/witch-single-brown.png',
-             '/images/witch-single-green.png',
-             '/images/witch-single-pale-blue.png',
-             '/images/witch-single-yellow.png',
-             '/images/witch-single-blue.png',
-             '/images/witch-single-orange.png',
-             '/images/witch-single-pink.png',
-             '/images/witch-single-red.png',
-             '/images/witch-single-brown.png',
-             '/images/witch-single-green.png',
-             '/images/witch-single-pale-blue.png',
-             '/images/witch-single-yellow.png',
-     ]
+     currentTileName : 'Modern Map'
    }),
-
    methods: {
      convertPointToLongLatArray: function (pointString) {
        pointString = pointString.substr(6);
        pointString = pointString.slice(0,-1);
        let pointArray = pointString.split(' ');
        let longLatArray = [pointArray[1], pointArray[0]];
-       return longLatArray;
 
+       return longLatArray;
      },
      loadWikiEntries: function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
@@ -239,22 +149,14 @@
              year = this.getYearFromWikiDate(investigationDate);
              investigationDate = this.convertWikiDateToFriendlyDate(investigationDate);
            }
-
-
-           // add to social class filter if doesn't exist already.
-           let socialsFound = Object.keys(this.filterLayers[1].filters);
            
-           if(!socialsFound.find(socialFound => socialFound === socialClassification)){
-             this.filterLayers[1].filters[socialClassification] = {label:socialClassification, active: true, iconUrl: this.icons[socialsFound.length]};
-           }
-
-           // add to occupations filters if doesn't exist already.
-           let occupationsFound = Object.keys(this.filterLayers[2].filters);
+           let icons = this.$store.getters['icons/getIcons'];
+           let newSocial = APIDataHandler.checkSocials(this.$store.getters['filters/getSocials'], socialClassification, icons);
+           let newOccupation = APIDataHandler.checkOccupations(this.$store.getters['filters/getOccupations'], occupation, icons);
            
-           if(!occupationsFound.find(occupationFound => occupationFound === occupation)){
-             this.filterLayers[2].filters[occupation] = {label:occupation, active: true, iconUrl: this.icons[occupationsFound.length]};
-           }
-
+           if (newSocial) { this.$store.commit('filters/updateSocials', newSocial) };
+           if (newOccupation) { this.$store.commit('filters/updateOccupations', newOccupation) };
+           
            // find if witch has already exists
            let witch = witches.find( witch => {
              return witch.id ===  id;
@@ -335,7 +237,7 @@
        });
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-       let startingProperty = this.filterLayers[this.startingLayer].property;
+       let startingProperty = 'sex';
 
        if (marker) {
          marker.witches.push(witch);
@@ -347,11 +249,12 @@
          }
        } else {
          let markerType = witch[startingProperty];
+         let filters = this.$store.getters['filters/getFilters'][0].filters;
          let marker = {
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: this.filterLayers[this.startingLayer].filters[markerType].iconUrl,
+           markerIcon: filters[markerType].iconUrl,
            onOff: true // Determines whether the marker is showing.
          }
          this.markers.push(marker);
@@ -366,8 +269,6 @@
        return setupTime === null || (now - setupTime > hours*60*60*1000);
      },
      loadDataFromLocalStorage: function () {
-       this.filterLayers[2].filters = JSON.parse(localStorage.getItem('occupations'));
-       this.filterLayers[1].filters = JSON.parse(localStorage.getItem('socials'));
        this.markers = JSON.parse(localStorage.getItem('markers'));
        this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
        this.noItems = localStorage.getItem('noItems');
@@ -377,8 +278,6 @@
        localStorage.setItem('setupTime', now);
        localStorage.setItem('markers', JSON.stringify(this.markers));
        localStorage.setItem('noItems', this.noItems);
-       localStorage.setItem('occupations', JSON.stringify(this.filterLayers[2].filters));
-       localStorage.setItem('socials', JSON.stringify(this.filterLayers[1].filters));
      },
      // Wiki functions:
      showPageInfo: function () {

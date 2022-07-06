@@ -74,10 +74,10 @@
        type: Array,
        required: true
      },
-     filterLayers: {
-       type: Array,
-       required: true
-     },
+     //filterLayers: {
+       //type: Array,
+       //required: true
+     //},
      isLoading: {
        type: Boolean,
        required: true
@@ -92,7 +92,8 @@
        currentTileName : 'Modern Map',
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
-       currentLayer: 0, // Index in filterLayers corresponding to current layer.
+       filterLayers: this.$store.getters['filters/getFilters'],
+       currentLayer: 0 // Index in filterLayers corresponding to current layer.
      }
    },
    watch: {

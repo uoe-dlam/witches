@@ -25,7 +25,6 @@
       </div>
 
       <map-filters :startingMarkers="originalMarkers"
-                   :filterLayers="filterLayers"
                    :isLoading="loading"
                    @updatedMarkers="markers = $event"
                    @updatedTile="url = $event">
