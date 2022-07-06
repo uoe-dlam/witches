@@ -24,7 +24,7 @@
              data-reactid="266" fill="none" height="24" stroke="#606F7B"
              stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
              viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
-             @click="toggleFilters()">
+             @click="toggleFilters(checked)">
           <polyline points="18 15 12 9 6 15">
           </polyline>
         </svg>
@@ -44,17 +44,17 @@
       <br>
       <div class="flex flex-col">
         <div>
-          <span v-for="(layer, index) in filterLayers">
+          <span v-for="(layer, index) in filterProperties">
             <input type="radio" name="layer"
-                   :checked="index === currentLayer"
-                   @change="toggleFilterLayers(index)"/>
+                   :checked="index === currentIndex"
+                   @change="toggleFilterProperties(index)"/>
             &nbsp;{{layer.label}}&nbsp;
           </span>
         </div>
         <div class="pt-4">
           <span class="flex items-center float-left"
-                v-for="(item, filterType) in filterLayers[currentLayer].filters">
-            <input type="checkbox" v-model="item.active"
+                v-for="(item, filterType) in currentProperty.filters">
+            <input type="checkbox" :checked="true"
                    @change="filterMarkers(filterType)"/>
             &nbsp;
             <img :src="item.iconUrl" width="12" height="20"/>
@@ -74,10 +74,6 @@
        type: Array,
        required: true
      },
-     //filterLayers: {
-       //type: Array,
-       //required: true
-     //},
      isLoading: {
        type: Boolean,
        required: true
@@ -92,8 +88,8 @@
        currentTileName : 'Modern Map',
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
-       filterLayers: this.$store.getters['filters/getFilters'],
-       currentLayer: 0 // Index in filterLayers corresponding to current layer.
+       filterProperties: this.$store.getters['filters/getFilters'],
+       currentIndex: 0 // Index in filterProperties corresponding to current layer.
      }
    },
    watch: {
@@ -116,7 +112,7 @@
 
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i];
-         let witchType = witch[this.currentFilterProperty];
+         let witchType = witch[this.currentProperty.property];
 
          if (i === 0) {
            markerType = witchType;
@@ -136,9 +132,8 @@
 
        if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
-       } else {
-         return this.filterLayers[this.currentLayer].filters[markerType].iconUrl;
        }
+       return this.currentProperty.filters[markerType].iconUrl;
      },
      updateMarkerState: function (marker) {
        // Updates the state of a marker after it being
@@ -164,11 +159,10 @@
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
 
-         if (witch[this.currentFilterProperty] !== filterType) {
+         if (witch[this.currentProperty.property] !== filterType) {
            filteredWitches.push(witch);
          }
        }
-
        return filteredWitches;
      },
      getWitchesFromArray: function (witches, filterType) {
@@ -179,11 +173,10 @@
        for (let i = 0, len = witches.length; i < len; i++) {
          let witch = witches[i]
 
-         if (witch[this.currentFilterProperty] === filterType) {
+         if (witch[this.currentProperty.property] === filterType) {
            filteredWitches.push(witch);
          }
        }
-
        return filteredWitches;
      },
      recoverWitches: function (witches, filterType, index) {
@@ -218,28 +211,34 @@
        })
      },
      filterMarkers: function (filterType) {
-       let isActive = this.filterLayers[this.currentLayer].filters[filterType].active;
+       let isActive = this.currentProperty.filters[filterType].active;
+       let filterObj = { 
+         property: this.currentProperty.property,
+         filterType: filterType
+       }
 
        if (isActive) {
-         this.filterOn(filterType);
-       }
-       else {
+         this.$store.commit('filters/setInactive', filterObj);
          this.filterOff(filterType);
+       } else {
+         this.$store.commit('filters/setActive', filterObj);
+         this.filterOn(filterType);
        }
        this.$emit("updatedMarkers", this.markers);
      },
      setAllMarkerIcons: function () {
        // Goes through all markers changing the icons,
-       // called in toggleFilterLayers when user changes
+       // called in togglefilterProperties when user changes
        // layers, so that the marker "legend" updates.
 
        this.originalMarkers.forEach(this.updateMarkerState);
        this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
      },
-     toggleFilterLayers: function (layerIndex) {
-       this.currentLayer = layerIndex;
-       this.setAllMarkerIcons()
+     toggleFilterProperties: function (layerIndex) {
+       this.currentIndex = layerIndex;
+       this.setAllMarkerIcons();
        this.$emit("updatedMarkers", this.markers);
+       this.$store.commit('filters/updateIndex', layerIndex);
      },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
@@ -249,11 +248,13 @@
        this.filters = ! this.filters;
      }
    },
+
    computed: {
-     currentFilterProperty: function() {
-       return this.filterLayers[this.currentLayer].property;
-     }
+     currentProperty: function () {
+       return this.filterProperties[this.currentIndex];
+     },
    }
+
  }
 </script>
 

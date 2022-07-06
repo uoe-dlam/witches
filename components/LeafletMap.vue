@@ -20,7 +20,8 @@
             Group by clusters:
           </h3>
           <label class="switch relative pr-2">
-            <input :checked="clustersInitial" @change="toggleActive()" type="checkbox">
+            <input :checked="clustersInitial" 
+                   @change="toggleActive()" type="checkbox">
             <span class="slider round"></span>
           </label>
         </div>

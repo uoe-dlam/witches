@@ -317,7 +317,7 @@
      },
    },
 
-   computed : {
+   computed: {
      activeMarkers: function () {
        return this.markers.filter(function(marker) {
          return marker.onOff === true;
@@ -327,6 +327,7 @@
        return '/images/North-Berwick-witch-shadow.png';
      }
    },
+   
    mounted: function () {
      if(this.hasLocalStorageExpired()){
        localStorage.clear();

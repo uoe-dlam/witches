@@ -261,19 +261,22 @@ export const state = () => ({
       }
     }
   ],
-  currentLayer: 0,
-  activeFilters: []
+  currentIndex: 0,
+  inactiveFilters: []
 });
 
 export const getters = {
   getFilters: state => {
     return state.filterProperties;
   },
-  getActiveFilters: state => {
-    return state.activeFilters;
-  },
   getCurrentProperty: state => {
-    return state.filterProperties[currentLayer];
+    return state.filterProperties[state.currentIndex];
+  },
+  getCurrentIndex: state => {
+    return state.currentIndex;
+  },
+  getInactiveFilters: state => {
+    return state.inactiveFilters;
   },
   getSocials: state => {
     return Object.keys(state.filterProperties[1].filters);
@@ -284,18 +287,28 @@ export const getters = {
 };
 
 export const mutations = {
-  setActive(state, filterObj) {
+  setInactive(state, filterObj) {
     // <filterObj> is an object with the filter property 
     // (sex, social class etc) and  filter type 
     // (male, vagrant etc) in the second.
-    state.activeFilters.push(filterObj);
+
+    let filterType = filterObj.filterType;
+    state.filterProperties[state.currentIndex].filters[filterType].active = false;
+    state.inactiveFilters.push(filterObj);
   },
-  setInactive(state, filterObj) {
+  setActive(state, filterObj) {
     // It removes the filter filterObj (see above for description)
     // from the active filters array.
-    state.activeFilters = state.activeFilters.filter(function (activeFilter) {
-      return activeFilter.filterType !== filterObj.filterType;
+
+    let filterType = filterObj.filterType;
+    state.filterProperties[state.currentIndex].filters[filterType].active = true;
+
+    state.inactiveFilters = state.inactiveFilters.filter(function (inactiveFilter) {
+      return inactiveFilter.filterType !== filterObj.filterType;
     });
+  },
+  updateIndex(state, index) {
+    state.currentIndex = index;
   },
   updateFilters(state, filterProperties) {
     state.filterProperties = filterProperties;
