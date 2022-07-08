@@ -31,7 +31,7 @@
 
       </map-filters>
       <leaflet-map :isLoading="loading" :mapUrl="url"
-                   :mapMarkers="activeMarkers" :clustersInitial="true">
+                   :mapMarkers="markers" :clustersInitial="true">
       </leaflet-map>
     </div>
   </div>
@@ -206,6 +206,10 @@
                detentions: [],
                investigationDate: investigationDate,
                year: year,
+               witchState: {
+                 onOff: true,
+                 activeFilters: []
+               }
              }
 
              if(residence !== ''){
@@ -244,7 +248,8 @@
 
          for (let i = 0, len = marker.witches.length; i < len; i++) {
            if (marker.witches[i][startingProperty] !== witch[startingProperty]){
-             marker.markerIcon = '/images/witch-single-purple.png'
+             marker.markerType = "mixed";
+             marker.markerIcon = '/images/witch-single-purple.png';
            }
          }
        } else {
@@ -254,8 +259,7 @@
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: filters[markerType].iconUrl,
-           onOff: true // Determines whether the marker is showing.
+           markerIcon: filters[markerType].iconUrl
          }
          this.markers.push(marker);
        }
@@ -327,7 +331,7 @@
        return '/images/North-Berwick-witch-shadow.png';
      }
    },
-   
+
    mounted: function () {
      if(this.hasLocalStorageExpired()){
        localStorage.clear();

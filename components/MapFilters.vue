@@ -101,103 +101,103 @@
      }
    },
    methods: {
-     getMarkerType: function (marker) {
-       // Returns the marker type. If it detects that
-       // one witch has a different type to the others,
-       // returns mixed straight away. Otherwise returns
-       // markerType, which will be common to all witches.
-
+     getMarkerType: function (activeWitches) {
+       // Returns the markerType based on the witches
+       // current filter property (mixed or a specific 
+       // filterType).
        let markerType = '';
-       let witches = marker.witches;
 
-       for (let i = 0, len = witches.length; i < len; i++) {
-         let witch = witches[i];
+       for (let i = 0, len = activeWitches.length; i < len; i++) {
+         let witch = activeWitches[i];
          let witchType = witch[this.currentProperty.property];
 
          if (i === 0) {
            markerType = witchType;
          } else if (witchType !== markerType) {
            return 'mixed';
-         }
+        }
        }
-
        return markerType;
      },
-     getMarkerIcon: function (marker) {
-       // Sets the incon of a marker depending on its
-       // marker type, which it gets from calling
-       // getMarkerType.
+     updateMarkerIcon: function (marker, activeWitches) {
+       // Sets the icon and marker type of a marker depending on 
+       // its witches.
 
-       let markerType = this.getMarkerType(marker);
+       let markerType = this.getMarkerType(activeWitches);
+       console.log(markerType);
 
        if (markerType === 'mixed') {
-         return '/images/witch-single-purple.png';
-       }
-       return this.currentProperty.filters[markerType].iconUrl;
-     },
-     updateMarkerState: function (marker) {
-       // Updates the state of a marker after it being
-       // filtered. Specifically, its marker Icon and
-       // if it needs to be on or off depending on whether
-       // all the witches have been filtered out.
-
-       if (marker.witches.length > 0) {
-         marker.markerIcon = this.getMarkerIcon(marker);
-         marker.onOff = true;
+         marker.markerIcon = '/images/witch-single-purple.png';
        } else {
-         marker.onOff = false;
+         marker.markerIcon = this.currentProperty.filters[markerType].iconUrl;
        }
-
-       return marker;
      },
-     removeWitchesFromArray: function (witches, filterType) {
-       // Given an array of witches, it filters out the
-       // witches that meet the property filterType.
-
-       let filteredWitches = [];
-
-       for (let i = 0, len = witches.length; i < len; i++) {
-         let witch = witches[i]
-
-         if (witch[this.currentProperty.property] !== filterType) {
-           filteredWitches.push(witch);
-         }
+     getIsMixed: function (marker) {
+       if (marker.markerIcon === '/images/witch-single-purple.png') {
+         return true;
        }
-       return filteredWitches;
+       return false;
      },
-     getWitchesFromArray: function (witches, filterType) {
-       // Given an array of witches, it returns the an array
-       // with the ones that meet the property filterType.
-       let filteredWitches = [];
-
-       for (let i = 0, len = witches.length; i < len; i++) {
-         let witch = witches[i]
-
-         if (witch[this.currentProperty.property] === filterType) {
-           filteredWitches.push(witch);
-         }
+     buildOutputMarker: function (marker, newWitches) {
+       return {
+         location: marker.location,
+         longLat: marker.longLat,
+         witches: newWitches,
+         markerIcon: marker.markerIcon,
+         onOff: true // Determines whether the marker is showing.
        }
-       return filteredWitches;
-     },
-     recoverWitches: function (witches, filterType, index) {
-       // Recovers the witches that meet filterType
-       // from the original marker at index <index>.
-       let originalWitches = this.originalMarkers[index].witches;
-       let recoveredWitches = this.getWitchesFromArray(originalWitches, filterType);
-
-       return witches.concat(recoveredWitches);
      },
      filterOff: function (filterType) {
        // Filters <filterType> off. It goes through the current markers
-       // and removes the witches which meet filterType using
-       // removeWitchesFromArray. It then updates the marker state.
+       // and returns an array of new markers without witches that meet 
+       // filter type. Returning a new array saves an iteration before
+       // plotting. The function deals with the marker state itself
+       // instead of calling updateMarkerState in order to save iterating 
+       // through all the witches twice. 
 
-       this.markers.forEach(marker => {
-         marker.witches = this.removeWitchesFromArray(marker.witches, filterType);
-         this.updateMarkerState(marker);
-       });
+       let outputMarkers = [];
 
-       this.noFiltersOff += 1; // Keeping track of the number of inactive filters.
+       for (let i = 0, len = this.markers.length; i < len; i++) {
+         let marker = this.markers[i];
+         let activeWitches = [];
+         let firstTypeFound = null;
+         let isMixed = this.getIsMixed(marker);
+         let staysMixed = false;
+
+         for (let w = 0, len = marker.witches.length; w < len; w++) {
+           let witch = marker.witches[w];
+           let witchType = witch[this.currentProperty.property];
+
+             if (witchType === filterType) {
+               witch.witchState.onOff = false;
+               witch.witchState.activeFilters.push(this.currentProperty.property);
+             } else if (witch.witchState.onOff) {
+               activeWitches.push(witch);
+
+               if (isMixed && !staysMixed) {
+                 // Record first type found, and if at any point type 
+                 // changes, marker remains mixed.
+                 if (!firstTypeFound) {
+                    firstTypeFound = witchType; 
+                 } else if (witchType !== firstTypeFound) {
+                   staysMixed = true;
+                 }
+               }
+             }
+           }
+         if (isMixed && !staysMixed) { 
+           marker.markerIcon = this.currentProperty.filters[firstTypeFound].iconUrl;
+         }
+         if (activeWitches.length > 0) {
+           outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
+         }
+       } 
+       return outputMarkers; 
+     },
+     updateWitchFilters (activeFilters, filterProperty) {
+       return activeFilters.filter(function (activeProperty) {
+         return activeProperty !== filterProperty;
+       })
      },
      filterOn: function (filterType) {
        // Filters <filterType> on. It goes through the
@@ -205,26 +205,45 @@
        // marker that meet filterType. It recovers the witches using
        // recoverWitches. It then updates the marker state.
 
-       this.markers.forEach((marker, index) => {
-         marker.witches = this.recoverWitches(marker.witches, filterType, index);
-         this.updateMarkerState(marker);
-       })
+       let newMarkers = []
+
+       for (let i = 0, len = this.markers.length; i < len; i++) {
+         let marker = this.markers[i];
+         let activeWitches = [];
+
+         for (let w = 0, len = marker.witches.length; w < len; w++) {
+           let witch = marker.witches[w];
+           
+           if (witch.witchState.onOff) {
+             activeWitches.push(witch);
+           }
+           else if (witch[this.currentProperty.property] === filterType) {
+             let newActiveFilters = this.updateWitchFilters(witch.witchState.activeFilters, this.currentProperty.property);
+             witch.witchState.activeFilters = newActiveFilters;
+             
+             if (newActiveFilters.length === 0) {
+               witch.witchState.onOff = true;
+               activeWitches.push(witch);
+             }
+           }    
+         }
+         if (activeWitches.length > 0) {
+           this.updateMarkerIcon(marker, activeWitches);
+           newMarkers.push(this.buildOutputMarker(marker, activeWitches));
+         }
+       }
+       return newMarkers;
      },
      filterMarkers: function (filterType) {
        let isActive = this.currentProperty.filters[filterType].active;
-       let filterObj = { 
-         property: this.currentProperty.property,
-         filterType: filterType
-       }
 
        if (isActive) {
-         this.$store.commit('filters/setInactive', filterObj);
-         this.filterOff(filterType);
+         this.$store.commit('filters/setInactive', filterType);
+         this.$emit('updatedMarkers', this.filterOff(filterType));
        } else {
-         this.$store.commit('filters/setActive', filterObj);
-         this.filterOn(filterType);
+         this.$store.commit('filters/setActive', filterType);
+         this.$emit("updatedMarkers", this.filterOn(filterType));
        }
-       this.$emit("updatedMarkers", this.markers);
      },
      setAllMarkerIcons: function () {
        // Goes through all markers changing the icons,

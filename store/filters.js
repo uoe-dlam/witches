@@ -287,25 +287,18 @@ export const getters = {
 };
 
 export const mutations = {
-  setInactive(state, filterObj) {
+  setInactive(state, filterType) {
     // <filterObj> is an object with the filter property 
     // (sex, social class etc) and  filter type 
     // (male, vagrant etc) in the second.
 
-    let filterType = filterObj.filterType;
     state.filterProperties[state.currentIndex].filters[filterType].active = false;
-    state.inactiveFilters.push(filterObj);
   },
-  setActive(state, filterObj) {
+  setActive(state, filterType) {
     // It removes the filter filterObj (see above for description)
     // from the active filters array.
 
-    let filterType = filterObj.filterType;
     state.filterProperties[state.currentIndex].filters[filterType].active = true;
-
-    state.inactiveFilters = state.inactiveFilters.filter(function (inactiveFilter) {
-      return inactiveFilter.filterType !== filterObj.filterType;
-    });
   },
   updateIndex(state, index) {
     state.currentIndex = index;
