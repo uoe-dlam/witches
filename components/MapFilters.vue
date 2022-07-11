@@ -101,35 +101,39 @@
      }
    },
    methods: {
-     getMarkerType: function (activeWitches) {
+     getMarkerType: function (witches) {
        // Returns the markerType based on the witches
-       // current filter property (mixed or a specific 
-       // filterType).
-       let markerType = '';
+       // current filter property (mixed, a specific 
+       // filterType or null if there are no active witches).
+       let markerType = null;
 
-       for (let i = 0, len = activeWitches.length; i < len; i++) {
-         let witch = activeWitches[i];
-         let witchType = witch[this.currentProperty.property];
+       for (let i = 0, len = witches.length; i < len; i++) {
+          let witch = witches[i];
 
-         if (i === 0) {
-           markerType = witchType;
-         } else if (witchType !== markerType) {
-           return 'mixed';
-        }
+          if (witch.witchState.onOff) {
+            let witchType = witch[this.currentProperty.property];
+
+            if (!markerType) {
+               markerType = witchType;
+            } else if (witchType !== markerType) {
+               return 'mixed';
+            }
+          }
        }
        return markerType;
      },
-     updateMarkerIcon: function (marker, activeWitches) {
+     getMarkerIcon: function (marker) {
        // Sets the icon and marker type of a marker depending on 
        // its witches.
+       let markerType = this.getMarkerType(marker.witches);
 
-       let markerType = this.getMarkerType(activeWitches);
-
-       if (markerType === 'mixed') {
-         marker.markerIcon = '/images/witch-single-purple.png';
-       } else {
-         marker.markerIcon = this.currentProperty.filters[markerType].iconUrl;
+       if (markerType) {
+         if (markerType === 'mixed') {
+           return '/images/witch-single-purple.png';
+         }
+         return this.currentProperty.filters[markerType].iconUrl;
        }
+       return markerType; 
      },
      getIsMixed: function (marker) {
        if (marker.markerIcon === '/images/witch-single-purple.png') {
@@ -137,60 +141,27 @@
        }
        return false;
      },
-     buildOutputMarker: function (marker, newWitches) {
-       return {
-         location: marker.location,
-         longLat: marker.longLat,
-         witches: newWitches,
-         markerIcon: marker.markerIcon
-       }
-     },
-     filterOff: function (filterType) {
+     setWitchesOff: function (filterType) {
        // Filters <filterType> off. It goes through the current markers
        // setting witches that meet filter type to off and adds the 
-       // current filter property to the witche's active filters. It returns a 
-       // markers array with the witches that are on. The function deals 
+       // current filter property to the witche's active filters. The function deals 
        // with the marker state itself instead of calling updateMarkerState in order 
        // to save iterating through all the witches twice. 
 
-       let outputMarkers = [];
-
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];
-         let activeWitches = [];
-         let firstTypeFound = null;
-         let isMixed = this.getIsMixed(marker);
-         let staysMixed = false;
 
          for (let w = 0, len = marker.witches.length; w < len; w++) {
            let witch = marker.witches[w];
            let witchType = witch[this.currentProperty.property];
 
-             if (witchType === filterType) {
-               witch.witchState.onOff = false;
-               witch.witchState.activeFilters.push(this.currentProperty.property);
-             } else if (witch.witchState.onOff) {
-               activeWitches.push(witch);
-
-               if (isMixed && !staysMixed) {
-                 // Record first type found, and if at any point type 
-                 // changes, marker remains mixed.
-                 if (!firstTypeFound) {
-                    firstTypeFound = witchType; 
-                 } else if (witchType !== firstTypeFound) {
-                   staysMixed = true;
-                 }
-               }
-             }
+           if (witchType === filterType) {
+             witch.witchState.onOff = false;
+             witch.witchState.activeFilters.push(this.currentProperty.property);
            }
-         if (isMixed && !staysMixed) { 
-           marker.markerIcon = this.currentProperty.filters[firstTypeFound].iconUrl;
-         }
-         if (activeWitches.length > 0) {
-           outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
-         }
+           marker.markerIcon = this.getMarkerIcon(marker);
+         }  
        } 
-       return outputMarkers; 
      },
      updateWitchFilters (activeFilters, filterProperty) {
        if (activeFilters.length === 1) {
@@ -200,36 +171,58 @@
          return activeProperty !== filterProperty;
        })
      },
-     filterOn: function (filterType) {
+     setWitchesOn: function (filterType) {
        // Filters <filterType> on. It goes through the current markers
        // setting witches that meet filter type to on and updating the witches
        // active filters. It returns a markers array with the witches that are on. 
-       let outputMarkers = []
 
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];
-         let activeWitches = [];
+         let newActiveWitches = false;
+         let noDifferentActiveTypes = 0;
 
          for (let w = 0, len = marker.witches.length; w < len; w++) {
            let witch = marker.witches[w];
            
-           if (witch.witchState.onOff) {
-             activeWitches.push(witch);
-           }
-           else if (witch[this.currentProperty.property] === filterType) {
+           if (witch[this.currentProperty.property] === filterType) {
              let newActiveFilters = this.updateWitchFilters(witch.witchState.activeFilters, this.currentProperty.property);
              witch.witchState.activeFilters = newActiveFilters;
              
              if (newActiveFilters.length === 0) {
                witch.witchState.onOff = true;
-               activeWitches.push(witch);
+               newActiveWitches = true;
              }
+           } else if (witch.witchState.onOff) {
+             noDifferentActiveTypes += 1;
            }    
          }
-         if (activeWitches.length > 0) {
-           if (!this.getIsMixed(marker)) {
-             this.updateMarkerIcon(marker, activeWitches);
-           }
+         if (newActiveWitches) {
+           if (noDifferentActiveTypes === 0) {
+             marker.markerIcon = this.currentProperty.filters[filterType].iconUrl;
+           } else {
+             marker.markerIcon = '/images/witch-single-purple.png';
+           }  
+         }
+       }
+     },
+     buildOutputMarker: function (marker, newWitches) {
+       return {
+         location: marker.location,
+         longLat: marker.longLat,
+         witches: newWitches,
+         markerIcon: marker.markerIcon
+       }
+     },
+     getOutputMarkers() {
+       let outputMarkers = [];
+
+       for (let i = 0, len = this.markers.length; i < len; i++) {
+         let marker = this.markers[i];
+         // If no witches are on marker icon is null.
+         if (marker.markerIcon) {
+           let activeWitches = marker.witches.filter(function (witch) {
+             return witch.witchState.onOff;
+           });
            outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
          }
        }
@@ -240,10 +233,12 @@
 
        if (isActive) {
          this.$store.commit('filters/setInactive', filterType);
-         this.$emit('updatedMarkers', this.filterOff(filterType));
+         this.setWitchesOff(filterType);
+         this.$emit('updatedMarkers', this.getOutputMarkers());
        } else {
          this.$store.commit('filters/setActive', filterType);
-         this.$emit("updatedMarkers", this.filterOn(filterType));
+         this.setWitchesOn(filterType);
+         this.$emit("updatedMarkers", this.getOutputMarkers());
        }
      },
      setAllMarkerIcons: function () {
@@ -272,7 +267,7 @@
    computed: {
      currentProperty: function () {
        return this.filterProperties[this.currentIndex];
-     },
+     }
    }
 
  }

@@ -259,7 +259,8 @@
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: filters[markerType].iconUrl
+           markerIcon: filters[markerType].iconUrl,
+           originalMarkerType: markerType
          }
          this.markers.push(marker);
        }
