@@ -124,7 +124,6 @@
        // its witches.
 
        let markerType = this.getMarkerType(activeWitches);
-       console.log(markerType);
 
        if (markerType === 'mixed') {
          marker.markerIcon = '/images/witch-single-purple.png';
@@ -143,17 +142,16 @@
          location: marker.location,
          longLat: marker.longLat,
          witches: newWitches,
-         markerIcon: marker.markerIcon,
-         onOff: true // Determines whether the marker is showing.
+         markerIcon: marker.markerIcon
        }
      },
      filterOff: function (filterType) {
        // Filters <filterType> off. It goes through the current markers
-       // and returns an array of new markers without witches that meet 
-       // filter type. Returning a new array saves an iteration before
-       // plotting. The function deals with the marker state itself
-       // instead of calling updateMarkerState in order to save iterating 
-       // through all the witches twice. 
+       // setting witches that meet filter type to off and adds the 
+       // current filter property to the witche's active filters. It returns a 
+       // markers array with the witches that are on. The function deals 
+       // with the marker state itself instead of calling updateMarkerState in order 
+       // to save iterating through all the witches twice. 
 
        let outputMarkers = [];
 
@@ -195,17 +193,18 @@
        return outputMarkers; 
      },
      updateWitchFilters (activeFilters, filterProperty) {
+       if (activeFilters.length === 1) {
+         return [];
+       }
        return activeFilters.filter(function (activeProperty) {
          return activeProperty !== filterProperty;
        })
      },
      filterOn: function (filterType) {
-       // Filters <filterType> on. It goes through the
-       // markers and adds the witches from the corresponding original
-       // marker that meet filterType. It recovers the witches using
-       // recoverWitches. It then updates the marker state.
-
-       let newMarkers = []
+       // Filters <filterType> on. It goes through the current markers
+       // setting witches that meet filter type to on and updating the witches
+       // active filters. It returns a markers array with the witches that are on. 
+       let outputMarkers = []
 
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];
@@ -228,11 +227,13 @@
            }    
          }
          if (activeWitches.length > 0) {
-           this.updateMarkerIcon(marker, activeWitches);
-           newMarkers.push(this.buildOutputMarker(marker, activeWitches));
+           if (!this.getIsMixed(marker)) {
+             this.updateMarkerIcon(marker, activeWitches);
+           }
+           outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
          }
        }
-       return newMarkers;
+       return outputMarkers;
      },
      filterMarkers: function (filterType) {
        let isActive = this.currentProperty.filters[filterType].active;
