@@ -7,7 +7,7 @@
           <h1 class="text-sm md:text-xl lg:text-2xl">
             Places of Residence for Accused Witches
             <template v-if="noItems > 0">
-              (total named accused witches: 3141)
+              (total named accused witches: {{markers.length}})
             </template>
           </h1>
           <span class="rounded-full border-r border-l border-gray-400
@@ -248,7 +248,6 @@
 
          for (let i = 0, len = marker.witches.length; i < len; i++) {
            if (marker.witches[i][startingProperty] !== witch[startingProperty]){
-             marker.markerType = "mixed";
              marker.markerIcon = '/images/witch-single-purple.png';
            }
          }
@@ -260,7 +259,7 @@
            longLat: locationCoords,
            witches: [witch],
            markerIcon: filters[markerType].iconUrl,
-           originalMarkerType: markerType
+           onOff: true
          }
          this.markers.push(marker);
        }
