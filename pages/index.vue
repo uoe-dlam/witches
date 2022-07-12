@@ -24,11 +24,9 @@
         </div>
       </div>
 
-      <map-filters :startingMarkers="originalMarkers"
-                   :isLoading="loading"
+      <map-filters v-if="!loading" :startingMarkers="originalMarkers"
                    @updatedMarkers="markers = $event"
                    @updatedTile="url = $event">
-
       </map-filters>
       <leaflet-map :isLoading="loading" :mapUrl="url"
                    :mapMarkers="markers" :clustersInitial="true">

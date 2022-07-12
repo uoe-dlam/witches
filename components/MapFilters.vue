@@ -2,8 +2,7 @@
   <div>
     <!-- Filters -->
     <div class="border border-gray p-1 bg-gray-200 h-8
-                flex items-center"
-         v-if="!isLoading">
+                flex items-center">
       <span class="flex items-center float-left">
         &nbsp;Filters
       </span>
@@ -73,31 +72,19 @@
      startingMarkers: {
        type: Array,
        required: true
-     },
-     isLoading: {
-       type: Boolean,
-       required: true
      }
    },
    data () {
      return {
        filters: false,
        noFiltersOn: 0,
-       markers: [],
+       markers: JSON.parse(JSON.stringify(this.startingMarkers)),
        originalMarkers: [],
        currentTileName : 'Modern Map',
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
        filterProperties: this.$store.getters['filters/getFilters'],
        currentIndex: 0 // Index in filterProperties corresponding to current layer.
-     }
-   },
-   watch: {
-     startingMarkers: {
-       handler(newValue, oldValue) {
-         this.originalMarkers = JSON.parse(JSON.stringify(newValue));
-         this.markers = JSON.parse(JSON.stringify(newValue));
-       }
      }
    },
    methods: {
@@ -235,6 +222,7 @@
        let isActive = this.currentProperty.filters[filterType].active;
 
        if (isActive) {
+         console.log(this.markers);
          this.$store.commit('filters/setInactive', filterType);
          this.setWitchesOff(filterType);
          this.$emit('updatedMarkers', this.getOutputMarkers());
@@ -268,7 +256,6 @@
        this.filters = ! this.filters;
      }
    },
-
    computed: {
      currentProperty: function () {
        return this.filterProperties[this.currentIndex];

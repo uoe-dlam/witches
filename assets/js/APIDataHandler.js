@@ -24,9 +24,8 @@ const APIDataHandler = {
     return null
   },
   checkOccupations: function (currentOccupations, occupation, icons) {
-    // Checks if an occupation filter type doesn't exist 
-    // already, and if so it adds it to the filters object 
-    // for social class. If now new occupations exist, returns null.
+    // If an occupation does not exist already returns 
+    // its filterType object. If it exists returns null.
 
     if (!currentOccupations.includes(occupation)) {
       let icon = this.selectIcon(currentOccupations, icons);
