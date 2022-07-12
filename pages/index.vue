@@ -53,7 +53,6 @@
      wikiPages: [],
      markers: [],
      originalMarkers: [],
-     startingLayer: 0, // The first layer to be showing.
      currentTileName : 'Modern Map'
    }),
    methods: {
@@ -239,24 +238,24 @@
        });
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-       let startingProperty = 'sex';
-
+       let index = this.$store.getters['filters/getCurrentIndex'];
+       let filterProperty = this.$store.getters['filters/getFilters'][index];
+      
        if (marker) {
          marker.witches.push(witch);
 
          for (let i = 0, len = marker.witches.length; i < len; i++) {
-           if (marker.witches[i][startingProperty] !== witch[startingProperty]){
+           if (marker.witches[i][filterProperty.property] !== witch[filterProperty.property]){
              marker.markerIcon = '/images/witch-single-purple.png';
            }
          }
        } else {
-         let markerType = witch[startingProperty];
-         let filters = this.$store.getters['filters/getFilters'][0].filters;
+         let markerType = witch[filterProperty.property];
          let marker = {
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: filters[markerType].iconUrl,
+           markerIcon: filterProperty.filters[markerType].iconUrl,
            onOff: true
          }
          this.markers.push(marker);

@@ -84,7 +84,7 @@
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
        filterProperties: this.$store.getters['filters/getFilters'],
-       currentIndex: 0 // Index in filterProperties corresponding to current layer.
+       currentIndex: this.$store.getters['filters/getCurrentIndex']
      }
    },
    methods: {
@@ -138,8 +138,8 @@
        }
        return false;
      },
-     setWitchesOff: function (filterType) {
-       // Filters <filterType> off. It goes through the current markers
+     setWitchesOff: function (filterProperty, filterType) {
+       // Filters <filterProperty>.<filterType> off. It goes through the current markers
        // setting witches that meet filter type to off and adds the 
        // current filter property to the witche's active filters.
        // If a marker is mixed, meaning it could stop being mixed, it
@@ -150,11 +150,10 @@
 
          for (let w = 0, len = marker.witches.length; w < len; w++) {
            let witch = marker.witches[w];
-           let witchType = witch[this.currentProperty.property];
 
-           if (witchType === filterType) {
+           if (witch[filterProperty] === filterType) {
              witch.witchState.onOff = false;
-             witch.witchState.activeFilters.push(this.currentProperty.property);
+             witch.witchState.activeFilters.push(filterProperty);
            } 
          }
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
@@ -168,7 +167,7 @@
          return activeProperty !== filterProperty;
        })
      },
-     setWitchesOn: function (filterType) {
+     setWitchesOn: function (filterProperty, filterType) {
        // Filters <filterType> on. It goes through the current markers
        // setting witches that meet filter type to on and updating the witches
        // active filters. If a marker is not mixed, meaning it could become 
@@ -180,8 +179,8 @@
          for (let w = 0, len = marker.witches.length; w < len; w++) {
            let witch = marker.witches[w];
            
-           if (witch[this.currentProperty.property] === filterType) {
-             let newFilters = this.getUpdatedWitchFilters(witch.witchState.activeFilters, this.currentProperty.property);
+           if (witch[filterProperty] === filterType) {
+             let newFilters = this.getUpdatedWitchFilters(witch.witchState.activeFilters, filterProperty);
              witch.witchState.activeFilters = newFilters;
 
              if (newFilters.length === 0) {
@@ -206,9 +205,10 @@
        // emitted to parent, and will then be used by LeafletMap
        // to plot. 
        let outputMarkers = [];
-
+       //console.log(this.markers);
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];
+
          if (marker.onOff) {
            let activeWitches = marker.witches.filter(function (witch) {
              return witch.witchState.onOff;
@@ -222,17 +222,16 @@
        let isActive = this.currentProperty.filters[filterType].active;
 
        if (isActive) {
-         console.log(this.markers);
          this.$store.commit('filters/setInactive', filterType);
-         this.setWitchesOff(filterType);
+         this.setWitchesOff(this.currentProperty.property, filterType);
          this.$emit('updatedMarkers', this.getOutputMarkers());
        } else {
          this.$store.commit('filters/setActive', filterType);
-         this.setWitchesOn(filterType);
+         this.setWitchesOn(this.currentProperty.property, filterType);
          this.$emit("updatedMarkers", this.getOutputMarkers());
        }
      },
-     setIconsOnPropertyChange: function () {
+     setAllIcons: function () {
        // Goes through all markers changing the icons according
        // to the current filter property. Called in togglefilterProperties 
        // when user changes filter properties so that icons update 
@@ -242,9 +241,29 @@
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
      },
+     applyAllFilters: function () {
+       // Filters off all the filters that are not active. Called
+       // when component is created, to apply the filters from the
+       // store so that filters are shared accross pages.
+       
+       for (let i = 0, len = this.filterProperties.length; i < len; i++) {
+         let filterProperty = this.filterProperties[i];
+         let filters = Object.keys(filterProperty.filters);
+         
+         for (let f = 0, len = filters.length; f < len; f++) {
+           let filterType = filters[f];
+
+           if (!filterProperty.filters[filterType].active) {
+             this.setWitchesOff(filterProperty.property, filterType);
+           }
+         }
+       }
+       console.log(this.getOutputMarkers());
+       this.$emit("updatedMarkers", this.getOutputMarkers());
+     },
      toggleFilterProperties: function (layerIndex) {
        this.currentIndex = layerIndex;
-       this.setIconsOnPropertyChange();
+       this.setAllIcons();
        this.$emit("updatedMarkers", this.getOutputMarkers());
        this.$store.commit('filters/updateIndex', layerIndex);
      },
@@ -260,8 +279,10 @@
      currentProperty: function () {
        return this.filterProperties[this.currentIndex];
      }
+   },
+   created () {
+     this.applyAllFilters();
    }
-
  }
 </script>
 
