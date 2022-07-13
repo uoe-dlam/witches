@@ -72,6 +72,10 @@
      startingMarkers: {
        type: Array,
        required: true
+     },
+     filterProperties: {
+       type: Object,
+       required: true
      }
    },
    data () {
@@ -144,6 +148,8 @@
        // current filter property to the witche's active filters.
        // If a marker is mixed, meaning it could stop being mixed, it
        // updates the marker state by calling getMarkerState.
+       console.log(Object.keys(this.filterProperties[1].filters));
+       console.log(Object.keys(this.filterProperties[2].filters));
 
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];

@@ -53,7 +53,22 @@
      wikiPages: [],
      markers: [],
      originalMarkers: [],
-     currentTileName : 'Modern Map'
+     currentTileName: 'Modern Map',
+     filterProperties: {
+       sex: {
+          label: "Gender",
+          filterTypes: [ "male", "female", "unknown" ]
+       },
+       socialClassification: {
+          label: "Social Classification",
+          filterTypes: [ "middling", "pauper", "unknown", "working poor", "vagrant",
+            "nobility", "upper class", "Laird" ]
+       },
+       occupation: {
+         label: "Occupations",
+         filterTypes: []
+       }
+     }
    }),
    methods: {
      convertPointToLongLatArray: function (pointString) {
