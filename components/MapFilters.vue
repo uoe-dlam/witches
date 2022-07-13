@@ -1,68 +1,33 @@
 <template>
-  <div>
-    <!-- Filters -->
-    <div class="border border-gray p-1 bg-gray-200 h-8
-                flex items-center">
-      <span class="flex items-center float-left">
-        &nbsp;Filters
-      </span>
-      <span class="rounded-full border-r border-l border-gray-400
-                   w-6 h-6 flex items-center justify-center
-                   ml-2 float-left">
-        <!-- icon by feathericons.com -->
-        <svg v-if="!filters" aria-hidden="true" class=""
-             data-reactid="266" fill="none" height="24"
-             stroke="#606F7B" stroke-linecap="round"
-             stroke-linejoin="round" stroke-width="2"
-             viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
-             @click="toggleFilters()">
-          <polyline points="6 9 12 15 18 9">
-          </polyline>
-        </svg>
-        <svg v-if="filters" aria-hidden="true" class=""
-             data-reactid="266" fill="none" height="24" stroke="#606F7B"
-             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-             viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"
-             @click="toggleFilters(checked)">
-          <polyline points="18 15 12 9 6 15">
-          </polyline>
-        </svg>
+  <!-- Filters pop-down -->
+  <div class="absolute flex h-full w-1/4 bg-slate-500 z-20 
+              right-0">
+    <div>
+      <span v-for="(tile, index) in tiles">
+        <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)" />
+        &nbsp;{{tile.name}}&nbsp;
       </span>
     </div>
-    <!-- Filters pop-down -->
-    <div id="map-filters" :class="filters ? 'block': 'hidden'"
-         class="pl-5 pr-5 pt-3 pb-3 text-xs">
+    <br>
+    <div class="flex flex-col">
       <div>
-        <span v-for="(tile, index) in tiles">
-          <input type="radio" name="tile"
-                 :checked="tile.name === currentTileName"
-                 @change="filterTiles(tile)"/>
-          &nbsp;{{tile.name}}&nbsp;
+        <span v-for="(item, property) in filterProperties">
+          <input type="radio" name="layer" :checked="property === currentProperty"
+            @change="toggleFilterProperties(property)" />
+          &nbsp;{{item.label}}&nbsp;
         </span>
       </div>
-      <br>
-      <div class="flex flex-col">
-        <div>
-          <span v-for="(item, property) in filterProperties">
-            <input type="radio" name="layer"
-                   :checked="property === currentProperty"
-                   @change="toggleFilterProperties(property)"/>
-            &nbsp;{{item.label}}&nbsp;
-          </span>
-        </div>
-        <div class="pt-4">
-          <span class="flex items-center float-left"
-                v-for="filterType in filterProperties[currentProperty].filterTypes">
-            <input type="checkbox" :checked="allFilters[currentProperty][filterType].active"
-                   @change="filterMarkers(filterType)"/>
-            &nbsp;
-            <img :src="allFilters[currentProperty][filterType].iconUrl" width="12" height="20"/>
-            &nbsp;{{allFilters[currentProperty][filterType].label}}&nbsp;
-          </span>
-        </div>
+      <div class="pt-4">
+        <span class="flex items-center float-left" v-for="filterType in filterProperties[currentProperty].filterTypes">
+          <input type="checkbox" :checked="allFilters[currentProperty][filterType].active"
+            @change="filterMarkers(filterType)" />
+          &nbsp;
+          <img :src="allFilters[currentProperty][filterType].iconUrl" width="12" height="20" />
+          &nbsp;{{allFilters[currentProperty][filterType].label}}&nbsp;
+        </span>
       </div>
-      <br>
     </div>
+    <br>
   </div>
 </template>
 
