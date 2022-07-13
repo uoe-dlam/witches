@@ -1,7 +1,7 @@
 <template>
   <!-- Filters pop-down -->
   <div class="absolute flex h-full w-1/4 bg-slate-500 z-20 
-              right-0">
+              left-0">
     <div>
       <span v-for="(tile, index) in tiles">
         <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)" />

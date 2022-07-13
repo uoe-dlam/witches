@@ -1,8 +1,8 @@
 <template>
   <div id="outer">
-    <div id="inner" class="flex relative">
+    <div id="inner" class="flex flex-col">
 
-      <div id="page-intro" class="absolute z-20 bg-slate-50 pl-5 pr-5 pt-3 pb-3 w-2/3">
+      <div id="page-intro" class="bg-slate-50 pl-5 pr-5 pt-3 pb-3 w-2/3">
         <div class="flex content-start items-center">
           <h1 class="text-sm md:text-xl lg:text-2xl">
             Places of Residence for Accused Witches
@@ -22,12 +22,14 @@
           </span>
         </div>
       </div>
-
+      
+      <div class="relative h-full w-full">
       <map-filters v-if="!loading" :startingMarkers="originalMarkers" :filterProperties="filterProperties"
         @updatedMarkers="markers = $event" @updatedTile="url = $event">
       </map-filters>
       <leaflet-map :isLoading="loading" :mapUrl="url" :mapMarkers="markers" :clustersInitial="true">
       </leaflet-map>
+      </div>
     </div>
   </div>
 </template>
