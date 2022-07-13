@@ -13,6 +13,7 @@ const APIDataHandler = {
 
     if (!propertyFilters.includes(filter)) {
       let icon = this.selectIcon(propertyFilters, icons);
+      
       return {
         label: filter,
         active: true,

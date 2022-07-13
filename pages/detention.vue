@@ -219,7 +219,7 @@
                occupation: occupation,
                socialClassification: socialClassification,
                wikiPage: wikiPage,
-               hasWikiPage: wikiPage === '' ? 'no wiki' : 'has wiki',
+               hasWikiPage: wikiPage === '' ? 'noWiki' : 'hasWiki',
                residences: [],
                placeOfDeath: placeOfDeath,
                placeOfDeathCoords: placeOfDeathCoords,
@@ -258,7 +258,6 @@
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
        let filterProperty = this.$store.getters['filters/getCurrentProperty'];
-
        if (marker) {
          marker.witches.push(witch);
 
