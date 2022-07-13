@@ -25,6 +25,7 @@
       </div>
 
       <map-filters v-if="!loading"  :startingMarkers="originalMarkers"
+                   :filterProperties="filterProperties"
                    @updatedMarkers="markers = $event"
                    @updatedTile="url = $event">
 
@@ -57,7 +58,33 @@
      markers: [],
      originalMarkers: [],
      startingLayer: 0, // The first layer to be showing.
-     currentTileName : 'Modern Map'
+     currentTileName : 'Modern Map',
+     filterProperties: {
+       sex: {
+         label: "Gender",
+         filterTypes: ["male", "female", "unknown"]
+       },
+       socialClassification: {
+         label: "Social Classification",
+         filterTypes: [
+           "middling", "pauper", "unknownSocial", "working poor", "vagrant",
+           "nobility", "upper class"
+         ]
+       },
+       occupation: {
+         label: "Occupations",
+         filterTypes: [
+           "unknownOccupation", "cunning folk", "vagrant", "domestic worker", "midwife", 
+           "Christian minister", "courier", "weaver", "shopkeeper", "miller",
+           "laborer", "metalsmith", "healer", "loadman", "maltman", "blacksmith",
+           "merchant", "farmer"
+         ]
+       },
+       hasWikiPage: {
+         label: "Wikipedia Page",
+         filterTypes: ["hasWiki", "noWiki"]
+       }
+     }
    }),
    methods: {
      convertPointToLongLatArray: function (pointString) {
@@ -140,11 +167,22 @@
            let wikiPage = this.getItemWikiPage(item);
 
            let icons = this.$store.getters['icons/getIcons'];
-           let newSocial = APIDataHandler.checkSocials(this.$store.getters['filters/getSocials'], socialClassification, icons);
-           let newOccupation = APIDataHandler.checkOccupations(this.$store.getters['filters/getOccupations'], occupation, icons);
+           let allFiltersKeys = this.$store.getters['filters/getAllFiltersKeys'];
+           let newSocial = APIDataHandler.checkFilters(allFiltersKeys, socialClassification, this.filterProperties.socialClassification.filterTypes, icons);
+           let newOccupation = APIDataHandler.checkFilters(allFiltersKeys, occupation, this.filterProperties.occupation.filterTypes, icons);
 
-           if (newSocial) { this.$store.commit('filters/updateSocials', newSocial) };
-           if (newOccupation) { this.$store.commit('filters/updateOccupations', newOccupation) };
+           if (newSocial) {
+             this.$store.commit('filters/updateFilters', newSocial);
+             this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
+           } else if (!APIDataHandler.checkExistsInProperty(this.filterProperties.socialClassification.filterTypes, socialClassification)) {
+             this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
+           }
+           if (newOccupation) {
+             this.$store.commit('filters/updateFilters', newOccupation);
+             this.filterProperties.occupation.filterTypes.push(newOccupation.label);
+           } else if (!APIDataHandler.checkExistsInProperty(this.filterProperties.occupation.filterTypes, occupation)) {
+             this.filterProperties.occupation.filterTypes.push(newOccupation.label);
+           }
 
            // find if witch has already exists
            let witch = witches.find( witch => {
@@ -220,24 +258,23 @@
        });
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-       let index = this.$store.getters['filters/getCurrentIndex'];
-       let filterProperty = this.$store.getters['filters/getFilters'][index];
+       let filterProperty = this.$store.getters['filters/getCurrentProperty'];
 
        if (marker) {
          marker.witches.push(witch);
 
          for (let i = 0, len = marker.witches.length; i < len; i++) {
-           if (marker.witches[i][filterProperty.property] !== witch[filterProperty.property]){
+           if (marker.witches[i][filterProperty] !== witch[filterProperty]){
              marker.markerIcon = '/images/witch-single-purple.png'
            }
          }
        } else {
-         let markerType = witch[filterProperty.property];
+         let markerType = witch[filterProperty];
          let marker = {
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: filterProperty.filters[markerType].iconUrl,
+           markerIcon: this.$store.getters['filters/getFilters'][markerType].iconUrl,
            onOff: true // Determines whether the marker is showing.
          }
          this.markers.push(marker);

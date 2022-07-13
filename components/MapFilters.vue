@@ -43,21 +43,21 @@
       <br>
       <div class="flex flex-col">
         <div>
-          <span v-for="(layer, index) in filterProperties">
+          <span v-for="(item, property) in filterProperties">
             <input type="radio" name="layer"
-                   :checked="index === currentIndex"
-                   @change="toggleFilterProperties(index)"/>
-            &nbsp;{{layer.label}}&nbsp;
+                   :checked="property === currentProperty"
+                   @change="toggleFilterProperties(property)"/>
+            &nbsp;{{item.label}}&nbsp;
           </span>
         </div>
         <div class="pt-4">
           <span class="flex items-center float-left"
-                v-for="(item, filterType) in currentProperty.filters">
-            <input type="checkbox" :checked="currentProperty.filters[filterType].active"
+                v-for="filterType in filterProperties[currentProperty].filterTypes">
+            <input type="checkbox" :checked="allFilters[filterType].active"
                    @change="filterMarkers(filterType)"/>
             &nbsp;
-            <img :src="item.iconUrl" width="12" height="20"/>
-            &nbsp;{{item.label}}&nbsp;
+            <img :src="allFilters[filterType].iconUrl" width="12" height="20"/>
+            &nbsp;{{allFilters[filterType].label}}&nbsp;
           </span>
         </div>
       </div>
@@ -87,8 +87,9 @@
        currentTileName : 'Modern Map',
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
-       filterProperties: this.$store.getters['filters/getFilters'],
-       currentIndex: this.$store.getters['filters/getCurrentIndex']
+       allFilters: this.$store.getters['filters/getFilters'],
+       currentProperty: this.$store.getters['filters/getCurrentProperty'],
+       allProperties: Object.keys(this.filterProperties)
      }
    },
    methods: {
@@ -99,7 +100,8 @@
        if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
        }
-       return this.currentProperty.filters[markerType].iconUrl;
+       console.log(markerType);
+       return this.allFilters[markerType].iconUrl;
      },
      getMarkerType: function (witches) {
        // Gets the marker type (either a filterType, 'mixed' or null if
@@ -111,7 +113,7 @@
           let witch = witches[i];
 
           if (witch.witchState.onOff) {
-            let witchType = witch[this.currentProperty.property];
+            let witchType = witch[this.currentProperty];
 
             if (!markerType) {
                markerType = witchType;
@@ -148,8 +150,6 @@
        // current filter property to the witche's active filters.
        // If a marker is mixed, meaning it could stop being mixed, it
        // updates the marker state by calling getMarkerState.
-       console.log(Object.keys(this.filterProperties[1].filters));
-       console.log(Object.keys(this.filterProperties[2].filters));
 
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];
@@ -184,8 +184,11 @@
 
          for (let w = 0, len = marker.witches.length; w < len; w++) {
            let witch = marker.witches[w];
+           let witchType = witch[filterProperty];
+
+           if (witchType === "unknwon") {witchType = "unknwon"+filterProperty}
            
-           if (witch[filterProperty] === filterType) {
+           if (witchType === filterType) {
              let newFilters = this.getUpdatedWitchFilters(witch.witchState.activeFilters, filterProperty);
              witch.witchState.activeFilters = newFilters;
 
@@ -225,15 +228,15 @@
        return outputMarkers;
      },
      filterMarkers: function (filterType) {
-       let isActive = this.currentProperty.filters[filterType].active;
+       let isActive = this.allFilters[filterType].active;
 
        if (isActive) {
          this.$store.commit('filters/setInactive', filterType);
-         this.setWitchesOff(this.currentProperty.property, filterType);
+         this.setWitchesOff(this.currentProperty, filterType);
          this.$emit('updatedMarkers', this.getOutputMarkers());
        } else {
          this.$store.commit('filters/setActive', filterType);
-         this.setWitchesOn(this.currentProperty.property, filterType);
+         this.setWitchesOn(this.currentProperty, filterType);
          this.$emit("updatedMarkers", this.getOutputMarkers());
        }
      },
@@ -252,26 +255,25 @@
        // when component is created, to apply the filters from the
        // store so that filters are shared accross pages.
        
-       for (let i = 0, len = this.filterProperties.length; i < len; i++) {
-         let filterProperty = this.filterProperties[i];
-         let filters = Object.keys(filterProperty.filters);
+       for (let i = 0, len = this.allProperties.length; i < len; i++) {
+         let filterProperty = this.allProperties[i];
+         let filters = this.filterProperties[filterProperty].filterTypes;
          
          for (let f = 0, len = filters.length; f < len; f++) {
            let filterType = filters[f];
 
-           if (!filterProperty.filters[filterType].active) {
-             this.setWitchesOff(filterProperty.property, filterType);
+           if (!this.allFilters[filterType].active) {
+             this.setWitchesOff(filterProperty, filterType);
            }
          }
        }
-       console.log(this.getOutputMarkers());
        this.$emit("updatedMarkers", this.getOutputMarkers());
      },
-     toggleFilterProperties: function (layerIndex) {
-       this.currentIndex = layerIndex;
+     toggleFilterProperties: function (property) {
+       this.currentProperty = property;
        this.setAllIcons();
        this.$emit("updatedMarkers", this.getOutputMarkers());
-       this.$store.commit('filters/updateIndex', layerIndex);
+       this.$store.commit('filters/updateCurrentProperty', property);
      },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
@@ -279,11 +281,6 @@
      },
      toggleFilters: function () {
        this.filters = ! this.filters;
-     }
-   },
-   computed: {
-     currentProperty: function () {
-       return this.filterProperties[this.currentIndex];
      }
    },
    created () {

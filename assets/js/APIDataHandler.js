@@ -7,36 +7,25 @@ const APIDataHandler = {
 
     return icons[position];
   },
-  checkSocials: function (currentSocials, socialClass, icons) {
-    // Checks if a socialClass filter type doesn't exist 
-    // already, and if so it adds it to the filters object 
-    // for social class. If no new socials exist returns null.
+  checkFilters: function (currentFilters, filter, propertyFilters, icons) {
+    // Checks if filter doesn't exist 
+    // already, and if so it returns a filter object.
 
-    if (!currentSocials.includes(socialClass)) {
-      let icon = this.selectIcon(currentSocials, icons);
-      let socialInfo = {
-        label: socialClass,
+    if (!currentFilters.includes(filter)) {
+      let icon = this.selectIcon(propertyFilters, icons);
+      return {
+        label: filter,
         active: true,
         iconUrl: icon
-      };
-      return socialInfo
+      }
     }
     return null
   },
-  checkOccupations: function (currentOccupations, occupation, icons) {
-    // If an occupation does not exist already returns 
-    // its filterType object. If it exists returns null.
-
-    if (!currentOccupations.includes(occupation)) {
-      let icon = this.selectIcon(currentOccupations, icons);
-      let occupationInfo = {
-        label: occupation,
-        active: true,
-        iconUrl: icon
-      };
-      return occupationInfo
+  checkExistsInProperty: function (propertyFilters, filter) {
+    if (!propertyFilters.includes(filter)) {
+      return false
     }
-    return null
+    return true
   }
 }
 
