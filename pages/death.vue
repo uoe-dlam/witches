@@ -66,14 +66,14 @@
        socialClassification: {
          label: "Social Classification",
          filterTypes: [
-           "middling", "pauper", "unknown", "working poor", "vagrant",
+           "unknown", "middling", "pauper", "working poor", "vagrant",
            "upper class"
          ]
        },
        occupation: {
          label: "Occupations",
          filterTypes: [
-           "unknown", "cunning folk", "vagrant", "domestic worker", "midwife",
+           "unknown", "domestic worker", "vagrant", "midwife", "cunning folk",
            "healer", "shopkeeper", "farmer", "teacher", "piece work", "coal miner"
          ]
        },
@@ -162,20 +162,19 @@
            let wikiPage = this.getItemWikiPage(item);
 
            let icons = this.$store.getters['icons/getIcons'];
-           let allFiltersKeys = this.$store.getters['filters/getAllFiltersKeys'];
-           let newSocial = APIDataHandler.checkFilters(allFiltersKeys, socialClassification, this.filterProperties.socialClassification.filterTypes, icons);
-           let newOccupation = APIDataHandler.checkFilters(allFiltersKeys, occupation, this.filterProperties.occupation.filterTypes, icons);
+           let newSocial = APIDataHandler.checkFilters(socialClassification, this.filterProperties.socialClassification.filterTypes, icons);
+           let newOccupation = APIDataHandler.checkFilters(occupation, this.filterProperties.occupation.filterTypes, icons);
 
            if (newSocial) {
-             this.$store.commit('filters/updateFilters', newSocial);
-             this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
-           } else if (!APIDataHandler.checkExistsInProperty(this.filterProperties.socialClassification.filterTypes, socialClassification)) {
+             if (!this.$store.getters['filters/getSocials'].includes(newSocial.label)) {
+               this.$store.commit('filters/updateSocials', newSocial);
+             }
              this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
            }
            if (newOccupation) {
-             this.$store.commit('filters/updateFilters', newOccupation);
-             this.filterProperties.occupation.filterTypes.push(newOccupation.label);
-           } else if (!APIDataHandler.checkExistsInProperty(this.filterProperties.occupation.filterTypes, occupation)) {
+             if (!this.$store.getters['filters/getOccupations'].includes(newOccupation.label)) {
+               this.$store.commit('filters/updateOccupations', newOccupation);
+             }
              this.filterProperties.occupation.filterTypes.push(newOccupation.label);
            }
 
@@ -188,7 +187,6 @@
            // push
            if (witch) {
              if (id === "http://www.wikidata.org/entity/Q43394934") {
-               console.log('found isobel');
              }
              if(detentionLocation !== ''){
                if(!witch.detentions.find( obj => obj.location === detentionLocation)) {
@@ -243,7 +241,7 @@
 
          this.noItems = witches.length;
          this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-         //console.log(this.markers);
+
          this.loading = false;
 
        });
@@ -273,7 +271,7 @@
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: this.$store.getters['filters/getFilters'][markerType].iconUrl,
+           markerIcon: this.$store.getters['filters/getFilters'][filterProperty][markerType].iconUrl,
            onOff: true // Determines whether the marker is showing.
          }
          this.markers.push(marker);

@@ -64,17 +64,17 @@ export const state = () => ({
       "unknown": {
         "label": "unknown",
         "active": true,
+        "iconUrl": "/images/witch-single-pink.png"
+      },
+      "domestic worker": {
+        "label": "domestic worker",
+        "active": true,
         "iconUrl": "/images/witch-single-blue.png"
       },
       "vagrant": {
         "label": "vagrant",
         "active": true,
         "iconUrl": "/images/witch-single-orange.png"
-      },
-      "domestic worker": {
-        "label": "domestic worker",
-        "active": true,
-        "iconUrl": "/images/witch-single-pink.png"
       },
       "midwife": {
         "label": "midwife",
@@ -104,17 +104,17 @@ export const state = () => ({
       "shopkeeper": {
         "label": "shopkeeper",
         "active": true,
-        "iconUrl": "/images/witch-single-blue.png"
+        "iconUrl": "/images/witch-single-pink.png"
       },
       "miller": {
         "label": "miller",
         "active": true,
-        "iconUrl": "/images/witch-single-orange.png"
+        "iconUrl": "/images/witch-single-blue.png"
       },
       "laborer": {
         "label": "laborer",
         "active": true,
-        "iconUrl": "/images/witch-single-pink.png"
+        "iconUrl": "/images/witch-single-orange.png"
       },
       "metalsmith": {
         "label": "metalsmith",
@@ -144,17 +144,17 @@ export const state = () => ({
       "merchant": {
         "label": "merchant",
         "active": true,
-        "iconUrl": "/images/witch-single-blue.png"
+        "iconUrl": "/images/witch-single-pink.png"
       },
       "occultist": {
         "label": "occultist",
         "active": true,
-        "iconUrl": "/images/witch-single-orange.png"
+        "iconUrl": "/images/witch-single-blue.png"
       },
       "mealmaker": {
         "label": "mealmaker",
         "active": true,
-        "iconUrl": "/images/witch-single-pink.png"
+        "iconUrl": "/images/witch-single-orange.png"
       },
       "teacher": {
         "label": "teacher",
@@ -184,17 +184,17 @@ export const state = () => ({
       "piece work": {
         "label": "piece work",
         "active": true,
-        "iconUrl": "/images/witch-single-blue.png"
+        "iconUrl": "/images/witch-single-pink.png"
       },
       "brewster": {
         "label": "brewster",
         "active": true,
-        "iconUrl": "/images/witch-single-orange.png"
+        "iconUrl": "/images/witch-single-blue.png"
       },
       "coal miner": {
         "label": "coal miner",
         "active": true,
-        "iconUrl": "/images/witch-single-pink.png"
+        "iconUrl": "/images/witch-single-orange.png"
       },
       "slater": {
         "label": "slater",
@@ -224,24 +224,25 @@ export const state = () => ({
       "sailor": {
         "label": "sailor",
         "active": true,
-        "iconUrl": "/images/witch-single-blue.png"
+        "iconUrl": "/images/witch-single-pink.png"
       },
       "creelman": {
         "label": "creelman",
         "active": true,
+        "iconUrl": "/images/witch-single-blue.png"
+      }
+    },
+    hasWikiPage: {
+      "hasWiki": {
+        "label": "Has wiki",
+        "active": true,
+        "iconUrl": "/images/witch-single-blue.png"
+      },
+      "noWiki": {
+        "label": "No wiki",
+        "active": true,
         "iconUrl": "/images/witch-single-orange.png"
       }
-   },
-   hasWikiPage: {
-    "hasWiki": {
-      "label": "Has wiki",
-      "active": true,
-      "iconUrl": "/images/witch-single-blue.png"
-    },
-    "noWiki": {
-      "label": "No wiki",
-      "active": true,
-      "iconUrl": "/images/witch-single-orange.png"
     }
   }
 });
@@ -255,6 +256,12 @@ export const getters = {
   },
   getAllFiltersKeys: state => {
     return Object.keys(state.allFilters);
+  },
+  getSocials: state => {
+    return Object.keys(state.allFilters.socialClassification);
+  },
+  getOccupations: state => {
+    return Object.keys(state.allFilters.occupation);
   }
 };
 
@@ -263,17 +270,20 @@ export const mutations = {
     // <filterObj> is an object with the filter property 
     // (sex, social class etc) and  filter type 
     // (male, vagrant etc) in the second.
-    state.allFilters[filterType].active = false;
+    state.allFilters[state.currentProperty][filterType].active = false;
   },
   setActive(state, filterType) {
     // It removes the filter filterObj (see above for description)
     // from the active filters array.
-    state.allFilters[filterType].active = true;
+    state.allFilters[state.currentProperty][filterType].active = true;
   },
   updateCurrentProperty(state, property) {
     state.currentProperty = property;
   },
-  updateFilters(state, filterInfo) {
-    state.allFilters[filterInfo.label] = filterInfo;
+  updateSocials(state, socialInfo) {
+    state.allFilters.socialClassification[socialInfo.label] = socialInfo;
+  },
+  updateOccupations(state, occupationInfo) {
+    state.allFilters.occupation[occupationInfo.label] = occupationInfo;
   }
 };

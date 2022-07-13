@@ -7,11 +7,11 @@ const APIDataHandler = {
 
     return icons[position];
   },
-  checkFilters: function (currentFilters, filter, propertyFilters, icons) {
+  checkFilters: function (filter, propertyFilters, icons) {
     // Checks if filter doesn't exist 
     // already, and if so it returns a filter object.
 
-    if (!currentFilters.includes(filter)) {
+    if (!propertyFilters.includes(filter)) {
       let icon = this.selectIcon(propertyFilters, icons);
       return {
         label: filter,
@@ -20,12 +20,6 @@ const APIDataHandler = {
       }
     }
     return null
-  },
-  checkExistsInProperty: function (propertyFilters, filter) {
-    if (!propertyFilters.includes(filter)) {
-      return false
-    }
-    return true
   }
 }
 

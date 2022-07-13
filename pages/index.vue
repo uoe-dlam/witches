@@ -58,19 +58,19 @@
      filterProperties: {
        sex: {
           label: "Gender",
-          filterTypes: [ "male", "female", "unknownSex" ]
+          filterTypes: [ "male", "female", "unknown" ]
        },
        socialClassification: {
           label: "Social Classification",
           filterTypes: [ 
-            "middling", "pauper", "unknownSocialClassification", "working poor", "vagrant",
+            "unknown", "middling", "pauper", "working poor", "vagrant",
             "nobility", "upper class", "Laird" 
           ]
        },
        occupation: {
          label: "Occupations",
          filterTypes: [
-           "unknownOccupation", "vagrant", "domestic worker", "midwife", "Christian minister",
+           "unknown", "vagrant", "domestic worker", "midwife", "Christian minister",
            "courier", "weaver", "cunning folk", "shopkeeper", "miller",
            "laborer", "metalsmith", "healer", "loadman", "maltman", "blacksmith",
            "merchant", "occultist", "mealmaker", "teacher", "farmer", "tailor",
@@ -177,23 +177,22 @@
            }
            
            let icons = this.$store.getters['icons/getIcons'];
-           let allFiltersKeys = this.$store.getters['filters/getAllFiltersKeys'];
-           let newSocial = APIDataHandler.checkFilters(allFiltersKeys, socialClassification, this.filterProperties.socialClassification.filterTypes, icons);
-           let newOccupation = APIDataHandler.checkFilters(allFiltersKeys, occupation, this.filterProperties.occupation.filterTypes, icons);
+           let newSocial = APIDataHandler.checkFilters(socialClassification, this.filterProperties.socialClassification.filterTypes, icons);
+           let newOccupation = APIDataHandler.checkFilters(occupation, this.filterProperties.occupation.filterTypes, icons);
 
            if (newSocial) { 
-             this.$store.commit('filters/updateFilters', newSocial);
-             this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
-           } else if (!APIDataHandler.checkExistsInProperty(this.filterProperties.socialClassification.filterTypes, socialClassification)) {
+             if (!this.$store.getters['filters/getSocials'].includes(newSocial.label)) {
+               this.$store.commit('filters/updateSocials', newSocial);
+             }
              this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
            }
            if (newOccupation) { 
-             this.$store.commit('filters/updateFilters', newOccupation);
-             this.filterProperties.occupation.filterTypes.push(newOccupation.label);
-           } else if (!APIDataHandler.checkExistsInProperty(this.filterProperties.occupation.filterTypes, occupation)) {
-             this.filterProperties.occupation.filterTypes.push(newOccupation.label);
+             if (!this.$store.getters['filters/getOccupations'].includes(newOccupation.label)) {
+               this.$store.commit('filters/updateOccupations', newOccupation);
+             }
+             this.filterProperties.occupation.filterTypes.push(newOccupation.label);   
            }
-           
+
            // find if witch has already exists
            let witch = witches.find( witch => {
              return witch.id ===  id;
@@ -294,7 +293,7 @@
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: this.$store.getters['filters/getFilters'][markerType].iconUrl,
+           markerIcon: this.$store.getters['filters/getFilters'][filterProperty][markerType].iconUrl,
            onOff: true
          }
          this.markers.push(marker);

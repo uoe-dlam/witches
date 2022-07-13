@@ -53,11 +53,11 @@
         <div class="pt-4">
           <span class="flex items-center float-left"
                 v-for="filterType in filterProperties[currentProperty].filterTypes">
-            <input type="checkbox" :checked="allFilters[filterType].active"
+            <input type="checkbox" :checked="allFilters[currentProperty][filterType].active"
                    @change="filterMarkers(filterType)"/>
             &nbsp;
-            <img :src="allFilters[filterType].iconUrl" width="12" height="20"/>
-            &nbsp;{{allFilters[filterType].label}}&nbsp;
+            <img :src="allFilters[currentProperty][filterType].iconUrl" width="12" height="20"/>
+            &nbsp;{{allFilters[currentProperty][filterType].label}}&nbsp;
           </span>
         </div>
       </div>
@@ -100,8 +100,7 @@
        if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
        }
-       console.log(markerType);
-       return this.allFilters[markerType].iconUrl;
+       return this.allFilters[this.currentProperty][markerType].iconUrl;
      },
      getMarkerType: function (witches) {
        // Gets the marker type (either a filterType, 'mixed' or null if
@@ -185,8 +184,6 @@
          for (let w = 0, len = marker.witches.length; w < len; w++) {
            let witch = marker.witches[w];
            let witchType = witch[filterProperty];
-
-           if (witchType === "unknwon") {witchType = "unknwon"+filterProperty}
            
            if (witchType === filterType) {
              let newFilters = this.getUpdatedWitchFilters(witch.witchState.activeFilters, filterProperty);
@@ -214,7 +211,7 @@
        // emitted to parent, and will then be used by LeafletMap
        // to plot. 
        let outputMarkers = [];
-       //console.log(this.markers);
+
        for (let i = 0, len = this.markers.length; i < len; i++) {
          let marker = this.markers[i];
 
@@ -228,7 +225,7 @@
        return outputMarkers;
      },
      filterMarkers: function (filterType) {
-       let isActive = this.allFilters[filterType].active;
+       let isActive = this.allFilters[this.currentProperty][filterType].active;
 
        if (isActive) {
          this.$store.commit('filters/setInactive', filterType);
@@ -262,7 +259,7 @@
          for (let f = 0, len = filters.length; f < len; f++) {
            let filterType = filters[f];
 
-           if (!this.allFilters[filterType].active) {
+           if (!this.allFilters[filterProperty][filterType].active) {
              this.setWitchesOff(filterProperty, filterType);
            }
          }
