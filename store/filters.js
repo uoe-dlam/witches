@@ -16,7 +16,8 @@ export const state = () => ({
         "label": "Unknown",
         "active": true,
         "iconUrl": "/images/witch-single-BW.png"
-      }
+      },
+      active: false
     },
     socialClassification: {
       "middling": {
@@ -58,7 +59,8 @@ export const state = () => ({
         "label": "Laird",
         "active": true,
         "iconUrl": "/images/witch-single-yellow.png"
-      }
+      },
+      active: false
     },
     occupation: {
       "unknown": {
@@ -230,7 +232,8 @@ export const state = () => ({
         "label": "creelman",
         "active": true,
         "iconUrl": "/images/witch-single-blue.png"
-      }
+      },
+      active: false
     },
     hasWikiPage: {
       "hasWiki": {
@@ -242,7 +245,8 @@ export const state = () => ({
         "label": "No wiki",
         "active": true,
         "iconUrl": "/images/witch-single-orange.png"
-      }
+      },
+      active: false
     }
   }
 });
@@ -276,6 +280,12 @@ export const mutations = {
     // It removes the filter filterObj (see above for description)
     // from the active filters array.
     state.allFilters[state.currentProperty][filterType].active = true;
+  },
+  setPropertyToActive(state, property) {
+    state.allFilters[property].active = true;
+  },
+  setPropertyToInactive(state, property) {
+    state.allFilters[property].active = false;
   },
   updateCurrentProperty(state, property) {
     state.currentProperty = property;

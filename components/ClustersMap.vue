@@ -1,6 +1,10 @@
 <template>
-  <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
+  <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" 
+         :options="{zoomControl: false}" ref="myMap">
+
+    <l-control-zoom position="bottomright"></l-control-zoom>
     <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
+    
     <v-marker-cluster ref="clusterRef" :options="clusterOptions">
       <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
         <l-popup class="adapted-popup">

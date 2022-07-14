@@ -1,5 +1,7 @@
 <template>
   <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
+
+    <l-control-zoom position="bottomright"></l-control-zoom>
     <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
 
     <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">

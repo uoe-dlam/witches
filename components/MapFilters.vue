@@ -1,33 +1,29 @@
 <template>
   <!-- Filters pop-down -->
-  <div class="absolute flex h-full w-1/4 bg-slate-500 z-20 
-              left-0">
-    <div>
-      <span v-for="(tile, index) in tiles">
-        <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)" />
-        &nbsp;{{tile.name}}&nbsp;
-      </span>
-    </div>
-    <br>
-    <div class="flex flex-col">
-      <div>
-        <span v-for="(item, property) in filterProperties">
-          <input type="radio" name="layer" :checked="property === currentProperty"
-            @change="toggleFilterProperties(property)" />
-          &nbsp;{{item.label}}&nbsp;
-        </span>
-      </div>
-      <div class="pt-4">
-        <span class="flex items-center float-left" v-for="filterType in filterProperties[currentProperty].filterTypes">
-          <input type="checkbox" :checked="allFilters[currentProperty][filterType].active"
-            @change="filterMarkers(filterType)" />
-          &nbsp;
-          <img :src="allFilters[currentProperty][filterType].iconUrl" width="12" height="20" />
-          &nbsp;{{allFilters[currentProperty][filterType].label}}&nbsp;
-        </span>
+  <div class="absolute h-full w-1/4 bg-slate-300 z-20 
+              left-0 flex flex-col rounded-tr-xl rounded-br-xl
+              shadow-md">
+
+    <div class="w-full flex justify-between px-10 mt-5 mb-8">
+      <div v-for="tile in tiles">
+        <input type="radio" name="tile" :checked="tile.name === currentTileName" 
+               @change="filterTiles(tile)"/>
+        {{tile.name}}
       </div>
     </div>
-    <br>
+
+    <div v-for="property in allProperties" class="w-full flex flex-col ml-1">
+
+      <div class="flex pl-2 py-1 bg-slate-400 w-2/3
+                border-2 border-slate-500 mb-1 rounded-sm">
+        <p>{{filterProperties[property].label}}</p>
+        <img src="images/arrow-down.svg" v-if="!allFilters[property].active"
+             @click="setPropertyToActive(property)" class="ml-2"/>
+        <img src="images/arrow-up.svg" v-if="allFilters[property].active"
+             @click="setPropertyToInactive(property)" class="ml-2"/>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -230,6 +226,12 @@
          }
        }
        this.$emit("updatedMarkers", this.getOutputMarkers());
+     },
+     setPropertyToActive: function (property) {
+       this.$store.commit('filters/setPropertyToActive', property);
+     },
+     setPropertyToInactive: function (property) {
+       this.$store.commit('filters/setPropertyToInactive', property);
      },
      toggleFilterProperties: function (property) {
        this.currentProperty = property;
