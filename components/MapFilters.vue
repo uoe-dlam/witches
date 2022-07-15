@@ -22,7 +22,6 @@
         <img src="images/arrow-up.svg" v-if="allFilters[property].active"
              @click="setPropertyToInactive(property)" class="ml-2"/>
       </div>
-
     </div>
   </div>
 </template>
@@ -34,7 +33,7 @@
        type: Array,
        required: true
      },
-     filterProperties: {
+     startingFilters: {
        type: Object,
        required: true
      }
@@ -44,13 +43,11 @@
        filters: false,
        noFiltersOn: 0,
        markers: JSON.parse(JSON.stringify(this.startingMarkers)),
-       originalMarkers: [],
-       currentTileName : 'Modern Map',
+       currentTileName: 'Modern Map',
+       filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
-       allFilters: this.$store.getters['filters/getFilters'],
-       currentProperty: this.$store.getters['filters/getCurrentProperty'],
-       allProperties: Object.keys(this.filterProperties)
+       currentProperty: 'sex',
      }
    },
    methods: {
@@ -61,7 +58,7 @@
        if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
        }
-       return this.allFilters[this.currentProperty][markerType].iconUrl;
+       return this.filterProperties[this.currentProperty].filters[markerType].iconUrl;
      },
      getMarkerType: function (witches) {
        // Gets the marker type (either a filterType, 'mixed' or null if
@@ -185,15 +182,21 @@
        }
        return outputMarkers;
      },
+     setFilterInactive: function (filterType) {
+       this.filterProperties[this.currentProperty].filters[filterType].active = false;
+     },
+     setFilterActive: function (filterType) {
+       this.filterProperties[this.currentProperty].filters[filterType].active = true;
+     },
      filterMarkers: function (filterType) {
-       let isActive = this.allFilters[this.currentProperty][filterType].active;
+       let isActive = this.filterProperties[this.currentProperty].filters[filterType].active;
 
        if (isActive) {
-         this.$store.commit('filters/setInactive', filterType);
+         this.setFilterInactive(filterType);
          this.setWitchesOff(this.currentProperty, filterType);
          this.$emit('updatedMarkers', this.getOutputMarkers());
        } else {
-         this.$store.commit('filters/setActive', filterType);
+         this.setFilterActive(filterType);
          this.setWitchesOn(this.currentProperty, filterType);
          this.$emit("updatedMarkers", this.getOutputMarkers());
        }
@@ -208,36 +211,10 @@
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
      },
-     applyAllFilters: function () {
-       // Filters off all the filters that are not active. Called
-       // when component is created, to apply the filters from the
-       // store so that filters are shared accross pages.
-       
-       for (let i = 0, len = this.allProperties.length; i < len; i++) {
-         let filterProperty = this.allProperties[i];
-         let filters = this.filterProperties[filterProperty].filterTypes;
-         
-         for (let f = 0, len = filters.length; f < len; f++) {
-           let filterType = filters[f];
-
-           if (!this.allFilters[filterProperty][filterType].active) {
-             this.setWitchesOff(filterProperty, filterType);
-           }
-         }
-       }
-       this.$emit("updatedMarkers", this.getOutputMarkers());
-     },
-     setPropertyToActive: function (property) {
-       this.$store.commit('filters/setPropertyToActive', property);
-     },
-     setPropertyToInactive: function (property) {
-       this.$store.commit('filters/setPropertyToInactive', property);
-     },
      toggleFilterProperties: function (property) {
        this.currentProperty = property;
        this.setAllIcons();
        this.$emit("updatedMarkers", this.getOutputMarkers());
-       this.$store.commit('filters/updateCurrentProperty', property);
      },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
@@ -247,8 +224,8 @@
        this.filters = ! this.filters;
      }
    },
-   created () {
-     this.applyAllFilters();
+   mounted: function () {
+     console.log(this.filterProperties);
    }
  }
 </script>
