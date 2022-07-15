@@ -25,7 +25,7 @@
       </div>
 
       <map-filters v-if="!loading" :startingMarkers="originalMarkers"
-                   :filterProperties="filterProperties"
+                   :startingFilters="filterProperties"
                    @updatedMarkers="markers = $event"
                    @updatedTile="url = $event">
       </map-filters>
@@ -57,30 +57,51 @@
      currentTileName: 'Modern Map',
      filterProperties: {
        sex: {
-          label: "Gender",
-          filterTypes: [ "male", "female", "unknown" ]
+         label: "Gender",
+         filters: {
+           "male": {
+             "label": "Male",
+             "active": true,
+             "iconUrl": "/images/witch-single-blue.png"
+           },
+           "female": {
+             "label": "Female",
+             "active": true,
+             "iconUrl": "/images/witch-single-orange.png"
+           },
+           "unknown": {
+             "label": "Unknown",
+             "active": true,
+             "iconUrl": "/images/witch-single-BW.png"
+           }
+         },
+         active: false
        },
-       socialClassification: {
+       socialClass: {
           label: "Social Classification",
-          filterTypes: [ 
-            "unknown", "middling", "pauper", "working poor", "vagrant",
-            "nobility", "upper class", "Laird" 
-          ]
+          filters: {},
+          active: false
        },
        occupation: {
          label: "Occupations",
-         filterTypes: [
-           "unknown", "vagrant", "domestic worker", "midwife", "Christian minister",
-           "courier", "weaver", "cunning folk", "shopkeeper", "miller",
-           "laborer", "metalsmith", "healer", "loadman", "maltman", "blacksmith",
-           "merchant", "occultist", "mealmaker", "teacher", "farmer", "tailor",
-           "stabler", "fisher", "piece work", "brewster", "coal miner", "slater",
-           "nurse", "School Master", "henwife", "cook", "sailor", "creelman"
-         ]
+         filters: {},
+         active: false
        },
        hasWikiPage: {
          label: "Wikipedia Page",
-         filterTypes: ["hasWiki", "noWiki"]
+         filters: {
+           "hasWiki": {
+             "label": "Has wiki",
+             "active": true,
+             "iconUrl": "/images/witch-single-blue.png"
+           },
+           "noWiki": {
+             "label": "No wiki",
+             "active": true,
+             "iconUrl": "/images/witch-single-orange.png"
+           }
+         },
+         active: false
        }
      }
    }),
@@ -177,20 +198,17 @@
            }
            
            let icons = this.$store.getters['icons/getIcons'];
-           let newSocial = APIDataHandler.checkFilters(socialClassification, this.filterProperties.socialClassification.filterTypes, icons);
-           let newOccupation = APIDataHandler.checkFilters(occupation, this.filterProperties.occupation.filterTypes, icons);
+           let currentSocials = Object.keys(this.filterProperties.socialClass.filters);
+           let currentOccupations = Object.keys(this.filterProperties.occupation.filters);
+
+           let newSocial = APIDataHandler.checkFilters(socialClassification, currentSocials, icons);
+           let newOccupation = APIDataHandler.checkFilters(occupation, currentOccupations, icons);
 
            if (newSocial) { 
-             if (!this.$store.getters['filters/getSocials'].includes(newSocial.label)) {
-               this.$store.commit('filters/updateSocials', newSocial);
-             }
-             this.filterProperties.socialClassification.filterTypes.push(newSocial.label);
+             this.filterProperties.socialClass.filters[newSocial.label] = newSocial;
            }
            if (newOccupation) { 
-             if (!this.$store.getters['filters/getOccupations'].includes(newOccupation.label)) {
-               this.$store.commit('filters/updateOccupations', newOccupation);
-             }
-             this.filterProperties.occupation.filterTypes.push(newOccupation.label);   
+             this.filterProperties.occupation.filters[newOccupation.label] = newOccupation;
            }
 
            // find if witch has already exists
@@ -232,7 +250,7 @@
                longLat: residenceCoords,
                sex: sex,
                occupation: occupation,
-               socialClassification: socialClassification,
+               socialClass: socialClassification,
                wikiPage: wikiPage,
                hasWikiPage: wikiPage === '' ? 'noWiki' : 'hasWiki',
                residences: [],
@@ -265,6 +283,7 @@
          this.noItems = witches.length;
          this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
          this.saveDataToLocalStorage();
+         console.log('still loading');
          this.loading = false;
        });
 
@@ -277,7 +296,7 @@
        });
 
        // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-       let filterProperty = this.$store.getters['filters/getCurrentProperty'];
+       let filterProperty = 'sex';
       
        if (marker) {
          marker.witches.push(witch);
@@ -293,7 +312,7 @@
            location: location,
            longLat: locationCoords,
            witches: [witch],
-           markerIcon: this.$store.getters['filters/getFilters'][filterProperty][markerType].iconUrl,
+           markerIcon: this.filterProperties[filterProperty].filters[markerType].iconUrl,
            onOff: true
          }
          this.markers.push(marker);
@@ -308,15 +327,19 @@
        return setupTime === null || (now - setupTime > hours*60*60*1000);
      },
      loadDataFromLocalStorage: function () {
-       this.markers = JSON.parse(localStorage.getItem('markers'));
-       this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+       this.originalMarkers = JSON.parse(localStorage.getItem('markers'));
+       this.markers = JSON.parse(JSON.stringify(this.originalMarkers));
        this.noItems = localStorage.getItem('noItems');
+       this.filterProperties.socialClass.filters = JSON.parse(localStorage.getItem('socialFilters'));
+       this.filterProperties.occupation.filters = JSON.parse(localStorage.getItem('occupationFilters'));
      },
      saveDataToLocalStorage: function () {
        let now = new Date().getTime();
        localStorage.setItem('setupTime', now);
-       localStorage.setItem('markers', JSON.stringify(this.markers));
+       localStorage.setItem('markers', JSON.stringify(this.originalMarkers));
        localStorage.setItem('noItems', this.noItems);
+       localStorage.setItem('socialFilters', JSON.stringify(this.filterProperties.socialClass.filters));
+       localStorage.setItem('occupationFilters', JSON.stringify(this.filterProperties.occupation.filters));
      },
      // Wiki functions:
      showPageInfo: function () {
