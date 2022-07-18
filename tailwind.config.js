@@ -24,7 +24,8 @@ module.exports = {
     extend: {
       colors: {
         'icon-grey': "#606f7b",
-      }
+        'witch-yellow': '#eeb518e1'
+      },
     },
     fontSize: {
       'xs': '.75rem',

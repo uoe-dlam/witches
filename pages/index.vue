@@ -76,19 +76,16 @@
              "iconUrl": "/images/witch-single-BW.png"
            }
          },
-         active: true,
          showing: false
        },
        socialClass: {
         label: "Social Classification",
         filters: {},
-        active: true,
         showing: false
        },
        occupation: {
          label: "Occupations",
          filters: {},
-         active: false,
          showing: false
        },
        hasWikiPage: {
@@ -105,7 +102,6 @@
              "iconUrl": "/images/witch-single-orange.png"
            }
          },
-         active: false,
          showing: false
        }
      }

@@ -7,48 +7,66 @@
     <div class="w-full flex justify-between px-5 
                 md:px-10 mt-5 mb-8">
       <div v-for="tile in tiles">
-        <input type="radio" name="tile" 
-               :checked="tile.name === currentTileName" 
-               @change="filterTiles(tile)" />
+        <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)" />
         {{tile.name}}
       </div>
     </div>
 
-    <div v-for="(propertyItem, property) in filterProperties" 
-          class="w-full flex flex-col ml-1">
+    <div v-for="(propertyItem, property) in filterProperties" class="w-full flex flex-col ml-1">
 
       <div class="flex justify-between pl-2 py-1 bg-slate-400
                 border-2 border-slate-500 mb-1 rounded-sm
                 flex-wrap items-center" style="width: 225px;">
         <div class="flex w-4/5 items-center">
           <p> {{propertyItem.label}} </p>
-          <div class="w-3 h-3 rounded-full ml-2" 
-               :style="[propertyItem.active ? {'background-color': '#eeb518e1'} 
-                                            : {'background-color': 'transparent'}]">
+          <div class="w-3 h-3 rounded-full ml-2" :style="[property === currentProperty ? {'background-color': '#eeb518e1'} 
+                                                     : {'background-color': 'transparent'}]">
           </div>
         </div>
         <div class="svg-container flex border-2 w-7 h-7 mr-2
                    items-center justify-center border-icon-grey">
-          <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
-               @click="setPropertyToShowing(property)"
-               class="arrow-icon" />
-          <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
-               @click="setPropertyToNotShowing(property)"
-               class="arrow-icon" />
+          <img src="images/arrow-down.svg" v-if="!propertyItem.showing" @click="setPropertyToShowing(property)"
+            class="arrow-icon" />
+          <img src="images/arrow-up.svg" v-if="propertyItem.showing" @click="setPropertyToNotShowing(property)"
+            class="arrow-icon" />
         </div>
       </div>
 
-      <div v-if="propertyItem.showing" 
-          class="flex flex-wrap w-full px-2 mt-2">
-        <div v-for="(filterItem, filter) in propertyItem.filters" 
-             class="flex flex-col items-center mb-3 mx-2"
-             style="width: 50px">
-          <img class="witch-icon mb-2" :src="filterItem.iconUrl"/>
-          <p class="text-xs text-center"> {{filterItem.label}} </p>
+      <div v-if="propertyItem.showing" class="w-full px-2 mt-2">
+
+        <div v-if="property === currentProperty" class="w-full flex flex-wrap">
+          <div v-for="(filterItem, filterType) in propertyItem.filters" class="flex flex-col items-center mx-2 mb-3"
+            style="width: 50px">
+            <div class="flex justify-center items-center">
+              <input :checked="filterProperties[property].filters[filterType].active"
+                @change="filterMarkers(property, filterType)" type="checkbox" />
+              <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
+            </div>
+            <p class="text-xs text-center"> {{filterItem.label}} </p>
+          </div>
         </div>
+
+        <div v-else class="flex flex-col items-start w-full">
+          <button @click="setPropertyToCurrent(property)" 
+                  class="ml-1 text-sm bg-witch-yellow 
+                        border-1 rounded-sm mb-2 px-0.5 py-0.5">
+            Activate icons
+          </button>
+          <div class="w-full flex flex-wrap">
+            <div v-for="(filterItem, filterType) in propertyItem.filters">
+              <div class="flex mb-3 mx-2 w-full items-center">
+                <input :checked="filterProperties[property].filters[filterType].active"
+                       @change="filterMarkers(property, filterType)" type="checkbox" />
+                <p class="text-xs text-center ml-1"> {{filterItem.label}} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      
     </div>
+
+  </div>
   </div>
 </template>
 
@@ -73,7 +91,7 @@
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
        tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
                {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
-       currentProperty: 'sex',
+       currentProperty: 'sex', // Determines the property the icons of which are showing.
      }
    },
    methods: {
@@ -208,22 +226,23 @@
        }
        return outputMarkers;
      },
-     setFilterInactive: function (filterType) {
-       this.filterProperties[this.currentProperty].filters[filterType].active = false;
+     setFilterInactive: function (property, filterType) {
+       this.filterProperties[property].filters[filterType].active = false;
      },
-     setFilterActive: function (filterType) {
-       this.filterProperties[this.currentProperty].filters[filterType].active = true;
+     setFilterActive: function (property, filterType) {
+       this.filterProperties[property].filters[filterType].active = true;
      },
-     filterMarkers: function (filterType) {
-       let isActive = this.filterProperties[this.currentProperty].filters[filterType].active;
+     filterMarkers: function (property, filterType) {
+       console.log(property);
+       let isActive = this.filterProperties[property].filters[filterType].active;
 
        if (isActive) {
-         this.setFilterInactive(filterType);
-         this.setWitchesOff(this.currentProperty, filterType);
+         this.setFilterInactive(property, filterType);
+         this.setWitchesOff(property, filterType);
          this.$emit('updatedMarkers', this.getOutputMarkers());
        } else {
-         this.setFilterActive(filterType);
-         this.setWitchesOn(this.currentProperty, filterType);
+         this.setFilterActive(property, filterType);
+         this.setWitchesOn(property, filterType);
          this.$emit("updatedMarkers", this.getOutputMarkers());
        }
      },
@@ -237,18 +256,25 @@
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
      },
+     setPropertyToCurrent: function (property) {
+       // Sets <property> as the current property, and 
+       // calls setAllIcons to change the icons accordingly.
+       this.currentProperty = property;
+       this.setAllIcons();
+       this.$emit("updatedMarkers", this.getOutputMarkers());
+     },
      setPropertyToShowing: function (property) {
-       // Sets the property <property> to showing.
+       // Sets the property <property> to showing, and calls 
+       // setPropertyToCurrent to set the property as the current
+       // current property, and change the icons accordingly.
+       if (this.currentProperty !== property) { 
+         this.setPropertyToCurrent(property);
+       }
        this.filterProperties[property].showing = true;
      },
      setPropertyToNotShowing: function (property) {
        // Sets the property <property> to showing.
        this.filterProperties[property].showing = false;
-     },
-     toggleFilterProperties: function (property) {
-       this.currentProperty = property;
-       this.setAllIcons();
-       this.$emit("updatedMarkers", this.getOutputMarkers());
      },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
