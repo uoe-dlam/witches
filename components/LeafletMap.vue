@@ -65,7 +65,7 @@
    data () {
      return {
        zoom: 7,
-       center: [56.00, -4.9],
+       center: [56.00, -5],
        clusterState: {
          clustersOn: this.clustersInitial,
          clustersOff: !this.clustersInitial

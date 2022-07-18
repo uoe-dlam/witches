@@ -1,27 +1,53 @@
 <template>
   <!-- Filters pop-down -->
-  <div class="absolute h-full w-1/4 bg-slate-300 z-20 
-              left-0 flex flex-col rounded-tr-xl rounded-br-xl
-              shadow-md">
+  <div class="absolute h-full xs:w-4/5 sm:w-1/2 md:w-2/5 
+              xl:w-1/3 bg-slate-300 z-20 left-0 flex flex-col
+              rounded-tr-xl rounded-br-xl shadow-md overflow-y-scroll">
 
-    <div class="w-full flex justify-between px-10 mt-5 mb-8">
+    <div class="w-full flex justify-between px-5 
+                md:px-10 mt-5 mb-8">
       <div v-for="tile in tiles">
-        <input type="radio" name="tile" :checked="tile.name === currentTileName" 
-               @change="filterTiles(tile)"/>
+        <input type="radio" name="tile" 
+               :checked="tile.name === currentTileName" 
+               @change="filterTiles(tile)" />
         {{tile.name}}
       </div>
     </div>
 
-    <div v-for="property in allProperties" class="w-full flex flex-col ml-1">
+    <div v-for="(propertyItem, property) in filterProperties" 
+          class="w-full flex flex-col ml-1">
 
-      <div class="flex pl-2 py-1 bg-slate-400 w-2/3
-                border-2 border-slate-500 mb-1 rounded-sm">
-        <p>{{filterProperties[property].label}}</p>
-        <img src="images/arrow-down.svg" v-if="!allFilters[property].active"
-             @click="setPropertyToActive(property)" class="ml-2"/>
-        <img src="images/arrow-up.svg" v-if="allFilters[property].active"
-             @click="setPropertyToInactive(property)" class="ml-2"/>
+      <div class="flex justify-between pl-2 py-1 bg-slate-400
+                border-2 border-slate-500 mb-1 rounded-sm
+                flex-wrap items-center" style="width: 225px;">
+        <div class="flex w-4/5 items-center">
+          <p> {{propertyItem.label}} </p>
+          <div class="w-3 h-3 rounded-full ml-2" 
+               :style="[propertyItem.active ? {'background-color': '#eeb518e1'} 
+                                            : {'background-color': 'transparent'}]">
+          </div>
+        </div>
+        <div class="svg-container flex border-2 w-7 h-7 mr-2
+                   items-center justify-center border-icon-grey">
+          <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
+               @click="setPropertyToShowing(property)"
+               class="arrow-icon" />
+          <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
+               @click="setPropertyToNotShowing(property)"
+               class="arrow-icon" />
+        </div>
       </div>
+
+      <div v-if="propertyItem.showing" 
+          class="flex flex-wrap w-full px-2 mt-2">
+        <div v-for="(filterItem, filter) in propertyItem.filters" 
+             class="flex flex-col items-center mb-3 mx-2"
+             style="width: 50px">
+          <img class="witch-icon mb-2" :src="filterItem.iconUrl"/>
+          <p class="text-xs text-center"> {{filterItem.label}} </p>
+        </div>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -104,7 +130,7 @@
      setWitchesOff: function (filterProperty, filterType) {
        // Filters <filterProperty>.<filterType> off. It goes through the current markers
        // setting witches that meet filter type to off and adds the 
-       // current filter property to the witche's active filters.
+       // filter property to the witche's active filters.
        // If a marker is mixed, meaning it could stop being mixed, it
        // updates the marker state by calling getMarkerState.
 
@@ -211,6 +237,14 @@
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
      },
+     setPropertyToShowing: function (property) {
+       // Sets the property <property> to showing.
+       this.filterProperties[property].showing = true;
+     },
+     setPropertyToNotShowing: function (property) {
+       // Sets the property <property> to showing.
+       this.filterProperties[property].showing = false;
+     },
      toggleFilterProperties: function (property) {
        this.currentProperty = property;
        this.setAllIcons();
@@ -231,5 +265,17 @@
 </script>
 
 <style>
+.svg-container {
+  border-radius: 50%;
+}
 
+.arrow-icon {
+  max-width: 100%;
+  max-height: 100%; 
+}
+
+.witch-icon {
+  max-width: 20px;
+  height: auto;
+}
 </style>
