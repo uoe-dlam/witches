@@ -7,56 +7,71 @@
     <div class="w-full flex justify-between px-5 
                 md:px-10 mt-5 mb-8">
       <div v-for="tile in tiles">
-        <input type="radio" name="tile" :checked="tile.name === currentTileName" @change="filterTiles(tile)" />
+        <input type="radio" name="tile" 
+              :checked="tile.name === currentTileName" 
+              @change="filterTiles(tile)" />
         {{tile.name}}
       </div>
     </div>
 
-    <div v-for="(propertyItem, property) in filterProperties" class="w-full flex flex-col ml-1">
+    <div v-for="(propertyItem, property) in filterProperties" 
+         class="w-full flex flex-col ml-1">
 
       <div class="flex justify-between pl-2 py-1 bg-slate-400
                 border-2 border-slate-500 mb-1 rounded-sm
                 flex-wrap items-center" style="width: 225px;">
         <div class="flex w-4/5 items-center">
           <p> {{propertyItem.label}} </p>
-          <div class="w-3 h-3 rounded-full ml-2" :style="[property === currentProperty ? {'background-color': '#eeb518e1'} 
+          <div class="w-3 h-3 rounded-full ml-2" :style="[property === currentProperty 
+                                                     ? {'background-color': '#eeb518e1'} 
                                                      : {'background-color': 'transparent'}]">
           </div>
         </div>
         <div class="svg-container flex border-2 w-7 h-7 mr-2
                    items-center justify-center border-icon-grey">
-          <img src="images/arrow-down.svg" v-if="!propertyItem.showing" @click="setPropertyToShowing(property)"
-            class="arrow-icon" />
-          <img src="images/arrow-up.svg" v-if="propertyItem.showing" @click="setPropertyToNotShowing(property)"
-            class="arrow-icon" />
+          <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
+               @click="setPropertyToShowing(property)"
+               class="arrow-icon" />
+          <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
+               @click="setPropertyToNotShowing(property)"
+               class="arrow-icon" />
         </div>
       </div>
-
+ 
       <div v-if="propertyItem.showing" class="w-full px-2 mt-2">
 
         <div v-if="property === currentProperty" class="w-full flex flex-wrap">
-          <div v-for="(filterItem, filterType) in propertyItem.filters" class="flex flex-col items-center mx-2 mb-3"
-            style="width: 50px">
+          <div v-for="(filterItem, filterType) in propertyItem.filters" 
+               class="flex flex-col items-center mx-2 mb-3"
+               style="width: 50px">
+
             <div class="flex justify-center items-center">
               <input :checked="filterProperties[property].filters[filterType].active"
                 @change="filterMarkers(property, filterType)" type="checkbox" />
               <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
             </div>
             <p class="text-xs text-center"> {{filterItem.label}} </p>
+
           </div>
         </div>
 
-        <div v-else class="flex flex-col items-start w-full">
-          <button @click="setPropertyToCurrent(property)" 
-                  class="ml-1 text-sm bg-witch-yellow 
-                        border-1 rounded-sm mb-2 px-0.5 py-0.5">
-            Activate icons
-          </button>
+        <div v-else class="flex flex-col items-start w-full mb-1">
+          <div class="flex mb-2 px-0.5 items-center">
+            <p class=" ml-1 text-xs">
+              Activate {{propertyItem.label}} icons
+            </p>
+            <label class="switch relative ml-1">
+              <input :checked="false" @change="setPropertyToCurrent(property)" 
+                     type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
           <div class="w-full flex flex-wrap">
             <div v-for="(filterItem, filterType) in propertyItem.filters">
               <div class="flex mb-3 mx-2 w-full items-center">
                 <input :checked="filterProperties[property].filters[filterType].active"
-                       @change="filterMarkers(property, filterType)" type="checkbox" />
+                  @change="filterMarkers(property, filterType)" type="checkbox" />
                 <p class="text-xs text-center ml-1"> {{filterItem.label}} </p>
               </div>
             </div>
@@ -64,6 +79,15 @@
         </div>
 
       </div>
+    </div>
+
+    <div class="flex ml-2 mt-2">
+      <div class="w-3 h-3 rounded-full ml-2 mt-0.5" 
+            style="background-color: #eeb518e1">
+      </div>
+      <p class="text-xs ml-1 w-4/5">
+        Indicates the filter property for which the icons are showing.
+      </p>
     </div>
 
   </div>
@@ -304,4 +328,65 @@
   max-width: 20px;
   height: auto;
 }
+
+ .switch {
+   display: inline-block;
+   width: 38.4px;
+   height: 21.76px;
+ }
+
+ /* Hide default HTML checkbox */
+ .switch input {
+   opacity: 0;
+   width: 0;
+   height: 0;
+ }
+
+ /* The slider */
+ .slider {
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #ccc;
+   -webkit-transition: .2s;
+   transition: .2s;
+   width: 38.4px;
+ }
+
+ .slider:before {
+   position: absolute;
+   content: "";
+   height: 16.64px;
+   width: 16.64px;
+   left: 2.56px;
+   bottom: 2.56px;
+   background-color: white;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+
+ input:checked+.slider {
+   background-color: #eeb518e1;
+ }
+
+ input:focus+.slider {
+   box-shadow: 0 0 1px #eeb518e1;
+ }
+
+ input:checked+.slider:before {
+   -webkit-transform: translateX(16.64px);
+   -ms-transform: translateX(16.64px);
+   transform: translateX(16.64px);
+ }
+
+ .slider.round {
+   border-radius: 21.76px;
+ }
+
+ .slider.round:before {
+   border-radius: 50%;
+ }
 </style>
