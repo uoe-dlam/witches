@@ -24,14 +24,14 @@
       </div>
       
       <div class="relative h-full w-full">
-
-      <map-filters v-if="!loading" :startingMarkers="originalMarkers"
-                   :startingFilters="filterProperties"
-                   @updatedMarkers="markers = $event"
-                   @updatedTile="url = $event">
-      </map-filters>
-      <leaflet-map :isLoading="loading" :mapUrl="url" :mapMarkers="markers" :clustersInitial="true">
-      </leaflet-map>
+        <map-filters v-if="!loading" :startingMarkers="originalMarkers"
+                    :startingFilters="filterProperties"
+                    @updatedMarkers="markers = $event"
+                    @updatedTile="url = $event">
+        </map-filters>
+        <leaflet-map :isLoading="loading" :mapUrl="url" 
+                    :mapMarkers="markers" :clustersInitial="true">
+        </leaflet-map>
       </div>
     </div>
   </div>
