@@ -2,7 +2,7 @@
   <div id="outer">
     <div id="inner" class="flex flex-col">
 
-      <div id="page-intro" class="bg-slate-50 pl-5 pr-5 pt-3 pb-3 w-2/3">
+      <div id="page-intro" class="bg-slate-50 pl-5 pr-5 pt-3 pb-3 w-2/3 z-30">
         <div class="flex content-start items-center">
           <h1 class="text-sm md:text-xl lg:text-2xl">
             Places of Residence for Accused Witches

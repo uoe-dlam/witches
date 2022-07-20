@@ -1,100 +1,124 @@
 <template>
-  <!-- Filters pop-down -->
   <div class="absolute h-full xs:w-4/5 sm:w-1/2 md:w-2/5
-              xl:w-1/3 bg-slate-300 z-20 left-0 flex flex-col
-              rounded-tr-xl rounded-br-xl shadow-md overflow-y-scroll
-              overflow-x-hidden">
+              xl:w-1/3 z-20 left-0">
+    <transition>
+      <div class="w-full h-full flex" v-if="filtersBox">
+        <!-- Filters box -->
+        <div class="h-full w-auto bg-slate-300 flex flex-col
+                rounded-tr-xl rounded-br-xl filters-shadow
+                overflow-y-scroll overflow-x-hidden">
 
-    <div class="w-full flex justify-between px-5
-                md:px-10 mt-5 mb-8">
-      <div v-for="tile in tiles">
-        <input type="radio" name="tile"
-               :checked="tile.name === currentTileName"
-               @change="filterTiles(tile)" />
-        {{tile.name}}
-      </div>
-    </div>
-
-    <div v-for="(propertyItem, property) in filterProperties"
-         class="w-full flex flex-col ml-1">
-
-      <div class="flex justify-between pl-2 py-1 bg-slate-400
-                  border-2 border-slate-500 mb-1 rounded-sm
-                  flex-wrap items-center" style="width: 225px;">
-        <div class="flex w-4/5 items-center">
-          <p> {{propertyItem.label}} </p>
-          <div class="w-2.5 h-2.5 mt-0.5 rounded-full ml-2" 
-               :style="[property === currentProperty
-                       ? {'background-color': '#eeb518e1'}
-                       : {'background-color': 'transparent'}]">
-          </div>
-        </div>
-        <div class="svg-container flex border-2 w-7 h-7 mr-2
-                    items-center justify-center border-icon-grey">
-          <img src="images/arrow-down.svg" v-if="!propertyItem.showing"
-               @click="setPropertyToShowing(property)"
-               class="arrow-icon" />
-          <img src="images/arrow-up.svg" v-if="propertyItem.showing"
-               @click="setPropertyToNotShowing(property)"
-               class="arrow-icon" />
-        </div>
-      </div>
-
-      <div v-if="propertyItem.showing" class="w-full">
-
-        <div v-if="property === currentProperty"
-             class="w-full flex flex-wrap mt-2">
-          <div v-for="(filterItem, filterType) in propertyItem.filters"
-               class="flex flex-col items-center mx-2 mb-3"
-               style="width: 50px">
-
-            <div class="flex justify-center items-center">
-              <input :checked="filterProperties[property].filters[filterType].active"
-                     @change="filterMarkers(property, filterType)"
-                     type="checkbox" />
-              <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
+          <!-- Map tiles -->
+          <div class="w-full flex justify-between px-2 sm:px-3
+                  md:px-5 lg:px-10 mt-5 mb-8">
+            <div v-for="tile in tiles">
+              <input type="radio" name="tile" 
+                     :checked="tile.name === currentTileName" 
+                     @change="filterTiles(tile)" />
+              {{ tile.name }}
             </div>
-            <p class="text-xs text-center"> {{filterItem.label}} </p>
-
-          </div>
-        </div>
-
-        <div v-else class="flex flex-col items-start w-full mb-1">
-          <div class="flex mb-2 justify-start items-center ml-1"
-               style="height: 25px; width: 225px">
-            <p class="text-xs">
-              Activate {{propertyItem.label}} Icons
-            </p>
-            <label class="container flex items-center
-                         justify-center ml-1">
-              <input type="radio" :checked="false" name="radio"
-                     @change="setPropertyToCurrent(property)">
-              <span class="checkmark"></span>
-            </label>
           </div>
 
-          <div class="w-full flex flex-wrap px-2">
-            <div v-for="(filterItem, filterType) in propertyItem.filters">
-              <div class="flex mb-3 mx-2 w-full items-center">
-                <input :checked="filterProperties[property].filters[filterType].active"
-                       @change="filterMarkers(property, filterType)"
-                       type="checkbox"/>
-                <p class="text-xs text-center ml-1"> {{filterItem.label}} </p>
+          <!-- Filter dropdowns -->
+          <div v-for="(propertyItem, property) in filterProperties" 
+               class="w-full flex flex-col ml-1">
+
+            <div class="flex justify-between pl-2 py-1 bg-slate-400
+                    border-2 border-slate-500 mb-1 rounded-sm
+                    flex-wrap items-center" style="width: 225px;">
+              <div class="flex w-4/5 items-center">
+                <p> {{ propertyItem.label }} </p>
+                <div class="w-2.5 h-2.5 mt-0.5 rounded-full ml-2" 
+                     :style="[property === currentProperty
+                      ? { 'background-color': '#eeb518e1' }
+                      : { 'background-color': 'transparent' }]">
+                </div>
+              </div>
+              <div class="arrow-container flex border-2 w-7 h-7 mr-2
+                      items-center justify-center border-icon-grey">
+                <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
+                     @click="setPropertyToShowing(property)"
+                     class="arrow-icon" />
+                <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
+                     @click="setPropertyToNotShowing(property)"
+                     class="arrow-icon" />
               </div>
             </div>
+
+            <!-- Filters list if property is showing. -->
+            <div v-if="propertyItem.showing" class="w-full">
+
+              <!-- If it is the current property, show list with icons. -->
+              <div v-if="property === currentProperty" 
+                   class="w-full flex flex-wrap mt-2">
+                <div v-for="(filterItem, filterType) in propertyItem.filters"
+                  class="flex flex-col items-center mx-2 mb-3" style="width: 50px">
+
+                  <div class="flex justify-center items-center">
+                    <input :checked="filterProperties[property].filters[filterType].active"
+                      @change="filterMarkers(property, filterType)" type="checkbox" />
+                    <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
+                  </div>
+                  <p class="text-xs text-center"> {{ filterItem.label }} </p>
+
+                </div>
+              </div>
+
+              <!-- Else, show list without icons but with button to switch 
+              to current. -->
+              <div v-else class="flex flex-col items-start w-full mb-1">
+                <div class="flex mb-2 justify-start items-center ml-1" style="height: 25px; width: 225px">
+                  <p class="text-xs">
+                    Activate {{ propertyItem.label }} Icons
+                  </p>
+                  <label class="container flex items-center
+                            justify-center ml-1">
+                    <input type="radio" :checked="false" name="radio" @change="setPropertyToCurrent(property)">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+
+                <div class="w-full flex flex-wrap px-2">
+                  <div v-for="(filterItem, filterType) in propertyItem.filters">
+                    <div class="flex mb-3 mx-2 w-full items-center">
+                      <input :checked="filterProperties[property].filters[filterType].active"
+                        @change="filterMarkers(property, filterType)" type="checkbox" />
+                      <p class="text-xs text-center ml-1"> {{ filterItem.label }} </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="flex ml-2 mt-2">
+            <div class="w-2.5 h-2.5 rounded-full ml-2 mt-0.5" style="background-color: #eeb518e1">
+            </div>
+            <p class="text-xs ml-1 w-4/5">
+              Indicates the filter property for which the icons are currently showing.
+            </p>
           </div>
         </div>
 
+        <!-- Left chevron to hide filters. -->
+        <div class="w-8 flex flex-col justify-center ml-1">
+          <div class="flex items-center justify-center w-8 h-8
+                  rounded-full bg-slate-200 filters-shadow" 
+               @click="toggleFiltersBox()">
+            <img class="max-w-full max-h-full" src="images/chevrons-left.svg" />
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="flex ml-2 mt-2">
-      <div class="w-2.5 h-2.5 rounded-full ml-2 mt-0.5"
-           style="background-color: #eeb518e1">
+    </transition>
+    
+    <!-- Right chevron to show filters. -->
+    <div class="w-8 flex flex-col justify-center ml-1 h-full" v-if="!filtersBox">
+      <div class="flex items-center justify-center w-8 h-8
+                  rounded-full bg-slate-200 filters-shadow" 
+           @click="toggleFiltersBox()">
+        <img class="max-w-full max-h-full" src="images/chevrons-right.svg" />
       </div>
-      <p class="text-xs ml-1 w-4/5">
-        Indicates the filter property for which the icons are currently showing.
-      </p>
     </div>
 
   </div>
@@ -114,8 +138,7 @@
    },
    data () {
      return {
-       filters: false,
-       noFiltersOn: 0,
+       filtersBox: true,
        markers: JSON.parse(JSON.stringify(this.startingMarkers)),
        currentTileName: 'Modern Map',
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
@@ -310,8 +333,8 @@
        this.currentTileName = tile.name;
        this.$emit("updatedTile", tile.url);
      },
-     toggleFilters: function () {
-       this.filters = ! this.filters;
+     toggleFiltersBox: function () {
+       this.filtersBox = ! this.filtersBox;
      }
    },
    mounted: function () {
@@ -321,7 +344,11 @@
 </script>
 
 <style>
- .svg-container {
+ .filters-shadow {
+   box-shadow: 0 3px 10px rgba(106, 104, 104, 0.623);
+ }
+
+ .arrow-container {
    border-radius: 50%;
  }
 
@@ -358,10 +385,10 @@
 
  /* Create a custom radio button */
  .checkmark {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: white;
+   width: 7px;
+   height: 7px;
+   border-radius: 50%;
+   background: white;
  }
 
  /* On mouse-over, add a grey background color */
@@ -371,6 +398,23 @@
 
  .container:hover input ~ .checkmark {
    background-color: #ccc;
+ }
+
+ .v-enter-active {
+   animation: slide-in 0.4s ease-out;
+ }
+
+ .v-leave-active {
+   animation: slide-in 0.4s reverse ease-out;
+ }
+
+ @keyframes slide-in {
+   0% {
+     transform: translateX(-100%);
+   }
+   100% {
+     transform: translateX(0%);
+   }
  }
 
 </style>

@@ -14,7 +14,7 @@
         <!-- Clusters on-off button -->
         <div class="absolute flex justify-center w-100
                     md:w-200 items-center top-0 right-0 z-10
-                    bg-gray-400/80 px-2 py-0.5">
+                    bg-gray-400/80 px-2 py-0.5 rounded-sm">
           <h3 class="mr-2 font-medium"
               style="font-family:EB Garamond;">
             Group by clusters:
@@ -65,7 +65,7 @@
    data () {
      return {
        zoom: 7,
-       center: [56.00, -5],
+       center: [56.00, -5.3], // making second entry more negative moves map to the right.
        clusterState: {
          clustersOn: this.clustersInitial,
          clustersOff: !this.clustersInitial
