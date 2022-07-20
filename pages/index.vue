@@ -1,40 +1,35 @@
 <template>
-  <div id="outer">
-    <div id="inner" class="flex flex-col">
+  <div class="flex flex-col h-full w-full">
 
-      <div id="page-intro" 
-           class="bg-slate-50 pl-5 pr-5 pt-3 pb-5 w-2/3
-                  z-30">
-        <div class="flex content-start items-center">
-          <h1 class="text-sm md:text-xl lg:text-2xl">
-            Places of Residence for Accused Witches
-            <template v-if="noItems > 0">
-              (total named accused witches: {{numberOfWitches}})
-            </template>
-          </h1>
-          <span class="rounded-full border-r border-l border-gray-400
-                       w-6 h-6 flex items-center justify-center ml-2">
-            <!-- icon by feathericons.com -->
-            <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B"
-              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
-              xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12" y2="8"></line>
-            </svg>
-          </span>
-        </div>
-      </div>
-      
-      <div class="relative h-full w-full">
-        <map-filters v-if="!loading" :startingMarkers="originalMarkers"
-                    :startingFilters="filterProperties"
-                    @updatedMarkers="markers = $event"
-                    @updatedTile="url = $event">
-        </map-filters>
-        <leaflet-map :isLoading="loading" :mapUrl="url" 
-                    :mapMarkers="markers" :clustersInitial="true">
-        </leaflet-map>
-      </div>
+    <div class="flex content-start items-center bg-slate-50 
+                pl-5 pr-5 pt-3 pb-5 w-full">
+      <h1 class="text-sm md:text-xl lg:text-2xl">
+        Places of Residence for Accused Witches
+      </h1>
+      <h1 v-if="!loading" class="text-sm md:text-xl lg:text-2xl">
+        (total named accused witches: {{numberOfWitches}})
+      </h1>
+      <span class="rounded-full border-r border-l border-gray-400
+                    w-6 h-6 flex items-center justify-center ml-2">
+        <!-- icon by feathericons.com -->
+        <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B"
+          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
+          xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="8"></line>
+        </svg>
+      </span>
+    </div>
+    
+    <div class="relative h-full w-full">
+      <map-filters v-if="!loading" :startingMarkers="originalMarkers"
+                  :startingFilters="filterProperties"
+                  @updatedMarkers="markers = $event"
+                  @updatedTile="url = $event">
+      </map-filters>
+      <leaflet-map :isLoading="loading" :mapUrl="url" 
+                  :mapMarkers="markers" :clustersInitial="true">
+      </leaflet-map>
     </div>
   </div>
 </template>

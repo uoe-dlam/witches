@@ -2,12 +2,12 @@
   <div id="outer">
     <div id="inner" class="flex flex-col">
 
-      <div id="page-intro" class="bg-slate-50 pl-5 pr-5 pt-3 pb-3 w-2/3">
+      <div id="page-intro" class="bg-slate-50 pl-5 pr-5 pt-3 pb-5 w-3/4">
         <div class="flex content-start items-center">
           <h1 class="text-sm md:text-xl lg:text-2xl">
             Places of Death for Accused Witches
             <template v-if="noItems > 0">
-              (total named accused witches: {{ markers.length }})
+              (total named accused witches: {{numberOfWitches}})
             </template>
           </h1>
           <span class="rounded-full border-r border-l border-gray-400
@@ -24,13 +24,10 @@
       </div>
 
       <div class="relative h-full w-full">
-        <map-filters v-if="!loading" :startingMarkers="originalMarkers" 
-                     :startingFilters="filterProperties"
-                     @updatedMarkers="markers = $event" 
-                     @updatedTile="url = $event">
+        <map-filters v-if="!loading" :startingMarkers="originalMarkers" :startingFilters="filterProperties"
+          @updatedMarkers="markers = $event" @updatedTile="url = $event">
         </map-filters>
-        <leaflet-map :isLoading="loading" :mapUrl="url" 
-                     :mapMarkers="markers" :clustersInitial="false">
+        <leaflet-map :isLoading="loading" :mapUrl="url" :mapMarkers="markers" :clustersInitial="false">
         </leaflet-map>
       </div>
     </div>
@@ -330,13 +327,17 @@
      }
    },
    computed : {
-     activeMarkers: function () {
-       return this.markers.filter(function(marker) {
-         return marker.onOff === true;
-       });
-     },
      shadowUrl: function () {
        return '/images/North-Berwick-witch-shadow.png';
+     },
+     numberOfWitches: function () {
+       let noWitches = 0;
+
+       this.markers.map(marker => {
+         noWitches += marker.witches.length;
+       })
+
+       return noWitches
      }
    },
    mounted: function() {

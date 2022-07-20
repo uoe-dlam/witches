@@ -82,28 +82,13 @@ h3 {
 }
 
 #main-wrapper{
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-#outer {
-  -webkit-flex: 1;
-  flex : 1;
-}
-
-#inner {
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  display: flex;
-  flex-direction: column;
-  height: 100%
-}
-
 #page-intro{
-  font-size:12px;
+  height: 10%;
 }
 
 #map-wrapper {

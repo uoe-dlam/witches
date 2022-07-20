@@ -4,9 +4,10 @@
     <transition>
       <div class="w-full h-full flex" v-if="filtersBox">
         <!-- Filters box -->
-        <div class="h-full w-aut flex flex-col bg-white
+        <div class="h-full flex flex-col bg-white
                 rounded-tr-xl rounded-br-xl filters-shadow
-                overflow-y-scroll overflow-x-hidden">
+                overflow-y-scroll overflow-x-hidden"
+             style="width:90%">
 
           <!-- Map tiles -->
           <div class="w-full flex justify-between px-2 sm:px-3
@@ -23,46 +24,49 @@
           <div v-for="(propertyItem, property) in filterProperties" 
                class="w-full flex flex-col ml-1">
 
-            <div class="flex pl-2 py-1 flex-wrap items-center" 
+            <div class="flex pl-2 py-1 flex-wrap items-center mt-2" 
                  style="width: 225px;">
               <p> {{ propertyItem.label }} </p>
               <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
-                    @click="setPropertyToShowing(property)"
-                    class="w-6 h-6" />
+                   @click="setPropertyToShowing(property)"
+                   class="w-6 h-6" />
               <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
-                    @click="setPropertyToNotShowing(property)"
-                    class="w-6 h-6" />
+                   @click="setPropertyToNotShowing(property)"
+                   class="w-6 h-6" />
             </div>
 
             <!-- Filters list if property is showing. -->
-            <div v-if="propertyItem.showing" class="w-full">
+            <div v-if="propertyItem.showing" class="w-full ml-1">
 
               <!-- If it is the current property, show list with icons. -->
               <div v-if="property === currentProperty" 
                    class="w-full flex flex-wrap mt-2">
                 <div v-for="(filterItem, filterType) in propertyItem.filters"
-                  class="flex flex-col items-center mx-2 mb-3" style="width: 50px">
+                     class="flex flex-col items-center mx-3 mb-2" 
+                     style="width: 50px">
 
                   <div class="flex justify-center items-center">
                     <input :checked="filterProperties[property].filters[filterType].active"
-                      @change="filterMarkers(property, filterType)" type="checkbox" />
+                           @change="filterMarkers(property, filterType)" 
+                           type="checkbox" />
                     <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
                   </div>
                   <p class="text-xs text-center"> {{ filterItem.label }} </p>
-
                 </div>
               </div>
 
               <!-- Else, show list without icons but with button to switch 
               to current. -->
-              <div v-else class="flex flex-col items-start w-full mb-1">
-                <div class="flex mb-2 justify-start items-center ml-1" style="height: 25px; width: 225px">
+              <div v-else class="flex flex-col items-start w-full mt-1 mb-1">
+                <div class="flex justify-start items-center ml-4" 
+                     style="height: 25px; width: 225px">
                   <p class="text-xs">
                     Activate {{ propertyItem.label }} Icons
                   </p>
                   <label class="container flex items-center
                             justify-center ml-1">
-                    <input type="radio" :checked="false" name="radio" @change="setPropertyToCurrent(property)">
+                    <input type="radio" :checked="false" name="radio" 
+                           @change="setPropertyToCurrent(property)">
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -71,8 +75,11 @@
                   <div v-for="(filterItem, filterType) in propertyItem.filters">
                     <div class="flex mb-3 mx-2 w-full items-center">
                       <input :checked="filterProperties[property].filters[filterType].active"
-                        @change="filterMarkers(property, filterType)" type="checkbox" />
-                      <p class="text-xs text-center ml-1"> {{ filterItem.label }} </p>
+                              @change="filterMarkers(property, filterType)" 
+                              type="checkbox" />
+                      <p class="text-xs text-center ml-1"> 
+                        {{ filterItem.label }} 
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -81,13 +88,20 @@
             </div>
           </div>
 
-          <div class="flex ml-2 mt-2">
-            <div class="w-2.5 h-2.5 rounded-full ml-2 mt-0.5" style="background-color: #eeb518e1">
+          <div class="ml-3 mt-2 w-4/5 flex flex-col items-end">
+            <div class="w-full bg-slate-600" style="height:1.5px;"></div>
+            <div class="flex flex-col mt-1">
+              <p class="text-sm">
+                - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
+              </p>
+              <div class="flex items-center">
+                <p class="text-sm mr-0.5">-</p>
+                <img class="witch-icon mb-1 ml-1" 
+                     src="/images/witch-single-purple.png" />
+                <p class="ml-1 text-sm">= Mixed.</p>
+              </div>
             </div>
-            <p class="text-xs ml-1 w-4/5">
-              Indicates the filter property for which the icons are currently showing.
-            </p>
-          </div>
+          </div> 
         </div>
 
         <!-- Left chevron to hide filters. -->
