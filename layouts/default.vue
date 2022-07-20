@@ -37,6 +37,9 @@ h2 {
 h3 {
     @apply text-lg;
 }
+p {
+  font-family: 'Roboto';
+}
 
 .lds-facebook {
   display: inline-block;

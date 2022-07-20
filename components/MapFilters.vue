@@ -26,7 +26,7 @@
 
             <div class="flex pl-2 py-1 flex-wrap items-center mt-2" 
                  style="width: 225px;">
-              <p> {{ propertyItem.label }} </p>
+              <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
               <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
                    @click="setPropertyToShowing(property)"
                    class="w-6 h-6" />
