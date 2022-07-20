@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-full w-full">
-
+    <!-- Page intro -->
     <div class="flex content-start items-center bg-slate-50 
                 pl-5 pr-5 pt-3 pb-5 w-full">
       <h1 class="text-sm md:text-xl lg:text-2xl">
@@ -20,7 +20,7 @@
         </svg>
       </span>
     </div>
-    
+    <!-- Map and filters. -->
     <div class="relative h-full w-full">
       <map-filters v-if="!loading" :startingMarkers="originalMarkers"
                   :startingFilters="filterProperties"
