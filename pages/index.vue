@@ -7,7 +7,7 @@
           <h1 class="text-sm md:text-xl lg:text-2xl">
             Places of Residence for Accused Witches
             <template v-if="noItems > 0">
-              (total named accused witches: {{markers.length}})
+              (total named accused witches: {{numberOfWitches}})
             </template>
           </h1>
           <span class="rounded-full border-r border-l border-gray-400
@@ -381,13 +381,17 @@
    },
 
    computed: {
-     activeMarkers: function () {
-       return this.markers.filter(function(marker) {
-         return marker.onOff === true;
-       });
-     },
      shadowUrl: function () {
        return '/images/North-Berwick-witch-shadow.png';
+     },
+     numberOfWitches: function () {
+       let noWitches = 0;
+
+       this.markers.map(marker => {
+         noWitches += marker.witches.length;
+       })
+
+       return noWitches
      }
    },
 
