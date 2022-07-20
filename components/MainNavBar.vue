@@ -44,12 +44,14 @@
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
          ] },
          { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
-         { name : 'Trial Locations', url : '/trials', external: false, subpages : [
-           { name : 'Trials in Each Modern Authority', url : '/council', external: false },
-         ] },
          { name : 'Death Locations', url : '/death', subpages : [
            { name : 'Linking Residence to Place of Death', url : '/link', external: false },
          ] },
+         {
+           name: 'Trial Locations', url: '/trials', external: false, subpages: [
+             { name: 'Trials in Each Modern Authority', url: '/council', external: false },
+           ]
+         },
          { name : 'People Associated', url : '/people', external: false, subpages : [
            { name : 'People Associated with the Witch Trials: Residence', url : '/peopleloc', external: false },
            { name : 'A Witch-Prickers Journey', url : '/john', external: false },

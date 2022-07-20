@@ -4,13 +4,13 @@
     <transition>
       <div class="w-full h-full flex" v-if="filtersBox">
         <!-- Filters box -->
-        <div class="h-full w-auto bg-slate-300 flex flex-col
+        <div class="h-full w-aut flex flex-col bg-white
                 rounded-tr-xl rounded-br-xl filters-shadow
                 overflow-y-scroll overflow-x-hidden">
 
           <!-- Map tiles -->
           <div class="w-full flex justify-between px-2 sm:px-3
-                  md:px-5 lg:px-10 mt-5 mb-8">
+                      md:px-5 lg:px-10 mt-5 mb-8">
             <div v-for="tile in tiles">
               <input type="radio" name="tile" 
                      :checked="tile.name === currentTileName" 
@@ -23,26 +23,15 @@
           <div v-for="(propertyItem, property) in filterProperties" 
                class="w-full flex flex-col ml-1">
 
-            <div class="flex justify-between pl-2 py-1 bg-slate-400
-                    border-2 border-slate-500 mb-1 rounded-sm
-                    flex-wrap items-center" style="width: 225px;">
-              <div class="flex w-4/5 items-center">
-                <p> {{ propertyItem.label }} </p>
-                <div class="w-2.5 h-2.5 mt-0.5 rounded-full ml-2" 
-                     :style="[property === currentProperty
-                      ? { 'background-color': '#eeb518e1' }
-                      : { 'background-color': 'transparent' }]">
-                </div>
-              </div>
-              <div class="arrow-container flex border-2 w-7 h-7 mr-2
-                      items-center justify-center border-icon-grey">
-                <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
-                     @click="setPropertyToShowing(property)"
-                     class="arrow-icon" />
-                <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
-                     @click="setPropertyToNotShowing(property)"
-                     class="arrow-icon" />
-              </div>
+            <div class="flex pl-2 py-1 flex-wrap items-center" 
+                 style="width: 225px;">
+              <p> {{ propertyItem.label }} </p>
+              <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
+                    @click="setPropertyToShowing(property)"
+                    class="w-6 h-6" />
+              <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
+                    @click="setPropertyToNotShowing(property)"
+                    class="w-6 h-6" />
             </div>
 
             <!-- Filters list if property is showing. -->

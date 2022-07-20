@@ -40,7 +40,7 @@
 <script>
 
  import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
- import APIDataHandler from '~/assets/js/APIDataHandler';
+ import MarkerDataHandler from '~/assets/js/MarkerDataHandler';
  import LeafletMap from '../components/leafletMap.vue';
  import MapFilters from '../components/MapFilters.vue';
 
@@ -190,12 +190,13 @@
            let currentSocials = Object.keys(this.filterProperties.socialClass.filters);
            let currentOccupations = Object.keys(this.filterProperties.occupation.filters);
 
-           let newSocial = APIDataHandler.checkFilters(socialClassification, currentSocials, icons);
-           let newOccupation = APIDataHandler.checkFilters(occupation, currentOccupations, icons);
+           let newSocial = MarkerDataHandler.checkFilters(socialClassification, currentSocials, icons);
+           let newOccupation = MarkerDataHandler.checkFilters(occupation, currentOccupations, icons);
 
            if (newSocial) {
              this.filterProperties.socialClass.filters[newSocial.label] = newSocial;
            }
+
            if (newOccupation) {
              this.filterProperties.occupation.filters[newOccupation.label] = newOccupation;
            }
@@ -208,16 +209,14 @@
            // if witch exists we have a duplicate. this witch must have either multiple residence or multiple detentions
            // push
            if (witch) {
-             if (id === "http://www.wikidata.org/entity/Q43394934") {
-             }
-             if(detentionLocation !== ''){
+             if (detentionLocation !== '') {
                if(!witch.detentions.find( obj => obj.location === detentionLocation)) {
                  witch.detentions.push({location: detentionLocation, coords: detentionLocationCoords});
                  continue;
                }
              }
 
-             if(residence !== ''){
+             if (residence !== '') {
                if(!witch.residences.find( obj => obj.location === residence)) {
                  witch.residences.push({location: residence, coords: residenceCoords});
                  continue;
@@ -282,7 +281,7 @@
        if (marker) {
          marker.witches.push(witch);
 
-         for (let i = 0, len = marker.witches.length; i < len; i++) {
+         for (let i = 0; i < marker.witches.length; i++) {
            if (marker.witches[i][filterProperty] !== witch[filterProperty]) {
              marker.markerIcon = '/images/witch-single-purple.png';
            }

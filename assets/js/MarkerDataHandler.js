@@ -1,4 +1,4 @@
-const APIDataHandler = {
+const MarkerDataHandler = {
   selectIcon: function (filterTypes, icons) {
     // Selects an accused witch icon for a newly found based 
     // filterType(male, vagrant etc.) based on the already existing
@@ -13,15 +13,16 @@ const APIDataHandler = {
 
     if (!propertyFilters.includes(filter)) {
       let icon = this.selectIcon(propertyFilters, icons);
-      
+
       return {
         label: filter,
         active: true,
         iconUrl: icon
       }
     }
+    
     return null
   }
 }
 
-export default APIDataHandler
+export default MarkerDataHandler
