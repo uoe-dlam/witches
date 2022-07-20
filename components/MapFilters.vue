@@ -57,20 +57,7 @@
 
               <!-- Else, show list without icons but with button to switch 
               to current. -->
-              <div v-else class="flex flex-col items-start w-full mt-1 mb-1">
-                <div class="flex justify-start items-center ml-4" 
-                     style="height: 25px; width: 225px">
-                  <p class="text-xs">
-                    Activate {{ propertyItem.label }} Icons
-                  </p>
-                  <label class="container flex items-center
-                            justify-center ml-1">
-                    <input type="radio" :checked="false" name="radio" 
-                           @change="setPropertyToCurrent(property)">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-
+              <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
                 <div class="w-full flex flex-wrap px-2">
                   <div v-for="(filterItem, filterType) in propertyItem.filters">
                     <div class="flex mb-3 mx-2 w-full items-center">
@@ -83,14 +70,30 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
+                  <div class="self-end flex justify-start items-center mb-1">
+                    <p class="text-xs">
+                      Activate {{ propertyItem.label }} Icons
+                    </p>
+                    <label class="container flex items-center
+                              justify-center ml-1">
+                      <input type="radio" :checked="false" name="radio" 
+                            @change="setPropertyToCurrent(property)">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                  <div class="w-full bg-slate-600" style="height:1.2px;"></div>
+                </div>
               </div>
 
             </div>
           </div>
 
-          <div class="ml-3 mt-2 w-4/5 flex flex-col items-end">
-            <div class="w-full bg-slate-600" style="height:1.5px;"></div>
-            <div class="flex flex-col mt-1">
+          <div class="self-center mt-4 w-11/12 flex flex-col 
+                      items-end">
+            <div class="w-full bg-slate-600" style="height:2px;"></div>
+            <div class="flex flex-col mt-2">
               <p class="text-sm">
                 - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
               </p>
