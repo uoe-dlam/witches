@@ -17,7 +17,7 @@
             </div>
             Gender: {{ witch.sex }}<br>
             Occupation: {{ witch.occupation }}<br>
-            Social Class: {{ witch.socialClassification }}<br>
+            Social Class: {{ witch.socialClass }}<br>
 
             <div v-if="witch.residences.length > 0">
               Residences:
