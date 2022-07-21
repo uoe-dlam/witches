@@ -75,7 +75,7 @@
                   <div class="self-end flex justify-start items-center 
                               mb-1 mr-1">
                     <p class="text-xs">
-                      Activate {{ propertyItem.label }} Icons
+                      Show {{ propertyItem.label }} Icons
                     </p>
                     <label class="container flex items-center
                               justify-center ml-1">
