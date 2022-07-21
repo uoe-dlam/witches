@@ -11,7 +11,7 @@
 
           <!-- Map tiles -->
           <div class="w-full flex justify-between px-2 sm:px-3
-                      md:px-5 lg:px-10 mt-5 mb-8">
+                      md:px-5 lg:px-10 mt-5 mb-6">
             <div v-for="tile in tiles">
               <input type="radio" name="tile" 
                      :checked="tile.name === currentTileName" 
@@ -72,7 +72,8 @@
                 </div>
 
                 <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
-                  <div class="self-end flex justify-start items-center mb-1">
+                  <div class="self-end flex justify-start items-center 
+                              mb-1 mr-1">
                     <p class="text-xs">
                       Activate {{ propertyItem.label }} Icons
                     </p>
@@ -90,7 +91,7 @@
             </div>
           </div>
 
-          <div class="self-center mt-4 w-11/12 flex flex-col 
+          <div class="self-center mt-6 w-11/12 flex flex-col 
                       items-end">
             <div class="w-full bg-slate-600" style="height:2px;"></div>
             <div class="flex flex-col mt-2">
@@ -376,8 +377,8 @@
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-   width: 18px;
-   height: 18px;
+   width: 15px;
+   height: 15px;
    border-radius: 50%;
    background-color: #b5b5b5;
  }
@@ -391,8 +392,8 @@
 
  /* Create a custom radio button */
  .checkmark {
-   width: 7px;
-   height: 7px;
+   width: 4px;
+   height: 4px;
    border-radius: 50%;
    background: white;
  }
@@ -400,10 +401,6 @@
  /* On mouse-over, add a grey background color */
  .container:hover {
    background-color: #eeb518e1;
- }
-
- .container:hover input ~ .checkmark {
-   background-color: #ccc;
  }
 
  .v-enter-active {
