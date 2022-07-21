@@ -190,7 +190,7 @@
            let investigationDate = item.hasOwnProperty('investigationDate') ? item.investigationDate.value : 'N/A';
            let year = 1650;
 
-           if(investigationDate!=='N/A') {
+           if (investigationDate!=='N/A') {
              year = this.getYearFromWikiDate(investigationDate);
              investigationDate = this.convertWikiDateToFriendlyDate(investigationDate);
            }

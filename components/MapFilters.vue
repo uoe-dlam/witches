@@ -162,6 +162,7 @@
        if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
        }
+       
        return this.filterProperties[this.currentProperty].filters[markerType].iconUrl;
      },
      getMarkerType: function (witches) {

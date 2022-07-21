@@ -91,8 +91,32 @@ p {
   overflow: hidden; 
 }
 
-#page-intro{
-  height: 10%;
+#outer {
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+#outer {
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+#inner {
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+#page-intro {
+  font-size: 12px;
+}
+
+#map-wrapper {
+  background-color: #DDDDDD;
+  -webkit-flex: 1;
+  flex: 1;
 }
 
 #map-wrapper {
