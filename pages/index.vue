@@ -5,9 +5,9 @@
                 pl-5 pr-5 pt-3 pb-5 w-full">
       <h1 class="text-sm md:text-xl lg:text-2xl">
         Places of Residence for Accused Witches
-      </h1>
-      <h1 v-if="!loading" class="text-sm md:text-xl lg:text-2xl">
-        (total named accused witches: {{numberOfWitches}})
+        <template v-if="!loading">
+          (total named accused witches: {{numberOfWitches}})
+        </template>
       </h1>
       <span class="rounded-full border-r border-l border-gray-400
                     w-6 h-6 flex items-center justify-center ml-2">
