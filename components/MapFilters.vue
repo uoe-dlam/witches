@@ -162,7 +162,7 @@
        if (markerType === 'mixed') {
          return '/images/witch-single-purple.png';
        }
-       
+
        return this.filterProperties[this.currentProperty].filters[markerType].iconUrl;
      },
      getMarkerType: function (witches) {
@@ -171,7 +171,7 @@
        // to get the new marker type after setting witches on/off.
        let markerType = null;
 
-       for (let i = 0, len = witches.length; i < len; i++) {
+       for (let i = 0; i < witches.length; i++) {
          let witch = witches[i];
 
          if (witch.witchState.onOff) {
@@ -184,6 +184,7 @@
            }
          }
        }
+
        return markerType;
      },
      getMarkerState: function (marker) {
@@ -197,14 +198,8 @@
        if (markerType) {
          return [this.getMarkerIcon(markerType), true];
        }
+
        return [null, false];
-     },
-     getIsMixed: function (marker) {
-       // Checks whether a marker is mixed.
-       if (marker.markerIcon === '/images/witch-single-purple.png') {
-         return true;
-       }
-       return false;
      },
      setWitchesOff: function (filterProperty, filterType) {
        // Filters <filterProperty>.<filterType> off. It goes through the current markers
@@ -213,10 +208,10 @@
        // If a marker is mixed, meaning it could stop being mixed, it
        // updates the marker state by calling getMarkerState.
 
-       for (let i = 0, len = this.markers.length; i < len; i++) {
+       for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
 
-         for (let w = 0, len = marker.witches.length; w < len; w++) {
+         for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
 
            if (witch[filterProperty] === filterType) {
@@ -224,6 +219,7 @@
              witch.witchState.activeFilters.push(filterProperty);
            }
          }
+
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
      },
@@ -231,6 +227,7 @@
        if (activeFilters.length === 1) {
          return [];
        }
+
        return activeFilters.filter(function (activeProperty) {
          return activeProperty !== filterProperty;
        })
@@ -241,10 +238,10 @@
        // active filters. If a marker is not mixed, meaning it could become
        // mixed, it updates the marker state by calling getMarkerState.
 
-       for (let i = 0, len = this.markers.length; i < len; i++) {
+       for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
 
-         for (let w = 0, len = marker.witches.length; w < len; w++) {
+         for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
            let witchType = witch[filterProperty];
 
@@ -257,6 +254,7 @@
              }
            }
          }
+
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
      },
@@ -275,7 +273,7 @@
        // to plot.
        let outputMarkers = [];
 
-       for (let i = 0, len = this.markers.length; i < len; i++) {
+       for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
 
          if (marker.onOff) {
@@ -285,6 +283,7 @@
            outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
          }
        }
+
        return outputMarkers;
      },
      setFilterInactive: function (property, filterType) {
@@ -294,7 +293,6 @@
        this.filterProperties[property].filters[filterType].active = true;
      },
      filterMarkers: function (property, filterType) {
-       console.log(property);
        let isActive = this.filterProperties[property].filters[filterType].active;
 
        if (isActive) {
@@ -312,7 +310,7 @@
        // to the current filter property. Called in togglefilterProperties
        // when user changes filter properties so that icons update
        // accordingly.
-       for (let i = 0, len = this.markers.length; i < len; i++) {
+       for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
          [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
        }
@@ -328,9 +326,11 @@
        // Sets the property <property> to showing, and calls
        // setPropertyToCurrent to set the property as the current
        // current property, and change the icons accordingly.
+       
        if (this.currentProperty !== property) {
          this.setPropertyToCurrent(property);
        }
+
        this.filterProperties[property].showing = true;
      },
      setPropertyToNotShowing: function (property) {
