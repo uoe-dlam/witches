@@ -24,14 +24,14 @@
           <div v-for="(propertyItem, property) in filterProperties" 
                class="w-full flex flex-col ml-1">
 
-            <div class="flex pl-2 py-1 flex-wrap items-center mt-2" 
-                 style="width: 225px;">
+            <div class="flex pl-2 py-1 flex-wrap items-center mt-2
+                        cursor-pointer" 
+                 style="width: 225px;" 
+                 @click="togglePropertyShowing(property)">
               <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
-              <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
-                   @click="setPropertyToShowing(property)"
+              <img src="images/arrow-down.svg" v-if="!propertyItem.showing"
                    class="w-6 h-6" />
               <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
-                   @click="setPropertyToNotShowing(property)"
                    class="w-6 h-6" />
             </div>
 
@@ -174,7 +174,7 @@
        for (let i = 0; i < witches.length; i++) {
          let witch = witches[i];
 
-         if (witch.witchState.onOff) {
+         if (witch.witchState.on) {
            let witchType = witch[this.currentProperty];
 
            if (!markerType) {
@@ -188,9 +188,9 @@
        return markerType;
      },
      getMarkerState: function (marker) {
-       // Returns a marker state array [markerIcon, onOff] based
-       // on the witches that are on. It gets the markerType by calling
-       // getMarkerTypeOnFilter, and returns the state accordingly.
+       // Returns a marker state array [markerIcon, active] based
+       // on the witches that are on in the marker. It gets the markerType 
+       // by calling getMarkerType, and returns the state accordingly.
        // Note that if getMarkerTypeOnFilter returns null, then no witches
        // are on so the marker is off.
        let markerType = this.getMarkerType(marker.witches);
@@ -215,12 +215,12 @@
            let witch = marker.witches[w];
 
            if (witch[filterProperty] === filterType) {
-             witch.witchState.onOff = false;
+             witch.witchState.on = false;
              witch.witchState.activeFilters.push(filterProperty);
            }
          }
 
-         [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
+         [marker.markerIcon, marker.active] = this.getMarkerState(marker);
        }
      },
      getUpdatedWitchFilters (activeFilters, filterProperty) {
@@ -250,12 +250,12 @@
              witch.witchState.activeFilters = newFilters;
 
              if (newFilters.length === 0) {
-               witch.witchState.onOff = true;
+               witch.witchState.on = true;
              }
            }
          }
 
-         [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
+         [marker.markerIcon, marker.active] = this.getMarkerState(marker);
        }
      },
      buildOutputMarker: function (marker, newWitches) {
@@ -276,9 +276,9 @@
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
 
-         if (marker.onOff) {
+         if (marker.active) {
            let activeWitches = marker.witches.filter(function (witch) {
-             return witch.witchState.onOff;
+             return witch.witchState.on;
            });
            outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
          }
@@ -312,7 +312,7 @@
        // accordingly.
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
-         [marker.markerIcon, marker.onOff] = this.getMarkerState(marker);
+         [marker.markerIcon, marker.active] = this.getMarkerState(marker);
        }
      },
      setPropertyToCurrent: function (property) {
@@ -322,20 +322,21 @@
        this.setAllIcons();
        this.$emit("updatedMarkers", this.getOutputMarkers());
      },
-     setPropertyToShowing: function (property) {
-       // Sets the property <property> to showing, and calls
-       // setPropertyToCurrent to set the property as the current
-       // current property, and change the icons accordingly.
+     togglePropertyShowing: function (property) {
+       // If the property <property> is not showing, sets to showing, 
+       // and calls setPropertyToCurrent to set the property as the
+       // current property, and change the icons accordingly. If it is
+       // showing, sets to not showing.
        
-       if (this.currentProperty !== property) {
-         this.setPropertyToCurrent(property);
-       }
+       if (!this.filterProperties[property].showing) {
+         if (this.currentProperty !== property) {
+           this.setPropertyToCurrent(property);
+         }
 
-       this.filterProperties[property].showing = true;
-     },
-     setPropertyToNotShowing: function (property) {
-       // Sets the property <property> to showing.
-       this.filterProperties[property].showing = false;
+         this.filterProperties[property].showing = true;
+       } else {
+         this.filterProperties[property].showing = false;
+       }
      },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
@@ -344,9 +345,6 @@
      toggleFiltersBox: function () {
        this.filtersBox = ! this.filtersBox;
      }
-   },
-   mounted: function () {
-     console.log(this.filterProperties);
    }
  }
 </script>

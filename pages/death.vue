@@ -235,7 +235,7 @@
                mannerOfDeath: mannerOfDeath,
                detentions: [],
                witchState: {
-                 onOff: true,
+                 on: true,
                  activeFilters: []
                }
              }
@@ -287,7 +287,7 @@
            longLat: locationCoords,
            witches: [witch],
            markerIcon: this.filterProperties[filterProperty].filters[markerType].iconUrl,
-           onOff: true
+           active: true
          }
          this.markers.push(marker);
        }
