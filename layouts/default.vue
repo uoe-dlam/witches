@@ -2,15 +2,17 @@
   <div id="main-wrapper">
     <main-nav-bar></main-nav-bar>
     <nuxt />
+    <cookie-banner></cookie-banner>
   </div>
 </template>
 
 <script>
     import  MainNavBar from '~/components/MainNavBar.vue'
-
+    import CookieBanner from '~/components/CookieBanner.vue'
     export default {
         components: {
-            MainNavBar
+            MainNavBar,
+            CookieBanner
         }
     }
 </script>

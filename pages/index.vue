@@ -73,7 +73,7 @@
              "iconUrl": "/images/witch-single-BW.png"
            }
          },
-         showing: false
+         showing: true
        },
        socialClass: {
         label: "Social Classification",

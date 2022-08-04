@@ -91,10 +91,8 @@
             </div>
           </div>
 
-          <div class="self-center mt-6 w-11/12 flex flex-col 
-                      items-end">
-            <div class="w-full bg-slate-600" style="height:2px;"></div>
-            <div class="flex flex-col mt-2">
+          <div class="self-end flex flex-col h-full justify-end
+                      mb-5 mr-3">
               <p class="text-sm">
                 - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
               </p>
@@ -104,7 +102,6 @@
                      src="/images/witch-single-purple.png" />
                 <p class="ml-1 text-sm">= Mixed.</p>
               </div>
-            </div>
           </div> 
         </div>
 
