@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex flex-col z-40 py-2 border-2  
-            border-slate-600 bg-slate-400" 
+  <div class="w-full flex flex-col z-40 py-2 
+             bg-slate-400 pr-3" 
         v-if="!hideBanner">
     <p class="text-xs md:text-sm ml-2 mt-1">
       We use cookies to analyse site traffic to understand our

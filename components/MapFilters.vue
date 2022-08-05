@@ -5,45 +5,44 @@
       <div class="w-full h-full flex" v-if="filtersBox">
         <!-- Filters box -->
         <div class="h-full flex flex-col bg-white
-                rounded-tr-xl rounded-br-xl filters-shadow
-                overflow-y-scroll overflow-x-hidden"
+                    rounded-tr-xl rounded-br-xl filters-shadow
+                    overflow-y-scroll overflow-x-hidden" 
              style="width:90%">
 
           <!-- Map tiles -->
           <div class="w-full flex justify-between px-2 sm:px-3
-                      md:px-5 lg:px-10 mt-5 mb-6">
+                      md:px-5 lg:px-10 mt-5 mb-4">
             <div v-for="tile in tiles">
-              <input type="radio" name="tile" 
-                     :checked="tile.name === currentTileName" 
+              <input type="radio" name="tile" :checked="tile.name === currentTileName" 
                      @change="filterTiles(tile)" />
               {{ tile.name }}
             </div>
           </div>
 
+          <h1 class="ml-2 font-medium">Accused witch filters</h1>
+
           <!-- Filter dropdowns -->
           <div v-for="(propertyItem, property) in filterProperties" 
-               class="w-full flex flex-col ml-1">
+               class="w-full flex flex-col ml-4">
 
             <div class="flex pl-2 py-1 flex-wrap items-center mt-2
-                        cursor-pointer" 
-                 style="width: 225px;" 
+                        cursor-pointer" style="width: 225px;" 
                  @click="togglePropertyShowing(property)">
+              <div class="title-point"></div>
               <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
-              <img src="images/arrow-down.svg" v-if="!propertyItem.showing"
+              <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
                    class="w-6 h-6" />
               <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
                    class="w-6 h-6" />
             </div>
 
             <!-- Filters list if property is showing. -->
-            <div v-if="propertyItem.showing" class="w-full ml-1">
+            <div v-if="propertyItem.showing" class="w-full">
 
               <!-- If it is the current property, show list with icons. -->
-              <div v-if="property === currentProperty" 
-                   class="w-full flex flex-wrap mt-2">
+              <div v-if="property === currentProperty" class="w-full flex flex-wrap mt-2">
                 <div v-for="(filterItem, filterType) in propertyItem.filters"
-                     class="flex flex-col items-center mx-3 mb-2" 
-                     style="width: 50px">
+                     class="flex flex-col items-center mx-3 mb-2" style="width: 50px">
 
                   <div class="flex justify-center items-center">
                     <input :checked="filterProperties[property].filters[filterType].active"
@@ -55,32 +54,32 @@
                 </div>
               </div>
 
-              <!-- Else, show list without icons but with button to switch 
-              to current. -->
+              <!-- Else, show list without icons but with button to switch
+                   to current. -->
               <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
                 <div class="w-full flex flex-wrap px-2">
                   <div v-for="(filterItem, filterType) in propertyItem.filters">
                     <div class="flex mb-3 mx-2 w-full items-center">
                       <input :checked="filterProperties[property].filters[filterType].active"
-                              @change="filterMarkers(property, filterType)" 
-                              type="checkbox" />
-                      <p class="text-xs text-center ml-1"> 
-                        {{ filterItem.label }} 
+                             @change="filterMarkers(property, filterType)" 
+                             type="checkbox" />
+                      <p class="text-xs text-center ml-1">
+                        {{ filterItem.label }}
                       </p>
                     </div>
                   </div>
                 </div>
 
                 <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
-                  <div class="self-end flex justify-start items-center 
+                  <div class="self-end flex justify-start items-center
                               mb-1 mr-1">
                     <p class="text-xs">
                       Show {{ propertyItem.label }} Icons
                     </p>
                     <label class="container flex items-center
-                              justify-center ml-1">
-                      <input type="radio" :checked="false" name="radio" 
-                            @change="setPropertyToCurrent(property)">
+                                  justify-center ml-1">
+                      <input type="radio" :checked="false" 
+                             name="radio" @change="setPropertyToCurrent(property)">
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -91,36 +90,58 @@
             </div>
           </div>
 
-          <div class="self-end flex flex-col h-full justify-end
-                      mb-5 mr-3">
-              <p class="text-sm">
-                - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
+          <!-- Timeline section -->
+          <div class="w-full mt-4" v-if="includeTimeline">
+            <h1 class="ml-2 font-medium">Timeline</h1>
+
+            <!-- Timeline on off -->
+            <div class="ml-6 flex items-center mt-2">
+              <div class="title-point"></div>
+              <p class="mr-2" style="font-weight: 500;">
+                Filter with timeline:
               </p>
-              <div class="flex items-center">
-                <p class="text-sm mr-0.5">-</p>
-                <img class="witch-icon mb-1 ml-1" 
-                     src="/images/witch-single-purple.png" />
-                <p class="ml-1 text-sm">= Mixed.</p>
-              </div>
-          </div> 
+              <label class="switch relative pr-2">
+                <input type="checkbox" :checked="false" @change="toggleTimelineOn()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <div v-if="timelineOn" class="ml-7 mt-2 flex flex-col">
+              <p class="text-sm ml-3">Choose date range: </p>
+              <date-picker class="ml-5 mt-2" 
+                           v-model="time1" valueType="format">
+              </date-picker>
+            </div>
+          </div>
+
+          <div class="self-end flex flex-col mt-8 mr-3 h-full
+                      justify-end mb-4">
+            <p class="text-sm">
+              - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
+            </p>
+            <div class="flex items-center">
+              <p class="text-sm mr-0.5">-</p>
+              <img class="witch-icon mb-1 ml-1" src="/images/witch-single-purple.png" />
+              <p class="ml-1 text-sm">= Mixed.</p>
+            </div>
+          </div>
         </div>
 
         <!-- Left chevron to hide filters. -->
         <div class="w-8 flex flex-col justify-center ml-1">
           <div class="flex items-center justify-center w-8 h-8
-                  rounded-full bg-slate-200 filters-shadow" 
+                      rounded-full bg-slate-200 filters-shadow" 
                @click="toggleFiltersBox()">
             <img class="max-w-full max-h-full" src="images/chevrons-left.svg" />
           </div>
         </div>
       </div>
     </transition>
-    
+
     <!-- Right chevron to show filters. -->
     <div class="w-8 flex flex-col justify-center ml-1 h-full" v-if="!filtersBox">
       <div class="flex items-center justify-center w-8 h-8
-                  rounded-full bg-slate-200 filters-shadow" 
-           @click="toggleFiltersBox()">
+                  rounded-full bg-slate-200 filters-shadow" @click="toggleFiltersBox()">
         <img class="max-w-full max-h-full" src="images/chevrons-right.svg" />
       </div>
     </div>
@@ -129,7 +150,11 @@
 </template>
 
 <script>
+ import DatePicker from 'vue2-datepicker';
+ import 'vue2-datepicker/index.css';
+
  export default {
+   components: { DatePicker },
    props: {
      startingMarkers: {
        type: Array,
@@ -138,28 +163,31 @@
      startingFilters: {
        type: Object,
        required: true
+     },
+     includeTimeline: {
+       type: Boolean,
+       default: false
      }
    },
-   data () {
+   data() {
      return {
+       timelineOn: false,
+       time1: null,
        filtersBox: true,
        markers: JSON.parse(JSON.stringify(this.startingMarkers)),
-       currentTileName: 'Modern Map',
+       currentTileName: "Modern Map",
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
-       tiles: [{name: 'Modern Map', url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', active: true},
-               {name: 'Historic Map', url: 'https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw', active : false}],
-       currentProperty: 'sex', // Determines the property the icons of which are showing.
-     }
+       tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true }, { name: "Historic Map", url: "https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw", active: false }],
+       currentProperty: "sex", // Determines the property the icons of which are showing.
+     };
    },
    methods: {
      getMarkerIcon: function (markerType) {
        // Returns the marker icon based on markerType (markerType
        // is eithera filterType or 'mixed').
-
-       if (markerType === 'mixed') {
-         return '/images/witch-single-purple.png';
+       if (markerType === "mixed") {
+         return "/images/witch-single-purple.png";
        }
-
        return this.filterProperties[this.currentProperty].filters[markerType].iconUrl;
      },
      getMarkerType: function (witches) {
@@ -167,35 +195,30 @@
        // no witches are on) based on those witches that are on. Used
        // to get the new marker type after setting witches on/off.
        let markerType = null;
-
        for (let i = 0; i < witches.length; i++) {
          let witch = witches[i];
-
          if (witch.witchState.on) {
            let witchType = witch[this.currentProperty];
-
            if (!markerType) {
              markerType = witchType;
-           } else if (witchType !== markerType) {
-             return 'mixed';
+           }
+           else if (witchType !== markerType) {
+             return "mixed";
            }
          }
        }
-
        return markerType;
      },
      getMarkerState: function (marker) {
        // Returns a marker state array [markerIcon, active] based
-       // on the witches that are on in the marker. It gets the markerType 
+       // on the witches that are on in the marker. It gets the markerType
        // by calling getMarkerType, and returns the state accordingly.
        // Note that if getMarkerTypeOnFilter returns null, then no witches
        // are on so the marker is off.
        let markerType = this.getMarkerType(marker.witches);
-
        if (markerType) {
          return [this.getMarkerIcon(markerType), true];
        }
-
        return [null, false];
      },
      setWitchesOff: function (filterProperty, filterType) {
@@ -204,54 +227,44 @@
        // filter property to the witche's active filters.
        // If a marker is mixed, meaning it could stop being mixed, it
        // updates the marker state by calling getMarkerState.
-
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
-
          for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
-
            if (witch[filterProperty] === filterType) {
              witch.witchState.on = false;
              witch.witchState.activeFilters.push(filterProperty);
            }
          }
-
          [marker.markerIcon, marker.active] = this.getMarkerState(marker);
        }
      },
-     getUpdatedWitchFilters (activeFilters, filterProperty) {
+     getUpdatedWitchFilters(activeFilters, filterProperty) {
        if (activeFilters.length === 1) {
          return [];
        }
-
        return activeFilters.filter(function (activeProperty) {
          return activeProperty !== filterProperty;
-       })
+       });
      },
      setWitchesOn: function (filterProperty, filterType) {
        // Filters <filterType> on. It goes through the current markers
        // setting witches that meet filter type to on and updating the witches
        // active filters. If a marker is not mixed, meaning it could become
        // mixed, it updates the marker state by calling getMarkerState.
-
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
-
          for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
            let witchType = witch[filterProperty];
-
            if (witchType === filterType) {
              let newFilters = this.getUpdatedWitchFilters(witch.witchState.activeFilters, filterProperty);
              witch.witchState.activeFilters = newFilters;
-
              if (newFilters.length === 0) {
                witch.witchState.on = true;
              }
            }
          }
-
          [marker.markerIcon, marker.active] = this.getMarkerState(marker);
        }
      },
@@ -261,7 +274,7 @@
          longLat: marker.longLat,
          witches: newWitches,
          markerIcon: marker.markerIcon
-       }
+       };
      },
      getOutputMarkers() {
        // Returns a markers array with only the markers and
@@ -269,10 +282,8 @@
        // emitted to parent, and will then be used by LeafletMap
        // to plot.
        let outputMarkers = [];
-
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
-
          if (marker.active) {
            let activeWitches = marker.witches.filter(function (witch) {
              return witch.witchState.on;
@@ -280,7 +291,6 @@
            outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
          }
        }
-
        return outputMarkers;
      },
      setFilterInactive: function (property, filterType) {
@@ -291,12 +301,12 @@
      },
      filterMarkers: function (property, filterType) {
        let isActive = this.filterProperties[property].filters[filterType].active;
-
        if (isActive) {
          this.setFilterInactive(property, filterType);
          this.setWitchesOff(property, filterType);
-         this.$emit('updatedMarkers', this.getOutputMarkers());
-       } else {
+         this.$emit("updatedMarkers", this.getOutputMarkers());
+       }
+       else {
          this.setFilterActive(property, filterType);
          this.setWitchesOn(property, filterType);
          this.$emit("updatedMarkers", this.getOutputMarkers());
@@ -320,18 +330,17 @@
        this.$emit("updatedMarkers", this.getOutputMarkers());
      },
      togglePropertyShowing: function (property) {
-       // If the property <property> is not showing, sets to showing, 
+       // If the property <property> is not showing, sets to showing,
        // and calls setPropertyToCurrent to set the property as the
        // current property, and change the icons accordingly. If it is
        // showing, sets to not showing.
-       
        if (!this.filterProperties[property].showing) {
          if (this.currentProperty !== property) {
            this.setPropertyToCurrent(property);
          }
-
          this.filterProperties[property].showing = true;
-       } else {
+       }
+       else {
          this.filterProperties[property].showing = false;
        }
      },
@@ -340,13 +349,26 @@
        this.$emit("updatedTile", tile.url);
      },
      toggleFiltersBox: function () {
-       this.filtersBox = ! this.filtersBox;
+       this.filtersBox = !this.filtersBox;
+     },
+     toggleTimelineOn: function () {
+       this.timelineOn = !this.timelineOn;
      }
    }
  }
 </script>
 
 <style>
+.title-point {
+  content: "\A";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #000;
+  margin-right: 5px;
+  display: inline-block;
+}
+
  .filters-shadow {
    box-shadow: 0 3px 10px rgba(106, 104, 104, 0.623);
  }

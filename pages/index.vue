@@ -24,6 +24,7 @@
     <div class="relative h-full w-full">
       <map-filters v-if="!loading" :startingMarkers="originalMarkers"
                   :startingFilters="filterProperties"
+                  :includeTimeline="true"
                   @updatedMarkers="markers = $event"
                   @updatedTile="url = $event">
       </map-filters>
@@ -73,7 +74,7 @@
              "iconUrl": "/images/witch-single-BW.png"
            }
          },
-         showing: true
+         showing: false
        },
        socialClass: {
         label: "Social Classification",

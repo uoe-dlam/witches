@@ -34,7 +34,7 @@ h1 {
     font-family: 'EB Garamond';
 }
 h2 {
-    @apply text-xl;
+    @apply text-2xl;
 }
 h3 {
     @apply text-lg;
