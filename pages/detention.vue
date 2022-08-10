@@ -1,57 +1,27 @@
 <template>
-  <div class="flex flex-col h-full w-full">
-    <!-- Page intro -->
-    <div class="flex content-start items-center bg-slate-50 
-                pl-5 pr-5 pt-3 pb-5 w-full">
-      <h1 class="text-sm md:text-xl lg:text-2xl">
-        Places of Detention for Accused Witches
-        <template v-if="noItems > 0">
-          (total named accused witches: {{numberOfWitches}})
-        </template>
-      </h1>
-      <span class="rounded-full border-r border-l border-gray-400
-                      w-6 h-6 flex items-center justify-center ml-2">
-        <!-- icon by feathericons.com -->
-        <svg aria-hidden="true" class="" data-reactid="266" fill="none" height="24" stroke="#606F7B"
-          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
-          xmlns="http://www.w3.org/2000/svg" @click="showPageInfo()">
-          <line x1="12" y1="16" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12" y2="8"></line>
-        </svg>
-      </span>
-    </div>
-    <!-- Map and filters -->
-    <div class="relative h-full w-full">
-      <map-filters v-if="!loading" :startingMarkers="originalMarkers" :startingFilters="filterProperties"
-        @updatedMarkers="markers = $event" @updatedTile="url = $event">
-      </map-filters>
-      <leaflet-map :isLoading="loading" :mapUrl="url" :mapMarkers="markers" :clustersInitial="true">
-      </leaflet-map>
-    </div>
-  </div>
+  <loading-message v-if="loading"/>
+  <map-component v-else
+                 :plottingTitle="'Detention'"                
+                 :originalMarkers="originalMarkers"
+                 :filters="filterProperties"
+                 :loading="loading">
+  </map-component>
 </template>
 
 <script>
 
  import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher';
  import MarkerDataHandler from '~/assets/js/MarkerDataHandler';
- import LeafletMap from '../components/leafletMap.vue';
- import MapFilters from '../components/MapFilters.vue';
+ import MapComponent from '../components/MapComponent.vue';
+ import LoadingMessage from '../components/LoadingMessage.vue';
 
  export default {
-   components: { LeafletMap, MapFilters },
+   components: { MapComponent, LoadingMessage },
    data: () => ({
-     loading: true,
-     noItems: 0,
      sparqlUrl: 'https://query.wikidata.org/sparql',
-     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-     sliderYear: [1550, 1750],
-     sliderYears: [1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750],
      wikiPages: [],
-     markers: [],
+     loading: true,
      originalMarkers: [],
-     startingLayer: 0, // The first layer to be showing.
-     currentTileName : 'Modern Map',
      filterProperties: {
        sex: {
          label: "Gender",
@@ -260,13 +230,12 @@
          }
 
          this.noItems = witches.length;
-         this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
          this.loading = false;
        });
      },
      addWitchToMarkers: function (witch, location, locationCoords){
        // find marker for current location so you can add witch
-       let marker = this.markers.find( marker => {
+       let marker = this.originalMarkers.find( marker => {
          return marker.location === location;
        });
 
@@ -290,7 +259,7 @@
            markerIcon: this.filterProperties[filterProperty].filters[markerType].iconUrl,
            active: true
          }
-         this.markers.push(marker);
+         this.originalMarkers.push(marker);
        }
      },
      showPageInfo: function () {
@@ -335,7 +304,7 @@
      numberOfWitches: function () {
        let noWitches = 0;
 
-       this.markers.map(marker => {
+       this.originalMarkers.map(marker => {
          noWitches += marker.witches.length;
        })
 

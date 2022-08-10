@@ -1,21 +1,7 @@
 <template>
   <div id="map-wrapper" class="w-full h-full">
-    <!-- Loading icon. -->
-    <div v-if="isLoading" class="w-full flex justify-center">
-      <div class="mx-auto max-w-md bg-white rounded shadow-md mt-10">
-        <div class="pt-8 pb-12 pl-8 pr-8">
-          <div class="float-left align-text-bottom">Loading map&nbsp</div>
-          <div class="lds-facebook float-left">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Leaflet map. -->
-    <no-ssr v-else>
+    <no-ssr>
       <div id="map" class="w-full h-full relative">
         <!-- Clusters on-off button -->
         <div class="absolute flex justify-center w-100
@@ -25,16 +11,19 @@
             Group by clusters:
           </h3>
           <label class="switch relative pr-2">
-            <input :checked="clustersInitial" @change="toggleActive()" type="checkbox">
+            <input :checked="clustersInitial" @change="toggleActive()" 
+                   type="checkbox">
             <span class="slider round"></span>
           </label>
         </div>
 
-        <clusters-map v-if="clusterState.clustersOn" :mapMarkers="mapMarkers" :mapUrl="mapUrl" :center="center"
-          :zoom="zoom" @changeMaps="changeMaps($event)" />
+        <clusters-map v-if="clusterState.clustersOn" :mapMarkers="mapMarkers" 
+                      :mapUrl="mapUrl" :center="center"
+                      :zoom="zoom" @changeMaps="changeMaps($event)" />
 
-        <normal-map v-if="clusterState.clustersOff" :mapMarkers="mapMarkers" :mapUrl="mapUrl" :center="center"
-          :zoom="zoom" @changeMaps="changeMaps($event)" />
+        <normal-map v-if="clusterState.clustersOff" :mapMarkers="mapMarkers" 
+                    :mapUrl="mapUrl" :center="center"
+                    :zoom="zoom" @changeMaps="changeMaps($event)" />
       </div>
     </no-ssr>
   </div>
@@ -47,10 +36,6 @@
  export default {
    components: { ClustersMap, NormalMap },
    props: {
-     isLoading: {
-       type: Boolean,
-       required: true
-     },
      mapUrl: {
        type: String,
        required: true
@@ -64,10 +49,17 @@
        required: true
      }
    },
+   watch: {
+     // whenever question changes, this function will run
+     mapMarkers(newMapMarkers, oldMapMarkers) {
+       var today = new Date();
+       console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds());
+     }
+   },
    data () {
      return {
        zoom: 7,
-       center: [56.00, -5.3], // making second entry more negative moves map to the right.
+       center: [56.00, -6], // making second entry more negative moves map to the right.
        clusterState: {
          clustersOn: this.clustersInitial,
          clustersOff: !this.clustersInitial
