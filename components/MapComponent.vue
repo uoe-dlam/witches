@@ -27,6 +27,7 @@
       <map-filters :startingMarkers="originalMarkers"
                    :startingFilters="filterProperties"
                    :includeTimeline="true"
+                   :noWitches="Filtering.getNoWitches()"
                    @filterOff="setWitchesOff($event[0], $event[1])"
                    @filterOn="setWitchesOn($event[0], $event[1])"
                    @changeCurrentProperty="changeCurrentProperty($event)"
@@ -73,7 +74,7 @@
        wikiPages: [],
        markers: JSON.parse(JSON.stringify(this.originalMarkers)),
        currentTileName: 'Modern Map',
-       Filtering: new FilteringMethods(this.filterProperties, "sex")
+       Filtering: new FilteringMethods(this.filterProperties, "sex"),
      }
    },
    methods: {
@@ -152,20 +153,16 @@
        this.setAllIcons();
      }
    },
-   computed: {
-     shadowUrl: function () {
-       return '/images/North-Berwick-witch-shadow.png';
-     },
-     numberOfWitches: function () {
-       let noWitches = 0;
+  mounted: function() {
+    let noWitches = 0;
 
-       this.markers.map(marker => {
-         noWitches += marker.witches.length;
-       })
+    this.markers.map(marker => {
+      noWitches += marker.witches.length;
+    })
+    
+    this.Filtering.setNoWitches(noWitches);
+  }
 
-       return noWitches
-     }
-   }
  }
 </script>
 

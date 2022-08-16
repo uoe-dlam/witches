@@ -91,6 +91,7 @@ p {
   flex-direction: column;
   height: 100vh;
   overflow: hidden; 
+  position: relative;
 }
 
 #outer {
@@ -126,6 +127,21 @@ p {
   -webkit-flex: 1;
   flex : 1;
 }
+
+.title-point {
+  content: "\A";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #000;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.witchy-text {
+  font-family: EB Garamond;
+}
+
 
 .icon-wrapper{
   position: relative;

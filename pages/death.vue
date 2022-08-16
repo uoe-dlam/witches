@@ -3,8 +3,7 @@
   <map-component v-else
                  :plottingTitle="'Detention'"                
                  :originalMarkers="originalMarkers"
-                 :filters="filterProperties"
-                 :loading="loading"
+                 :filterProperties="filterProperties"
                  :clustersOn="false">
   </map-component>
 </template>

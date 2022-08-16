@@ -27,6 +27,11 @@ module.exports = {
         'witch-yellow': '#eeb518e1'
       },
     },
+    extend: {
+      backgroundImage: {
+        'wood-cut': "url('/images/wood-cut-background.jpeg')",
+      }
+    },
     fontSize: {
       'xs': '.75rem',
       'sm': '.875rem',

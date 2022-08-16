@@ -49,13 +49,6 @@
        required: true
      }
    },
-   watch: {
-     // whenever question changes, this function will run
-     mapMarkers(newMapMarkers, oldMapMarkers) {
-       var today = new Date();
-       console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds());
-     }
-   },
    data () {
      return {
        zoom: 7,

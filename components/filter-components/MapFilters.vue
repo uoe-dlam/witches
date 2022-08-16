@@ -7,39 +7,54 @@
         <!-- Filters box -->
         <div class="h-full flex flex-col bg-white
                     rounded-tr-xl rounded-br-xl filters-shadow
-                    overflow-y-scroll overflow-x-hidden" 
+                    overflow-y-visible overflow-x-hidden" 
              style="width:90%">
 
           <!-- Title and info button -->
-          <div class="flex text-center mt-2">
-            <h1 class="text-xl md:text-2xl lg:text-3xl mx-0 px-0">
-              Place of Residence for Accused Witches
-              <div class="inline-flex items-center justify-center
-                          align-middle rounded-full border-r-2  
-                          border-l-2 border-gray-400
-                          w-6 h-6 hover:w-7 hover:h-7 mb-0.5">
-                <img src="images/infoIcon.svg"
-                    class="w-full h-full pt-0.5" />
+
+          <div class="flex w-full flex-col">
+            <!--<div class="bg-wood-cut absolute w-full h-full bg-center"></div>-->
+            <div class="flex flex-col w-full h-full"
+                 style="backdrop-filter: blur(1.5px);">
+              <div class="flex text-center mt-1">
+                <h1 class="text-xl md:text-2xl lg:text-3xl mx-0 px-0">
+                  Place of Residence for Accused Witches
+                  <div class="inline-flex items-center justify-center
+                              align-middle rounded-full border-r-2  
+                              border-l-2 border-gray-400
+                              w-6 h-6 hover:w-7 hover:h-7 mb-0.5">
+                    <img src="images/infoIcon.svg"
+                        class="w-full h-full pt-0.5" />
+                  </div>
+                </h1>
               </div>
-            </h1>
-          </div>
 
-          <!-- Map tiles -->
-          <div class="w-full flex justify-between px-2 sm:px-3
-                      md:px-5 lg:px-10 mt-5 mb-4">
-            <div v-for="tile in tiles">
-              <input type="radio" name="tile" 
-                     :checked="tile.name === currentTileName" 
-                     @change="filterTiles(tile)" />
-              {{ tile.name }}
+              <div class="ml-3 flex mt-2 items-center pb-2">
+                <p class="mr-1 text-lg witchy-text">
+                  Showing
+                </p>
+                <div class="h-6 px-1 flex items-center justify-center
+                            mr-1 rounded-md text-white font-medium"
+                    style="background-color: #eeb518e1;">
+                  <p>
+                    {{noWitches}}
+                  </p>
+                </div>
+                <p class="mr-1 text-lg witchy-text">
+                  Accused Witches
+                </p>
+              </div>
             </div>
+            <div class="w-full border mt-1"></div>
           </div>
-
-          <h1 class="ml-3 font-medium">Accused witch filters</h1>
+          
+          <!-- Title. -->
+          <h1 class="ml-3 font-medium mt-3">Accused witch filters</h1>
 
           <!-- Filter dropdowns -->
           <div v-for="(propertyItem, property) in filterProperties" 
-               class="w-full flex flex-col ml-5">
+               class="w-full flex flex-col ml-4">
+
             <!-- Property titles -->
             <div class="flex pl-2 py-1 flex-wrap items-center mt-2
                         cursor-pointer" style="width: 225px;" 
@@ -112,31 +127,10 @@
           </div>
 
           <!-- Timeline section -->
-          <div class="w-full mt-4 ml-3" v-if="includeTimeline">
-            <h1 class="font-medium">Timeline</h1>
-
-            <!-- Timeline on off -->
-            <div class="ml-4 flex items-center mt-2">
-              <div class="title-point"></div>
-              <p class="mr-2" style="font-weight: 500;">
-                Filter with timeline:
-              </p>
-              <label class="switch relative pr-2">
-                <input type="checkbox" :checked="false" @change="toggleTimelineOn()">
-                <span class="slider round"></span>
-              </label>
-            </div>
-
-            <div v-if="timelineOn" class="ml-7 mt-2 flex flex-col">
-              <p class="text-sm ml-3">Choose date range: </p>
-              <date-picker class="ml-5 mt-2" 
-                           v-model="time1" valueType="format">
-              </date-picker>
-            </div>
-          </div>
+          <timeline-range-selector v-if="includeTimeline"/>
 
           <div class="self-end flex flex-col mt-8 mr-3 h-full
-                      justify-end mb-4">
+                      justify-end">
             <p class="text-sm">
               - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
             </p>
@@ -145,6 +139,19 @@
               <img class="witch-icon mb-1 ml-1" 
                    src="/images/witch-single-purple.png" />
               <p class="ml-1 text-sm">= Mixed.</p>
+            </div>
+          </div>
+
+          <div class="w-full border mt-3 mb-3"></div>
+
+          <!-- Map tiles -->
+          <div class="w-full flex justify-between px-2 sm:px-3
+                      md:px-5 lg:px-10 mb-3">
+            <div v-for="tile in tiles">
+              <input type="radio" name="tile" 
+                     :checked="tile.name === currentTileName" 
+                     @change="filterTiles(tile)" />
+              {{ tile.name }}
             </div>
           </div>
         </div>
@@ -162,7 +169,8 @@
     </transition>
 
     <!-- Right chevron to show filters. -->
-    <div class="w-8 flex flex-col justify-center ml-1 h-full" v-if="!filtersBox">
+    <div class="w-8 flex flex-col justify-center ml-1 h-full" 
+         v-if="!filtersBox">
       <div class="flex items-center justify-center w-8 h-8
                   rounded-full bg-slate-200 filters-shadow" 
            @click="toggleFiltersBox()">
@@ -175,11 +183,10 @@
 </template>
 
 <script>
- import DatePicker from 'vue2-datepicker';
- import 'vue2-datepicker/index.css';
+ import TimelineRangeSelector from './TimelineRangeSelector.vue';
 
  export default {
-   components: { DatePicker },
+   components: { TimelineRangeSelector },
    props: {
      startingMarkers: {
        type: Array,
@@ -192,12 +199,16 @@
      includeTimeline: {
        type: Boolean,
        default: false
+     },
+     noWitches: {
+      type: Number,
+      required: true
      }
    },
    data() {
      return {
        timelineOn: false,
-       time1: null,
+       timeRange: null,
        filtersBox: true,
        currentTileName: "Modern Map",
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
@@ -214,8 +225,7 @@
      },
      filterEmit: function (property, filterType) {
        let isActive = this.filterProperties[property].filters[filterType].active;
-       var today = new Date();
-       console.log(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds());
+
        if (isActive) {
          this.setFilterInactive(property, filterType);
          this.$emit("filterOff", [property, filterType]);
@@ -253,25 +263,12 @@
      },
      toggleFiltersBox: function () {
        this.filtersBox = !this.filtersBox;
-     },
-     toggleTimelineOn: function () {
-       this.timelineOn = !this.timelineOn;
      }
    }
  }
 </script>
 
 <style>
-.title-point {
-  content: "\A";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #000;
-  margin-right: 5px;
-  display: inline-block;
-}
-
  .filters-shadow {
    box-shadow: 0 3px 10px rgba(106, 104, 104, 0.623);
  }

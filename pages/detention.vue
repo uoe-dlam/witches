@@ -3,8 +3,7 @@
   <map-component v-else
                  :plottingTitle="'Detention'"                
                  :originalMarkers="originalMarkers"
-                 :filters="filterProperties"
-                 :loading="loading">
+                 :filterProperties="filterProperties">
   </map-component>
 </template>
 
@@ -296,20 +295,6 @@
      getYearFromWikiDate: function (wikiDate) {
        return wikiDate.substr(0, 4);
      },
-   },
-   computed : {
-     shadowUrl : function () {
-       return '/images/North-Berwick-witch-shadow.png';
-     },
-     numberOfWitches: function () {
-       let noWitches = 0;
-
-       this.originalMarkers.map(marker => {
-         noWitches += marker.witches.length;
-       })
-
-       return noWitches
-     }
    },
    mounted: function () {
      this.loadWikiEntries();

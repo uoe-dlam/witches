@@ -1,11 +1,18 @@
-// Class with functional methods used during filtering,
-// i.e. methods that do not alter the state of the 
-// component when the filtering is done in MapComponent.vue.
-
 class FilteringMethods {
+  // Class with functional methods used during filtering,
+  // i.e. methods that do not alter the state of the 
+  // component when the filtering is done in MapComponent.vue.
+
   constructor (filterProperties, currentProperty) {
     this.filterProperties = filterProperties;
     this.currentProperty = currentProperty;
+    this.noWitches = 0;
+  }
+  setNoWitches (noWitches) {
+    this.noWitches = noWitches;
+  }
+  getNoWitches () {
+    return this.noWitches
   }
   updateCurrentProperty (property) {
     this.currentProperty = property;
@@ -79,6 +86,7 @@ class FilteringMethods {
     // emitted to parent, and will then be used by LeafletMap
     // to plot.
     let outputMarkers = [];
+    let noWitchesNew = 0
 
     for (let i = 0; i < markers.length; i++) {
       let marker = markers[i];
@@ -87,10 +95,12 @@ class FilteringMethods {
         let activeWitches = marker.witches.filter(function (witch) {
           return witch.witchState.on;
         });
-
+        
+        noWitchesNew += activeWitches.length;
         outputMarkers.push(this.buildOutputMarker(marker, activeWitches));
       }
     }
+    this.noWitches = noWitchesNew;
     return outputMarkers;
   }
 }

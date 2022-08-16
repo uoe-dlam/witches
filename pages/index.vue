@@ -3,8 +3,7 @@
   <map-component v-else
                  :plottingTitle="'Residences'"                
                  :originalMarkers="originalMarkers"
-                 :filterProperties="filterProperties"
-                 :loading="loading">
+                 :filterProperties="filterProperties">
   </map-component>
 </template>
 
@@ -344,7 +343,7 @@
    },
 
    mounted: function () {
-     if(this.hasLocalStorageExpired()){
+     if (this.hasLocalStorageExpired()) {
        localStorage.clear();
        this.loadWikiEntries();
        console.log(this.originalMarkers);
