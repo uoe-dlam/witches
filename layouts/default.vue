@@ -142,7 +142,6 @@ p {
   font-family: EB Garamond;
 }
 
-
 .icon-wrapper{
   position: relative;
   text-align: center;

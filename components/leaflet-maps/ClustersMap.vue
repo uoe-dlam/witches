@@ -13,8 +13,8 @@
             <div v-for="(witch, index) in marker.witches" :key="index">
 
               <strong>{{ witch.name }}</strong><br>
-              <div v-if="witch.hasOwnProperty('investigationDate')">
-                Investigation Date: {{ witch.investigationDate }}<br>
+              <div v-if="witch.hasOwnProperty('investigationDates')">
+                Investigation Date: {{ witch.investigationDates[1] }}<br>
               </div>
               Gender: {{ witch.sex }}<br>
               Occupation: {{ witch.occupation }}<br>

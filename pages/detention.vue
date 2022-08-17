@@ -3,7 +3,8 @@
   <map-component v-else
                  :plottingTitle="'Detention'"                
                  :originalMarkers="originalMarkers"
-                 :filterProperties="filterProperties">
+                 :filterProperties="filterProperties"
+                 :includeTimeline="false">
   </map-component>
 </template>
 
@@ -41,7 +42,7 @@
              "iconUrl": "/images/witch-single-BW.png"
            }
          },
-         showing: false
+         showing: true
        },
        socialClass: {
          label: "Social Classification",

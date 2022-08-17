@@ -61,16 +61,18 @@ class FilteringMethods {
     }
     return [null, false];
   } 
-  updateWitchActiveFilterProperties(activeFilterProperties, filterProperty) {
+  checkWitchOn(activeFilterProperties, filterProperty) {
     // Given a list with a witch's active filter properties,
-    // returns the same list with filterProperty filtered out.
-    if (activeFilterProperties.length === 1) {
-      return [];
+    // returns the same list with filterProperty filtered out,
+    // and whether the witch is on.
+    let noActive = activeFilterProperties.length;
+    if (noActive === 1 || noActive === 0) {
+      return [[], true];
     }
 
-    return activeFilterProperties.filter(function (activeProperty) {
+    return [activeFilterProperties.filter(function (activeProperty) {
       return activeProperty !== filterProperty;
-    })
+    }), false]
   }
   buildOutputMarker (marker, newWitches) {
     return {

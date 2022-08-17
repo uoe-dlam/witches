@@ -7,7 +7,8 @@
         <!-- Filters box -->
         <div class="h-full flex flex-col bg-white
                     rounded-tr-xl rounded-br-xl filters-shadow
-                    overflow-y-visible overflow-x-hidden" 
+                    overflow-y-visible overflow-x-hidden
+                    relative" 
              style="width:90%">
 
           <!-- Title and info button -->
@@ -119,7 +120,9 @@
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <div class="w-full bg-slate-600" style="height:1.2px;"></div>
+                  <div class="w-full bg-slate-600" 
+                       style="height:1.2px;">
+                  </div>
                 </div>
               </div>
 
@@ -127,7 +130,10 @@
           </div>
 
           <!-- Timeline section -->
-          <timeline-range-selector v-if="includeTimeline"/>
+          <timeline-range-selector v-if="includeTimeline"
+                                   @selectedDateRange="emitDateRange($event)"
+                                   @resetDateRange="emitDateRange($event)">
+          </timeline-range-selector>
 
           <div class="self-end flex flex-col mt-8 mr-3 h-full
                       justify-end">
@@ -234,6 +240,9 @@
          this.setFilterActive(property, filterType);
          this.$emit("filterOn", [property, filterType]);
        }
+     },
+     emitDateRange: function (dateRange) {
+       this.$emit("selectedDateRange", dateRange);
      },
      setPropertyToCurrent: function (property) {
        // Sets <property> as the current property, and

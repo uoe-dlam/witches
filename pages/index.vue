@@ -17,6 +17,8 @@
    components: { MapComponent, LoadingMessage },
    data: () => ({
      sparqlUrl: 'https://query.wikidata.org/sparql',
+     minDate: new Date(),
+     maxDate: new Date('01/01/1400'),
      wikiPages: [],
      loading: true,
      originalMarkers: [],
@@ -40,7 +42,7 @@
              "iconUrl": "/images/witch-single-BW.png"
            }
          },
-         showing: false
+         showing: true
        },
        socialClass: {
          label: "Social Classification",
@@ -155,11 +157,20 @@
            let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
            let wikiPage = this.getItemWikiPage(item);
            let investigationDate = item.hasOwnProperty('investigationDate') ? item.investigationDate.value : 'N/A';
+           let investigationDates = [new Date (investigationDate), investigationDate]
            let year = 1650;
 
            if (investigationDate!=='N/A') {
-             year = this.getYearFromWikiDate(investigationDate);
-             investigationDate = this.convertWikiDateToFriendlyDate(investigationDate);
+             investigationDates[1] = this.convertWikiDateToFriendlyDate(investigationDate);
+             let dateAsObj = investigationDates[0];
+             console.log(typeof dateAsObj);
+
+             if (dateAsObj < this.minDate) {
+               this.minDate = dateAsObj;
+             }
+             else if (dateAsObj > this.maxDate) {
+              this.maxDate = dateAsObj;
+             }
            }
            
            let icons = this.$store.getters['icons/getIcons'];
@@ -224,7 +235,7 @@
                placeOfDeathCoords: placeOfDeathCoords,
                mannerOfDeath: mannerOfDeath,
                detentions: [],
-               investigationDate: investigationDate,
+               investigationDates: investigationDates,
                year: year,
                witchState: {
                  on: true,
@@ -247,6 +258,7 @@
          }
 
          this.noItems = witches.length;
+         this.$store.commit('timelineData/setDateRange', [this.minDate, this.maxDate])
          this.saveDataToLocalStorage();
          this.loading = false;
        });
@@ -293,16 +305,35 @@
      loadDataFromLocalStorage: function () {
        this.originalMarkers = JSON.parse(localStorage.getItem('markers'));
        this.noItems = localStorage.getItem('noItems');
-       this.filterProperties.socialClass.filters = JSON.parse(localStorage.getItem('socialFilters'));
-       this.filterProperties.occupation.filters = JSON.parse(localStorage.getItem('occupationFilters'));
+       this.filterProperties.socialClass.filters = JSON.parse(
+        localStorage.getItem('socialFilters')
+       );
+       this.filterProperties.occupation.filters = JSON.parse(
+        localStorage.getItem('occupationFilters')
+       );
+       this.$store.commit(
+        'timelineData/setDateRange', 
+        JSON.parse(localStorage.getItem('dateRange'))
+       );
+
      },
      saveDataToLocalStorage: function () {
        let now = new Date().getTime();
        localStorage.setItem('setupTime', now);
        localStorage.setItem('markers', JSON.stringify(this.originalMarkers));
        localStorage.setItem('noItems', this.noItems);
-       localStorage.setItem('socialFilters', JSON.stringify(this.filterProperties.socialClass.filters));
-       localStorage.setItem('occupationFilters', JSON.stringify(this.filterProperties.occupation.filters));
+       localStorage.setItem(
+        'socialFilters', 
+        JSON.stringify(this.filterProperties.socialClass.filters)
+       );
+       localStorage.setItem(
+        'occupationFilters', 
+        JSON.stringify(this.filterProperties.occupation.filters)
+       );
+       localStorage.setItem(
+        'dateRange', 
+        JSON.stringify([this.minDate, this.maxDate])
+       );
      },
      // Wiki functions:
      showPageInfo: function () {
@@ -346,7 +377,6 @@
      if (this.hasLocalStorageExpired()) {
        localStorage.clear();
        this.loadWikiEntries();
-       console.log(this.originalMarkers);
      } else {
        this.loadDataFromLocalStorage();
        this.loading = false;

@@ -26,12 +26,13 @@
     <div class="relative h-full w-full">
       <map-filters :startingMarkers="originalMarkers"
                    :startingFilters="filterProperties"
-                   :includeTimeline="true"
+                   :includeTimeline="includeTimeline"
                    :noWitches="Filtering.getNoWitches()"
                    @filterOff="setWitchesOff($event[0], $event[1])"
                    @filterOn="setWitchesOn($event[0], $event[1])"
                    @changeCurrentProperty="changeCurrentProperty($event)"
-                   @updatedTile="url = $event">
+                   @updatedTile="url = $event"
+                   @selectedDateRange="activateTimeline($event)">
       </map-filters>
       <leaflet-map-main :mapUrl="url" 
                         :mapMarkers="Filtering.getOutputMarkers(markers)" 
@@ -45,6 +46,7 @@
  import LeafletMapMain from './leaflet-maps/LeafletMapMain.vue';
  import MapFilters from './filter-components/MapFilters.vue';
  import FilteringMethods from '../assets/js/FilteringMethods';  
+ import TimelineMethods from '../assets/js/TimelineMethods';
 
  export default {
    components: { LeafletMapMain, MapFilters },
@@ -61,7 +63,11 @@
       type: Object,
       required: true
      },
-     clustersOn: {
+     clustersOnInitial: {
+      type: Boolean,
+      default: true
+     },
+     includeTimeline: {
       type: Boolean,
       default: true
      }
@@ -75,6 +81,11 @@
        markers: JSON.parse(JSON.stringify(this.originalMarkers)),
        currentTileName: 'Modern Map',
        Filtering: new FilteringMethods(this.filterProperties, "sex"),
+       timelineOn: false,
+       timelineRange: null,
+       timelineDates: null,
+       timelineMarkers: null,
+       clustersOn: this.clustersOnInitial
      }
    },
    methods: {
@@ -123,20 +134,56 @@
            let witchType = witch[filterProperty];
 
            if (witchType === filterType) {
-             let newFilters = this.Filtering.updateWitchActiveFilterProperties(
-               witch.witchState.activeFilters,
-               filterProperty
-             );
-             witch.witchState.activeFilters = newFilters;
-
-             if (newFilters.length === 0) {
-               witch.witchState.on = true;
-             }
+             [
+              witch.witchState.activeFilters, 
+              witch.witchState.on
+              ] = this.Filtering.checkWitchOn(
+                witch.witchState.activeFilters, 
+                filterProperty
+              )
            }
          }
          [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
        }
      },
+     checkDateInRange: function (date, dateRange) {
+       return date >= dateRange[0] && date <= dateRange[1]
+     },
+     filterByDateRange: function (dateRange) {
+       for (let i = 0; i < this.markers.length; i++) {
+         let marker = this.markers[i];
+
+         for (let w = 0; w < marker.witches.length; w++) {
+           let witch = marker.witches[w];
+           let date = new Date (witch.investigationDates[0]);
+           //console.log(date);
+
+           if (!TimelineMethods.checkDateInRange(date, dateRange)) {
+             witch.witchState.on = false;
+             witch.witchState.activeFilters.push('timeline');
+           } else {
+             //console.log(date);
+             [
+               witch.witchState.activeFilters,
+               witch.witchState.on
+             ] = this.Filtering.checkWitchOn(
+               witch.witchState.activeFilters,
+               "timeline"
+             )
+           }
+         }
+         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+       }
+     },
+     activateTimeline: function (dateRange) {
+       this.timelineRange = dateRange;
+       this.filterByDateRange(dateRange);
+       [
+        this.timelineDates, 
+        this.timelineMarkers
+        ] = TimelineMethods.getTimelineData(dateRange);
+        this.timelineOn = true;
+     }, 
      setAllIcons: function () {
        // Goes through all markers changing the icons according
        // to the current filter property. Called in togglefilterProperties
@@ -155,9 +202,13 @@
    },
   mounted: function() {
     let noWitches = 0;
+    let dates = []
 
     this.markers.map(marker => {
       noWitches += marker.witches.length;
+      if (this.includeTimeline) {
+        dates.push()
+      }
     })
     
     this.Filtering.setNoWitches(noWitches);
