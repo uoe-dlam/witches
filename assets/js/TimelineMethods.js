@@ -16,31 +16,48 @@ const TimelineMethods = {
       date.getFullYear(),
     ].join('/');
   },
-  getTimelineData5Yearly: function (dateRange, rangeLengthYears) {
-    let dates = {};
+  getTimelineYearlyData: function (
+    dateRange, rangeLengthYears, 
+    dateFrequency, markerFrequencyModulo
+    ) {
+    let dates = [];
     let markerDates = {};
     let startDateFormatted = this.formatDate(dateRange[0]);
     let lastDateAdded = dateRange[0];
 
-    dates[lastDateAdded] = startDateFormatted;
+    dates.push({
+      date: lastDateAdded,
+      label: startDateFormatted
+    })
     markerDates[lastDateAdded] = startDateFormatted;
 
-    let noDatesTotal = Math.round(rangeLengthYears / 5) - 1;
+    let noDatesTotal = Math.round(rangeLengthYears / dateFrequency);
     let noDatesAdded = 1;
 
     while (noDatesAdded < noDatesTotal) {
       let newDate = new Date(lastDateAdded);
-      newDate.setFullYear(newDate.getFullYear() + 5);
+      newDate.setFullYear(newDate.getFullYear() + dateFrequency);
       let newDateFormatted = this.formatDate(newDate);
 
-      if (noDatesAdded % 4 === 0) {
+      if (noDatesAdded % markerFrequencyModulo === 0) {
         markerDates[newDate] = newDateFormatted;
       }
 
-      dates[newDate] = newDateFormatted;
+      dates.push({
+        date: newDate.toString(),
+        label: newDateFormatted
+      })
       lastDateAdded = newDate;
       noDatesAdded += 1;
     }
+
+    let lastDate = dateRange[1];
+    let lastDateFormatted = this.formatDate(dateRange[1]);
+
+    dates.push({
+      date: lastDate,
+      label: lastDateFormatted
+    })
 
     return [dates, markerDates]
   },
@@ -48,9 +65,11 @@ const TimelineMethods = {
     let rangeLengthYears = this.getRangeLengthYears(dateRange);
 
     if (rangeLengthYears > 100) {
-      return this.getTimelineData5Yearly(dateRange, rangeLengthYears);
+      return this.getTimelineYearlyData(dateRange, rangeLengthYears, 5, 4);
     }
-    return [null, null]
+    if (rangeLengthYears > 15 && rangeLengthYears <= 25) {
+      return this.getTimelineYearlyData(dateRange, rangeLengthYears, 1, 4);
+    }
 
   }
 }

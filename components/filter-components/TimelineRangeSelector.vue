@@ -1,73 +1,58 @@
 <template>
-  <div class="w-full mt-4 ml-3"
-       style="height: 174px;">
+  <div class="ml-4 mt-2 flex flex-col">
+
     <div class="flex items-center">
-      <h1 class="font-medium mr-3 py-0">Timeline</h1>
-      <label class="switch relative pr-2 mt-1">
-        <input type="checkbox" :checked="false"
-               @change="toggleTimelineOn()">
-        <span class="slider round"></span>
-      </label>
-    </div>
-
-    <!-- Timeline on off 
-    <div class="ml-3 flex items-center mt-2">
       <div class="title-point"></div>
-      <p class="mr-2" style="font-weight: 500;">
-        Filter with timeline:
-      </p>
-      <label class="switch relative pr-2">
-        <input type="checkbox" :checked="false" @change="toggleTimelineOn()">
-        <span class="slider round"></span>
-      </label>
+      <p>Choose slider date range: </p>
     </div>
-    --> 
+    <date-picker class="ml-5 mt-2 w-1/2" 
+                  v-model="inputRange" 
+                  range :placeholder="defaultMessage"
+                  valueType="date"
+                  format="DD-MM-YYYY"
+                  :default-value="defaultRange"
+                  :disabled-date="getEnabledDateRange"
+                  :lang="lang">
+    </date-picker>
 
-    <div class="ml-4 mt-2 flex flex-col pb-6"
-         v-if="timelineOn">
-
-      <div class="flex items-center">
-        <div class="title-point"></div>
-        <p>Choose date range: </p>
-      </div>
-      <date-picker class="ml-5 mt-2 w-1/2" 
-                   v-model="inputRange" 
-                   range placeholder="Select date range"
-                   valueType="date"
-                   format="DD-MM-YYYY"
-                   :default-value="dateRange"
-                   :disabled-date="getDateRange"
-                   :lang="lang">
-      </date-picker>
-
-      <div class="flex">
-        <button class="rounded-lg w-16 text-white
-                      bg-sky-600 py-1 mt-4 hover:border-2"
+    <div class="flex">
+      <div class="flex items-center justify-center mt-4"
+           style="height: 34px;">
+        <button class="rounded-lg text-white text-sm
+                      bg-sky-600 py-1 hover:border-2"
+                style="width: 52px;"
                 @click="emitDateRange()">
           Apply
         </button>
-        <button class="rounded-lg w-28 text-white ml-3
-                      bg-sky-600 py-1 mt-4 hover:border-2"
-                v-if="inputRange !== null"
-                @click="emitReset()">
-          Reset dates
-        </button>
       </div>
+      <!-- <div class="flex items-center justify-center"
+           style="height: 34px;">
+        <button class="rounded-lg w-32 text-white ml-3 text-sm
+                      bg-sky-600 py-1 hover:border-2"
+                v-if="emittedCustom"
+                @click="emitDefaultRange()">
+          Reset dates default
+        </button>
+      </div> -->
     </div>
+
   </div>
 </template>
 
 <script>
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import TimelineMethods from '../../assets/js/TimelineMethods';
 
 export default {
   components: { DatePicker },
   data() {
     return {
-      timelineOn: false,
+      emittedCustom: false,
       inputRange: null,
-      dateRange: this.$store.getters['timelineData/getDateRange'],
+      fullRange: this.$store.getters['timelineData/getDateRange'],
+      defaultRange: [new Date("01/01/1650"), new Date("01/01/1670")],
+      defaultRangeSrt: ["01/01/1650", "01/01/1670"],
       minDate: null,
       maxDate: null,
       lang: {
@@ -79,46 +64,40 @@ export default {
     }
   },
   methods: {
-    getDateRange: function (date) {
-      return date < this.dateRange[0] || date > this.dateRange[1]
-    },
-    getDefaultDate: function () {
-      let diff = Math.abs((this.minDate - this.maxDate)/2)
-
-      return new Date(this.minDate.getTime() + diff)
-    },
-    toggleTimelineOn: function () {
-      this.timelineOn = !this.timelineOn;
+    getEnabledDateRange: function (date) {
+      return date < this.fullRange[0] || date > this.fullRange[1]
     },
     emitDateRange: function () {
       if (this.inputRange) {
-        this.$emit("selectedDateRange", this.inputRange)
+        this.$emit("selectedDateRange", this.inputRange);
+        this.emittedCustom = true;
+      } else {
+        this.emitDefaultRange();
       }
     },
-    emitReset: function () {
-      this.inputRange = this.dateRange;
-      this.$emit("resetDateRange", this.dateRange);
+    emitDefaultRange: function () {
+      this.$emit("selectedDateRange", this.defaultRange);
     }
   },
-  mounted: function () {
-    this.minDate = this.dateRange[0],
-    this.maxDate = this.dateRange[1]
+  computed: {
+    defaultMessage() {
+      return "Default: " + this.defaultRangeSrt[0] + "~" + this.defaultRangeSrt[1]
+    }
   }
-
 }
 </script>
 
 <style>
 .mx-input-wrapper {
   position: relative;
-  width: 280px;
+  width: 311px;
 }
 
 .mx-icon-calendar,
 .mx-icon-clear {
   position: absolute;
   top: 50%;
-  left: 200px;
+  left: 226px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   font-size: 16px;

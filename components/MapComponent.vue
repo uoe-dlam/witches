@@ -24,16 +24,28 @@
     -->
     <!-- Map and filters. -->
     <div class="relative h-full w-full">
-      <map-filters :startingMarkers="originalMarkers"
-                   :startingFilters="filterProperties"
-                   :includeTimeline="includeTimeline"
-                   :noWitches="Filtering.getNoWitches()"
-                   @filterOff="setWitchesOff($event[0], $event[1])"
-                   @filterOn="setWitchesOn($event[0], $event[1])"
-                   @changeCurrentProperty="changeCurrentProperty($event)"
-                   @updatedTile="url = $event"
-                   @selectedDateRange="activateTimeline($event)">
-      </map-filters>
+      <div class="absolute flex flex-col w-full h-full">
+        <map-filters :startingMarkers="originalMarkers"
+                     :startingFilters="filterProperties"
+                     :includeTimeline="includeTimeline"
+                     :timelineOn="timelineOn"
+                     :dateRange="timelineRange"
+                     :noWitches="Filtering.getNoWitches()"
+                     @filterOff="setWitchesOff($event[0], $event[1])"
+                     @filterOn="setWitchesOn($event[0], $event[1])"
+                     @changeCurrentProperty="changeCurrentProperty($event)"
+                     @updatedTile="url = $event"
+                     @selectedDateRange="setTimeline($event)"
+                     @turnTimelineOff="setTimelineOff()"
+                     @resetDates="resetDates()">
+        </map-filters>
+        <timeline v-if="timelineOn"
+                  :startRange="timelineRange"
+                  :timelineDates="timelineDates"
+                  :timelineMarkers="timelineMarkers"
+                  @updatedRangeValue="filterOnSlider(convertToDateObj($event))">
+        </timeline>
+      </div>
       <leaflet-map-main :mapUrl="url" 
                         :mapMarkers="Filtering.getOutputMarkers(markers)" 
                         :clustersInitial="clustersOn">
@@ -47,9 +59,10 @@
  import MapFilters from './filter-components/MapFilters.vue';
  import FilteringMethods from '../assets/js/FilteringMethods';  
  import TimelineMethods from '../assets/js/TimelineMethods';
+ import Timeline from './filter-components/Timeline.vue';
 
  export default {
-   components: { LeafletMapMain, MapFilters },
+   components: { LeafletMapMain, MapFilters, Timeline },
    props: {
      plottingTitle: {
        type: String,
@@ -99,6 +112,9 @@
          type: 'info',
          showCloseButton: true,
        });
+     },
+     convertToDateObj: function (dateRange) {
+      return [new Date(dateRange[0]), new Date(dateRange[1])]
      },
      setWitchesOff: function (filterProperty, filterType) {
        // Filters <filterProperty>.<filterType> off. It goes through the current markers
@@ -156,13 +172,14 @@
          for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
            let date = new Date (witch.investigationDates[0]);
-           //console.log(date);
 
            if (!TimelineMethods.checkDateInRange(date, dateRange)) {
              witch.witchState.on = false;
-             witch.witchState.activeFilters.push('timeline');
+
+             if (!witch.witchState.activeFilters.includes('timeline')) {
+               witch.witchState.activeFilters.push('timeline');
+             }
            } else {
-             //console.log(date);
              [
                witch.witchState.activeFilters,
                witch.witchState.on
@@ -175,7 +192,11 @@
          [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
        }
      },
-     activateTimeline: function (dateRange) {
+     filterOnSlider: function (dateRange) {
+       this.timelineRange = dateRange;
+       this.filterByDateRange(dateRange);
+     },
+     setTimeline: function (dateRange) {
        this.timelineRange = dateRange;
        this.filterByDateRange(dateRange);
        [
@@ -184,6 +205,30 @@
         ] = TimelineMethods.getTimelineData(dateRange);
         this.timelineOn = true;
      }, 
+     setTimelineOff: function () {
+       this.timelineOn = false;
+     },
+     resetDates: function () {
+       for (let i = 0; i < this.markers.length; i++) {
+         let marker = this.markers[i];
+
+         for (let w = 0; w < marker.witches.length; w++) {
+           let witch = marker.witches[w];
+
+           if (witch.witchState.activeFilters.includes("timeline")) {
+             [
+               witch.witchState.activeFilters,
+               witch.witchState.on
+             ] = this.Filtering.checkWitchOn(
+               witch.witchState.activeFilters,
+               "timeline"
+             )
+           }
+         }
+         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+       }
+       this.timelineRange = null;
+     },
      setAllIcons: function () {
        // Goes through all markers changing the icons according
        // to the current filter property. Called in togglefilterProperties
@@ -218,4 +263,7 @@
 </script>
 
 <style>
+.timelineHeight{
+  height: 90%;
+}
 </style>

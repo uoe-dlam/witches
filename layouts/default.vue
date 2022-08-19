@@ -128,6 +128,10 @@ p {
   flex : 1;
 }
 
+.filters-shadow {
+   box-shadow: 0 3px 10px rgba(106, 104, 104, 0.623);
+ }
+
 .title-point {
   content: "\A";
   width: 5px;

@@ -1,6 +1,7 @@
 <template>
-  <div class="absolute h-full xs:w-4/5 sm:w-1/2 md:w-2/5
-              xl:w-1/3 z-20 left-0">
+  <div class="xs:w-4/5 sm:w-1/2 md:w-2/5
+              xl:w-1/3 z-20 left-0"
+       :style= "[timelineOn ? {'height': '89%'} : {'height': '100%'}]">
     <transition>
       <div class="w-full h-full flex" v-if="filtersBox">
 
@@ -31,12 +32,12 @@
               </div>
 
               <div class="ml-3 flex mt-2 items-center pb-2">
-                <p class="mr-1 text-lg witchy-text">
+                <p class="mr-2 text-lg witchy-text">
                   Showing
                 </p>
                 <div class="h-6 px-1 flex items-center justify-center
-                            mr-1 rounded-md text-white font-medium"
-                    style="background-color: #eeb518e1;">
+                            mr-2 border-2 rounded-md text-white 
+                            font-medium bg-slate-500 border-slate-700">
                   <p>
                     {{noWitches}}
                   </p>
@@ -48,9 +49,64 @@
             </div>
             <div class="w-full border mt-1"></div>
           </div>
-          
-          <!-- Title. -->
-          <h1 class="ml-3 font-medium mt-3">Accused witch filters</h1>
+
+          <!-- Timeline section -->
+          <div class="ml-3 flex flex-col mt-4">
+            <div v-if="includeTimeline"
+                class="flex items-center">
+              <h1 class="font-medium mr-3 py-0">Timeline</h1>
+              <label class="switch relative pr-2 mt-1">
+                <input type="checkbox" :checked="false"
+                      @change="toggleTimelineSelector()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <timeline-range-selector v-if="timelineSelectorOn"
+                                    @selectedDateRange="emitDateRange($event)"
+                                    @deactivatedTimeline="deactivateTimeline()">
+            </timeline-range-selector>
+            
+            <div v-if="dateRange !== null && timelineSelectorOn"
+                class="flex flex-col ml-4 mt-4">
+
+              <div class="border" style="width:200px;"></div>
+              <p class="text-lg witchy-text mt-2 ml-1">
+                Showing accused witches between:
+              </p>
+              <div class="flex items-center mt-3 justify-center">
+                <div class="h-6 px-1 flex items-center justify-center
+                            mr-2 border-2 rounded-md text-white 
+                            font-medium bg-slate-500 border-slate-700">
+                  <p class="text-sm">
+                    {{dateRangeFormatted[0]}}
+                  </p>
+                </div>
+                <p class="mr-2 text-lg witchy-text">
+                  and
+                </p>
+                <div class="h-6 px-1 flex items-center justify-center
+                            mr-2 border-2 rounded-md text-white 
+                            font-medium bg-slate-500 border-slate-700">
+                  <p class="text-sm">
+                    {{dateRangeFormatted[1]}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <button class="rounded-lg w-24 text-white ml-4
+                           bg-sky-600 py-1 hover:border-2
+                           text-sm"
+                    :style= "[timelineOn ? {'margin-top': '20px'} 
+                                         : {'margin-top': '10px'}]"
+                    @click="emitDateReset()"
+                    v-if="dateRange != null">
+              Reset Dates
+            </button>
+          </div>
+
+          <!-- Title for "witch filters" -->
+          <h1 class="ml-3 font-medium mt-5">Accused witch filters</h1>
 
           <!-- Filter dropdowns -->
           <div v-for="(propertyItem, property) in filterProperties" 
@@ -129,12 +185,6 @@
             </div>
           </div>
 
-          <!-- Timeline section -->
-          <timeline-range-selector v-if="includeTimeline"
-                                   @selectedDateRange="emitDateRange($event)"
-                                   @resetDateRange="emitDateRange($event)">
-          </timeline-range-selector>
-
           <div class="self-end flex flex-col mt-8 mr-3 h-full
                       justify-end">
             <p class="text-sm">
@@ -190,6 +240,7 @@
 
 <script>
  import TimelineRangeSelector from './TimelineRangeSelector.vue';
+ import TimelineMethods from '../../assets/js/TimelineMethods';
 
  export default {
    components: { TimelineRangeSelector },
@@ -206,6 +257,13 @@
        type: Boolean,
        default: false
      },
+     timelineOn: {
+      type: Boolean,
+      required: true
+     },
+     dateRange: {
+      required: true
+     },
      noWitches: {
       type: Number,
       required: true
@@ -213,8 +271,7 @@
    },
    data() {
      return {
-       timelineOn: false,
-       timeRange: null,
+       timelineSelectorOn: false,
        filtersBox: true,
        currentTileName: "Modern Map",
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
@@ -240,9 +297,6 @@
          this.setFilterActive(property, filterType);
          this.$emit("filterOn", [property, filterType]);
        }
-     },
-     emitDateRange: function (dateRange) {
-       this.$emit("selectedDateRange", dateRange);
      },
      setPropertyToCurrent: function (property) {
        // Sets <property> as the current property, and
@@ -272,16 +326,38 @@
      },
      toggleFiltersBox: function () {
        this.filtersBox = !this.filtersBox;
+     },
+     toggleTimelineSelector: function () {
+       this.timelineSelectorOn = !this.timelineSelectorOn;
+
+       if (!this.timelineSelectorOn) {
+         this.$emit("turnTimelineOff");
+       }
+     },
+     emitDateReset: function () {
+       this.$emit("resetDates");
+     },
+     emitDateRange: function (dateRange) {
+       this.$emit("selectedDateRange", dateRange);
+     },
+     deactivateTimeline: function () {
+       this.$emit("deactivatedTimeline");
      }
+   },
+   computed: {
+    dateRangeFormatted () {
+      if (this.dateRange !== null) {
+        return [
+          TimelineMethods.formatDate(this.dateRange[0]),
+          TimelineMethods.formatDate(this.dateRange[1])
+        ]
+      } 
+      }
    }
  }
 </script>
 
 <style>
- .filters-shadow {
-   box-shadow: 0 3px 10px rgba(106, 104, 104, 0.623);
- }
-
  .arrow-container {
    border-radius: 50%;
  }
