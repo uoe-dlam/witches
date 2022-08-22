@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      rangeValue: [this.startRange[0], this.startRange[1]]
+      rangecaca: [this.startRange[0].toString(), this.startRange[1].toString()]
     }
   },
   watch: {
@@ -51,6 +51,11 @@ export default {
     emitRange: function (rangeValue) {
       this.$emit("updatedRangeValue", rangeValue);
     }
+  },
+  computed: {
+    rangeValue () {
+      return [this.startRange[0].toString(), this.startRange[1].toString()]
+    }  
   }
 };
 </script>

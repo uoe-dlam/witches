@@ -19,8 +19,8 @@
             <div class="flex flex-col w-full h-full"
                  style="backdrop-filter: blur(1.5px);">
               <div class="flex text-center mt-1">
-                <h1 class="text-xl md:text-2xl lg:text-3xl mx-0 px-0">
-                  Place of Residence for Accused Witches
+                <h1 class="text-xl md:text-2xl lg:text-3xl mx-0 px-1">
+                  Place of Residence and Date for Accused Witches
                   <div class="inline-flex items-center justify-center
                               align-middle rounded-full border-r-2  
                               border-l-2 border-gray-400

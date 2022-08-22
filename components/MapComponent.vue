@@ -114,6 +114,7 @@
        });
      },
      convertToDateObj: function (dateRange) {
+      console.log(dateRange);
       return [new Date(dateRange[0]), new Date(dateRange[1])]
      },
      setWitchesOff: function (filterProperty, filterType) {
@@ -197,7 +198,9 @@
        this.filterByDateRange(dateRange);
      },
      setTimeline: function (dateRange) {
-       this.timelineRange = dateRange;
+       this.timelineOn = false;
+       window.alert(dateRange);
+       this.timelineRange = this.convertToDateObj(dateRange);
        this.filterByDateRange(dateRange);
        [
         this.timelineDates, 
