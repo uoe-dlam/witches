@@ -283,11 +283,11 @@ const TimelineMethods = {
 
     let rangeLengthDays = this.getRangeLengthDays(dateRange);
     let [dateFrequency, markerFrequencyModulo] = this.getDatesFrequencies(
-      24, rangeLengthDays
+      48, rangeLengthDays
     );
 
     return this.getTimelineShortRangeData(
-      dateRange, rangeLengthDays, dateFrequency, markerFrequencyModulo
+      dateRange, rangeLengthDays, dateFrequency, 7
     )
   }
 
