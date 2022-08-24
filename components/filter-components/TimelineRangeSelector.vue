@@ -5,35 +5,56 @@
       <div class="title-point"></div>
       <p>Choose slider date range: </p>
     </div>
-    <date-picker class="ml-5 mt-2 w-1/2" 
-                  v-model="inputRange" 
-                  range :placeholder="defaultMessage"
-                  valueType="date"
-                  format="DD-MM-YYYY"
-                  :default-value="defaultRange"
-                  :disabled-date="getEnabledDateRange"
-                  :lang="lang">
-    </date-picker>
 
-    <div class="flex">
-      <div class="flex items-center justify-center mt-4"
-           style="height: 34px;">
+    <div class="flex pl-2 py-1 flex-wrap items-center mt-2
+                cursor-pointer ml-1" style="width: 225px;" 
+        @click="toggleRecommended()">
+      <p style="font-weight: 500;" class="mr-1">-</p>
+      <p style="font-weight: 500;"> Recommended ranges </p>
+      <img src="images/arrow-down.svg" v-if="!recommendedOn" 
+            class="w-6 h-6" />
+      <img src="images/arrow-up.svg" v-if="recommendedOn" 
+            class="w-6 h-6" />
+    </div>
+
+    <v-select :options="recommendedOptions"
+              placeholder="Panic spreads ranges"
+              v-model="recommendedRange"
+              v-if="recommendedOn"
+              class="ml-8 mt-2">
+    </v-select>
+
+    <div class="flex pl-2 py-1 flex-wrap items-center mt-4
+              cursor-pointer ml-1" style="width: 225px;" 
+        @click="toggleCustomSelector()">
+      <p style="font-weight: 500;" class="mr-1">-</p>
+      <p style="font-weight: 500;"> Custom range </p>
+      <img src="images/arrow-down.svg" v-if="!customSelectorOn" 
+            class="w-6 h-6" />
+      <img src="images/arrow-up.svg" v-if="customSelectorOn" 
+            class="w-6 h-6" />
+    </div>
+
+    <div v-if="customSelectorOn" 
+         class="ml-8 mt-2 flex flex-col">
+      <date-picker v-model="customInputRange" 
+                   range :placeholder="defaultMessage"
+                   valueType="date"
+                   format="DD-MM-YYYY"
+                   :default-value="defaultRangeCustom"
+                   :disabled-date="getEnabledDateRange"
+                   :lang="lang">
+      </date-picker>
+
+      <div class="flex items-center mt-2"
+            style="height: 34px;">
         <button class="rounded-lg text-white text-sm
                       bg-sky-600 py-1 hover:border-2"
                 style="width: 52px;"
-                @click="emitDateRange()">
+                @click="emitCustomRange()">
           Apply
         </button>
       </div>
-      <!-- <div class="flex items-center justify-center"
-           style="height: 34px;">
-        <button class="rounded-lg w-32 text-white ml-3 text-sm
-                      bg-sky-600 py-1 hover:border-2"
-                v-if="emittedCustom"
-                @click="emitDefaultRange()">
-          Reset dates default
-        </button>
-      </div> -->
     </div>
 
   </div>
@@ -42,19 +63,42 @@
 <script>
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 import TimelineMethods from '../../assets/js/TimelineMethods';
 
 export default {
-  components: { DatePicker },
+  components: { DatePicker, vSelect },
   data() {
     return {
-      emittedCustom: false,
-      inputRange: null,
-      fullRange: this.$store.getters['timelineData/getDateRange'],
-      defaultRange: [new Date("01/01/1650"), new Date("01/01/1670")],
-      defaultRangeSrt: ["01/01/1650", "01/01/1670"],
-      minDate: null,
-      maxDate: null,
+      panicsRanges: [
+        [new Date("01/01/1661"), new Date("12/31/1662")],
+        [new Date("01/01/1658"), new Date("12/31/1659")],
+        [new Date("01/01/1649"), new Date("12/31/1650")],
+        [new Date("01/01/1643"), new Date("12/31/1644")],
+        [new Date("01/01/1628"), new Date("12/31/1631")],
+        [new Date("01/01/1597"), new Date("12/31/1597")],
+        [new Date ("01/01/1590"), new Date ("12/31/1591")]
+      ],
+      fullRange: [
+        new Date("1562-02-21T00:00:00.000Z"),
+        new Date("1727-06-12T00:00:00.000Z")
+      ],
+      recommendedOptions: [
+        { label: "1661-62 panic", index: 0 },
+        { label: "1658-59 panic", index: 1 },
+        { label: "1649-50 panic", index: 2 },
+        { label: "1643-44 panic", index: 3 },
+        { label: "1628-31 panic", index: 4 },
+        { label: "1597 panic", index: 5 },
+        { label: "1590-91 panic", index: 6 }
+      ],
+      recommendedOn: true,
+      recommendedRange: null,
+      customSelectorOn: false,
+      customInputRange: null,
+      defaultRangeCustom: [new Date("01/01/1650"), new Date("01/01/1670")],
+      defaultRangeCustomSrt: ["01/01/1650", "01/01/1670"],
       lang: {
         formatLocale: {
           firstDayOfWeek: true,
@@ -63,31 +107,57 @@ export default {
       }
     }
   },
+  watch: {
+    recommendedRange(newRecommendedRange, oldQuestion) {
+      if (newRecommendedRange !== null) {
+        let index = newRecommendedRange.index;
+        let dateRange = this.panicsRanges[index];
+        let starRange = [dateRange[0], dateRange[0]];
+        this.$emit("selectedDateRange", [dateRange, starRange]);
+      }
+    }
+  },
   methods: {
     getEnabledDateRange: function (date) {
       return date < this.fullRange[0] || date > this.fullRange[1]
     },
-    emitDateRange: function () {
-      if (this.inputRange) {
-        this.$emit("selectedDateRange", this.inputRange);
-        this.emittedCustom = true;
+    emitCustomRange: function () {
+      // Range type can be either "custom" or "panic".
+      if (this.customInputRange) {
+        this.$emit("selectedDateRange", [this.customInputRange, this.customInputRange]);
       } else {
-        this.emitDefaultRange();
+        this.$emit("selectedDateRange", [this.defaultRangeCustom, this.defaultRangeCustom])
       }
     },
-    emitDefaultRange: function () {
-      this.$emit("selectedDateRange", this.defaultRange);
+    toggleCustomSelector: function () {
+      this.customSelectorOn = !this.customSelectorOn;
+    },
+    toggleRecommended: function () {
+      this.recommendedOn = !this.recommendedOn;
     }
+    
   },
   computed: {
     defaultMessage() {
-      return "Default: " + this.defaultRangeSrt[0] + "~" + this.defaultRangeSrt[1]
+      return "Default: " + this.defaultRangeCustomSrt[0] + "~" + this.defaultRangeCustomSrt[1]
     }
   }
 }
 </script>
 
 <style>
+.v-select {
+  width: 248px;
+}
+
+.vs__open-indicator {
+  cursor: pointer;
+}
+
+.vs__selected-options {
+  color: #565656;
+}
+
 .mx-input-wrapper {
   position: relative;
   width: 311px;
@@ -122,5 +192,23 @@ export default {
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+</style>
+
+<style scoped>
+>>> {
+  --vs-controls-color: #664cc3;
+  --vs-border-color: #664cc3;
+
+  --vs-dropdown-bg: #E2E8F0;
+  --vs-dropdown-color: #555;
+  --vs-dropdown-option-color: #555;
+
+  --vs-selected-bg: #664cc3;
+
+  --vs-controls-cursor: pointer; 
+
+  --vs-dropdown-option--active-bg: #664cc3;
+  --vs-dropdown-option--active-color: #eeeeee;
 }
 </style>

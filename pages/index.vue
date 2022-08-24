@@ -1,8 +1,10 @@
 <template>
   <loading-message v-if="loading"/>
   <map-component v-else
+                 :pageInfo="pageInfo"
                  :plottingTitle="'Residences'"                
                  :originalMarkers="originalMarkers"
+                 :filtersGeneralInfo="filtersGeneralInfo"
                  :filterProperties="filterProperties">
   </map-component>
 </template>
@@ -16,12 +18,22 @@
  export default {
    components: { MapComponent, LoadingMessage },
    data: () => ({
+     pageInfo: {
+       title: 'Places of Residence and Date for Accused Witches',
+       html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3142</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
+       footer: 'witches.is.ed.ac.uk',
+       confirmButtonText: 'Close',
+       type: 'info',
+       showCloseButton: true,
+     },
      sparqlUrl: 'https://query.wikidata.org/sparql',
-     minDate: new Date(),
-     maxDate: new Date('01/01/1400'),
      wikiPages: [],
      loading: true,
      originalMarkers: [],
+     filtersGeneralInfo: {
+       title: "Accused witch filters",
+       filtersShowing: true
+     },
      filterProperties: {
        sex: {
          label: "Gender",
@@ -160,17 +172,8 @@
            let investigationDates = [new Date (investigationDate), investigationDate]
            let year = 1650;
 
-           if (investigationDate!=='N/A') {
+           if (investigationDate !== 'N/A') {
              investigationDates[1] = this.convertWikiDateToFriendlyDate(investigationDate);
-             let dateAsObj = investigationDates[0];
-             console.log(typeof dateAsObj);
-
-             if (dateAsObj < this.minDate) {
-               this.minDate = dateAsObj;
-             }
-             else if (dateAsObj > this.maxDate) {
-              this.maxDate = dateAsObj;
-             }
            }
            
            let icons = this.$store.getters['icons/getIcons'];
@@ -257,13 +260,10 @@
 
          }
 
-         this.noItems = witches.length;
-         this.$store.commit('timelineData/setDateRange', [this.minDate, this.maxDate])
+         this.noItems = witches.length;      
          this.saveDataToLocalStorage();
          this.loading = false;
        });
-
-
      },
      addWitchToMarkers: function (witch, location, locationCoords) {
        // find marker for current location so you can add witch
@@ -311,10 +311,6 @@
        this.filterProperties.occupation.filters = JSON.parse(
         localStorage.getItem('occupationFilters')
        );
-       this.$store.commit(
-        'timelineData/setDateRange', 
-        JSON.parse(localStorage.getItem('dateRange'))
-       );
 
      },
      saveDataToLocalStorage: function () {
@@ -330,23 +326,8 @@
         'occupationFilters', 
         JSON.stringify(this.filterProperties.occupation.filters)
        );
-       localStorage.setItem(
-        'dateRange', 
-        JSON.stringify([this.minDate, this.maxDate])
-       );
      },
      // Wiki functions:
-     showPageInfo: function () {
-       this.$swal({
-         title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
-         html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
-
-         footer: 'witches.is.ed.ac.uk',
-         confirmButtonText: 'Close',
-         type: 'info',
-         showCloseButton: true,
-       });
-     },
      getItemWikiPage: function (item) {
        let wikiPage = ''; 
 

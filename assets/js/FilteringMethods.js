@@ -65,14 +65,15 @@ class FilteringMethods {
     // Given a list with a witch's active filter properties,
     // returns the same list with filterProperty filtered out,
     // and whether the witch is on.
-    let noActive = activeFilterProperties.length;
-    if (noActive === 1 || noActive === 0) {
-      return [[], true];
+    let newWitchFilters = activeFilterProperties.filter(function (activeProperty) {
+      return activeProperty !== filterProperty;
+    })
+    
+    if (newWitchFilters.length == 0) {
+      return [[], true]
     }
 
-    return [activeFilterProperties.filter(function (activeProperty) {
-      return activeProperty !== filterProperty;
-    }), false]
+    return [newWitchFilters, false]
   }
   buildOutputMarker (marker, newWitches) {
     return {

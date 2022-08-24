@@ -1,8 +1,9 @@
 <template>
   <loading-message v-if="loading"/>
   <map-component v-else
-                 :plottingTitle="'Detention'"                
+                 :pageInfo="pageInfo"                
                  :originalMarkers="originalMarkers"
+                 :filtersGeneralInfo="filtersGeneralInfo"
                  :filterProperties="filterProperties"
                  :includeTimeline="false"
                  :clustersOnInitial="false">
@@ -19,10 +20,22 @@
  export default {
    components: { MapComponent, LoadingMessage },
    data: () => ({
+     pageInfo: {
+       title: 'Places of Death Map for Accused Witches',
+       html: '<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <b class="font-bold">execution under the charge of witchcraft</b>. Although there were <b class="font-bold">3212</b> accused witches named, there are recorded places of death for only <b class="font-bold">124</b> of them. Many of these locations are recorded as precise sites of execution. There are another <b class="font-bold">119</b> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>',
+       footer: 'witches.is.ed.ac.uk',
+       confirmButtonText: 'Close',
+       type: 'info',
+       showCloseButton: true,
+     },
      sparqlUrl: 'https://query.wikidata.org/sparql',
      wikiPages: [],
      loading: true,
      originalMarkers: [],
+     filtersGeneralInfo: {
+       title: "Accused witch filters",
+       filtersShowing: true
+     },
      filterProperties: {
        sex: {
          label: "Gender",
@@ -280,16 +293,6 @@
        let dateDay = wikiDate.substr(8, 2);
 
        return dateDay + '/' + dateMonth + '/' + dateYear;
-     },
-     showPageInfo: function () {
-       this.$swal({
-         title: 'Places of Death Map',
-         html: '<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <b class="font-bold">execution under the charge of witchcraft</b>. Although there were <b class="font-bold">3212</b> accused witches named, there are recorded places of death for only <b class="font-bold">111</b> of them. Many of these locations are recorded as precise sites of execution. There are another <b class="font-bold">119</b> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>',
-         footer: 'witches.is.ed.ac.uk',
-         confirmButtonText: 'Close',
-         type: 'info',
-         showCloseButton: true,
-       });
      }
    },
    computed : {

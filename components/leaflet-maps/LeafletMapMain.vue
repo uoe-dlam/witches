@@ -59,6 +59,11 @@
        }
      }
    },
+   watch: {
+     clustersInitial(newClustersInitial, oldQuestion) {
+       this.toggleActive();
+     }
+   },
    methods: {
      changeMaps: function (changeInfo) {
        // Called when either of the two map components emits

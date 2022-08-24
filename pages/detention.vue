@@ -1,8 +1,9 @@
 <template>
   <loading-message v-if="loading"/>
   <map-component v-else
-                 :plottingTitle="'Detention'"                
+                 :pageInfo="pageInfo"                
                  :originalMarkers="originalMarkers"
+                 :filtersGeneralInfo="filtersGeneralInfo"
                  :filterProperties="filterProperties"
                  :includeTimeline="false">
   </map-component>
@@ -18,10 +19,22 @@
  export default {
    components: { MapComponent, LoadingMessage },
    data: () => ({
+     pageInfo: {
+       title: 'Places of Detention for Accused Witches',
+       html: '<div>This map shows the different locations for accused witches place of detention. These people were imprisoned either before or after their witchcraft trial and could be <b class="font-bold">imprisoned multiple times and in different locations</b>. This dataset has records for only <b class="font-bold">560</b> instances of imprisonment for the <b class="font-bold">3212</b> named witches. Again, for most of the accused witches, the surviving documentation does not provide information about their imprisonment.</div>',
+       footer: 'witches.is.ed.ac.uk',
+       confirmButtonText: 'Close',
+       type: 'info',
+       showCloseButton: true,
+     },
      sparqlUrl: 'https://query.wikidata.org/sparql',
      wikiPages: [],
      loading: true,
      originalMarkers: [],
+     filtersGeneralInfo: {
+       title: "Accused witch filters",
+       filtersShowing: true
+     },
      filterProperties: {
        sex: {
          label: "Gender",
@@ -261,17 +274,6 @@
          }
          this.originalMarkers.push(marker);
        }
-     },
-     showPageInfo: function () {
-       this.$swal({
-         title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
-         html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
-
-         footer: 'witches.is.ed.ac.uk',
-         confirmButtonText: 'Close',
-         type: 'info',
-         showCloseButton: true,
-       });
      },
      getItemWikiPage: function (item ) { 
        let wikiPage = '';

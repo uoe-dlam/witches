@@ -39,7 +39,6 @@
        open : false,
        links : [
          { name : 'Residences', url : '/', external: false, subpages : [
-           { name : 'Residences with Timeline', url : '/timeline', external: false },
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
          ] },

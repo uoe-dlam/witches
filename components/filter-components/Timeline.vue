@@ -8,10 +8,10 @@
        style="height: 11%; width: 95%;">
     <vue-slider class=""
                 v-model="rangeValue"
-                :data="timelineDates"
+                :data="dates"
                 :data-value="'date'"
                 :data-label="'label'"
-                :marks="timelineMarkers">
+                :marks="markers">
     </vue-slider>
   </div>
 </template>
@@ -38,11 +38,12 @@ export default {
   },
   data() {
     return {
-      rangecaca: [this.startRange[0].toString(), this.startRange[1].toString()]
+      rangeValue: [this.startRange[0].toString(), this.startRange[1].toString()],
+      dates: this.timelineDates,
+      markers: this.timelineMarkers
     }
   },
   watch: {
-    // whenever question changes, this function will run
     rangeValue(newRange, oldQuestion) {
       this.$emit("updatedRangeValue", newRange);
     }
@@ -51,11 +52,6 @@ export default {
     emitRange: function (rangeValue) {
       this.$emit("updatedRangeValue", rangeValue);
     }
-  },
-  computed: {
-    rangeValue () {
-      return [this.startRange[0].toString(), this.startRange[1].toString()]
-    }  
   }
 };
 </script>

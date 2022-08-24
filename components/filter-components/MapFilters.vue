@@ -1,5 +1,5 @@
 <template>
-  <div class="xs:w-4/5 sm:w-1/2 md:w-2/5
+  <div class="xs:w-4/5 sm:w-1/2 lg:w-2/5
               xl:w-1/3 z-20 left-0"
        :style= "[timelineOn ? {'height': '89%'} : {'height': '100%'}]">
     <transition>
@@ -12,25 +12,27 @@
                     relative" 
              style="width:90%">
 
-          <!-- Title and info button -->
-
+          <!-- Header -->
           <div class="flex w-full flex-col">
-            <!--<div class="bg-wood-cut absolute w-full h-full bg-center"></div>-->
             <div class="flex flex-col w-full h-full"
                  style="backdrop-filter: blur(1.5px);">
+              
+              <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h1 class="text-xl md:text-2xl lg:text-3xl mx-0 px-1">
-                  Place of Residence and Date for Accused Witches
+                <h1 class="text-2xl md:text-3xl mx-0 px-2">
+                  {{pageInfo.title}}
                   <div class="inline-flex items-center justify-center
                               align-middle rounded-full border-r-2  
                               border-l-2 border-gray-400
                               w-6 h-6 hover:w-7 hover:h-7 mb-0.5">
                     <img src="images/infoIcon.svg"
-                        class="w-full h-full pt-0.5" />
+                        class="w-full h-full pt-0.5"
+                        @click="showPageInfo()"/>
                   </div>
                 </h1>
               </div>
-
+              
+              <!-- Display number of active witches. -->
               <div class="ml-3 flex mt-2 items-center pb-2">
                 <p class="mr-2 text-lg witchy-text">
                   Showing
@@ -52,24 +54,27 @@
 
           <!-- Timeline section -->
           <div class="ml-3 flex flex-col mt-4">
+
             <div v-if="includeTimeline"
                 class="flex items-center">
               <h1 class="font-medium mr-3 py-0">Timeline</h1>
               <label class="switch relative pr-2 mt-1">
-                <input type="checkbox" :checked="false"
+                <input type="checkbox" :checked="true"
                       @change="toggleTimelineSelector()">
                 <span class="slider round"></span>
               </label>
             </div>
+
             <timeline-range-selector v-if="timelineSelectorOn"
-                                    @selectedDateRange="emitDateRange($event)"
-                                    @deactivatedTimeline="deactivateTimeline()">
+                                     :key="timelineSelectorKey"
+                                     @selectedDateRange="emitDateRange($event)"
+                                     @deactivatedTimeline="deactivateTimeline()">
             </timeline-range-selector>
             
             <div v-if="dateRange !== null && timelineSelectorOn"
                 class="flex flex-col ml-4 mt-4">
 
-              <div class="border" style="width:200px;"></div>
+              <div class="border" style="width:300px;"></div>
               <p class="text-lg witchy-text mt-2 ml-1">
                 Showing accused witches between:
               </p>
@@ -100,92 +105,108 @@
                     :style= "[timelineOn ? {'margin-top': '20px'} 
                                          : {'margin-top': '10px'}]"
                     @click="emitDateReset()"
-                    v-if="dateRange != null">
+                    v-if="dateRange != null && timelineOn">
               Reset Dates
             </button>
           </div>
 
           <!-- Title for "witch filters" -->
-          <h1 class="ml-3 font-medium mt-5">Accused witch filters</h1>
+          <div class="flex ml-3 flex-wrap items-center mt-2
+                      cursor-pointer"
+               :style= "[includeTimeline ? {'margin-top': '17px'} 
+                                         : {'margin-top': '3px'}]" 
+               @click="toggleFiltersShowing(property)">
+            <h1 class="font-medium">
+              {{filtersGeneralInfo.title}}
+            </h1>
+            <img src="images/arrow-down.svg" v-if="!filtersGeneralInfo.filtersShowing" 
+                  class="w-7 h-7 mt-0.5" />
+            <img src="images/arrow-up.svg" v-if="filtersGeneralInfo.filtersShowing" 
+                  class="w-7 h-7 mt-0.5" />
+          </div>
 
           <!-- Filter dropdowns -->
-          <div v-for="(propertyItem, property) in filterProperties" 
-               class="w-full flex flex-col ml-4">
+          <div v-if="filtersGeneralInfo.filtersShowing"
+               class="w-full">
+          
+            <div v-for="(propertyItem, property) in filterProperties" 
+                class="w-full flex flex-col ml-4">
 
-            <!-- Property titles -->
-            <div class="flex pl-2 py-1 flex-wrap items-center mt-2
-                        cursor-pointer" style="width: 225px;" 
-                 @click="togglePropertyShowing(property)">
-              <div class="title-point"></div>
-              <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
-              <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
-                   class="w-6 h-6" />
-              <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
-                   class="w-6 h-6" />
-            </div>
-
-            <!-- Filters list if property is showing. -->
-            <div v-if="propertyItem.showing" class="w-full">
-
-              <!-- If it is the current property, show list with icons. -->
-              <div v-if="property === currentProperty" 
-                   class="w-full flex flex-wrap mt-2">
-                <div v-for="(filterItem, filterType) in propertyItem.filters"
-                     class="flex flex-col items-center mx-3 mb-2" 
-                     style="width: 50px">
-
-                  <div class="flex justify-center items-center">
-                    <input :checked="filterProperties[property].filters[filterType].active"
-                           @change="filterEmit(property, filterType)" 
-                           type="checkbox" />
-                    <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
-                  </div>
-                  <p class="text-xs text-center"> {{ filterItem.label }} </p>
-
-                </div>
+              <!-- Property titles -->
+              <div class="flex pl-2 py-1 flex-wrap items-center mt-2
+                          cursor-pointer" style="width: 225px;" 
+                  @click="togglePropertyShowing(property)">
+                <div class="title-point"></div>
+                <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
+                <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
+                    class="w-6 h-6" />
+                <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
+                    class="w-6 h-6" />
               </div>
 
-              <!-- Else, show list without icons but with button to switch
-                   to current. -->
-              <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
-                <div class="w-full flex flex-wrap px-2">
-                  <div v-for="(filterItem, filterType) in propertyItem.filters">
-                    <div class="flex mb-3 mx-2 w-full items-center">
+              <!-- Filters list if property is showing. -->
+              <div v-if="propertyItem.showing" class="w-full">
 
+                <!-- If it is the current property, show list with icons. -->
+                <div v-if="property === currentProperty" 
+                    class="w-full flex flex-wrap mt-2">
+                  <div v-for="(filterItem, filterType) in propertyItem.filters"
+                      class="flex flex-col items-center mx-3 mb-2" 
+                      style="width: 50px">
+
+                    <div class="flex justify-center items-center">
                       <input :checked="filterProperties[property].filters[filterType].active"
-                             @change="filterEmit(property, filterType)" 
-                             type="checkbox" />
-                      <p class="text-xs text-center ml-1">
-                        {{ filterItem.label }}
-                      </p>
+                            @change="filterEmit(property, filterType)" 
+                            type="checkbox" />
+                      <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
+                    </div>
+                    <p class="text-xs text-center"> {{ filterItem.label }} </p>
 
+                  </div>
+                </div>
+
+                <!-- Else, show list without icons but with button to switch
+                    to current. -->
+                <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
+                  <div class="w-full flex flex-wrap px-2">
+                    <div v-for="(filterItem, filterType) in propertyItem.filters">
+                      <div class="flex mb-3 mx-2 w-full items-center">
+
+                        <input :checked="filterProperties[property].filters[filterType].active"
+                              @change="filterEmit(property, filterType)" 
+                              type="checkbox" />
+                        <p class="text-xs text-center ml-1">
+                          {{ filterItem.label }}
+                        </p>
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Change icons button. -->
+                  <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
+                    <div class="self-end flex justify-start items-center
+                                mb-1 mr-1">
+                      <p class="text-xs">
+                        Show {{ propertyItem.label }} Icons
+                      </p>
+                      <label class="container flex items-center
+                                    justify-center ml-1">
+                        <input type="radio" :checked="false" 
+                              name="radio" @change="setPropertyToCurrent(property)">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                    <div class="w-full bg-slate-600" 
+                        style="height:1.2px;">
                     </div>
                   </div>
                 </div>
-                <!-- Change icons button. -->
-                <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
-                  <div class="self-end flex justify-start items-center
-                              mb-1 mr-1">
-                    <p class="text-xs">
-                      Show {{ propertyItem.label }} Icons
-                    </p>
-                    <label class="container flex items-center
-                                  justify-center ml-1">
-                      <input type="radio" :checked="false" 
-                             name="radio" @change="setPropertyToCurrent(property)">
-                      <span class="checkmark"></span>
-                    </label>
-                  </div>
-                  <div class="w-full bg-slate-600" 
-                       style="height:1.2px;">
-                  </div>
-                </div>
-              </div>
 
+              </div>
             </div>
           </div>
 
-          <div class="self-end flex flex-col mt-8 mr-3 h-full
+          <div class="self-end flex flex-col mt-3 mr-3 h-full
                       justify-end">
             <p class="text-sm">
               - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
@@ -245,8 +266,12 @@
  export default {
    components: { TimelineRangeSelector },
    props: {
-     startingMarkers: {
-       type: Array,
+     pageInfo: {
+       type: Object,
+       required: true
+     },
+     startingFiltersGeneralInfo: {
+       type: Object,
        required: true
      },
      startingFilters: {
@@ -258,6 +283,8 @@
        default: false
      },
      timelineOn: {
+      // Recieves from parent when timeline has been
+      // activated by selecting a dateRange.
       type: Boolean,
       required: true
      },
@@ -271,9 +298,11 @@
    },
    data() {
      return {
-       timelineSelectorOn: false,
+       timelineSelectorOn: false, // Set to true on mounted if includeTimeline.
+       timelineSelectorKey: 0,
        filtersBox: true,
        currentTileName: "Modern Map",
+       filtersGeneralInfo: JSON.parse(JSON.stringify(this.startingFiltersGeneralInfo)),
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
        tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true }, { name: "Historic Map", url: "https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw", active: false }],
        currentProperty: "sex", // Determines the property the icons of which are showing.
@@ -324,6 +353,9 @@
        this.currentTileName = tile.name;
        this.$emit("updatedTile", tile.url);
      },
+     toggleFiltersShowing: function () {
+       this.filtersGeneralInfo.filtersShowing = !this.filtersGeneralInfo.filtersShowing;
+     },
      toggleFiltersBox: function () {
        this.filtersBox = !this.filtersBox;
      },
@@ -335,6 +367,8 @@
        }
      },
      emitDateReset: function () {
+       // Re-redner timeline selector with its default values.
+       this.timelineSelectorKey =! this.timelineSelectorKey;
        this.$emit("resetDates");
      },
      emitDateRange: function (dateRange) {
@@ -342,7 +376,10 @@
      },
      deactivateTimeline: function () {
        this.$emit("deactivatedTimeline");
-     }
+     },
+     showPageInfo: function () {
+       this.$swal(this.pageInfo);
+     },
    },
    computed: {
     dateRangeFormatted () {
@@ -353,6 +390,11 @@
         ]
       } 
       }
+   },
+   mounted: function () {
+    if (this.includeTimeline) {
+      this.timelineSelectorOn = true;
+    }
    }
  }
 </script>
