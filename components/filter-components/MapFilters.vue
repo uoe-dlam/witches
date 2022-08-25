@@ -128,7 +128,9 @@
           <!-- Filter dropdowns -->
           <div v-if="filtersGeneralInfo.filtersShowing"
                class="w-full">
-          
+
+            <!-- Note that <propertyItem> denotes the object and 
+              property the key. -->
             <div v-for="(propertyItem, property) in filterProperties" 
                 class="w-full flex flex-col ml-4">
 
@@ -146,8 +148,17 @@
 
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
-
-                <!-- If it is the current property, show list with icons. -->
+                <icon-dependent-filters-list 
+                  :currentProperty="currentProperty"
+                  :property="property"
+                  :filterTypes="propertyItem.filters"
+                  :propertyLabel="propertyItem.label"
+                  @filterOff="emitFilterOff($event)"
+                  @filterOn="emitFilterOn($event)"
+                  @setPropertyToCurrent="setPropertyToCurrent($event)">
+                </icon-dependent-filters-list>
+                
+                <!-- If it is the current property, show list with icons. 
                 <div v-if="property === currentProperty" 
                     class="w-full flex flex-wrap mt-2">
                   <div v-for="(filterItem, filterType) in propertyItem.filters"
@@ -165,8 +176,8 @@
                   </div>
                 </div>
 
-                <!-- Else, show list without icons but with button to switch
-                    to current. -->
+                Else, show list without icons but with button to switch
+                    to current. 
                 <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
                   <div class="w-full flex flex-wrap px-2">
                     <div v-for="(filterItem, filterType) in propertyItem.filters">
@@ -182,7 +193,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- Change icons button. -->
+                  Change icons button. 
                   <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
                     <div class="self-end flex justify-start items-center
                                 mb-1 mr-1">
@@ -201,6 +212,7 @@
                     </div>
                   </div>
                 </div>
+              -->
 
               </div>
             </div>
@@ -261,10 +273,11 @@
 
 <script>
  import TimelineRangeSelector from './TimelineRangeSelector.vue';
+ import IconDependentFiltersList from './IconDependentFiltersList.vue';
  import TimelineMethods from '../../assets/js/TimelineMethods';
 
  export default {
-   components: { TimelineRangeSelector },
+   components: { TimelineRangeSelector, IconDependentFiltersList },
    props: {
      pageInfo: {
        type: Object,
@@ -326,6 +339,12 @@
          this.setFilterActive(property, filterType);
          this.$emit("filterOn", [property, filterType]);
        }
+     },
+     emitFilterOff: function (filterInfo) {
+       this.$emit("filterOff", filterInfo);
+     },
+     emitFilterOn: function (filterInfo) {
+       this.$emit("filterOn", filterInfo);
      },
      setPropertyToCurrent: function (property) {
        // Sets <property> as the current property, and
