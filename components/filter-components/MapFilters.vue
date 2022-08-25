@@ -13,7 +13,8 @@
              style="width:90%">
 
           <!-- Header -->
-          <div class="flex w-full flex-col">
+          <div class="flex w-full flex-col"
+               ref="FiltersHeader">
             <div class="flex flex-col w-full h-full"
                  style="backdrop-filter: blur(1.5px);">
               
@@ -33,7 +34,7 @@
               </div>
               
               <!-- Display number of active witches. -->
-              <div class="ml-3 flex mt-2 items-center pb-2">
+              <div class="ml-3 flex mt-2 items-center pb-2"">
                 <p class="mr-2 text-lg witchy-text">
                   Showing
                 </p>
@@ -68,7 +69,8 @@
             <timeline-range-selector v-if="timelineSelectorOn"
                                      :key="timelineSelectorKey"
                                      @selectedDateRange="emitDateRange($event)"
-                                     @deactivatedTimeline="deactivateTimeline()">
+                                     @deactivatedTimeline="deactivateTimeline()"
+                                     @scrollHeaderIntoView="scrollHeaderIntoView()">
             </timeline-range-selector>
             
             <div v-if="dateRange !== null && timelineSelectorOn"
@@ -151,13 +153,13 @@
                 <div v-if="property === currentProperty" 
                     class="w-full flex flex-wrap mt-2">
                   <div v-for="(filterItem, filterType) in propertyItem.filters"
-                      class="flex flex-col items-center mx-3 mb-2" 
-                      style="width: 50px">
+                       class="flex flex-col items-center mx-3 mb-2" 
+                       style="width: 50px">
 
                     <div class="flex justify-center items-center">
                       <input :checked="filterProperties[property].filters[filterType].active"
-                            @change="filterEmit(property, filterType)" 
-                            type="checkbox" />
+                             @change="filterEmit(property, filterType)" 
+                             type="checkbox" />
                       <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
                     </div>
                     <p class="text-xs text-center"> {{ filterItem.label }} </p>
@@ -380,6 +382,13 @@
      showPageInfo: function () {
        this.$swal(this.pageInfo);
      },
+     scrollHeaderIntoView() {
+       const el = this.$refs.FiltersHeader;
+
+       if (el) {
+         el.scrollIntoView({ behavior: 'smooth' });
+       }
+     }
    },
    computed: {
     dateRangeFormatted () {

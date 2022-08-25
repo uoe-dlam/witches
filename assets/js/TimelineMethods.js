@@ -202,7 +202,6 @@ const TimelineMethods = {
     let startDate = dateRange[0];
     let [dates, markerDates] = this.getStartDatesAndMarkers(startDate);
     let noDaysTotal = Math.round(rangeLengthDays / dateFrequency);
-    console.log(noDaysTotal);
 
     for (let i = 1; i < noDaysTotal; i++) {
       let newDate = this.addDays(new Date(startDate), (i*dateFrequency));
