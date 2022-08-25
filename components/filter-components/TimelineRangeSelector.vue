@@ -8,7 +8,8 @@
 
     <div class="flex pl-2 py-1 flex-wrap items-center mt-2
                 cursor-pointer ml-1" style="width: 225px;" 
-        @click="toggleRecommended()">
+        @click="toggleRecommended()"
+        ref="PresetRanges">
       <p style="font-weight: 500;" class="mr-1">-</p>
       <p style="font-weight: 500;"> Recommended ranges </p>
       <img src="images/arrow-down.svg" v-if="!recommendedOn" 
@@ -19,15 +20,14 @@
 
     <div class="ml-8 mt-2 flex mb-2"
          v-if="recommendedOn"
-         @click="scrollRecommendedIntoView()"
-         ref="PresetRanges">
+         @click="scrollRecommendedIntoView()">
       <v-select :options="recommendedOptions"
                 placeholder="Panic spreads ranges"
                 v-model="recommendedRange">
       </v-select>
     </div>
 
-    <div class="flex pl-2 py-1 flex-wrap items-center mt-3
+    <div class="flex pl-2 py-1 flex-wrap items-center mt-2
               cursor-pointer ml-1" style="width: 225px;" 
         @click="toggleCustomSelector()">
       <p style="font-weight: 500;" class="mr-1">-</p>
