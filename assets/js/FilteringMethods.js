@@ -48,7 +48,7 @@ class FilteringMethods {
     }
     return markerType;
   }
-  getMarkerState (marker) {
+  getMarkerStateIconDependant (marker) {
     // Returns a marker state array [markerIcon, active] based
     // on the witches that are on in the marker. It gets the markerType
     // by calling getMarkerType, and returns the state accordingly.
@@ -61,6 +61,24 @@ class FilteringMethods {
     }
     return [null, false];
   } 
+  getMarkerStateNonIconDependant (witches) {
+    // Returns whether a marker is on or not when we don't
+    // depend on Icons, i.e. on if there are more than 0
+    // witches active.
+    let noActive = 0;
+
+    witches.map(witch => {
+      if (witch.witchState.on) {
+        noActive += 1
+      }
+    })
+
+    if (noActive === 0) {
+      return false
+    }
+
+    return true
+  }
   checkWitchOn(activeFilterProperties, filterProperty) {
     // Given a list with a witch's active filter properties,
     // returns the same list with filterProperty filtered out,
@@ -74,6 +92,23 @@ class FilteringMethods {
     }
 
     return [newWitchFilters, false]
+  }
+  checkMeetsCondition (witchType, filterType) {
+    // Checks if what we are filtering by is an array, in which
+    // case checks with .includes() or a string and then checks
+    // with ===
+    
+    if (Array.isArray(witchType)) {
+      if (witchType.includes(filterType)) {
+        return true
+      }
+    }
+    
+    if (witchType == filterType) {
+      return true
+    }
+
+    return false
   }
   buildOutputMarker (marker, newWitches) {
     return {

@@ -9,7 +9,7 @@ module.exports = {
     screens: {
       'xs': '300px',
 
-      'sm': '400px',
+      'sm': '450px',
       // => @media (min-width: 640px) { ... }
 
       'md': '768px',
@@ -17,6 +17,9 @@ module.exports = {
 
       'lg': '954px',
       // => @media (min-width: 954px) { ... }
+
+      'ml': "1100px", 
+      // => medium-large @media (min-width: 1044x) {  } 
 
       'xl': '1200px',
       // => @media (min-width: 1200px) { ... }

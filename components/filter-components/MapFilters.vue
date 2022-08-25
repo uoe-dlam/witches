@@ -1,5 +1,5 @@
 <template>
-  <div class="xs:w-4/5 sm:w-1/2 lg:w-2/5
+  <div class="xs:w-11/12 sm:w-1/2 lg:w-2/5 
               xl:w-1/3 z-20 left-0"
        :style= "[timelineOn ? {'height': '89%'} : {'height': '100%'}]">
     <transition>
@@ -20,7 +20,7 @@
               
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h1 class="text-2xl md:text-3xl mx-0 px-2">
+                <h1 class="text-1.5xl ml:text-3xl mx-0 px-2">
                   {{pageInfo.title}}
                   <div class="inline-flex items-center justify-center
                               align-middle rounded-full border-r-2  
@@ -34,7 +34,7 @@
               </div>
               
               <!-- Display number of active witches. -->
-              <div class="ml-3 flex mt-2 items-center pb-2"">
+              <div class="ml-3 flex mt-3 items-center pb-2"">
                 <p class="mr-2 text-lg witchy-text">
                   Showing
                 </p>
@@ -58,7 +58,9 @@
 
             <div v-if="includeTimeline"
                 class="flex items-center">
-              <h1 class="font-medium mr-3 py-0">Timeline</h1>
+              <h1 class="font-medium mr-3 py-0 text-2xl">
+                Timeline
+              </h1>
               <label class="switch relative pr-2 mt-1">
                 <input type="checkbox" :checked="true"
                       @change="toggleTimelineSelector()">
@@ -118,7 +120,7 @@
                :style= "[includeTimeline ? {'margin-top': '17px'} 
                                          : {'margin-top': '3px'}]" 
                @click="toggleFiltersShowing(property)">
-            <h1 class="font-medium">
+            <h1 class="font-medium text-2xl">
               {{filtersGeneralInfo.title}}
             </h1>
             <img src="images/arrow-down.svg" v-if="!filtersGeneralInfo.filtersShowing" 
@@ -151,6 +153,7 @@
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
                 <icon-dependent-filters-list 
+                  v-if="!iconsConstant"
                   :currentProperty="currentProperty"
                   :property="property"
                   :filterTypes="propertyItem.filters"
@@ -160,63 +163,14 @@
                   @setPropertyToCurrent="setPropertyToCurrent($event)">
                 </icon-dependent-filters-list>
                 
-                <!-- If it is the current property, show list with icons. 
-                <div v-if="property === currentProperty" 
-                    class="w-full flex flex-wrap mt-2">
-                  <div v-for="(filterItem, filterType) in propertyItem.filters"
-                       class="flex flex-col items-center mx-3 mb-2" 
-                       style="width: 50px">
-
-                    <div class="flex justify-center items-center">
-                      <input :checked="filterProperties[property].filters[filterType].active"
-                             @change="filterEmit(property, filterType)" 
-                             type="checkbox" />
-                      <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
-                    </div>
-                    <p class="text-xs text-center"> {{ filterItem.label }} </p>
-
-                  </div>
-                </div>
-
-                Else, show list without icons but with button to switch
-                    to current. 
-                <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
-                  <div class="w-full flex flex-wrap px-2">
-                    <div v-for="(filterItem, filterType) in propertyItem.filters">
-                      <div class="flex mb-3 mx-2 w-full items-center">
-
-                        <input :checked="filterProperties[property].filters[filterType].active"
-                              @change="filterEmit(property, filterType)" 
-                              type="checkbox" />
-                        <p class="text-xs text-center ml-1">
-                          {{ filterItem.label }}
-                        </p>
-
-                      </div>
-                    </div>
-                  </div>
-                  Change icons button. 
-                  <div class="flex flex-col w-4/5 ml-1 items-end mt-1">
-                    <div class="self-end flex justify-start items-center
-                                mb-1 mr-1">
-                      <p class="text-xs">
-                        Show {{ propertyItem.label }} Icons
-                      </p>
-                      <label class="container flex items-center
-                                    justify-center ml-1">
-                        <input type="radio" :checked="false" 
-                              name="radio" @change="setPropertyToCurrent(property)">
-                        <span class="checkmark"></span>
-                      </label>
-                    </div>
-                    <div class="w-full bg-slate-600" 
-                        style="height:1.2px;">
-                    </div>
-                  </div>
-                </div>
-              -->
-
+                <normal-filters-list
+                  v-else :property="property"
+                  :filterTypes="propertyItem.filters"
+                  @filterOff="emitFilterOff($event)"
+                  @filterOn="emitFilterOn($event)">
+                </normal-filters-list>
               </div>
+
             </div>
           </div>
 
@@ -276,10 +230,11 @@
 <script>
  import TimelineRangeSelector from './TimelineRangeSelector.vue';
  import IconDependentFiltersList from './IconDependentFiltersList.vue';
+ import NormalFiltersList from './NormalFiltersList.vue';
  import TimelineMethods from '../../assets/js/TimelineMethods';
 
  export default {
-   components: { TimelineRangeSelector, IconDependentFiltersList },
+   components: { TimelineRangeSelector, IconDependentFiltersList, NormalFiltersList },
    props: {
      pageInfo: {
        type: Object,
@@ -293,6 +248,10 @@
        type: Object,
        required: true
      },
+     iconBehaviour: {
+       type: String,
+       required: true
+     },
      includeTimeline: {
        type: Boolean,
        default: false
@@ -304,7 +263,7 @@
       required: true
      },
      dateRange: {
-      required: true
+      required: false
      },
      noWitches: {
       type: Number,
@@ -352,7 +311,10 @@
        // Sets <property> as the current property, and
        // calls setAllIcons to change the icons accordingly.
        this.currentProperty = property;
-       this.$emit("changeCurrentProperty", property);
+
+       if (this.iconBehaviour !== "constant") {
+         this.$emit("changeCurrentProperty", property);
+       }
      },
      togglePropertyShowing: function (property) {
        // If the property <property> is not showing, sets to showing,
@@ -417,7 +379,10 @@
           TimelineMethods.formatDate(this.dateRange[1])
         ]
       } 
-      }
+    },
+    iconsConstant () {
+      return this.iconBehaviour === "constant"
+    }
    },
    mounted: function () {
     if (this.includeTimeline) {

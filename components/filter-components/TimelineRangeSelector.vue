@@ -11,7 +11,7 @@
         @click="toggleRecommended()"
         ref="PresetRanges">
       <p style="font-weight: 500;" class="mr-1">-</p>
-      <p style="font-weight: 500;"> Pre-set ranges (recommended) </p>
+      <p style="font-weight: 500;"> Pre-set ranges showing panics </p>
       <img src="images/arrow-down.svg" v-if="!recommendedOn" 
             class="w-6 h-6" />
       <img src="images/arrow-up.svg" v-if="recommendedOn" 
@@ -22,7 +22,7 @@
          v-if="recommendedOn"
          @click="scrollRecommendedIntoView()">
       <v-select :options="recommendedOptions"
-                placeholder="Panic spread related ranges"
+                placeholder="(recommended ranges)"
                 v-model="recommendedRange">
       </v-select>
     </div>

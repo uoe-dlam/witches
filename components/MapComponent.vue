@@ -6,6 +6,7 @@
         <map-filters :pageInfo="pageInfo"
                      :startingFiltersGeneralInfo="filtersGeneralInfo"
                      :startingFilters="filterProperties"
+                     :iconBehaviour="iconBehaviour"
                      :includeTimeline="includeTimeline"
                      :timelineOn="timelineOn"
                      :dateRange="timelineOutputRange"
@@ -60,6 +61,10 @@
       type: Object,
       required: true
      },
+     iconBehaviour: {
+      type: String,
+      required: true
+     },
      clustersOnInitial: {
       type: Boolean,
       default: true
@@ -109,6 +114,16 @@
         TimelineMethods.addDays(new Date(dateRange[1]), 1)
       ]
      },
+     getMarkerState: function (marker) {
+       if (this.iconBehaviour !== "constant") {
+         [
+           marker.markerIcon,
+           marker.active
+         ] = this.Filtering.getMarkerStateIconDependant(marker);
+       } else {
+           marker.active = this.Filtering.getMarkerStateNonIconDependant(marker.witches);
+       }
+     },
      setWitchesOff: function (filterProperty, filterType) {
        // Filters <filterProperty>.<filterType> off. It goes through the current markers
        // setting witches that meet filter type to off and adds the
@@ -120,29 +135,32 @@
 
          for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
-
-           if (witch[filterProperty] === filterType) {
+           
+           // Calling checksMeetsCondition, which will check 
+           // if what we are filtering by is an array, in which 
+           // case checks with .includes() or a string and then checks
+           // with ===
+           if (this.Filtering.checkMeetsCondition(witch[filterProperty], filterType)) {
              witch.witchState.on = false;
+             console.log(witch[filterProperty]);
              witch.witchState.activeFilters.push(filterProperty);
            }
          }
-         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+         this.getMarkerState(marker);
        }
      },
      setWitchesOn: function (filterProperty, filterType) {
        // Filters <filterType> on. It goes through the current markers
        // setting witches that meet filter type to on and updating the witches
-       // active filters. If a marker is not mixed, meaning it could become
-       // mixed, it updates the marker state by calling getMarkerState.
+       // active filters. It updates the marker state by calling getMarkerState.
 
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
 
          for (let w = 0; w < marker.witches.length; w++) {
            let witch = marker.witches[w];
-           let witchType = witch[filterProperty];
 
-           if (witchType === filterType) {
+           if (this.Filtering.checkMeetsCondition(witch[filterProperty], filterType)) {
              [
               witch.witchState.activeFilters, 
               witch.witchState.on
@@ -150,9 +168,10 @@
                 witch.witchState.activeFilters, 
                 filterProperty
               )
+              console.log(witch.witchState.activeFilters);
            }
          }
-         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+         this.getMarkerState(marker);
        }
      },
      checkDateInRange: function (date, dateRange) {
@@ -184,7 +203,7 @@
              )
            }
          }
-         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+         this.getMarkerState(marker);
        }
      },
      filterOnSlider: function (dateRange) {
@@ -246,7 +265,7 @@
              )
            }
          }
-         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+         this.getMarkerState(marker);
        }
        this.timelineRange = null;
      },
@@ -271,7 +290,10 @@
 
        for (let i = 0; i < this.markers.length; i++) {
          let marker = this.markers[i];
-         [marker.markerIcon, marker.active] = this.Filtering.getMarkerState(marker);
+         [
+          marker.markerIcon, 
+          marker.active
+         ] = this.Filtering.getMarkerStateIconDependant(marker);
        }
      },
      changeCurrentProperty: function (property) {
@@ -281,13 +303,9 @@
    },
   mounted: function() {
     let noWitches = 0;
-    let dates = []
 
     this.markers.map(marker => {
       noWitches += marker.witches.length;
-      if (this.includeTimeline) {
-        dates.push()
-      }
     })
     
     this.Filtering.setNoWitches(noWitches);

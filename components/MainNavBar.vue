@@ -38,7 +38,7 @@
      return {
        open : false,
        links : [
-         { name : 'Residences', url : '/', external: false, subpages : [
+         { name : 'Panic Spreads', url : '/', external: false, subpages : [
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
          ] },
