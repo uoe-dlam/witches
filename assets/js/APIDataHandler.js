@@ -273,16 +273,16 @@ class APIDataHandler {
   getWitchLocations(item) {
     return {
       residence: {
-        location: item.hasOwnProperty('residenceLabel') ? item.residenceLabel.value : '', 
-        coordinates: item.hasOwnProperty('residenceCoords') ? this.convertPointToLongLatArray(item.residenceCoords.value) : ''
+        locations: item.hasOwnProperty('residenceLabel') ? [item.residenceLabel.value] : [], 
+        coordinates: item.hasOwnProperty('residenceCoords') ? [this.convertPointToLongLatArray(item.residenceCoords.value)] : []
       },
       detention: {
-        location: item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '',
-        coordinates: item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : ''
+        locations: item.hasOwnProperty('detentionLocationLabel') ? [item.detentionLocationLabel.value] : [],
+        coordinates: item.hasOwnProperty('detentionLocationCoords') ? [this.convertPointToLongLatArray(item.detentionLocationCoords.value)] : []
       },
       placeOfDeath: {
-        location: item.hasOwnProperty('placeOfDeathLabel') ? item.placeOfDeathLabel.value : '',
-        coordinates: item.hasOwnProperty('placeOfDeathCoords') ? this.convertPointToLongLatArray(item.placeOfDeathCoords.value) : '' 
+        locations: item.hasOwnProperty('placeOfDeathLabel') ? [item.placeOfDeathLabel.value] : [],
+        coordinates: item.hasOwnProperty('placeOfDeathCoords') ? [this.convertPointToLongLatArray(item.placeOfDeathCoords.value)] : []
       }
     }
   }
@@ -301,15 +301,15 @@ class APIDataHandler {
   }
 
   loadAccussed (plotByField, filtersToProduce) {
-    let witchesIds = [];
+    let witches = [];
 
     for (let i = 0; i < this.queryOutput.results.bindings.length; i++) {
       let item = this.queryOutput.results.bindings[i];
 
       if (item.hasOwnProperty(this.plotFieldsLabels[plotByField])) {
         
-        let repeatedWitch = witchesIds.find(id => {
-          return id === item.item.value;
+        let repeatedWitch = witches.find(existingWitch => {
+          return existingWitch.id === item.item.value;
         });
 
         if (!repeatedWitch) {
@@ -333,8 +333,38 @@ class APIDataHandler {
           }
 
           this.addFiltersFound(witch, filtersToProduce);
-          witchesIds.push(witch.id);
-          this.addWitchToMarkers(witch, plotByField);
+          witches.push(witch);
+          this.addWitchToMarkers(witch, plotByField, 0);
+
+        } else {
+          // If witch is repeated, add already existing witch with the new locations
+          // like we did before.
+          let newLocations = this.getWitchLocations(item);
+          let newLocationPlotBy = newLocations[plotByField].locations[0];
+          let existingPlotBys = repeatedWitch[plotByField].locations;
+          let newLocationsKeys = Object.keys(newLocations);
+
+          if (!existingPlotBys.includes(newLocationPlotBy)) {
+            repeatedWitch[plotByField].locations.push(newLocations[plotByField].locations[0]);
+            repeatedWitch[plotByField].coordinates.push(newLocations[plotByField].coordinates[0]);
+            
+            newLocationsKeys.map(newLocationKey => {
+              if (newLocationKey !== plotByField) {
+                if (newLocations[newLocationKey].locations.length !== 0) {
+
+                  let newLocation = newLocations[newLocationKey].locations[0];
+                  let newCoordinates = newLocations[newLocationKey].coordinates[0];
+
+                  if (!repeatedWitch[newLocationKey].locations.includes(newLocation)) {
+                    repeatedWitch[newLocationKey].locations.push(newLocation);
+                    repeatedWitch[newLocationKey].coordinates.push(newCoordinates);
+                  }
+                }
+              }
+            })
+
+            this.addWitchToMarkers(repeatedWitch, plotByField, repeatedWitch[plotByField].locations.length - 1);
+          }
         }
       }
     }
@@ -355,9 +385,10 @@ class APIDataHandler {
     return filtersProduced;
   }
 
-  addWitchToMarkers (witch, plotByField) {
+  addWitchToMarkers (witch, plotByField, locationIndex) {
     // Adds witch to markers.
-    let location = witch[plotByField].location;
+    let location = witch[plotByField].locations[locationIndex];
+    if (location === null) {console.log(witch);}
 
     // find marker for current location so you can add witch
     let marker = this.originalMarkers.find(marker => {
@@ -367,7 +398,7 @@ class APIDataHandler {
     if (marker) {
       marker.witches.push(witch);
     } else {
-      let coords = witch[plotByField].coordinates;
+      let coords = witch[plotByField].coordinates[locationIndex];
       let markerIcon = null;
 
       if (this.constantIcon !== null) {

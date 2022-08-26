@@ -142,7 +142,6 @@
            // with ===
            if (this.Filtering.checkMeetsCondition(witch[filterProperty], filterType)) {
              witch.witchState.on = false;
-             console.log(witch[filterProperty]);
              witch.witchState.activeFilters.push(filterProperty);
            }
          }
@@ -168,7 +167,6 @@
                 witch.witchState.activeFilters, 
                 filterProperty
               )
-              console.log(witch.witchState.activeFilters);
            }
          }
          this.getMarkerState(marker);
@@ -308,7 +306,6 @@
       noWitches += marker.witches.length;
     })
     
-    console.log(this.filterProperties);
     this.Filtering.setNoWitches(noWitches);
   }
 

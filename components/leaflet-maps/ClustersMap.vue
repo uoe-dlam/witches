@@ -22,8 +22,11 @@
 
               <div v-for="locationOption in getLocationsWithValue(witch)">
                 {{locationsLabels[locationOption]}}:
-                  <a @click="flyTo(witch[locationOption].coordinates)" :style="{ cursor: 'pointer'}">{{ witch[locationOption].location }}
-                  </a>
+                  <template v-for="(subLocation, index) in witch[locationOption].locations">
+                    <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{ subLocation }}
+                    </a>
+                    <template v-if="index < witch[locationOption].locations.length - 1">, </template>
+                  </template>
                 <br>
               </div>
 
@@ -147,7 +150,7 @@
        let locationsWithValue = []
 
        this.locationOptions.map(option => {
-         if (witch[option].location !== "") {
+         if (witch[option].locations.length !== 0) {
            locationsWithValue.push(option);
          }
        })
