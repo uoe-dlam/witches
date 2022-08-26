@@ -147,11 +147,7 @@ export default {
         filtersFound
       ] = getData.loadAccussed('residence', this.filtersToFind);
 
-      console.log(filtersFound);
-
       this.setFilters(filtersFound);
-      console.log(this.filterProperties);
-
       this.setMarkersIcons();
       this.loading = false;
     }
