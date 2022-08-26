@@ -11,7 +11,9 @@
 
 <script>
  import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher'
- import MarkerDataHandler from '~/assets/js/MarkerDataHandler';
+ import APIDataHandler from '~/assets/js/ApiDataHandler';
+ import FilteringMethods from '../assets/js/FilteringMethods';
+ import json from '../big-query-output.json'
  import MapComponent from '../components/MapComponent.vue';
  import LoadingMessage from '../components/LoadingMessage.vue';
 
@@ -26,10 +28,23 @@
        type: 'info',
        showCloseButton: true,
      },
+     queryOutput: json,
      sparqlUrl: 'https://query.wikidata.org/sparql',
      wikiPages: [],
      loading: true,
      originalMarkers: [],
+     filtersToFind: [
+       ["socialClass", "changing"],
+       ["occupation", "changing"],
+       ["demonicPact", "constant"],
+       ["propertyDamage", "constant"],
+       ["meetingsPlaces", "constant"],
+       ["meetingsInfo", "constant"],
+       ["shapeshifting", "constant"],
+       ["ritualObjects", "constant"],
+       ["primary", "constant"],
+       ["secondary", "constant"]
+     ],
      filtersGeneralInfo: {
        title: "Accused witch filters",
        filtersShowing: true
@@ -85,14 +100,6 @@
      }
    }),
    methods: {
-     convertPointToLongLatArray: function (pointString) {
-       pointString = pointString.substr(6);
-       pointString = pointString.slice(0,-1);
-       let pointArray = pointString.split(' ');
-       let longLatArray = [pointArray[1], pointArray[0]];
-
-       return longLatArray;
-     },
      loadWikiEntries: function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
             WHERE {
@@ -114,203 +121,9 @@
 
            this.wikiPages.push(wikiPage);
          }
-
-         this.loadAccussed();
        });
      },
-     loadAccussed : function() {
 
-       const sparqlQuery = `SELECT distinct ?item ?itemLabel ?investigationDate
-            ?residenceLabel ?residenceCoords ?sexLabel ?link ?occupationLabel ?socialClassificationLabel
-            ?placeOfDeathLabel ?placeOfDeathCoords ?mannerOfDeathLabel ?detentionLocationLabel ?detentionLocationCoords
-            WHERE
-            {
-              ?item wdt:P4478 ?witch .
-              ?item wdt:P551 ?residence .
-              ?residence wdt:P625 ?residenceCoords .
-              optional { ?item wdt:P21 ?sex } .
-              ?item wdt:P4478 ?link .
-              optional { ?item wdt:P106 ?occupation .}
-              optional { ?item wdt:P3716 ?socialClassification .}
-              optional {
-                ?item wdt:P20 ?placeOfDeath .
-                ?placeOfDeath wdt:P625 ?placeOfDeathCoords .}
-              optional { ?item wdt:P1196 ?mannerOfDeath .}
-              optional { ?item p:P793 ?significantEventStatement .
-              ?significantEventStatement ps:P793 wd:Q66458810 .
-              OPTIONAL {?significantEventStatement pq:P585 ?investigationPoint }.
-              OPTIONAL {?significantEventStatement pq:P580 ?investigationStart }
-              }
-              BIND(IF(BOUND(?investigationPoint), ?investigationPoint, ?investigationStart) as ?investigationDate)
-              optional {  ?item wdt:P2632 ?detentionLocation .
-                ?detentionLocation wdt:P625 ?detentionLocationCoords .}
-
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-            }`;
-
-       const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
-       queryDispatcher.query( sparqlQuery ).then( result => {
-
-         let witches = [];
-
-         for (let i = 0; i < result.results.bindings.length; i++) {
-
-           let item = result.results.bindings[i];
-           let id = item.item.value;
-           let sex = item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown';
-           let occupation = item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown';
-           let residence = item.hasOwnProperty('residenceLabel') ? item.residenceLabel.value : '';
-           let residenceCoords = item.hasOwnProperty('residenceCoords') ? this.convertPointToLongLatArray(item.residenceCoords.value) : '';
-           let socialClassification = item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown';
-           let placeOfDeath = item.hasOwnProperty('placeOfDeathLabel') ? item.placeOfDeathLabel.value : '';
-           let placeOfDeathCoords = item.hasOwnProperty('placeOfDeathCoords') ? this.convertPointToLongLatArray(item.placeOfDeathCoords.value) : '';
-           let mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
-           let detentionLocation = item.hasOwnProperty('detentionLocationLabel') ? item.detentionLocationLabel.value : '';
-           let detentionLocationCoords = item.hasOwnProperty('detentionLocationCoords') ? this.convertPointToLongLatArray(item.detentionLocationCoords.value) : '';
-           let wikiPage = this.getItemWikiPage(item);
-           let investigationDate = item.hasOwnProperty('investigationDate') ? item.investigationDate.value : 'N/A';
-           let investigationDates = [new Date (investigationDate), investigationDate]
-           let year = 1650;
-           let primary = null;
-           let secondary = null;
-
-           if (i%2 === 0 && i%4) {
-             primary = [];
-             secondary = []
-           } else if (i%2 === 0) {
-             primary = ["devil", "black cat"];
-             secondary = ["broom", "caldero"]
-           } else {
-             primary = ["magic", "shapefit"];
-             secondary = ["caldero", "fly"]
-           }
-
-           if (investigationDate !== 'N/A') {
-             investigationDates[1] = this.convertWikiDateToFriendlyDate(investigationDate);
-           }
-           
-           let icons = this.$store.getters['icons/getIcons'];
-           let currentSocials = Object.keys(this.filterProperties.socialClass.filters);
-           let currentOccupations = Object.keys(this.filterProperties.occupation.filters);
-
-           let newSocial = MarkerDataHandler.checkFilters(socialClassification, currentSocials, icons);
-           let newOccupation = MarkerDataHandler.checkFilters(occupation, currentOccupations, icons);
-
-           if (newSocial) { 
-             this.filterProperties.socialClass.filters[newSocial.label] = newSocial;
-           }
-
-           if (newOccupation) { 
-             this.filterProperties.occupation.filters[newOccupation.label] = newOccupation;
-           }
-
-           // find if witch has already exists
-           let witch = witches.find( witch => {
-             return witch.id ===  id;
-           });
-
-           // if witch exists we have a duplicate. this witch must have either multiple residence or multiple detentions
-           // push
-           if(witch){
-
-             if(detentionLocation !== ''){
-               if(!witch.detentions.find( obj => obj.location === detentionLocation)) {
-                 witch.detentions.push({location: detentionLocation, coords: detentionLocationCoords});
-                 continue;
-               }
-             }
-
-             if(residence !== ''){
-               if(!witch.residences.find( obj => obj.location === residence)) {
-                 witch.residences.push({location: residence, coords: residenceCoords});
-                 this.addWitchToMarkers(witch, residence, residenceCoords);
-                 continue;
-               }
-             }
-
-             if(investigationDate !== 'N/A' && witch.investigationDate === 'N/A') {
-               witch.investigationDate = investigationDate;
-               witch.year = year;
-             }
-
-           } else {
-
-             witch = {
-               id: id,
-               location: residence,
-               name: item.itemLabel.value,
-               link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
-               longLat: residenceCoords,
-               sex: sex,
-               occupation: occupation,
-               socialClass: socialClassification,
-               wikiPage: wikiPage,
-               hasWikiPage: wikiPage === '' ? 'noWiki' : 'hasWiki',
-               residences: [],
-               placeOfDeath: placeOfDeath,
-               placeOfDeathCoords: placeOfDeathCoords,
-               mannerOfDeath: mannerOfDeath,
-               detentions: [],
-               investigationDates: investigationDates,
-               primary: primary,
-               secondary: secondary,
-               year: year,
-               witchState: {
-                 on: true,
-                 activeFilters: []
-               }
-             }
-
-             if(residence !== ''){
-               witch.residences.push({location: residence, coords : residenceCoords});
-             }
-
-             if(detentionLocation !== ''){
-               witch.detentions.push({location: detentionLocation, coords : detentionLocationCoords});
-             }
-
-             witches.push(witch);
-             this.addWitchToMarkers(witch, residence, residenceCoords);
-           }
-
-         }
-
-         this.noItems = witches.length;      
-         this.saveDataToLocalStorage();
-         this.loading = false;
-       });
-     },
-     addWitchToMarkers: function (witch, location, locationCoords) {
-       // find marker for current location so you can add witch
-       let marker = this.originalMarkers.find( marker => {
-         return marker.location === location;
-       });
-
-       // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-       let filterProperty = 'sex';
-      
-       if (marker) {
-         marker.witches.push(witch);
-
-         for (let i = 0; i < marker.witches.length; i++) {
-           if (marker.witches[i][filterProperty] !== witch[filterProperty]){
-              //marker.markerIcon = '/images/witch-single-yellow.png'
-              marker.markerIcon = '/images/witch-single-purple.png';
-           }
-         }
-       } else {
-         let markerType = witch[filterProperty];
-         let marker = {
-           location: location,
-           longLat: locationCoords,
-           witches: [witch],
-           //markerIcon: '/images/witch-single-yellow.png',
-           markerIcon: this.filterProperties[filterProperty].filters[markerType].iconUrl,
-           active: true
-         }
-         this.originalMarkers.push(marker);
-       }
-     },
      // Local storage functions:
      hasLocalStorageExpired: function () {
        let hours = 24; // Reset when storage is more than 24hours
@@ -320,61 +133,56 @@
        return setupTime === null || (now - setupTime > hours*60*60*1000);
      },
      loadDataFromLocalStorage: function () {
-       this.originalMarkers = JSON.parse(localStorage.getItem('markers'));
-       this.noItems = localStorage.getItem('noItems');
-       this.filterProperties.socialClass.filters = JSON.parse(
-        localStorage.getItem('socialFilters')
-       );
-       this.filterProperties.occupation.filters = JSON.parse(
-        localStorage.getItem('occupationFilters')
-       );
-
+       this.originalMarkers = JSON.parse(localStorage.getItem('residenceMarkers'));
+       let allFilters = JSON.parse(localStorage.getItem('allFilters'));
+       this.filterProperties.socialClass.filters = allFilters.socialClass;
+       this.filterProperties.occupation.filters = allFilters.occupation;
      },
-     saveDataToLocalStorage: function () {
+     saveDataToLocalStorage: function (foundFilters) {
        let now = new Date().getTime();
        localStorage.setItem('setupTime', now);
-       localStorage.setItem('markers', JSON.stringify(this.originalMarkers));
-       localStorage.setItem('noItems', this.noItems);
-       localStorage.setItem(
-        'socialFilters', 
-        JSON.stringify(this.filterProperties.socialClass.filters)
-       );
-       localStorage.setItem(
-        'occupationFilters', 
-        JSON.stringify(this.filterProperties.occupation.filters)
-       );
+       localStorage.setItem('residenceMarkers', JSON.stringify(this.originalMarkers));
+       localStorage.setItem('allFilters', JSON.stringify(foundFilters));
      },
-     // Wiki functions:
-     getItemWikiPage: function (item) {
-       let wikiPage = ''; 
+     setMarkersIcons: function () {
+       let Filtering = new FilteringMethods(this.filterProperties, "sex");
 
-       for(let i = 0; i < this.wikiPages.length; i++){
-
-         if(this.wikiPages[i].id === item.item.value){
-           wikiPage = this.wikiPages[i].pageTitle;
-           wikiPage.split(' ').join('_');
-           wikiPage = 'https://en.wikipedia.org/wiki/' + wikiPage;
-         }
+       for (let i = 0; i < this.originalMarkers.length; i++) {
+         let marker = this.originalMarkers[i];
+         [
+           marker.markerIcon,
+           marker.active
+         ] = Filtering.getMarkerStateIconDependant(marker);
        }
+     },
+     loadData: function () {
+       this.loadWikiEntries();
+       let icons = this.$store.getters['icons/getIcons'];
 
-       return wikiPage;
-     },
-     convertWikiDateToFriendlyDate: function (wikiDate) {
-       let dateYear = wikiDate.substr(0, 4);
-       let dateMonth = wikiDate.substr(5, 2);
-       let dateDay = wikiDate.substr(8, 2);
+       let getData = new APIDataHandler(
+         this.queryOutput, this.wikiPages,
+         icons, null
+       );
+       let filtersFound = null;
 
-       return dateDay + '/' + dateMonth + '/' + dateYear;
-     },
-     getYearFromWikiDate: function (wikiDate) {
-       return wikiDate.substr(0, 4);
-     },
+       [
+        this.originalMarkers, 
+        filtersFound
+       ] = getData.loadAccussed('residence', this.filtersToFind);
+
+       this.filterProperties.socialClass.filters = filtersFound.socialClass;
+       this.filterProperties.occupation.filters = filtersFound.occupation;
+       this.setMarkersIcons();
+       this.saveDataToLocalStorage(filtersFound);
+       this.loading = false;
+     }
    },
 
    mounted: function () {
      if (this.hasLocalStorageExpired()) {
        localStorage.clear();
-       this.loadWikiEntries();
+       this.loadData();
+       
      } else {
        this.loadDataFromLocalStorage();
        this.loading = false;
@@ -384,26 +192,5 @@
 </script>
 
 <style>
-.cluster-img {
-    float: left;
-    width: 72px;
-    height: 55px;
-}
-
-.zoomed-in-img {
-    float: left;
-    width: 25px;
-    height: 38px;
-}
-
-.icon-shadow{
-    position: absolute;
-    top: 15px !important;
-    left: 0;
-    z-index: -1;
-    width: 32px;
-    height: 22px !important;
-}
-
 </style>
 

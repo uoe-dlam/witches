@@ -1,5 +1,5 @@
 <template>
-      <div class="w-full flex flex-wrap px-2 mt-2">
+      <div class="w-full flex flex-wrap pl-0 pr-4 mt-2">
         <div v-for="(filterItem, filterType) in filtersList">
           <div class="flex mb-3 mx-2 w-full items-center">
 

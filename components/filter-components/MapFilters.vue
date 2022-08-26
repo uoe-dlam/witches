@@ -20,7 +20,7 @@
               
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h1 class="text-1.5xl ml:text-3xl mx-0 px-2">
+                <h1 class="text-3xl mx-0 px-2">
                   {{pageInfo.title}}
                   <div class="inline-flex items-center justify-center
                               align-middle rounded-full border-r-2  
@@ -124,9 +124,9 @@
               {{filtersGeneralInfo.title}}
             </h1>
             <img src="images/arrow-down.svg" v-if="!filtersGeneralInfo.filtersShowing" 
-                  class="w-7 h-7 mt-0.5" />
+                  class="w-7 h-7 mt-1" />
             <img src="images/arrow-up.svg" v-if="filtersGeneralInfo.filtersShowing" 
-                  class="w-7 h-7 mt-0.5" />
+                  class="w-7 h-7 mt-1" />
           </div>
 
           <!-- Filter dropdowns -->
@@ -173,9 +173,10 @@
 
             </div>
           </div>
-
+          
           <div class="self-end flex flex-col mt-3 mr-3 h-full
-                      justify-end">
+                      justify-end"
+               v-if="!iconsConstant">
             <p class="text-sm">
               - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
             </p>
@@ -186,17 +187,21 @@
               <p class="ml-1 text-sm">= Mixed.</p>
             </div>
           </div>
+          
+          <div class="flex flex-col justify-end"
+               :style= "[iconsConstant ? {'margin-top': '15px', 'height': '100%'} 
+                                       : {'margin-top': '0px', 'height' : 'auto'}]">
+            <div class="w-full border mt-3 mb-3"></div>
 
-          <div class="w-full border mt-3 mb-3"></div>
-
-          <!-- Map tiles -->
-          <div class="w-full flex justify-between px-2 sm:px-3
-                      md:px-5 lg:px-10 mb-3">
-            <div v-for="tile in tiles">
-              <input type="radio" name="tile" 
-                     :checked="tile.name === currentTileName" 
-                     @change="filterTiles(tile)" />
-              {{ tile.name }}
+            <!-- Map tiles -->
+            <div class="w-full flex justify-between px-2 sm:px-3
+                        md:px-5 lg:px-10 mb-3">
+              <div v-for="tile in tiles">
+                <input type="radio" name="tile" 
+                      :checked="tile.name === currentTileName" 
+                      @change="filterTiles(tile)" />
+                {{ tile.name }}
+              </div>
             </div>
           </div>
         </div>

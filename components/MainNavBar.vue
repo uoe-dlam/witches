@@ -39,6 +39,8 @@
        open : false,
        links : [
          { name : 'Panic Spreads', url : '/', external: false, subpages : [
+           { name: 'Case Charectarisations', url: '/PrimarySecondary', external: false },
+           { name: 'Case Information', url: '/CaseInformation', external: false },
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
          ] },

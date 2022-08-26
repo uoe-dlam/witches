@@ -13,37 +13,27 @@
             <div v-for="(witch, index) in marker.witches" :key="index">
 
               <strong>{{ witch.name }}</strong><br>
-              <div v-if="witch.hasOwnProperty('investigationDates')">
+              <div>
                 Investigation Date: {{ witch.investigationDates[1] }}<br>
               </div>
               Gender: {{ witch.sex }}<br>
               Occupation: {{ witch.occupation }}<br>
               Social Class: {{ witch.socialClass }}<br>
 
-              <div v-if="witch.residences.length > 0">
-                Residences:
-                <template v-for="(residence, index) in witch.residences">
-                  <a @click="flyTo(residence.coords)" :style="{ cursor: 'pointer'}">{{ residence.location }}
+              <div v-for="locationOption in getLocationsWithValue(witch)">
+                {{locationsLabels[locationOption]}}:
+                  <a @click="flyTo(witch[locationOption].coordinates)" :style="{ cursor: 'pointer'}">{{ witch[locationOption].location }}
                   </a>
-                  <template v-if="index < witch.residences.length - 1">, </template>
-                </template>
                 <br>
               </div>
 
-              <div v-if="witch.detentions.length > 0">
-                Places of Detention:
-                <template v-for="(detention, index) in witch.detentions">
-                  <a @click="flyTo(detention.coords)" :style="{ cursor: 'pointer'}">{{ detention.location }}
-                  </a>
-                  <template v-if="index < witch.detentions.length - 1">, </template>
+              <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
+                <b>{{optionalsLabels[optionalAttribute]}}:</b>
+                <template v-for="(subAtribute, index) in witch[optionalAttribute]">
+                   {{ subAtribute }}
+                  <template v-if="index < witch[optionalAttribute].length - 1">, </template>
                 </template>
                 <br>
-              </div>
-
-              <div v-if="witch.placeOfDeath !== ''">
-                Place of Death:
-                <a @click="flyTo(witch.placeOfDeathCoords)" :style="{ cursor: 'pointer'}">{{ witch.placeOfDeath }}
-                </a><br>
               </div>
 
               <div v-if="witch.mannerOfDeath !== ''">
@@ -107,6 +97,26 @@
          },
          disableClusteringAtZoom : 12,
          spiderfyOnMaxZoom: false
+       },
+       locationOptions: ["residence", "detention", "placeOfDeath"],
+       locationsLabels: {
+         residence: "Residence",
+         detention: "Detention",
+         placeOfDeath: "Place of Death"
+       },
+       optionalAttributes: [
+        "demonicPact", "propertyDamage", "meetingsInfo", "meetingsPlaces",
+        "shapeshifting", "ritualObjects", 'primary', 'secondary'
+       ],
+       optionalsLabels: {
+         demonicPact: "Alleged Pacts with the devil",
+         propertyDamage: "Alleged Property Damage",
+         meetingsPlaces: "Alleged meetings places",
+         meetingsInfo: "Alleged nature of meetings",
+         shapeshifting: "Alleged shapeshifting",
+         ritualObjects: "Alleged ritual objects",
+         primary: "Primary Characteristics",
+         secondary: "Secondary Characteristics"
        }
      }
    },
@@ -132,6 +142,28 @@
          changeTo: "clustersOff"
        };
        this.$emit("changeMaps", changeInfo);
+     },
+     getLocationsWithValue: function (witch) {
+       let locationsWithValue = []
+
+       this.locationOptions.map(option => {
+         if (witch[option].location !== "") {
+           locationsWithValue.push(option);
+         }
+       })
+
+       return locationsWithValue
+     },
+     getOptionalsWithValue: function (witch) {
+       let optionalsWithValue = [];
+
+       this.optionalAttributes.map(option => {
+         if (witch[option][0] !== "unknown") {
+           optionalsWithValue.push(option);
+         }
+       })
+
+       return optionalsWithValue
      }
    },
    computed: {

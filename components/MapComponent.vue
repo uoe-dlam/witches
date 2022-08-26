@@ -308,6 +308,7 @@
       noWitches += marker.witches.length;
     })
     
+    console.log(this.filterProperties);
     this.Filtering.setNoWitches(noWitches);
   }
 

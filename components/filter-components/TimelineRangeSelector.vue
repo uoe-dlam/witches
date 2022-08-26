@@ -18,7 +18,7 @@
             class="w-6 h-6" />
     </div>
 
-    <div class="ml-8 mt-2 flex mb-2"
+    <div class="ml-6 lg:ml-8 mt-2 flex mb-2"
          v-if="recommendedOn"
          @click="scrollRecommendedIntoView()">
       <v-select :options="recommendedOptions"
@@ -39,7 +39,7 @@
     </div>
 
     <div v-if="customSelectorOn" 
-         class="ml-8 mt-2 flex flex-col">
+         class="ml-6 lg:ml-8 mt-2 flex flex-col">
       <date-picker v-model="customInputRange" 
                    range :placeholder="defaultMessage"
                    valueType="date"
