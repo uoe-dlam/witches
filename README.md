@@ -59,3 +59,26 @@ The map icons are licensed under the [CC BY 4.0 license](https://creativecommons
 
 This project is actively maintained by the University of Edinburgh's Digital Learning Applications and Media Team.
 
+## Backend
+The witches project now includes a PHP backend, which can be found at:  [https://github.com/uoe-dlam/witches-php](https://github.com/uoe-dlam/witches-php)
+
+To test locally, you should clone the backend:
+
+git clone git@github.com:uoe-dlam/witches-php.git
+
+And you can start the backend server by running the following command (You should run it on port 8181):
+
+```
+cd <install-directory>/witches-php
+```
+```
+php -S localhost:8181
+```
+
+And then test that everything is working run this project:
+```
+npm i
+```
+```
+npm run dev
+```
