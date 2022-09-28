@@ -65,7 +65,7 @@ export default {
   },
   webfontloader: {
       google: {
-          families: ['EB+Garamond:400,700'] //Loads Lato font with weights 400 and 700
+          families: ['EB+Garamond:400,700', 'Roboto:300,400,500'] //Loads Lato font with weights 400 and 700
       }
   },
   /*

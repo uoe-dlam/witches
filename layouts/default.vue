@@ -2,15 +2,17 @@
   <div id="main-wrapper">
     <main-nav-bar></main-nav-bar>
     <nuxt />
+    <cookie-banner></cookie-banner>
   </div>
 </template>
 
 <script>
     import  MainNavBar from '~/components/MainNavBar.vue'
-
+    import CookieBanner from '~/components/CookieBanner.vue'
     export default {
         components: {
-            MainNavBar
+            MainNavBar,
+            CookieBanner
         }
     }
 </script>
@@ -36,6 +38,10 @@ h2 {
 }
 h3 {
     @apply text-lg;
+}
+
+p {
+  font-family: 'Roboto'
 }
 
 .lds-facebook {
@@ -82,16 +88,21 @@ h3 {
 }
 
 #main-wrapper{
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden; 
+  position: relative;
 }
 
 #outer {
   -webkit-flex: 1;
-  flex : 1;
+  flex: 1;
+}
+
+#outer {
+  -webkit-flex: 1;
+  flex: 1;
 }
 
 #inner {
@@ -102,14 +113,38 @@ h3 {
   height: 100%
 }
 
-#page-intro{
-  font-size:12px;
+#page-intro {
+  font-size: 12px;
+}
+
+#map-wrapper {
+  background-color: #DDDDDD;
+  -webkit-flex: 1;
+  flex: 1;
 }
 
 #map-wrapper {
   background-color: #DDDDDD;
   -webkit-flex: 1;
   flex : 1;
+}
+
+.filters-shadow {
+   box-shadow: 0 3px 10px rgba(106, 104, 104, 0.623);
+ }
+
+.title-point {
+  content: "\A";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #000;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.witchy-text {
+  font-family: EB Garamond;
 }
 
 .icon-wrapper{

@@ -3,7 +3,7 @@
     <nav class="flex items-center justify-between flex-wrap bg-white pl-5 pr-5 pt-5 pb-3 w-full">
       <div class="flex items-center mr-3">
         <h1 class="text-xl lg:text-4xl mr-4">Witches</h1><img src="/images/witches-cluster-composite.png" alt="logo" width="90" >
-        <img class="block lg:hidden" src="~/assets/main-logo-badge.png" alt="logo" width="75">
+        <img class="block lg:hidden" src="~/assets/img/main-logo-badge.png" alt="logo" width="75">
       </div>
       <div class="block lg:hidden">
         <button @click="toggle" class="flex items-center px-3 py-2 border rounded text-grey border-grey hover:text-grey hover:border-grey-dark">
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="flex items-center text-white mr-6 hidden xl:block">
-        <img src="~/assets/main-logo.png" alt="logo" width="225">
+        <img src="~/assets/img/main-logo.png" alt="logo" width="225">
       </div>
     </nav>
     <div class="pr-12 border border-gray-200 bg-white pt-1 pb-1 text-xs w-full block float-left">
@@ -38,18 +38,21 @@
      return {
        open : false,
        links : [
-         { name : 'Residences', url : '/', external: false, subpages : [
-           { name : 'Residences with Timeline', url : '/timeline', external: false },
+         { name : 'Panic Spreads', url : '/', external: false, subpages : [
+           { name: 'Case Charectarisations', url: '/PrimarySecondary', external: false },
+           { name: 'Case Information', url: '/CaseInformation', external: false },
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
          ] },
          { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
-         { name : 'Trial Locations', url : '/trials', external: false, subpages : [
-           { name : 'Trials in Each Modern Authority', url : '/council', external: false },
-         ] },
          { name : 'Death Locations', url : '/death', subpages : [
            { name : 'Linking Residence to Place of Death', url : '/link', external: false },
          ] },
+         {
+           name: 'Trial Locations', url: '/trials', external: false, subpages: [
+             { name: 'Trials in Each Modern Authority', url: '/council', external: false },
+           ]
+         },
          { name : 'People Associated', url : '/people', external: false, subpages : [
            { name : 'People Associated with the Witch Trials: Residence', url : '/peopleloc', external: false },
            { name : 'A Witch-Prickers Journey', url : '/john', external: false },
