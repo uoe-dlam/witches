@@ -72,6 +72,9 @@ And you can start the backend server by running the following command (You shoul
 cd <install-directory>/witches-php
 ```
 ```
+composer install (you only need to do this once)
+```
+```
 php -S localhost:8181
 ```
 
