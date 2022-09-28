@@ -49,7 +49,7 @@
         </div>
       </l-popup>
 
-      <l-icon :icon-anchor="iconAnchor" :key="marker">
+      <l-icon :icon-anchor="iconAnchor">
         <div class="icon-wrapper">
           <div v-if="hasWikiEntry(marker)" class="icon-wiki">W</div>
           <div v-if="marker.witches.length > 1" class="icon-text">
