@@ -51,7 +51,12 @@ export default {
           id: 'UA-57361601-29'
       }],
       'nuxt-webfontloader',
+      '@nuxtjs/axios'
   ],
+  axios: {
+    // extra config e.g
+    baseURL: process.env.NODE_ENV === 'development' ? "http://localhost:8181" : 'https://witches.is.ed.ac.uk'
+  },
   purgeCSS: {
       whitelist: ['lvml'],
       whitelistPatterns: [

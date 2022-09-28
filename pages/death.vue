@@ -142,9 +142,12 @@
       this.filterProperties.socialClass.filters = allFilters.socialClass;
       this.filterProperties.occupation.filters = allFilters.occupation;
     },
-    loadData: function () {
+    loadData: async function () {
       this.loadWikiEntries();
       let icons = this.$store.getters['icons/getIcons'];
+
+      let response = await this.$axios.get('/main.php')
+      this.queryOutput = response.data
 
       let getData = new APIDataHandler(
         this.queryOutput, this.wikiPages,
@@ -160,22 +163,6 @@
       this.filterProperties.socialClass.filters = filtersFound.socialClass;
       this.filterProperties.occupation.filters = filtersFound.occupation;
 
-      // Again, was going to load filters from local storage 
-      // when possible, but it seems to be faster to build
-      // them. Uncomment and remove 6 lines above
-      // to use local storage.
-      //  if (this.hasLocalStorageExpired()) {
-      //    [
-      //     this.originalMarkers, 
-      //     filtersFound
-      //    ] = getData.loadAccussed('detention', this.filtersToFind);
-
-      //    this.filterProperties.socialClass.filters = filtersFound.socialClass;
-      //    this.filterProperties.occupation.filters = filtersFound.occupation;
-      //  } else {
-      //    this.originalMarkers = getData.loadAccussed('detention', [])[0];
-      //    this.loadDataFromLocalStorage();
-      //  }
       this.setMarkersIcons();
       this.loading = false;
     }

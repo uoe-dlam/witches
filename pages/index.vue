@@ -155,9 +155,12 @@
          ] = Filtering.getMarkerStateIconDependant(marker);
        }
      },
-     loadData: function () {
+     loadData: async function () {
        this.loadWikiEntries();
        let icons = this.$store.getters['icons/getIcons'];
+
+       let response = await this.$axios.get('/main.php')
+       this.queryOutput = response.data
 
        let getData = new APIDataHandler(
          this.queryOutput, this.wikiPages,
@@ -173,20 +176,12 @@
        this.filterProperties.socialClass.filters = filtersFound.socialClass;
        this.filterProperties.occupation.filters = filtersFound.occupation;
        this.setMarkersIcons();
-       this.saveDataToLocalStorage(filtersFound);
        this.loading = false;
      }
    },
 
    mounted: function () {
-     if (this.hasLocalStorageExpired()) {
-       localStorage.clear();
-       this.loadData();
-       
-     } else {
-       this.loadDataFromLocalStorage();
-       this.loading = false;
-     }
+     this.loadData();
    }
  };
 </script>
