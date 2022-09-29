@@ -12,9 +12,9 @@
         ref="PresetRanges">
       <p style="font-weight: 500;" class="mr-1">-</p>
       <p style="font-weight: 500;"> Pre-set ranges showing panics </p>
-      <img src="images/arrow-down.svg" v-if="!recommendedOn" 
+      <img src="/images/arrow-down.svg" v-if="!recommendedOn"
             class="w-6 h-6" />
-      <img src="images/arrow-up.svg" v-if="recommendedOn" 
+      <img src="/images/arrow-up.svg" v-if="recommendedOn"
             class="w-6 h-6" />
     </div>
 
@@ -32,9 +32,9 @@
         @click="toggleCustomSelector()">
       <p style="font-weight: 500;" class="mr-1">-</p>
       <p style="font-weight: 500;"> Custom range </p>
-      <img src="images/arrow-down.svg" v-if="!customSelectorOn" 
+      <img src="/images/arrow-down.svg" v-if="!customSelectorOn"
             class="w-6 h-6" />
-      <img src="images/arrow-up.svg" v-if="customSelectorOn" 
+      <img src="/images/arrow-up.svg" v-if="customSelectorOn"
             class="w-6 h-6" />
     </div>
 

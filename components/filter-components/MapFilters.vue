@@ -26,7 +26,7 @@
                               align-middle rounded-full border-r-2  
                               border-l-2 border-gray-400
                               w-6 h-6 hover:w-7 hover:h-7 mb-0.5">
-                    <img src="images/infoIcon.svg"
+                    <img src="/images/infoIcon.svg"
                         class="w-full h-full pt-0.5"
                         @click="showPageInfo()"/>
                   </div>
@@ -123,9 +123,9 @@
             <h1 class="font-medium text-2xl">
               {{filtersGeneralInfo.title}}
             </h1>
-            <img src="images/arrow-down.svg" v-if="!filtersGeneralInfo.filtersShowing" 
+            <img src="/images/arrow-down.svg" v-if="!filtersGeneralInfo.filtersShowing"
                   class="w-7 h-7 mt-1" />
-            <img src="images/arrow-up.svg" v-if="filtersGeneralInfo.filtersShowing" 
+            <img src="/images/arrow-up.svg" v-if="filtersGeneralInfo.filtersShowing"
                   class="w-7 h-7 mt-1" />
           </div>
 
@@ -144,9 +144,9 @@
                   @click="togglePropertyShowing(property)">
                 <div class="title-point"></div>
                 <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
-                <img src="images/arrow-down.svg" v-if="!propertyItem.showing" 
+                <img src="/images/arrow-down.svg" v-if="!propertyItem.showing"
                     class="w-6 h-6" />
-                <img src="images/arrow-up.svg" v-if="propertyItem.showing" 
+                <img src="/images/arrow-up.svg" v-if="propertyItem.showing"
                     class="w-6 h-6" />
               </div>
 
@@ -212,7 +212,7 @@
                       rounded-full bg-slate-200 filters-shadow" 
                @click="toggleFiltersBox()">
             <img class="max-w-full max-h-full" 
-                 src="images/chevrons-left.svg" />
+                 src="/images/chevrons-left.svg" />
           </div>
         </div>
       </div>
@@ -225,7 +225,7 @@
                   rounded-full bg-slate-200 filters-shadow" 
            @click="toggleFiltersBox()">
         <img class="max-w-full max-h-full" 
-             src="images/chevrons-right.svg" />
+             src="/images/chevrons-right.svg" />
       </div>
     </div>
 
