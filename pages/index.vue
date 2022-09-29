@@ -155,9 +155,25 @@
          ] = Filtering.getMarkerStateIconDependant(marker);
        }
      },
-     loadData: function () {
+     loadData: async function () {
        this.loadWikiEntries();
        let icons = this.$store.getters['icons/getIcons'];
+
+       try {
+         let response = await this.$axios.get('/main.php')
+         this.queryOutput = response.data
+       } catch (e) {
+         this.$swal({
+           title: 'Server Error',
+           html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
+           footer: 'witches.is.ed.ac.uk',
+           confirmButtonText: 'Close',
+           type: 'error',
+           showCloseButton: true,
+         });
+
+         return
+       }
 
        let getData = new APIDataHandler(
          this.queryOutput, this.wikiPages,
@@ -173,20 +189,12 @@
        this.filterProperties.socialClass.filters = filtersFound.socialClass;
        this.filterProperties.occupation.filters = filtersFound.occupation;
        this.setMarkersIcons();
-       this.saveDataToLocalStorage(filtersFound);
        this.loading = false;
      }
    },
 
    mounted: function () {
-     if (this.hasLocalStorageExpired()) {
-       localStorage.clear();
-       this.loadData();
-       
-     } else {
-       this.loadDataFromLocalStorage();
-       this.loading = false;
-     }
+     this.loadData();
    }
  };
 </script>

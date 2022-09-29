@@ -141,9 +141,25 @@
        this.filterProperties.socialClass.filters = allFilters.socialClass;
        this.filterProperties.occupation.filters = allFilters.occupation;
      },
-     loadData: function () {
+     loadData: async function () {
        this.loadWikiEntries();
        let icons = this.$store.getters['icons/getIcons'];
+
+       try {
+         let response = await this.$axios.get('/main.php')
+         this.queryOutput = response.data
+       } catch (e) {
+         this.$swal({
+           title: 'Server Error',
+           html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
+           footer: 'witches.is.ed.ac.uk',
+           confirmButtonText: 'Close',
+           type: 'error',
+           showCloseButton: true,
+         });
+
+         return
+       }
 
        let getData = new APIDataHandler(
          this.queryOutput, this.wikiPages,
@@ -157,23 +173,7 @@
        ] = getData.loadAccussed('detention', this.filtersToFind);
        this.filterProperties.socialClass.filters = filtersFound.socialClass;
        this.filterProperties.occupation.filters = filtersFound.occupation;
-       
-       // Was going to load filters from local storage 
-       // when possible, but it seems to be faster to build
-       // them. Uncomment and remove 6 lines above
-       // to use local storage.
-      //  if (this.hasLocalStorageExpired()) {
-      //    [
-      //     this.originalMarkers, 
-      //     filtersFound
-      //    ] = getData.loadAccussed('detention', this.filtersToFind);
 
-      //    this.filterProperties.socialClass.filters = filtersFound.socialClass;
-      //    this.filterProperties.occupation.filters = filtersFound.occupation;
-      //  } else {
-      //    this.originalMarkers = getData.loadAccussed('detention', [])[0];
-      //    this.loadDataFromLocalStorage();
-      //  }
        this.setMarkersIcons();
        this.loading = false;
      }
