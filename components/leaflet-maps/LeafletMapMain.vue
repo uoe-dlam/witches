@@ -8,7 +8,7 @@
                     md:w-200 items-center top-0 right-0 z-10
                     bg-gray-400/80 px-2 py-0.5 rounded-sm">
           <h3 class="mr-2 font-medium" style="font-family:EB Garamond;">
-            Group by clusters:
+            Group witches:
           </h3>
           <label class="switch relative pr-2">
             <input :checked="clustersInitial" @change="toggleActive()" 
