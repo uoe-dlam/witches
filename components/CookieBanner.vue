@@ -10,7 +10,7 @@
       If you wish to turn off Google Analytics you can do so
       <a class="normal" href="https://tools.google.com/dlpage/gaoptout">here</a>.
       If you wish to turn off preference cookies click Reject preference cookies.
-      By cliking Accept all you consent to all cookies and Google Analytics
+      By clicking Accept all you consent to all cookies and Google Analytics
       if you have not turned it off.
     </p>
     <div class="xflex self-end">

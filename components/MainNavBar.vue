@@ -38,32 +38,38 @@
      return {
        open : false,
        links : [
-         { name : 'Panic Spreads', url : '/', external: false, subpages : [
-           { name: 'Case Charectarisations', url: '/PrimarySecondary', external: false },
-           { name: 'Case Information', url: '/CaseInformation', external: false },
+         { name : 'Accused Witches', url : '#', external: false, subpages : [
+           { name : 'Witchcraft Prosecutions over Time and Place', url: '/', external: false },
+           { name : 'Timeline Search', url: '/histropedia', external: false },
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
-         ] },
-         { name : 'Detention Locations', url : '/detention', external: false, subpages : [] },
-         { name : 'Death Locations', url : '/death', subpages : [
+           { name : 'Death Locations', url : '/death', external: false },
            { name : 'Linking Residence to Place of Death', url : '/link', external: false },
          ] },
-         {
-           name: 'Trial Locations', url: '/trials', external: false, subpages: [
-             { name: 'Trials in Each Modern Authority', url: '/council', external: false },
-           ]
-         },
-         { name : 'People Associated', url : '/people', external: false, subpages : [
+         { name : 'Investigations', url : '#', external: false, subpages : [
+             { name: 'Case Characterisations', url: '/PrimarySecondary', external: false },
+             { name: 'Case Information', url: '/CaseInformation', external: false },
+         ] },
+         { name : 'Trials', url : '#', external: false, subpages : [
+             { name : 'Named Witches', url: '/flourish', external: false },
+             { name : 'Detention Locations', url: '/detention', external: false },
+             { name : 'Trial Locations', url: '/trials', external: false },
+             { name : 'Trials in Each Modern Authority', url: '/council', external: false },
+         ] },
+         { name : 'People Involved', url : '#', external: false, subpages : [
            { name : 'People Associated with the Witch Trials: Residence', url : '/peopleloc', external: false },
+           { name : 'People Associated with the Witch Trials: Residence and Occupation', url : '/people', external: false },
            { name : 'A Witch-Prickers Journey', url : '/john', external: false },
          ] },
-         { name : 'Extra Visualisations', url : '/extravisual', external: false, subpages : [
+         { name : 'Extra Visualisations', url : '#', external: false, subpages : [
+           { name : 'Accused Witches Occupations with Unknown Values', url : '/extravisual', external: false },
            { name : 'Types of Torture at Different Residence Locations', url : '/torture', external: false },
            { name : 'The Story of Isobel Young', url : '/storymap', external: false },
            { name : 'Ordeal Bubble Chart', url : '/ordeal', external: false },
            { name : 'Social Bubble Chart', url : '/social', external: false },
          ] },
-         { name : 'About', url : '/about', external: false, subpages : [
+         { name : 'About', url : '#', external: false, subpages : [
+           { name : 'Overview', url : '/about', external: false },
            { name : 'References', url : '/reference', external: false },
            { name : 'Resources', url : '/resources', external: false },
            { name : 'Contact', url : '/contact', external: false },
