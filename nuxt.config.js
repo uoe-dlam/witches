@@ -33,6 +33,7 @@ export default {
   plugins: [
     {src: "~/plugins/markercluster",ssr: false},
     {src: "~/plugins/slider",ssr: false},
+    { src: "~/plugins/vue-google-analytics", mode: "client"},
   ],
   /*
   ** Nuxt.js dev-modules
@@ -47,9 +48,6 @@ export default {
   modules: [
       'nuxt-leaflet',
       'vue-sweetalert2/nuxt',
-      ['@nuxtjs/google-analytics', {
-          id: 'UA-57361601-29'
-      }],
       'nuxt-webfontloader',
       '@nuxtjs/axios'
   ],

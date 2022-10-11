@@ -8,10 +8,7 @@
       your cookie preferences. This includes Google Analytics
       anonymised data.
       If you wish to turn off Google Analytics you can do so
-      <a class="normal" href="https://tools.google.com/dlpage/gaoptout">here</a>.
-      If you wish to turn off preference cookies click Reject preference cookies.
-      By clicking Accept all you consent to all cookies and Google Analytics
-      if you have not turned it off.
+      by clicking reject non essential cookies.
     </p>
     <div class="xflex self-end">
       <button class="rounded-sm bg-sky-600 hover:border-2
@@ -22,7 +19,7 @@
       <button class="rounded-sm bg-sky-600 hover:border-2
                   hover:border-sky-800 h-8 px-2 mr-4 mt-2
                   text-xs md:text-sm" @click="rejectCookies()">
-        Reject preference cookies
+        Reject non essential cookies
       </button>
     </div>
   </div>
@@ -34,22 +31,36 @@ import VueCookies from 'vue-cookies'
 export default {
   components: { VueCookies },
   data: () => ({
-    hideBanner: true
+    hideBanner: true,
   }),
   methods: {
     consentCookies: function () {
-      $cookies.set("edW");
+      $cookies.set("edW", 'yes');
       this.hideBanner = true;
+
+      if (process.browser) {
+        this.isOpen = false;
+        localStorage.setItem("GDPR:accepted", "yes");
+        this.$ga.enable();
+        this.$ga.page(this.$route.fullPath);
+      }
     },
     rejectCookies: function () {
+      $cookies.set("edW", 'yes');
       this.hideBanner = true;
-    }
+
+      if (process.browser) {
+        this.isOpen = false;
+        localStorage.setItem("GDPR:accepted", "no");
+        this.$ga.disable();
+      }
+    },
   },
   mounted: function () {
-    if (!$cookies.isKey("edW")) {
+    if ($cookies.get('edW') === null) {
       this.hideBanner = false;
     }
-  }
+  },
 }
 </script>
 
