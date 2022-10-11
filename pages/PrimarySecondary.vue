@@ -36,7 +36,7 @@ export default {
       ["secondary", "constant"]
     ],
     filtersGeneralInfo: {
-      title: "Case charectarisations",
+      title: "Case characterisations",
       filtersShowing: true
     },
     filterProperties: {

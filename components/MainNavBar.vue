@@ -39,7 +39,7 @@
        open : false,
        links : [
          { name : 'Accused Witches', url : '#', external: false, subpages : [
-           { name : 'Witchcraft Prosecutions over Time and Place', url: '/', external: false },
+           { name : 'Witchcraft Prosecutions In Time and Place', url: '/', external: false },
            { name : 'Timeline Search', url: '/histropedia', external: false },
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
            { name : 'Residences Within Each Parish', url : '/parish', external: false },
@@ -48,7 +48,8 @@
          ] },
          { name : 'Investigations', url : '#', external: false, subpages : [
              { name: 'Case Characterisations', url: '/PrimarySecondary', external: false },
-             { name: 'Case Information', url: '/CaseInformation', external: false },
+             { name: 'Witches Meetings', url: '/CaseInformation', external: false },
+             { name: 'Shapeshifting and Ritual Objects', url: '/ritual', external: false },
          ] },
          { name : 'Trials', url : '#', external: false, subpages : [
              { name : 'Named Witches', url: '/flourish', external: false },
