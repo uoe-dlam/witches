@@ -1,11 +1,11 @@
 <template>
   <loading-message v-if="loading" />
-  <map-component v-else :pageInfo="pageInfo" 
-                :originalMarkers="originalMarkers" 
-                :filtersGeneralInfo="filtersGeneralInfo"
-                :filterProperties="filterProperties" 
-                :includeTimeline="false"
-                iconBehaviour="constant">
+  <map-component v-else :pageInfo="pageInfo"
+                 :originalMarkers="originalMarkers"
+                 :filtersGeneralInfo="filtersGeneralInfo"
+                 :filterProperties="filterProperties"
+                 :includeTimeline="false"
+                 iconBehaviour="constant">
   </map-component>
 </template>
 
@@ -20,7 +20,7 @@ export default {
   components: { MapComponent, LoadingMessage },
   data: () => ({
     pageInfo: {
-      title: 'Witches Meetings',
+      title: 'Shapeshifting and Ritual Objects',
       html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3142</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
       footer: 'witches.is.ed.ac.uk',
       confirmButtonText: 'Close',
@@ -33,36 +33,24 @@ export default {
     loading: true,
     originalMarkers: [],
     filtersToFind: [
-      ["demonicPact", "constant"],
-      ["propertyDamage", "constant"],
-      ["meetingsPlaces", "constant"],
-      ["meetingsInfo", "constant"],
+      ["shapeshifting", "constant"],
+      ["ritualObjects", "constant"],
     ],
     filtersGeneralInfo: {
       title: "Case information filters",
       filtersShowing: true
     },
     filterProperties: {
-      demonicPact: {
-        label: "Pact with the devil",
-        filters: {},
-        showing: true
-      },
-      propertyDamage: {
-        label: "Property damage",
+      shapeshifting: {
+        label: "Shapeshifting",
         filters: {},
         showing: false
       },
-      meetingsPlaces: {
-        label: "Meetings places",
+      ritualObjects: {
+        label: "Ritual objects",
         filters: {},
         showing: false
-      },
-      meetingsInfo: {
-        label: "Meetings information",
-        filters: {},
-        showing: false
-      },
+      }
     }
   }),
   methods: {
@@ -141,8 +129,8 @@ export default {
       }
 
       let getData = new APIDataHandler(
-        this.queryOutput, this.wikiPages,
-        null, icon
+          this.queryOutput, this.wikiPages,
+          null, icon
       );
       let filtersFound = null;
 
