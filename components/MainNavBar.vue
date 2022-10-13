@@ -2,7 +2,11 @@
   <div id="main-nav">
     <nav class="flex items-center justify-between flex-wrap bg-white pl-5 pr-5 pt-5 pb-3 w-full">
       <div class="flex items-center mr-3">
-        <h1 class="text-xl lg:text-4xl mr-4">Witches</h1><img src="/images/witches-cluster-composite.png" alt="logo" width="90" >
+        <div class="mr-4">
+          <h1 class="text-xl lg:text-4xl">Witches</h1>
+          <span class="text-xs -mt-5">Survey of Scottish Witchcraft</span>
+        </div>
+        <img src="/images/witches-cluster-composite.png" alt="logo" width="90" >
         <img class="block lg:hidden" src="~/assets/img/main-logo-badge.png" alt="logo" width="75">
       </div>
       <div class="block lg:hidden">
