@@ -75,6 +75,7 @@ export default {
   data() {
     return {
       panicsRanges: [
+        [new Date("01/01/1663"), new Date("12/31/1736")],
         [new Date("01/01/1661"), new Date("12/31/1662")],
         [new Date("01/01/1660"), new Date("12/31/1660")],
         [new Date("01/01/1658"), new Date("12/31/1659")],
@@ -87,26 +88,29 @@ export default {
         [new Date("01/01/1598"), new Date("12/31/1627")],
         [new Date("01/01/1597"), new Date("12/31/1597")],
         [new Date("01/01/1592"), new Date("12/31/1596")],
-        [new Date ("01/01/1590"), new Date ("12/31/1591")]
+        [new Date ("01/01/1590"), new Date ("12/31/1591")],
+        [new Date ("01/01/1563"), new Date ("12/31/1589")]
       ],
       fullRange: [
         new Date("1562-02-21T00:00:00.000Z"),
         new Date("1727-06-12T00:00:00.000Z")
       ],
       recommendedOptions: [
-        { label: "1661-62 (panic period)", index: 0 },
-        { label: "1660 (non-panic period)", index: 1},
-        { label: "1658-59 (panic period)", index: 2 },
-        { label: "1651-57 (non-panic period)", index: 3 },
-        { label: "1649-50 (panic period)", index: 4 },
-        { label: "1645-48 (non-panic period)", index: 5 },
-        { label: "1643-44 (panic period)", index: 6 },
-        { label: "1632-42 (non-panic period)", index: 7 },
-        { label: "1628-31 (panic period)", index: 8 },
-        { label: "1598-1627 (non-panic period)", index: 9 },
-        { label: "1597 (panic period)", index: 10 },
-        { label: "1592-96 (non-panic period)", index: 11},
-        { label: "1590-91 (panic-period)", index: 12 }
+        { label: "1663-1736 (non-panic period)", index: 0 },
+        { label: "1661-62 (panic period)", index: 1 },
+        { label: "1660 (non-panic period)", index: 2 },
+        { label: "1658-59 (panic period)", index: 3 },
+        { label: "1651-57 (non-panic period)", index: 4 },
+        { label: "1649-50 (panic period)", index: 5 },
+        { label: "1645-48 (non-panic period)", index: 6 },
+        { label: "1643-44 (panic period)", index: 7 },
+        { label: "1632-42 (non-panic period)", index: 8 },
+        { label: "1628-31 (panic period)", index: 9 },
+        { label: "1598-1627 (non-panic period)", index: 10 },
+        { label: "1597 (panic period)", index: 11 },
+        { label: "1592-96 (non-panic period)", index: 12 },
+        { label: "1590-91 (panic-period)", index: 13 },
+        { label: "1563-89 (non-panic-period)", index: 14 }
       ],
       recommendedOn: true,
       recommendedRange: null,
@@ -127,9 +131,9 @@ export default {
       if (newRecommendedRange !== null) {
         let index = newRecommendedRange.index;
         let dateRange = this.panicsRanges[index];
-        let starRange = [dateRange[0], dateRange[0]];
+        let startRange = [dateRange[0], dateRange[1]];
         this.$emit("scrollHeaderIntoView")
-        this.$emit("selectedDateRange", [dateRange, starRange]);
+        this.$emit("selectedDateRange", [dateRange, startRange]);
       }
     }
   },
