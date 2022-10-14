@@ -11,9 +11,9 @@
 <script>
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import APIDataHandler from '~/assets/js/ApiDataHandler';
-import json from '../big-query-output.json'
 import MapComponent from '../components/MapComponent.vue';
 import LoadingMessage from '../components/LoadingMessage.vue';
+import WitchesStorage from 'assets/js/WitchesStorage'
 
 export default {
   components: { MapComponent, LoadingMessage },
@@ -26,7 +26,7 @@ export default {
       type: 'info',
       showCloseButton: true,
     },
-    queryOutput: json,
+    queryOutput: '',
     sparqlUrl: 'https://query.wikidata.org/sparql',
     wikiPages: [],
     loading: true,
@@ -77,23 +77,6 @@ export default {
         }
       });
     },
-
-    // Local storage functions:
-    hasLocalStorageExpired: function () {
-      let hours = 24; // Reset when storage is more than 24hours
-      let now = new Date().getTime();
-      let setupTime = localStorage.getItem('setupTime');
-
-      return setupTime === null || (now - setupTime > hours * 60 * 60 * 1000);
-    },
-    loadDataFromLocalStorage: function () {
-      this.originalMarkers = JSON.parse(localStorage.getItem('residenceMarkers'));
-      let allFilters = JSON.parse(localStorage.getItem('allFilters'));
-      this.filterProperties.primary.filters = allFilters.primary;
-      this.filterProperties.secondary.filters = allFilters.secondary;
-      this.setMarkersIcons();
-      console.log(this.filterProperties);
-    },
     setMarkersIcons: function () {
 
       for (let i = 0; i < this.originalMarkers.length; i++) {
@@ -102,23 +85,30 @@ export default {
       }
     },
     loadData: async function () {
-      this.loadWikiEntries();
       let icon = "/images/witch-single-orange.png";
 
-      try {
-        let response = await this.$axios.get('/main.php')
-        this.queryOutput = response.data
-      } catch (e) {
-        this.$swal({
-          title: 'Server Error',
-          html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
-          footer: 'witches.is.ed.ac.uk',
-          confirmButtonText: 'Close',
-          type: 'error',
-          showCloseButton: true,
-        });
+      if(WitchesStorage.hasLocalStorageExpired()) {
+        localStorage.clear();
 
-        return
+        try {
+          let response = await this.$axios.get('/main.php')
+          this.queryOutput = response.data
+          await this.loadWikiEntries();
+        } catch (e) {
+          this.$swal({
+            title: 'Server Error',
+            html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
+            footer: 'witches.is.ed.ac.uk',
+            confirmButtonText: 'Close',
+            type: 'error',
+            showCloseButton: true,
+          });
+
+          return
+        }
+        WitchesStorage.saveDataToLocalStorage(this.queryOutput, this.wikiPages);
+      } else {
+        [this.queryOutput, this.wikiPages] = WitchesStorage.loadDataFromLocalStorage();
       }
 
       let getData = new APIDataHandler(

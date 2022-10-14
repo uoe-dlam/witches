@@ -60,7 +60,6 @@ class APIDataHandler {
     let wikiPage = '';
 
     for (let i = 0; i < this.wikiPages.length; i++) {
-
       if (this.wikiPages[i].id === item.item.value) {
         wikiPage = this.wikiPages[i].pageTitle;
         wikiPage.split(' ').join('_');
