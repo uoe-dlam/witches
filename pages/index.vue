@@ -13,9 +13,9 @@
  import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher'
  import APIDataHandler from '~/assets/js/ApiDataHandler';
  import FilteringMethods from '../assets/js/FilteringMethods';
- import json from '../big-query-output.json'
  import MapComponent from '../components/MapComponent.vue';
  import LoadingMessage from '../components/LoadingMessage.vue';
+ import WitchesStorage from 'assets/js/WitchesStorage'
 
  export default {
    components: { MapComponent, LoadingMessage },
@@ -28,7 +28,7 @@
        type: 'info',
        showCloseButton: true,
      },
-     queryOutput: json,
+     queryOutput: '',
      sparqlUrl: 'https://query.wikidata.org/sparql',
      wikiPages: [],
      loading: true,
@@ -95,12 +95,13 @@
              "iconUrl": "/images/witch-single-orange.png"
            }
          },
-         showing: false
+         showing: false,
+         mainJson: ''
        }
      }
    }),
    methods: {
-     loadWikiEntries: function () {
+     loadWikiEntries: async function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
             WHERE {
               ?item wdt:P4478 ?witch .
@@ -109,40 +110,18 @@
             }`;
 
        const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
-       queryDispatcher.query( sparqlQuery ).then( result => {
+       let result = await queryDispatcher.query( sparqlQuery )
 
-         for (let i = 0; i < result.results.bindings.length; i++) {
-           let item = result.results.bindings[i];
+       for (let i = 0; i < result.results.bindings.length; i++) {
+         let item = result.results.bindings[i];
 
-           let wikiPage = {
-             id: item.item.value,
-             pageTitle: item.page_title.value,
-           }
-
-           this.wikiPages.push(wikiPage);
+         let wikiPage = {
+           id: item.item.value,
+           pageTitle: item.page_title.value,
          }
-       });
-     },
 
-     // Local storage functions:
-     hasLocalStorageExpired: function () {
-       let hours = 24; // Reset when storage is more than 24hours
-       let now = new Date().getTime();
-       let setupTime = localStorage.getItem('setupTime');
-
-       return setupTime === null || (now - setupTime > hours*60*60*1000);
-     },
-     loadDataFromLocalStorage: function () {
-       this.originalMarkers = JSON.parse(localStorage.getItem('residenceMarkers'));
-       let allFilters = JSON.parse(localStorage.getItem('allFilters'));
-       this.filterProperties.socialClass.filters = allFilters.socialClass;
-       this.filterProperties.occupation.filters = allFilters.occupation;
-     },
-     saveDataToLocalStorage: function (foundFilters) {
-       let now = new Date().getTime();
-       localStorage.setItem('setupTime', now);
-       localStorage.setItem('residenceMarkers', JSON.stringify(this.originalMarkers));
-       localStorage.setItem('allFilters', JSON.stringify(foundFilters));
+         this.wikiPages.push(wikiPage);
+       }
      },
      setMarkersIcons: function () {
        let Filtering = new FilteringMethods(this.filterProperties, "sex");
@@ -156,23 +135,30 @@
        }
      },
      loadData: async function () {
-       this.loadWikiEntries();
        let icons = this.$store.getters['icons/getIcons'];
 
-       try {
-         let response = await this.$axios.get('/main.php')
-         this.queryOutput = response.data
-       } catch (e) {
-         this.$swal({
-           title: 'Server Error',
-           html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
-           footer: 'witches.is.ed.ac.uk',
-           confirmButtonText: 'Close',
-           type: 'error',
-           showCloseButton: true,
-         });
+       if(WitchesStorage.hasLocalStorageExpired()) {
+         localStorage.clear();
 
-         return
+         try {
+           let response = await this.$axios.get('/main.php')
+           this.queryOutput = response.data
+           await this.loadWikiEntries();
+         } catch (e) {
+           this.$swal({
+             title: 'Server Error',
+             html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
+             footer: 'witches.is.ed.ac.uk',
+             confirmButtonText: 'Close',
+             type: 'error',
+             showCloseButton: true,
+           });
+
+           return
+         }
+         WitchesStorage.saveDataToLocalStorage(this.queryOutput, this.wikiPages);
+       } else {
+         [this.queryOutput, this.wikiPages] = WitchesStorage.loadDataFromLocalStorage();
        }
 
        let getData = new APIDataHandler(
