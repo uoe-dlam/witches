@@ -227,6 +227,7 @@
         <img class="max-w-full max-h-full" 
              src="/images/chevrons-right.svg" />
       </div>
+      <span class="pt-1 text-gray-700">Filters</span>
     </div>
 
   </div>
@@ -279,7 +280,7 @@
      return {
        timelineSelectorOn: false, // Set to true on mounted if includeTimeline.
        timelineSelectorKey: 0,
-       filtersBox: true,
+       filtersBox: false,
        currentTileName: "Modern Map",
        filtersGeneralInfo: JSON.parse(JSON.stringify(this.startingFiltersGeneralInfo)),
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
@@ -462,5 +463,7 @@
      transform: translateX(0%);
    }
  }
+
+
 
 </style>
