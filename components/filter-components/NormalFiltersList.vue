@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      filtersList: JSON.parse(JSON.stringify(this.filterTypes))
+      filtersList: this.filterTypes
     }
   },
   methods: {

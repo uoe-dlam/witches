@@ -152,7 +152,17 @@
 
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
-                <icon-dependent-filters-list 
+                <button
+                    @click="selectAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-200 bg-white text-black px-2 pb-1.5 pt-1.5 text-xs uppercase leading-normal shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)]">
+                  Select All
+                </button>
+                <button
+                    @click="clearAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-800 bg-black text-white px-2 pb-1.5 pt-1.5 text-xs uppercase leading-normal shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)]">
+                  Clear All
+                </button>
+                <icon-dependent-filters-list
                   v-if="!iconsConstant"
                   :currentProperty="currentProperty"
                   :property="property"
@@ -162,7 +172,7 @@
                   @filterOn="emitFilterOn($event)"
                   @setPropertyToCurrent="setPropertyToCurrent($event)">
                 </icon-dependent-filters-list>
-                
+
                 <normal-filters-list
                   v-else :property="property"
                   :filterTypes="propertyItem.filters"
@@ -320,6 +330,24 @@
        if (this.iconBehaviour !== "constant") {
          this.$emit("changeCurrentProperty", property);
        }
+     },
+     selectAll: function (property, propertyItem) {
+       let filtersList = Object.keys(propertyItem.filters)
+
+       filtersList.forEach(type => {
+         propertyItem.filters[type].active = true
+         let filterInfo = [property, type]
+         this.$emit("filterOn", filterInfo);
+       })
+     },
+     clearAll: function (property, propertyItem) {
+       let filtersList = Object.keys(propertyItem.filters)
+
+       filtersList.forEach(type => {
+         propertyItem.filters[type].active = false
+         let filterInfo = [property, type]
+         this.$emit("filterOff", filterInfo);
+       })
      },
      togglePropertyShowing: function (property) {
        // If the property <property> is not showing, sets to showing,
