@@ -16,6 +16,7 @@ Semantic Versioning 2.0.0
 - Instead of using static json file for consuming data (see PR #53), call php backend to get up-to-date data (PR #55)
 
 ### Added
+- Add change log (PR #72)
 - Add select and de-select all checkboxes to filters (PR #71)
 - Cache json file retrieved from backend (PR #61)
 - Add histropedia visualisation (PR #57)
