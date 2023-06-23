@@ -1,6 +1,6 @@
 <template>
   <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
-    <h1 class="text-sm md:text-xl lg:text-2xl mb-3">About The Project</h1>
+    <h1 class="text-sm md:text-xl lg:text-2xl mb-3">About The Project With Fixed Scrolling</h1>
     <p class="mb-3"><b class="font-bold">Please Note:</b></p>
     <p class="mb-3">This is a first attempt to geolocate this data. We have consulted a number of historical sources to locate places that have variant spellings in the records or that have since disappeared. We appreciate all feedback and will incorporate it into future iterations of the map. <b><a href="https://blogs.ed.ac.uk/ecarroll3_witchcraft_visualisation" target="_blank">Read more about how we went about geo locating some of this information</a></b>.</p>
     <p class="mb-3"><b class="font-bold">Background to the project</b></p>
