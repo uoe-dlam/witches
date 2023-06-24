@@ -91,7 +91,8 @@ p {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden; 
+  overflow-y: scroll;
+  overflow-x: hidden;
   position: relative;
 }
 
