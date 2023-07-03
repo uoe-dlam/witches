@@ -340,7 +340,9 @@
      },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
-       this.$emit("updatedTile", tile.url);
+       this.$emit("updatedUrl", tile.url);
+       this.$emit("updatedOverlay", tile.mapOverlay);
+       this.$emit("updatedOverlayBounds", overlayBounds);
      },
      toggleFiltersShowing: function () {
        this.filtersGeneralInfo.filtersShowing = !this.filtersGeneralInfo.filtersShowing;
