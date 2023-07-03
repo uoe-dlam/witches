@@ -4,7 +4,9 @@
 
     <l-control-zoom position="bottomright"></l-control-zoom>
     <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
-    
+    <!-- Historic Image overlay -->  
+    <l-tile-layer :url="mapOverlay" :bounds="overlayBounds" > </l-tile-layer>
+    <!--Markers-->
     <v-marker-cluster ref="clusterRef" :options="clusterOptions">
       <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
         <l-popup class="adapted-popup">
@@ -69,6 +71,8 @@
 </template>
 
 <script>
+
+
  export default {
    props: {
      mapMarkers: {
@@ -77,6 +81,14 @@
      },
      mapUrl: {
        type: String,
+       required: true
+     },
+     mapOverlay: {
+       type: String,
+       required: true
+     },
+     overlayBounds: {
+       type: Array,
        required: true
      },
      center: {
@@ -90,6 +102,8 @@
    },
    data () {
      return {
+       historic: "https://mapseries-tilesets.s3.amazonaws.com/mapdata3/125140579/{z}/{x}/{y}.png",
+       HisBounds: [[54.04480343, -11.15185253], [59.59204658, 1.52715495]],
        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw">NLS Maps API</a>',
        clusterOptions: {
          iconCreateFunction: function (cluster) {
