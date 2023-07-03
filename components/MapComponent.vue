@@ -24,7 +24,9 @@
                   :startRange="timelineRangeStart"
                   :timelineDates="timelineDates"
                   :timelineMarkers="timelineMarkers"
-                  @updatedRangeValue="filterOnSlider(formatDateForFiltering($event))">
+                  @updatedRangeValue="filterOnSlider(formatDateForFiltering($event))"
+                  class="timelineHeight"
+                  >
         </timeline>
       </div>
       <leaflet-map-main :mapUrl="url" 
@@ -314,6 +316,8 @@
 
 <style>
 .timelineHeight{
-  height: 90%;
+  position:fixed;
+  bottom:4%;
+
 }
 </style>
