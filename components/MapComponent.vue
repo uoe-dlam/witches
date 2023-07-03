@@ -316,7 +316,6 @@
 
 <style>
 .timelineHeight{
-  position:fixed;
   bottom:4%;
 
 }
