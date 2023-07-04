@@ -44,14 +44,6 @@
        type: String,
        required: true
      },
-     mapOverlay: {
-       type: String,
-       required: true
-     },
-     overlayBounds: {
-       type: Array,
-       required: true
-     },
      mapMarkers: {
        type: Array,
        required: true

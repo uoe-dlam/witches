@@ -14,9 +14,7 @@
                      @filterOff="setWitchesOff($event[0], $event[1])"
                      @filterOn="setWitchesOn($event[0], $event[1])"
                      @changeCurrentProperty="changeCurrentProperty($event)"
-                     @updatedUrl="url = $event"
-                     @updatedOverlay="mapOverlay = $event"
-                     @updatedOverlayBounds="overlayBounds = $event"
+                     @updatedTile="url = $event"
                      @selectedDateRange="setTimeline($event[0], $event[1])"
                      @turnTimelineOff="setTimelineOff()"
                      @resetDates="resetDates()">
