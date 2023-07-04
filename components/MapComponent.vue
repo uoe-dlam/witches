@@ -25,7 +25,6 @@
                   :timelineDates="timelineDates"
                   :timelineMarkers="timelineMarkers"
                   @updatedRangeValue="filterOnSlider(formatDateForFiltering($event))"
-                  class="timelineHeight"
                   >
         </timeline>
       </div>
@@ -315,8 +314,5 @@
 </script>
 
 <style>
-.timelineHeight{
-  bottom:4%;
 
-}
 </style>
