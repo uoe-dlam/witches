@@ -19,14 +19,10 @@
 
         <clusters-map v-if="clusterState.clustersOn" :mapMarkers="mapMarkers" 
                       :mapUrl="mapUrl" :center="center"
-                      :mapOverlay="mapOverlay"
-                      :overlayBounds="overlayBounds"
                       :zoom="zoom" @changeMaps="changeMaps($event)" />
 
         <normal-map v-if="clusterState.clustersOff" :mapMarkers="mapMarkers" 
                     :mapUrl="mapUrl" :center="center"
-                    :mapOverlay="mapOverlay"
-                    :overlayBounds="overlayBounds"
                     :zoom="zoom" @changeMaps="changeMaps($event)" />
       </div>
     </no-ssr>

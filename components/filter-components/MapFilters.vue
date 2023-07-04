@@ -283,8 +283,7 @@
        currentTileName: "Modern Map",
        filtersGeneralInfo: JSON.parse(JSON.stringify(this.startingFiltersGeneralInfo)),
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
-       tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true,mapOverlay:"",overlayBounds:[] },
-      { name: "Historic Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: false, mapOverlay: "https://mapseries-tilesets.s3.amazonaws.com/mapdata3/125140579/{z}/{x}/{y}.png",overlayBounds: [[54.04480343, -11.15185253], [59.59204658, 1.52715495]] }],
+       tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true }, { name: "Historic Map", url: "https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw", active: false }],
        currentProperty: "sex", // Determines the property the icons of which are showing.
      };
    },

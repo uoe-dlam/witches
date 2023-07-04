@@ -28,8 +28,6 @@
         </timeline>
       </div>
       <leaflet-map-main :mapUrl="url" 
-                        :mapOverlay="mapOverlay"
-                        :overlayBounds="overlayBounds"
                         :mapMarkers="Filtering.getOutputMarkers(markers)" 
                         :clustersInitial="clustersOn">
       </leaflet-map-main>
