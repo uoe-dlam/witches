@@ -2,7 +2,12 @@
   <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
 
     <l-control-zoom position="bottomright"></l-control-zoom>
-    <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
+    <l-tile-layer :url="baseMapUrl" :attribution="attribution"></l-tile-layer>
+
+    <!--historic layer-->
+    <div v-if="mapUrl.startsWith('https://mapseries')">
+      <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
+    </div>
 
     <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
       <l-popup class="adapted-popup">
@@ -86,6 +91,7 @@
    },
    data () {
      return {
+       baseMapUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw">NLS Maps API</a>',
        locationOptions: ["residence", "detention", "placeOfDeath"],
        locationsLabels: {
