@@ -11,7 +11,6 @@
 
     <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
       <l-popup class="adapted-popup">
-
         <h2>{{marker.location}}</h2><br>
         <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
           <div v-for="(witch, index) in marker.witches" :key="index">
@@ -153,11 +152,7 @@
        let optionalsWithValue = [];
 
        this.optionalAttributes.map(option => {
-         if (typeof witch[option] === 'undefined') {
-           console.log(option);
-           console.log(witch);
-         }
-         if (witch[option].length !== 0) {
+         if (witch[option][0] !== "unknown") {
            optionalsWithValue.push(option);
          }
        })
