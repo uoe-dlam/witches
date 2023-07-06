@@ -24,8 +24,7 @@
                   :startRange="timelineRangeStart"
                   :timelineDates="timelineDates"
                   :timelineMarkers="timelineMarkers"
-                  @updatedRangeValue="filterOnSlider(formatDateForFiltering($event))"
-                  >
+                  @updatedRangeValue="filterOnSlider(formatDateForFiltering($event))">
         </timeline>
       </div>
       <leaflet-map-main :mapUrl="url" 
