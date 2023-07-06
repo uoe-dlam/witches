@@ -15,16 +15,19 @@
         <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
           <div v-for="(witch, index) in marker.witches" :key="index">
 
-            <strong>{{ witch.name }}</strong><br>
+            <div class="font-semibold text-base">{{ witch.name }}</div><br>
             <div>
-              Investigation Date: {{ witch.investigationDates[1] }}<br>
+              <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
             </div>
-            Gender: {{ witch.sex }}<br>
-            Occupation: {{ witch.occupation }}<br>
-            Social Class: {{ witch.socialClass }}<br>
+            
+            <div v-for="standardAttribute in getStandardsWithValue(witch)">
+                <b>{{standardLabels[standardAttribute]}}:</b>
+                {{ witch[standardAttribute] }}
+                <br>
+              </div>
 
             <div v-for="locationOption in getLocationsWithValue(witch)">
-              {{locationsLabels[locationOption]}}:
+              <b>{{locationsLabels[locationOption]}}:</b>
               <template v-for="(subLocation, index) in witch[locationOption].locations">
                 <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{subLocation }}
                 </a>
@@ -34,7 +37,7 @@
             </div>
 
             <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
-              {{optionalsLabels[optionalAttribute]}}:
+              <b>{{optionalsLabels[optionalAttribute]}}:</b>
               <template v-for="(subAtribute, index) in witch[optionalAttribute]">
                   {{ subAtribute }}
                 <template v-if="index < witch[optionalAttribute].length - 1">, </template>
@@ -43,7 +46,7 @@
             </div>
 
             <div v-if="witch.mannerOfDeath !== ''">
-              Manner of Death: {{ witch.mannerOfDeath }}<br>
+              <b>Manner of Death:</b> {{ witch.mannerOfDeath }}<br>
             </div>
             <div v-if="witch.wikiPage !== ''">
               <a :href="witch.wikiPage" target="_blank">
@@ -100,6 +103,12 @@
          detention: "Detention",
          placeOfDeath: "Place of Death"
        },
+       standardAttributes:["sex","occupation","socialClass"],
+       standardLabels:{
+        sex: "Gender",
+        occupation: "Occupation",
+        socialClass: "Social Class"
+      },
        optionalAttributes: [
          "demonicPact", "propertyDamage", "meetingsInfo", "meetingsPlaces",
          "shapeshifting", "ritualObjects", 'primary', 'secondary'
@@ -149,6 +158,17 @@
        })
 
        return locationsWithValue
+     },
+     getStandardsWithValue: function (witch) {
+       let standardsWithValue = [];
+
+       this.standardAttributes.map(option => {
+         if (witch[option] !== "unknown") {
+           standardsWithValue.push(option);
+         }
+       })
+
+       return standardsWithValue
      },
      getOptionalsWithValue: function (witch) {
        let optionalsWithValue = [];
