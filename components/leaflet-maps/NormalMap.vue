@@ -141,7 +141,7 @@
        let locationsWithValue = []
 
        this.locationOptions.map(option => {
-         if (witch[option].location !== "") {
+         if (witch[option].locations.length !== 0) {
            locationsWithValue.push(option);
          }
        })
