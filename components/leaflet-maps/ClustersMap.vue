@@ -10,9 +10,7 @@
       <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
     </div>
 
-
     <!--markers-->
-  
     <v-marker-cluster ref="clusterRef" :options="clusterOptions">
       
       <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
