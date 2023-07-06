@@ -313,7 +313,5 @@
 </script>
 
 <style>
-.timelineHeight{
-  height: 90%;
-}
+
 </style>
