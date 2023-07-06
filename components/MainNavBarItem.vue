@@ -3,7 +3,7 @@
     <a :href="url" class="block mt-4 xl:pt-1 xl:pb-1 xl:inline-block lg:mt-0 text-gray-500 hover:text-black lg:mr-2 xl:mr-4" v-if="external">
       <slot></slot>
     </a>
-    <nuxt-link :to="url" class="block xl:pt-1 xl:pb-1 mt-4 lg:inline-block lg:mt-0 text-gray-500 hover:text-black lg:mr-2 xl:mr-4" :class="{ 'menuActive' : isActive}" v-else>
+    <nuxt-link :to="url" class="block xl:pt-1 xl:pb-1 mt-4 lg:inline-block lg:mt-0 text-gray-500 hover:text-black lg:mr-2 xl:mr-4" :class="{ 'menuActive' : isActive || isSubpageActive}" v-else>
       <slot></slot>
     </nuxt-link>
     <div v-if="subpages.length > 0" class="block dropdown-content lg:absolute lg:hidden lg:bg-gray-200 lg:shadow-xl text-gray-500">
@@ -24,6 +24,9 @@
    computed: {
      isActive : function(){
        return this.url === this.$route.path;
+     },
+     isSubpageActive: function() {
+       return this.subpages.some(page => page.url === this.$route.path);
      }
    }
  }
@@ -31,7 +34,7 @@
 
 <style>
 
- a.menuActive {
+ .menuActive {
    color: #000;
  }
 
