@@ -24,8 +24,8 @@
                 <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
               </div>
 
-              <div v-for="standardAttribute in getStandardsWithValue(witch)">
-                <b>{{standardLabels[standardAttribute]}}:</b>
+              <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
+                <b>{{standardAttributeLabels[standardAttribute]}}:</b>
                 {{ witch[standardAttribute] }}
                 <br>
               </div>
@@ -121,7 +121,7 @@
          placeOfDeath: "Place of Death"
        },
        standardAttributes:["sex","occupation","socialClass"],
-       standardLabels:{
+       standardAttributeLabels:{
         sex: "Gender",
         occupation: "Occupation",
         socialClass: "Social Class"
@@ -176,16 +176,16 @@
 
        return locationsWithValue
      },
-     getStandardsWithValue: function (witch) {
-       let standardsWithValue = [];
+     getStandardAttributesWithValue: function (witch) {
+       let standardAttributesWithValue = [];
 
        this.standardAttributes.map(option => {
          if (witch[option] !== "unknown") {
-           standardsWithValue.push(option);
+           standardAttributesWithValue.push(option);
          }
        })
 
-       return standardsWithValue
+       return standardAttributesWithValue
      },
      getOptionalsWithValue: function (witch) {
        let optionalsWithValue = [];

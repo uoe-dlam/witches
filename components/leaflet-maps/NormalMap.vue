@@ -20,8 +20,8 @@
               <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
             </div>
             
-            <div v-for="standardAttribute in getStandardsWithValue(witch)">
-                <b>{{standardLabels[standardAttribute]}}:</b>
+            <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
+                <b>{{standardAttributeLabels[standardAttribute]}}:</b>
                 {{ witch[standardAttribute] }}
                 <br>
               </div>
@@ -29,7 +29,7 @@
             <div v-for="locationOption in getLocationsWithValue(witch)">
               <b>{{locationsLabels[locationOption]}}:</b>
               <template v-for="(subLocation, index) in witch[locationOption].locations">
-                <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{subLocation }}
+                <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{ subLocation }}
                 </a>
                 <template v-if="index < witch[locationOption].locations.length - 1">, </template>
               </template>
@@ -104,7 +104,7 @@
          placeOfDeath: "Place of Death"
        },
        standardAttributes:["sex","occupation","socialClass"],
-       standardLabels:{
+       standardAttributeLabels:{
         sex: "Gender",
         occupation: "Occupation",
         socialClass: "Social Class"
@@ -159,16 +159,16 @@
 
        return locationsWithValue
      },
-     getStandardsWithValue: function (witch) {
-       let standardsWithValue = [];
+     getStandardAttributesWithValue: function (witch) {
+       let standardAttributesWithValue = [];
 
        this.standardAttributes.map(option => {
          if (witch[option] !== "unknown") {
-           standardsWithValue.push(option);
+           standardAttributesWithValue.push(option);
          }
        })
 
-       return standardsWithValue
+       return standardAttributesWithValue
      },
      getOptionalsWithValue: function (witch) {
        let optionalsWithValue = [];
