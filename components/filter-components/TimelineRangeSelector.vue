@@ -138,14 +138,6 @@ export default {
     getEnabledDateRange: function (date) {
       return date < this.fullRange[0] || date > this.fullRange[1]
     },
-    emitCustomRange: function () {
-      // Range type can be either "custom" or "panic".
-      if (this.customInputRange) {
-        this.$emit("selectedDateRange", [this.customInputRange, this.customInputRange]);
-      } else {
-        this.$emit("selectedDateRange", [this.defaultRangeCustom, this.defaultRangeCustom])
-      }
-    },
     toggleCustomSelector: function () {
       this.customSelectorOn = !this.customSelectorOn;
     },
