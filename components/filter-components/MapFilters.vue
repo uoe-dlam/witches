@@ -74,6 +74,16 @@
                                      @deactivatedTimeline="deactivateTimeline()"
                                      @scrollHeaderIntoView="scrollHeaderIntoView()">
             </timeline-range-selector>
+
+            <button class="rounded-lg w-24 text-white ml-4
+                           bg-sky-600 py-1 hover:border-2
+                           text-sm"
+                    :style= "[timelineOn ? {'margin-top': '20px'} 
+                                         : {'margin-top': '10px'}]"
+                    @click="emitDateReset()"
+                    v-if="dateRange != null && timelineOn">
+              Reset Dates
+            </button>
             
             <div v-if="dateRange !== null && timelineSelectorOn"
                 class="flex flex-col ml-4 mt-4">
@@ -103,15 +113,7 @@
               </div>
             </div>
             
-            <button class="rounded-lg w-24 text-white ml-4
-                           bg-sky-600 py-1 hover:border-2
-                           text-sm"
-                    :style= "[timelineOn ? {'margin-top': '20px'} 
-                                         : {'margin-top': '10px'}]"
-                    @click="emitDateReset()"
-                    v-if="dateRange != null && timelineOn">
-              Reset Dates
-            </button>
+            
           </div>
 
           <!-- Title for "witch filters" -->
