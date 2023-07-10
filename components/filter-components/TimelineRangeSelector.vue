@@ -48,16 +48,6 @@
                    :disabled-date="getEnabledDateRange"
                    :lang="lang">
       </date-picker>
-
-      <div class="flex items-center mt-2"
-            style="height: 34px;">
-        <button class="rounded-lg text-white text-sm
-                      bg-sky-600 py-1 hover:border-2"
-                style="width: 52px;"
-                @click="emitCustomRange()">
-          Apply
-        </button>
-      </div>
     </div>
 
   </div>
@@ -135,7 +125,14 @@ export default {
         this.$emit("scrollHeaderIntoView")
         this.$emit("selectedDateRange", [dateRange, startRange]);
       }
-    }
+    },
+    customInputRange(newCustomInputRange) {
+      if (newCustomInputRange) {
+        this.$emit("selectedDateRange", [newCustomInputRange, newCustomInputRange]);
+      } else {
+        this.$emit("selectedDateRange", [this.defaultRangeCustom, this.defaultRangeCustom])
+      }
+    },
   },
   methods: {
     getEnabledDateRange: function (date) {
