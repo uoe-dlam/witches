@@ -11,29 +11,33 @@
 
     <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
       <l-popup class="adapted-popup">
-
         <h2>{{marker.location}}</h2><br>
         <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
           <div v-for="(witch, index) in marker.witches" :key="index">
 
-            <strong>{{ witch.name }}</strong><br>
+            <div class="font-semibold text-base">{{ witch.name }}</div><br>
             <div>
-              Investigation Date: {{ witch.investigationDates[1] }}<br>
+              <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
             </div>
-            Gender: {{ witch.sex }}<br>
-            Occupation: {{ witch.occupation }}<br>
-            Social Class: {{ witch.socialClass }}<br>
+            
+            <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
+                <b>{{standardAttributeLabels[standardAttribute]}}:</b>
+                {{ witch[standardAttribute] }}
+                <br>
+              </div>
 
             <div v-for="locationOption in getLocationsWithValue(witch)">
-              {{locationsLabels[locationOption]}}:
-              <a @click="flyTo(witch[locationOption].coordinates)" :style="{ cursor: 'pointer'}">{{
-                witch[locationOption].location }}
-              </a>
+              <b>{{ locationsLabels[locationOption] }}:</b>
+              <template v-for="(subLocation, index) in witch[locationOption].locations">
+                <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{ subLocation }}
+                </a>
+                <template v-if="index < witch[locationOption].locations.length - 1">, </template>
+              </template>
               <br>
             </div>
 
             <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
-              {{optionalsLabels[optionalAttribute]}}:
+              <b>{{optionalsLabels[optionalAttribute]}}:</b>
               <template v-for="(subAtribute, index) in witch[optionalAttribute]">
                   {{ subAtribute }}
                 <template v-if="index < witch[optionalAttribute].length - 1">, </template>
@@ -42,7 +46,7 @@
             </div>
 
             <div v-if="witch.mannerOfDeath !== ''">
-              Manner of Death: {{ witch.mannerOfDeath }}<br>
+              <b>Manner of Death:</b> {{ witch.mannerOfDeath }}<br>
             </div>
             <div v-if="witch.wikiPage !== ''">
               <a :href="witch.wikiPage" target="_blank">
@@ -99,6 +103,12 @@
          detention: "Detention",
          placeOfDeath: "Place of Death"
        },
+       standardAttributes:["sex","occupation","socialClass"],
+       standardAttributeLabels:{
+        sex: "Gender",
+        occupation: "Occupation",
+        socialClass: "Social Class"
+      },
        optionalAttributes: [
          "demonicPact", "propertyDamage", "meetingsInfo", "meetingsPlaces",
          "shapeshifting", "ritualObjects", 'primary', 'secondary'
@@ -142,22 +152,29 @@
        let locationsWithValue = []
 
        this.locationOptions.map(option => {
-         if (witch[option].location !== "") {
+         if (witch[option].locations.length !== 0) {
            locationsWithValue.push(option);
          }
        })
 
        return locationsWithValue
      },
+     getStandardAttributesWithValue: function (witch) {
+       let standardAttributesWithValue = [];
+
+       this.standardAttributes.map(option => {
+         if (witch[option] !== "unknown") {
+           standardAttributesWithValue.push(option);
+         }
+       })
+
+       return standardAttributesWithValue
+     },
      getOptionalsWithValue: function (witch) {
        let optionalsWithValue = [];
 
        this.optionalAttributes.map(option => {
-         if (typeof witch[option] === 'undefined') {
-           console.log(option);
-           console.log(witch);
-         }
-         if (witch[option].length !== 0) {
+         if (witch[option][0] !== "unknown") {
            optionalsWithValue.push(option);
          }
        })
