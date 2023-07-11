@@ -1,11 +1,6 @@
 <template>
-  <div id="main-content" class="text-wrapper">
-    <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Contact Details</h1>
-    <p class="mb-3">Ewan McAndrew</p>
-    <p class="mb-3">Wikimedian in Residence</p>
-    <p class="mb-3">Learning, Teaching and Web Services</p>
-    <p class="mb-3">University of Edinburgh</p>
-    <p class="mb-3">Email - ewan.mcandrew@ed.ac.uk and emmacarroll97@hotmail.com</p>
+  <div id="main-content" style="display: flex; justify-content: center; align-items: center;" >
+    <iframe  src="https://forms.office.com/Pages/ResponsePage.aspx?id=sAafLmkWiUWHiRCgaTTcYTCImEcjxnNCsC9qmpDkQshUQjM4RzdYMkNTOVVONjVDRFFTVTZCOUVSTy4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh; width: 90%; height: 80vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
   </div>
 </template>
 
