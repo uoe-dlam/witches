@@ -76,7 +76,7 @@
             </timeline-range-selector>
 
             <button class="rounded-lg w-24 text-white ml-4
-                           bg-sky-600 py-1 hover:border-2
+                           bg-sky-600 py-1 hover:bg-sky-700
                            text-sm"
                     :style= "[timelineOn ? {'margin-top': '20px'} 
                                          : {'margin-top': '10px'}]"
