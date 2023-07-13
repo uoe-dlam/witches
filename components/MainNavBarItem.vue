@@ -21,7 +21,7 @@
        return url === this.$route.path;
      },
      isSubpageActive: function(subpages){
-      return subpages.some(page => page.url === this.$route.path)
+       return subpages.some(page => page.url === this.$route.path)
      }
    }
  }
