@@ -74,6 +74,16 @@
                                      @deactivatedTimeline="deactivateTimeline()"
                                      @scrollHeaderIntoView="scrollHeaderIntoView()">
             </timeline-range-selector>
+
+            <button class="rounded-lg w-24 text-white ml-4
+                           bg-sky-600 py-1 hover:bg-sky-700
+                           text-sm"
+                    :style= "[timelineOn ? {'margin-top': '20px'} 
+                                         : {'margin-top': '10px'}]"
+                    @click="emitDateReset()"
+                    v-if="dateRange != null && timelineOn">
+              Reset Dates
+            </button>
             
             <div v-if="dateRange !== null && timelineSelectorOn"
                 class="flex flex-col ml-4 mt-4">
@@ -103,15 +113,7 @@
               </div>
             </div>
             
-            <button class="rounded-lg w-24 text-white ml-4
-                           bg-sky-600 py-1 hover:border-2
-                           text-sm"
-                    :style= "[timelineOn ? {'margin-top': '20px'} 
-                                         : {'margin-top': '10px'}]"
-                    @click="emitDateReset()"
-                    v-if="dateRange != null && timelineOn">
-              Reset Dates
-            </button>
+            
           </div>
 
           <!-- Title for "witch filters" -->
@@ -293,7 +295,7 @@
        currentTileName: "Modern Map",
        filtersGeneralInfo: JSON.parse(JSON.stringify(this.startingFiltersGeneralInfo)),
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
-       tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true }, { name: "Historic Map", url: "https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw", active: false }],
+       tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true }, { name: "Historic Map", url: "https://mapseries-tilesets.s3.amazonaws.com/mapdata3/125140579/{z}/{x}/{y}.png", active: false }],
        currentProperty: "sex", // Determines the property the icons of which are showing.
      };
    },
