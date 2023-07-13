@@ -5,7 +5,7 @@
 
   <div class="bg-slate-200 z-30 py-5 px-12 filters-shadow
               rounded-tr-xl rounded-br-xl"
-       style="height: 11%; width: 95%;">
+       style="min-height: 10%; max-height: 17%; width: 95%; position: absolute; bottom: 0%;">
     <vue-slider class=""
                 v-model="rangeValue"
                 :data="dates"

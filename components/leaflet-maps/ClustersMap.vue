@@ -3,25 +3,35 @@
          :options="{zoomControl: false}" ref="myMap">
 
     <l-control-zoom position="bottomright"></l-control-zoom>
-    <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
+    <l-tile-layer :url="baseMapUrl" :attribution="attribution"></l-tile-layer>
     
+    <!--historic layer-->
+    <div v-if="mapUrl.startsWith('https://mapseries')">
+      <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
+    </div>
+
+    <!--markers-->
     <v-marker-cluster ref="clusterRef" :options="clusterOptions">
+      
       <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
         <l-popup class="adapted-popup">
           <h2>{{marker.location}}</h2><br>
           <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
             <div v-for="(witch, index) in marker.witches" :key="index">
 
-              <strong>{{ witch.name }}</strong><br>
+              <div class="font-semibold text-base">{{ witch.name }}</div><br>
               <div>
-                Investigation Date: {{ witch.investigationDates[1] }}<br>
+                <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
               </div>
-              Gender: {{ witch.sex }}<br>
-              Occupation: {{ witch.occupation }}<br>
-              Social Class: {{ witch.socialClass }}<br>
+
+              <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
+                <b>{{standardAttributeLabels[standardAttribute]}}:</b>
+                {{ witch[standardAttribute] }}
+                <br>
+              </div>
 
               <div v-for="locationOption in getLocationsWithValue(witch)">
-                {{locationsLabels[locationOption]}}:
+                <b>{{locationsLabels[locationOption]}}:</b>
                   <template v-for="(subLocation, index) in witch[locationOption].locations">
                     <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{ subLocation }}
                     </a>
@@ -29,6 +39,8 @@
                   </template>
                 <br>
               </div>
+
+              
 
               <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
                 <b>{{optionalsLabels[optionalAttribute]}}:</b>
@@ -40,7 +52,7 @@
               </div>
 
               <div v-if="witch.mannerOfDeath !== ''">
-                Manner of Death: {{ witch.mannerOfDeath }}<br>
+                <b>Manner of Death:</b> {{ witch.mannerOfDeath }}<br>
               </div>
               <div v-if="witch.wikiPage !== ''">
                 <a :href="witch.wikiPage" target="_blank">
@@ -90,6 +102,7 @@
    },
    data () {
      return {
+       baseMapUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://api.maptiler.com/tiles/uk-osgb1919/{z}/{x}/{y}.jpg?key=cKVGc9eOyhb8VH5AxCtw">NLS Maps API</a>',
        clusterOptions: {
          iconCreateFunction: function (cluster) {
@@ -107,6 +120,12 @@
          detention: "Detention",
          placeOfDeath: "Place of Death"
        },
+       standardAttributes:["sex","occupation","socialClass"],
+       standardAttributeLabels:{
+        sex: "Gender",
+        occupation: "Occupation",
+        socialClass: "Social Class"
+      },
        optionalAttributes: [
         "demonicPact", "propertyDamage", "meetingsInfo", "meetingsPlaces",
         "shapeshifting", "ritualObjects", 'primary', 'secondary'
@@ -156,6 +175,17 @@
        })
 
        return locationsWithValue
+     },
+     getStandardAttributesWithValue: function (witch) {
+       let standardAttributesWithValue = [];
+
+       this.standardAttributes.map(option => {
+         if (witch[option] !== "unknown") {
+           standardAttributesWithValue.push(option);
+         }
+       })
+
+       return standardAttributesWithValue
      },
      getOptionalsWithValue: function (witch) {
        let optionalsWithValue = [];
