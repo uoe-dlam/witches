@@ -154,12 +154,12 @@
               <div v-if="propertyItem.showing" class="w-full">
                 <button
                     @click="selectAll(property, propertyItem)"
-                    class="inline-block rounded hover:bg-gray-200 bg-white text-black px-2 pb-1.5 pt-1.5 text-xs uppercase leading-normal shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)]">
+                    class="inline-block rounded hover:bg-gray-200 bg-white text-black px-2 pb-1.5 pt-1.5 text-xs  leading-normal ">
                   Select All
                 </button>
                 <button
                     @click="clearAll(property, propertyItem)"
-                    class="inline-block rounded hover:bg-gray-800 bg-black text-white px-2 pb-1.5 pt-1.5 text-xs uppercase leading-normal shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)]">
+                    class="inline-block rounded hover:bg-gray-200 bg-white text-black px-2 pb-1.5 pt-1.5 text-xs  leading-normal ">
                   Clear All
                 </button>
                 <icon-dependent-filters-list
