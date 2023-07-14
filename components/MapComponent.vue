@@ -297,7 +297,7 @@
      changeCurrentProperty: function (property) {
        this.Filtering.updateCurrentProperty(property);
        this.setAllIcons();
-     }
+     },
    },
   mounted: function() {
     let noWitches = 0;
