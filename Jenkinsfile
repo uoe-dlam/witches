@@ -20,6 +20,7 @@ pipeline {
         stage('Build') {
            steps {
                echo 'Starting Build ...'
+               sh 'sudo chmod -R 777 /.npm'
                sh 'npm install nuxt'
                sh 'npm run generate'
                echo 'Build finished'
