@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment {
-        CI = 'true' 
+        CI = 'true'
     }
 
     options {
@@ -20,6 +20,7 @@ pipeline {
         stage('Build') {
            steps {
                echo 'Starting Build ...'
+               sh 'npm install nuxt'
                sh 'npm run generate'
                echo 'Build finished'
            }
