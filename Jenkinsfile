@@ -20,7 +20,6 @@ pipeline {
         stage('Build') {
            steps {
                echo 'Starting Build ...'
-               sh 'chmod -R 777 /'
                sh 'npm install'
                sh 'npm run generate'
                echo 'Build finished'
