@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div>
-      <iframe src="https://js.histropedia.com/sheets/index.html?id=1KLGbvzsztzP1BUdskTzjaM-O51iEwjdF-Pe4MpjOhc4&c_Gender&embed=true" width="100%" height="580px" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
-    </div>
+  
+  <div style="height: 100%;">
+    <iframe src="https://js.histropedia.com/sheets/index.html?id=1KLGbvzsztzP1BUdskTzjaM-O51iEwjdF-Pe4MpjOhc4&c_Gender&embed=true" width="100%" height="100%" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
   </div>
+  
 </template>
 
 <script>
