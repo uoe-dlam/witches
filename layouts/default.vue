@@ -213,4 +213,12 @@ div.leaflet-popup.leaflet-zoom-animated{
   @apply mx-auto max-w-screen-lg px-5 py-3;
 }
 
+.info-alert-title {
+    font-family: 'EB Garamond', sans-serif !important;
+}
+
+.info-alert-button{
+    background-color: rgb(255, 255, 255)  !important;
+}
+
 </style>
