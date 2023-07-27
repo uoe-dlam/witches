@@ -2,12 +2,12 @@
   <div class="w-full">
     <div v-if="property === currentProperty" 
         class="w-full flex flex-wrap mt-2">
-      <div v-for="(filterItem, filterType) in filtersList"
+      <div v-for="(filterItem, filterType) in sortedFiltersList"
           class="flex flex-col items-center mx-3 mb-2" 
           style="width: 50px">
 
         <div class="flex justify-center items-center">
-          <input :checked="filtersList[filterType].active"
+          <input :checked="filterItem.active"
                 @change="filterEmit(filterType)" 
                 type="checkbox" />
           <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
@@ -21,10 +21,10 @@
         to current. -->
     <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
       <div class="w-full flex flex-wrap px-2">
-        <div v-for="(filterItem, filterType) in filtersList">
+        <div v-for="(filterItem, filterType) in sortedFiltersList">
           <div class="flex mb-3 mx-2 w-full items-center">
 
-            <input :checked="filtersList[filterType].active"
+            <input :checked="filterItem.active"
                    @change="filterEmit(filterType)" 
                    type="checkbox" />
             <p class="text-xs text-center ml-1">
@@ -80,6 +80,24 @@ export default {
     return {
       filtersList: this.filterTypes
     }
+  },
+  computed: {
+    sortedFiltersList() {
+      const filtersEntries = Object.entries(this.filtersList);
+
+      // Separating unknown so that it can appear first
+      const unknownFilterEntry = filtersEntries.find((entry) => entry[1].label === "Unknown");
+      const restFiltersEntries = filtersEntries.filter((entry) => entry[1].label !== "Unknown");
+
+      // Sorting rest of filters into alphabetical order
+      restFiltersEntries.sort((a, b) => a[1].label.localeCompare(b[1].label));
+
+      // Recombining
+      const sortedFiltersEntries = unknownFilterEntry
+        ? [unknownFilterEntry, ...restFiltersEntries]
+        : restFiltersEntries;
+      return Object.fromEntries(sortedFiltersEntries);
+    },
   },
   methods: {
     setFilterInactive: function (filterType) {
