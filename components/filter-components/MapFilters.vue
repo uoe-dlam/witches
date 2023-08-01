@@ -34,7 +34,7 @@
               </div>
               
               <!-- Display number of active witches. -->
-              <div class="ml-3 flex mt-3 items-center pb-2"">
+              <div class="ml-3 flex mt-3 items-center pb-2">
                 <p class="mr-2 text-lg witchy-text">
                   Showing
                 </p>
@@ -56,24 +56,23 @@
           <!-- Timeline section -->
           <div class="ml-3 flex flex-col mt-4">
 
-            <div v-if="includeTimeline"
-                class="flex items-center">
+            <div class="flex items-center"
+                @click="toggleTimelineShowing()">
               <h1 class="font-medium mr-3 py-0 text-2xl">
                 Timeline
               </h1>
-              <label class="switch relative pr-2 mt-1">
-                <input type="checkbox" :checked="true"
-                      @change="toggleTimelineSelector()">
-                <span class="slider round"></span>
-              </label>
+              <img v-if="timelineShowing" src="/images/arrow-up.svg" class="w-6 h-6" />
+              <img v-else src="/images/arrow-down.svg" class="w-6 h-6" />
             </div>
 
-            <timeline-range-selector v-if="timelineSelectorOn"
-                                     :key="timelineSelectorKey"
-                                     @selectedDateRange="emitDateRange($event)"
-                                     @deactivatedTimeline="deactivateTimeline()"
-                                     @scrollHeaderIntoView="scrollHeaderIntoView()">
-            </timeline-range-selector>
+            <transition name="slide-in">
+              <timeline-range-selector v-if="timelineShowing"
+                                      :key="timelineSelectorKey"
+                                      @selectedDateRange="emitDateRange($event)"
+                                      @deactivatedTimeline="deactivateTimeline()"
+                                      @scrollHeaderIntoView="scrollHeaderIntoView()">
+              </timeline-range-selector>
+            </transition>
 
             <button class="rounded-lg w-24 text-white ml-4
                            bg-sky-600 py-1 hover:bg-sky-700
@@ -297,6 +296,7 @@
        filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
        tiles: [{ name: "Modern Map", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", active: true }, { name: "Historic Map", url: "https://mapseries-tilesets.s3.amazonaws.com/mapdata3/125140579/{z}/{x}/{y}.png", active: false }],
        currentProperty: "sex", // Determines the property the icons of which are showing.
+       timelineShowing: true,
      };
    },
    methods: {
@@ -367,6 +367,9 @@
          this.filterProperties[property].showing = false;
        }
      },
+     toggleTimelineShowing() {
+      this.timelineShowing = !this.timelineShowing;
+    },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
        this.$emit("updatedTile", tile.url);
