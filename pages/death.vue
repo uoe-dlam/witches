@@ -147,7 +147,7 @@
       let icons = this.$store.getters['icons/getIcons'];
 
       try {
-        let response = await this.$axios.get('/main.php')
+        let response = await this.$axios.get('/main.php?type=death')
         this.queryOutput = response.data
       } catch (e) {
         this.$swal({

@@ -315,18 +315,35 @@ class APIDataHandler {
         if (!repeatedWitch) {
           let witch = this.getWitchNonOptionalProperties(item);
           witch = Object.assign(witch, this.getWitchLocations(item));
-          witch = Object.assign(
-            witch, 
-            this.getWitchInfoFromQualities(item.qualities.value)
-          );
+
+          if (item.hasOwnProperty('qualities')) {
+            witch = Object.assign(
+              witch,
+              this.getWitchInfoFromQualities(item.qualities.value)
+            );
+          }
+
           witch.mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
-          witch.meetingsPlaces = this.getSplitData(item.meetingLocations.value);
-          witch.shapeshifting = this.getWitchShapeshifting(item.charges.value);
-          witch.ritualObjects = this.getSplitData(item.ritualObjects.value);
-          witch = Object.assign(
-            witch,
-            this.getPrimaryAndSecondary(item.including.value)
-          );
+
+          if (item.hasOwnProperty('meetingLocations')) {
+            witch.meetingsPlaces = this.getSplitData(item.meetingLocations.value);
+          }
+
+          if (item.hasOwnProperty('charges')) {
+            witch.shapeshifting = this.getWitchShapeshifting(item.charges.value);
+          }
+
+          if (item.hasOwnProperty('ritualObjects')) {
+            witch.ritualObjects = this.getSplitData(item.ritualObjects.value);
+          }
+
+          if (item.hasOwnProperty('including')) {
+            witch = Object.assign(
+              witch,
+              this.getPrimaryAndSecondary(item.including.value)
+            );
+          }
+
           witch.witchState = {
             activeFilters: [],
             on: true
