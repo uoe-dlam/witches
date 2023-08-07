@@ -106,7 +106,7 @@ export default {
       let icon = "/images/witch-single-orange.png";
 
       try {
-        let response = await this.$axios.get('/main.php')
+        let response = await this.$axios.get('/main.php?type=primarysecondary')
         this.queryOutput = response.data
       } catch (e) {
         this.$swal({

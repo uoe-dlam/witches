@@ -191,7 +191,7 @@
        let optionalsWithValue = [];
 
        this.optionalAttributes.map(option => {
-         if (witch[option][0] !== "unknown") {
+         if (witch.hasOwnProperty(option) && witch[option][0] !== "unknown") {
            optionalsWithValue.push(option);
          }
        })

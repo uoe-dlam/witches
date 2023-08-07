@@ -146,7 +146,7 @@
        let icons = this.$store.getters['icons/getIcons'];
 
        try {
-         let response = await this.$axios.get('/main.php')
+         let response = await this.$axios.get('/main.php?type=detention')
          this.queryOutput = response.data
        } catch (e) {
          this.$swal({

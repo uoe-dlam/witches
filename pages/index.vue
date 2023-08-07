@@ -36,14 +36,6 @@
      filtersToFind: [
        ["socialClass", "changing"],
        ["occupation", "changing"],
-       ["demonicPact", "constant"],
-       ["propertyDamage", "constant"],
-       ["meetingsPlaces", "constant"],
-       ["meetingsInfo", "constant"],
-       ["shapeshifting", "constant"],
-       ["ritualObjects", "constant"],
-       ["primary", "constant"],
-       ["secondary", "constant"]
      ],
      filtersGeneralInfo: {
        title: "Accused witch filters",
@@ -160,7 +152,7 @@
        let icons = this.$store.getters['icons/getIcons'];
 
        try {
-         let response = await this.$axios.get('/main.php')
+         let response = await this.$axios.get('/main.php?type=accused')
          this.queryOutput = response.data
        } catch (e) {
          this.$swal({
