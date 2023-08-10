@@ -14,7 +14,8 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/google-analytics": "^2.4.0",
-    "leaflet": "^1.7.1",
+    "@simerca/vue2-leaflet-marker-canvas": "^1.0.3",
+    "leaflet": "^1.9.4",
     "leaflet.markercluster": "1.5.3",
     "nuxt": "^2.15.8",
     "nuxt-leaflet": "0.0.27",

@@ -1,79 +1,14 @@
 <template>
-  <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
+  <LMap class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
 
-    <l-control-zoom position="bottomright"></l-control-zoom>
-    <l-tile-layer :url="baseMapUrl" :attribution="attribution"></l-tile-layer>
+    <LTileLayer :url="baseMapUrl" :attribution="attribution"></LTileLayer>
 
-    <!--historic layer-->
-    <div v-if="mapUrl.startsWith('https://mapseries')">
-      <l-tile-layer :url="mapUrl" :attribution="attribution"></l-tile-layer>
-    </div>
-
-    <l-marker v-for="(marker, index) in mapMarkers" :key="index" :lat-lng="marker.longLat">
-      <l-popup class="adapted-popup">
-        <h2>{{marker.location}}</h2><br>
-        <div :class="marker.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'">
-          <div v-for="(witch, index) in marker.witches" :key="index">
-
-            <div class="font-semibold text-base">{{ witch.name }}</div><br>
-            <div>
-              <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
-            </div>
-            
-            <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
-                <b>{{standardAttributeLabels[standardAttribute]}}:</b>
-                {{ witch[standardAttribute] }}
-                <br>
-              </div>
-
-            <div v-for="locationOption in getLocationsWithValue(witch)">
-              <b>{{ locationsLabels[locationOption] }}:</b>
-              <template v-for="(subLocation, index) in witch[locationOption].locations">
-                <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{ subLocation }}
-                </a>
-                <template v-if="index < witch[locationOption].locations.length - 1">, </template>
-              </template>
-              <br>
-            </div>
-
-            <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
-              <b>{{optionalsLabels[optionalAttribute]}}:</b>
-              <template v-for="(subAtribute, index) in witch[optionalAttribute]">
-                  {{ subAtribute }}
-                <template v-if="index < witch[optionalAttribute].length - 1">, </template>
-              </template>
-              <br>
-            </div>
-
-            <div v-if="witch.mannerOfDeath !== ''">
-              <b>Manner of Death:</b> {{ witch.mannerOfDeath }}<br>
-            </div>
-            <div v-if="witch.wikiPage !== ''">
-              <a :href="witch.wikiPage" target="_blank">
-                View Wiki Page
-              </a><br>
-            </div>
-            <a :href="witch.link" target="_blank">More Info</a><br><br>
-          </div>
-        </div>
-      </l-popup>
-
-      <l-icon :icon-anchor="iconAnchor">
-        <div class="icon-wrapper">
-          <div v-if="hasWikiEntry(marker)" class="icon-wiki">W</div>
-          <div v-if="marker.witches.length > 1" class="icon-text">
-            {{marker.witches.length}}
-          </div>
-          <img :src="marker.markerIcon" class="zoomed-in-img" />
-          <img class="icon-shadow" :src="shadowUrl" />
-        </div>
-      </l-icon>
-
-    </l-marker>
-  </l-map>
+    <LCanvasMarker :markers="canvasMarkers"/>
+  </LMap>
 </template>
 
 <script>
+
  export default {
    props: {
      mapMarkers: {
@@ -188,11 +123,26 @@
      },
      shadowUrl: function () {
        return '/images/North-Berwick-witch-shadow.png';
-     }
+     },
+     canvasMarkers() {
+            let markers = []
+            for(var i = 0; i < 10; i++){
+                let lat = Math.random()*55.953333 - 50
+                let lng = Math.random()*-3.189167 - -3.2
+                var icon = L.icon({
+                    iconUrl: '~/assets/img/pin.png',
+                    iconSize: [20, 18],
+                    iconAnchor: [10, 9]
+                });
+                markers.push(L.marker([lat, lng], {icon:icon}).bindPopup(`Hello ${i}`))
+            }
+            return markers
+        }
    },
    beforeDestroy: function () {
      this.emitMapData();
-   }
+   },
+   
  }
 </script>
 

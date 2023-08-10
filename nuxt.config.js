@@ -34,6 +34,8 @@ export default {
     {src: "~/plugins/markercluster",ssr: false},
     {src: "~/plugins/slider",ssr: false},
     { src: "~/plugins/vue-google-analytics", mode: "client"},
+    { src: '~/plugins/leaflet-canvas-marker.js', mode: 'client', ssr: 'false' },
+    { src: '~/plugins/leaflet.js', mode: 'client', ssr: 'false' }
   ],
   /*
   ** Nuxt.js dev-modules
