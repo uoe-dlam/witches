@@ -21,7 +21,7 @@
 
               <div class="font-semibold text-base">{{ witch.name }}</div><br>
               <div>
-                <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
+                <b>Investigation Date:</b> {{ convertToJulian(witch.investigationDates[1]) }}<br>
               </div>
 
               <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
@@ -197,7 +197,40 @@
        })
 
        return optionalsWithValue
-     }
+     },
+     convertToJulian: function (gregorianDate) {
+      let parts = gregorianDate.split("/");
+      let date = new Date(parts[2], parts[1]-1, parts[0]);
+      date.setHours(12);
+      
+      let year = parseInt(parts[2], 10);
+      let month = parseInt(parts[1], 10);
+      let day = parseInt(parts[0], 10);
+
+  
+      if (year < 1700 || (year === 1700 && month <= 2)) {
+        // Add 10 days for dates between 1582 (exclusive) and end of February 1700 (inclusive)
+        date.setDate(date.getDate() - 10);
+      } else {
+        // Add 11 days for dates after February 1700
+        date.setDate(date.getDate() - 11);
+      }
+
+
+      let dd = date.getDate();
+      let mm = date.getMonth() + 1; 
+      let yyyy = date.getFullYear();
+
+      if (dd < 10) {
+        dd = '0' + dd;
+      } 
+
+      if (mm < 10) {
+        mm = '0' + mm;
+      } 
+
+      return `${dd}/${mm}/${yyyy}`;
+      }
    },
    computed: {
      iconAnchor : function () {
