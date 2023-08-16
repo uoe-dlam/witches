@@ -8,12 +8,13 @@
         <!-- Filters box -->
         <div class="h-full flex flex-col bg-white
                     rounded-tr-xl rounded-br-xl filters-shadow
-                    overflow-y-visible overflow-x-hidden
+                     overflow-x-hidden
                     relative" 
              style="width:90%">
 
           <!-- Header -->
-          <div class="flex w-full flex-col"
+          <div class="flex w-full flex-col sticky top-0 z-10
+                       bg-white"
                ref="FiltersHeader">
             <div class="flex flex-col w-full h-full"
                  style="backdrop-filter: blur(1.5px);">
@@ -53,6 +54,7 @@
             <div class="w-full border mt-1"></div>
           </div>
 
+          <div class="overflow-y-visible">
           <!-- Timeline section -->
           <div class="ml-3 flex flex-col mt-4">
 
@@ -216,6 +218,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         <!-- Left chevron to hide filters. -->
