@@ -8,7 +8,7 @@
         <!-- Filters box -->
         <div class="h-full flex flex-col bg-white
                     rounded-tr-xl rounded-br-xl filters-shadow
-                     overflow-x-hidden
+                    overflow-y-visible overflow-x-hidden
                     relative" 
              style="width:90%">
 
@@ -54,7 +54,6 @@
             <div class="w-full border mt-1"></div>
           </div>
 
-          <div class="overflow-y-visible">
           <!-- Timeline section -->
           <div class="ml-3 flex flex-col mt-4">
 
