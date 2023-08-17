@@ -39,8 +39,7 @@
             <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
               <b>{{optionalsLabels[optionalAttribute]}}:</b>
               <template v-for="(subAtribute, index) in witch[optionalAttribute]">
-                  {{ subAtribute }}
-                <template v-if="index < witch[optionalAttribute].length - 1">, </template>
+                  {{subAtribute}}<template v-if="index < witch[optionalAttribute].length - 1">,</template>
               </template>
               <br>
             </div>
