@@ -80,7 +80,7 @@
                     :style= "[timelineOn ? {'margin-top': '20px'} 
                                          : {'margin-top': '10px'}]"
                     @click="emitDateReset()"
-                    v-if="dateRange != null && timelineOn">
+                    v-if="dateRange != null">
               Reset Dates
             </button>
             
