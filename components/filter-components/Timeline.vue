@@ -59,8 +59,8 @@ export default {
     toggleTimelineShowing() {
       this.timelineShowing = !this.timelineShowing;
       this.$emit('timelineToggled', this.timelineShowing);
+    }
   }
-}
 }
 </script>
 

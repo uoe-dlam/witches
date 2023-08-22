@@ -98,9 +98,9 @@
      }
    },
    methods: {
-    updateTimelineStatus(status) {
-    this.timelineOn = status;  // Assuming 'timelineOn' is a data property in the parent
-    },
+     updateTimelineStatus(status) {
+       this.timelineOn = status;  // Assuming 'timelineOn' is a data property in the parent
+     },
      showPageInfo: function () {
        this.$swal({
          title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',

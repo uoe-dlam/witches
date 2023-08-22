@@ -368,8 +368,8 @@
        }
      },
      toggleTimelineShowing() {
-      this.timelineShowing = !this.timelineShowing;
-    },
+       this.timelineShowing = !this.timelineShowing;
+     },
      filterTiles: function (tile) {
        this.currentTileName = tile.name;
        this.$emit("updatedTile", tile.url);
