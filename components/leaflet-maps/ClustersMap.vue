@@ -103,6 +103,7 @@
        baseMapUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>',
        clusterOptions: {
+        showCoverageOnHover: false,
          iconCreateFunction: function (cluster) {
            var iconHtml = '<img class="cluster-img" src="/images/witches-cluster-composite-yellow.png">';
            return L.divIcon({ html: iconHtml,
