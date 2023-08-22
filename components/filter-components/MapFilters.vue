@@ -56,7 +56,7 @@
           <!-- Timeline section -->
           <div class="ml-3 flex flex-col mt-4">
 
-            <div class="flex items-center"
+            <div class="flex items-center cursor-pointer"
                 @click="toggleTimelineShowing()">
               <h1 class="font-medium mr-3 py-0 text-2xl">
                 Timeline
