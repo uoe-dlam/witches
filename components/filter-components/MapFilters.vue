@@ -13,7 +13,7 @@
              style="width:90%">
 
           <!-- Header -->
-          <div class="flex w-full flex-col"
+          <div class="flex w-full flex-col bg-white md:sticky md:top-0 md:z-10"
                ref="FiltersHeader">
             <div class="flex flex-col w-full h-full"
                  style="backdrop-filter: blur(1.5px);">
