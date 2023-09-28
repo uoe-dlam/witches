@@ -3,6 +3,7 @@
               xl:w-1/3 z-20 left-0"
        :style= "[timelineOn ? {'height': '89%'} : {'height': '100%'}, filtersBox ? {} : {'pointer-events': 'none'}]">
     <transition>
+      <div>
       <div class="w-full h-full flex" v-if="filtersBox">
 
         <!-- Filters box -->
@@ -231,7 +232,7 @@
 
     <!-- Right chevron to show filters. -->
     <div class="w-8 flex flex-col justify-center ml-1 h-full" 
-         v-if="!filtersBox">
+         v-if="!filtersBox" style="pointer-events: auto;">
       <div class="flex items-center justify-center w-8 h-8
                   rounded-full bg-slate-200 filters-shadow" 
            @click="toggleFiltersBox()">
