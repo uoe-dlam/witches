@@ -3,7 +3,6 @@
               xl:w-1/3 z-20 left-0"
        :style= "[timelineOn ? {'height': '89%'} : {'height': '100%'}, filtersBox ? {} : {'pointer-events': 'none'}]">
     <transition>
-      <div>
       <div class="w-full h-full flex" v-if="filtersBox">
 
         <!-- Filters box -->
