@@ -150,9 +150,22 @@
                 <img src="/images/arrow-up.svg" v-if="propertyItem.showing"
                     class="w-6 h-6" />
               </div>
-
+              
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
+
+                <!-- Filters Description -->
+                <div>
+                  <p class="text-sm ml-1 mr-2 mb-2" v-if="!propertyItem.descriptionFull">
+                    {{ propertyItem.description.split(' ').slice(0, 20).join(' ') + '...' }}
+                    <button @click="propertyItem.descriptionFull = true" style="text-decoration: underline;">Read full description</button>
+                  </p>
+                  <p class="text-sm ml-1 mr-1 mb-2" v-else>
+                    {{ propertyItem.description }}
+                    <button  @click="propertyItem.descriptionFull = false" style="text-decoration: underline;">Hide full description</button>
+                  </p>
+                </div>
+
                 <button
                     @click="selectAll(property, propertyItem)"
                     class="inline-block rounded hover:bg-gray-300 text-black font-bold px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
@@ -288,6 +301,7 @@
    },
    data() {
      return {
+       showFullDescription: false,
        timelineSelectorOn: false, // Set to true on mounted if includeTimeline.
        timelineSelectorKey: 0,
        filtersBox: true,
