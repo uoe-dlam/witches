@@ -7,7 +7,7 @@
       <slot></slot>
     </nuxt-link>
     <div v-if="subpages.length > 0" class="block dropdown-content lg:absolute lg:hidden lg:bg-gray-200 lg:shadow-xl text-gray-500">
-      <a v-for="(page, index) in subpages" :href="page.url" class="block pt-3 pb-0 pl-2 pr-2 lg:p-2 hover:text-black" :class="{ 'subMenuItemActive' : isSubActive(page.url)}">{{ page.name }}</a>
+      <a v-for="(page, index) in subpages" :href="page.url" class="block pt-3 pb-0 pl-2 pr-2 lg:p-2 hover:text-black text-md" :class="{ 'subMenuItemActive' : isSubActive(page.url)}">{{ page.name }}</a>
     </div>
   </span>
 </template>

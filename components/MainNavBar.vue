@@ -17,9 +17,9 @@
         </button>
       </div>
       <div :class="open ? 'block': 'hidden'" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" style="z-index:1000">
-        <div class="text-md lg:flex-grow">
+        <div class="lg:flex-grow">
           <main-nav-bar-item v-for="link in links" :url="link.url" :key="link.url" :external="link.external" :subpages="link.subpages">
-            {{link.name}}
+            <span class="text-lg text-black">{{link.name}}</span>
           </main-nav-bar-item>
         </div>
       </div>
