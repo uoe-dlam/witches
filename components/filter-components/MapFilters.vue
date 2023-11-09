@@ -153,18 +153,10 @@
 
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
-                <button
-                    @click="selectAll(property, propertyItem)"
-                    class="inline-block rounded hover:bg-gray-300 text-black font-bold px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                  Select All
-                </button>
-                <button
-                    @click="clearAll(property, propertyItem)"
-                    class="inline-block rounded hover:bg-gray-300 text-black font-bold px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                  Clear All
-                </button>
+                
+                <!-- Use icon-dependent-filters-list only for gender -->
                 <icon-dependent-filters-list
-                  v-if="!iconsConstant"
+                  v-if="property === 'sex'"
                   :currentProperty="currentProperty"
                   :property="property"
                   :filterTypes="propertyItem.filters"
@@ -180,24 +172,22 @@
                   @filterOff="emitFilterOff($event)"
                   @filterOn="emitFilterOn($event)">
                 </normal-filters-list>
+
+                <button
+                    @click="selectAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black  px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  Select All
+                </button>
+                <button
+                    @click="clearAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black  px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  Clear All
+                </button>
               </div>
 
             </div>
           </div>
           
-          <div class="self-end flex flex-col mt-3 mr-3 h-full
-                      justify-end"
-               v-if="!iconsConstant">
-            <p class="text-sm">
-              - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
-            </p>
-            <div class="flex items-center">
-              <p class="text-sm mr-0.5">-</p>
-              <img class="witch-icon mb-1 ml-1" 
-                   src="/images/witch-single-purple.png" />
-              <p class="ml-1 text-sm">= Mixed.</p>
-            </div>
-          </div>
           
           <div class="flex flex-col justify-end"
                :style= "[iconsConstant ? {'margin-top': '15px', 'height': '100%'} 
@@ -357,15 +347,7 @@
        // current property, and change the icons accordingly. If it is
        // showing, sets to not showing.
 
-       if (!this.filterProperties[property].showing) {
-         if (this.currentProperty !== property) {
-           this.setPropertyToCurrent(property);
-         }
-         this.filterProperties[property].showing = true;
-       }
-       else {
-         this.filterProperties[property].showing = false;
-       }
+       this.filterProperties[property].showing = !this.filterProperties[property].showing;
      },
      toggleTimelineShowing() {
        this.timelineShowing = !this.timelineShowing;
