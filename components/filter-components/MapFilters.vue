@@ -152,30 +152,55 @@
               </div>
               
               <!-- Filters list if property is showing. -->
-              <div v-if="propertyItem.showing" class="w-full">
+                <div v-if="propertyItem.showing" class="w-full">
 
                 <!-- Filters Description -->
                 <div>
-                  <p class="text-sm ml-1 mr-2 mb-2" v-if="!propertyItem.descriptionFull">
+                  <!-- Small screens: No initial description, only a button to toggle -->
+                  <button 
+                    v-if="!propertyItem.descriptionFull"
+                    class="text-xs text-gray-600 mt-0  ml-1 mr-1 mb-2 sm:hidden description-toggle underline-button" 
+                    @click="propertyItem.descriptionFull = true"
+                  >
+                    See more information
+                  </button>
+
+                  <div v-if="propertyItem.descriptionFull" class="sm:hidden">
+                    <p class="text-xs ml-1 mr-4">
+                      {{ propertyItem.description }}
+                    </p>
+                    <button
+                      class="text-xs ml-1 mr-1 mb-2 description-toggle underline-button"
+                      @click="propertyItem.descriptionFull = false"
+                    >
+                      Hide information
+                    </button>
+                  </div>
+
+                  <!-- Larger screens: Show initial description with a 'Read more' link -->
+                  <p class="text-sm ml-1 mr-4 mb-2 hidden sm:block" v-if="!propertyItem.descriptionFull">
                     {{ propertyItem.description.split(' ').slice(0, 20).join(' ') + '...' }}
-                    <button @click="propertyItem.descriptionFull = true" style="text-decoration: underline;">Read full description</button>
+                    <button 
+                      @click="propertyItem.descriptionFull = true" 
+                      class="description-toggle underline-button"
+                    >
+                      Read full description
+                    </button>
                   </p>
-                  <p class="text-sm ml-1 mr-1 mb-2" v-else>
+
+                  <!-- Full description shown after clicking 'See more information' or 'Read full description', hidden on small screens -->
+                  <p class="text-sm ml-1 mr-4 mb-2 hidden sm:block" v-if="propertyItem.descriptionFull">
                     {{ propertyItem.description }}
-                    <button  @click="propertyItem.descriptionFull = false" style="text-decoration: underline;">Hide full description</button>
+                    <button 
+                      @click="propertyItem.descriptionFull = false" 
+                      class="description-toggle underline-button"
+                    >
+                      Hide full description
+                    </button>
                   </p>
                 </div>
 
-                <button
-                    @click="selectAll(property, propertyItem)"
-                    class="inline-block rounded hover:bg-gray-300 text-black font-bold px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                  Select All
-                </button>
-                <button
-                    @click="clearAll(property, propertyItem)"
-                    class="inline-block rounded hover:bg-gray-300 text-black font-bold px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                  Clear All
-                </button>
+                
                 <icon-dependent-filters-list
                   v-if="!iconsConstant"
                   :currentProperty="currentProperty"
@@ -193,7 +218,21 @@
                   @filterOff="emitFilterOff($event)"
                   @filterOn="emitFilterOn($event)">
                 </normal-filters-list>
+
+                <button
+                    @click="selectAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black  px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  Select All
+                </button>
+                <button
+                    @click="clearAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black  px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  Clear All
+                </button>
+
               </div>
+
+              
 
             </div>
           </div>
@@ -445,6 +484,15 @@
 </script>
 
 <style>
+
+  .underline-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+  }
+
  .arrow-container {
    border-radius: 50%;
  }
