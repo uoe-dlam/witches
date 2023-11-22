@@ -6,7 +6,7 @@
         @change="filterEmit(filterType)"
         type="checkbox"
       />
-      <p class="text-xs text-center ml-1">
+      <p class="text-xs  ml-1">
         {{ filterItem.label }}
       </p>
     </div>
