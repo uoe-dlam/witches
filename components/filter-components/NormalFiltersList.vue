@@ -1,19 +1,18 @@
 <template>
-  <div class="w-full flex flex-wrap pl-0 pr-4 mt-2">
-    <div v-for="(filterItem, filterType) in sortedFiltersList" :key="filterType">
-      <div class="flex mb-3 mx-2 w-full items-center">
-        <input
-          :checked="filterItem.active"
-          @change="filterEmit(filterType)"
-          type="checkbox"
-        />
-        <p class="text-xs text-center ml-1">
-          {{ filterItem.label }}
-        </p>
-      </div>
+  <div class="w-full grid grid-cols-3 gap-4 pl-0 pr-4 mt-2">
+    <div v-for="(filterItem, filterType) in sortedFiltersList" :key="filterType" class="flex items-center">
+      <input
+        :checked="filterItem.active"
+        @change="filterEmit(filterType)"
+        type="checkbox"
+      />
+      <p class="text-xs text-center ml-1">
+        {{ filterItem.label }}
+      </p>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

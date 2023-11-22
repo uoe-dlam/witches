@@ -173,6 +173,7 @@
                   @filterOn="emitFilterOn($event)">
                 </normal-filters-list>
 
+                <div class="pt-4">
                 <button
                     @click="selectAll(property, propertyItem)"
                     class="inline-block rounded hover:bg-gray-300 text-black  px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
@@ -183,6 +184,7 @@
                     class="inline-block rounded hover:bg-gray-300 text-black  px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                   Clear All
                 </button>
+              </div>
               </div>
 
             </div>
