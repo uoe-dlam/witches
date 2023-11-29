@@ -155,49 +155,8 @@
                 <div v-if="propertyItem.showing" class="w-full">
 
                 <!-- Filters Description -->
-                <div>
-                  <!-- Small screens: No initial description, only a button to toggle -->
-                  <button 
-                    v-if="!propertyItem.descriptionFull"
-                    class="text-xs text-gray-600 mt-0  ml-1 mr-1 mb-2 sm:hidden description-toggle underline-button" 
-                    @click="propertyItem.descriptionFull = true"
-                  >
-                    See more information
-                  </button>
-
-                  <div v-if="propertyItem.descriptionFull" class="sm:hidden">
-                    <p class="text-xs ml-1 mr-4">
-                      {{ propertyItem.description }}
-                    </p>
-                    <button
-                      class="text-xs ml-1 mr-1 mb-2 description-toggle underline-button"
-                      @click="propertyItem.descriptionFull = false"
-                    >
-                      Hide information
-                    </button>
-                  </div>
-
-                  <!-- Larger screens: Show initial description with a 'Read more' link -->
-                  <p class="text-sm ml-1 mr-4 mb-2 hidden sm:block" v-if="!propertyItem.descriptionFull">
-                    {{ propertyItem.description.split(' ').slice(0, 20).join(' ') + '...' }}
-                    <button 
-                      @click="propertyItem.descriptionFull = true" 
-                      class="description-toggle underline-button"
-                    >
-                      Read full description
-                    </button>
-                  </p>
-
-                  <!-- Full description shown after clicking 'See more information' or 'Read full description', hidden on small screens -->
-                  <p class="text-sm ml-1 mr-4 mb-2 hidden sm:block" v-if="propertyItem.descriptionFull">
-                    {{ propertyItem.description }}
-                    <button 
-                      @click="propertyItem.descriptionFull = false" 
-                      class="description-toggle underline-button"
-                    >
-                      Hide full description
-                    </button>
-                  </p>
+                <div class="tooltip">Hover over me
+                  <span class="tooltiptext">Tooltip text</span>
                 </div>
 
                 
@@ -484,6 +443,33 @@
 </script>
 
 <style>
+
+  /* Tooltip container */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+  
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
 
   .underline-button {
     background: none;
