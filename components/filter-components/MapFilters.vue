@@ -157,19 +157,24 @@
                 <!-- Filters Description -->
                 <!-- Laptops -->
                 <div v-if="!isMobileDevice" class="tooltip text-xs w-full">
-                  {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
+                  <span class="label-and-icon">
+                    {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
+                  </span>
                   <span class="tooltiptext">{{ propertyItem.description }}</span>
                 </div>
+
                 <!-- Mobile Devices -->
                 <div v-else>
-                  <div class="tooltip text-xs w-full relative" @click="toggleTooltip">
+                  <div class="tooltip text-xs w-full relative">
+                    <span class="label-and-icon">
                       {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
-                      <span class="tooltiptext" v-if="isTooltipVisible || !isMobileDevice">
-                          {{ propertyItem.description }}
-                          <button class="absolute top-0 right-0 text-xs p-1" @click.stop="toggleTooltip">Close</button>
-                      </span>
+                    </span>
+                    <span class="tooltiptext" v-if="isTooltipVisible || !isMobileDevice">
+                      {{ propertyItem.description }}
+                      <button class="absolute top-0 right-0 text-xs p-1" @click.stop="toggleTooltip">Close</button>
+                    </span>
                   </div>
-              </div>
+                </div>
 
 
                 
@@ -461,22 +466,25 @@
 
 <style>
 
-  .tooltip {
+  .label-and-icon {
     position: relative;
     display: inline-block;
-    border-bottom: 1px; /* If you want dots under the hoverable text */
+  }
+
+  .label-and-icon:hover + .tooltiptext {
+    visibility: visible;
   }
 
   .tooltip .tooltiptext::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 10%;
-  margin-left: -5px; /* Adjust based on the arrow's size */
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent rgb(223, 223, 223) transparent; /* Adjust the color as needed */
-}
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 10%;
+    margin-left: -5px; /* Adjust based on the arrow's size */
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(223, 223, 223) transparent; /* Adjust the color as needed */
+  }
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
@@ -491,10 +499,8 @@
     position: absolute;
     z-index: 1;
   }
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
+
+
   .underline-button {
     background: none;
     border: none;
