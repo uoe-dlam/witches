@@ -518,7 +518,7 @@
     /* Tooltip text */
     .tooltip .tooltiptext {
         visibility: hidden;
-        max-width: 100%;
+        max-width: 70%;
         background-color: rgb(223, 223, 223);
         color: #070707;
         text-align: center;
@@ -528,8 +528,8 @@
         /* Position the tooltip text - see examples below! */
         position: absolute;
         top: 100%; /* Position the tooltip below the button */
-        /*left: 50%; /* Center the tooltip horizontally */
-        transform: translateX(-50%);
+        left: 2%; /* Center the tooltip horizontally */
+        /*transform: translateX(-50%);*/
         z-index: 1;
     }
     /* Show the tooltip text when you click on the tooltip container */
