@@ -169,9 +169,8 @@
                     <span class="label-and-icon">
                       {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
                     </span>
-                    <span class="tooltiptext" v-if="isTooltipVisible || !isMobileDevice">
+                    <span class="tooltiptext">
                       {{ propertyItem.description }}
-                      <button class="absolute top-0 right-0 text-xs p-1" @click.stop="toggleTooltip">Close</button>
                     </span>
                   </div>
                 </div>
@@ -500,23 +499,6 @@
     z-index: 1;
   }
 
-
-  .underline-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-  }
-
-  .underline-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-  }
-
   @media (min-width: 769px) {
   .tooltip .tooltiptext {
     display: none;
@@ -555,7 +537,21 @@
         visibility: visible;
     }
 }
+  .underline-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+  }
 
+  .underline-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+  }
 
 
  .arrow-container {
