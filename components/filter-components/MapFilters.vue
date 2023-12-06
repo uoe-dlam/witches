@@ -155,50 +155,22 @@
                 <div v-if="propertyItem.showing" class="w-full">
 
                 <!-- Filters Description -->
-                <div>
-                  <!-- Small screens: No initial description, only a button to toggle -->
-                  <button 
-                    v-if="!propertyItem.descriptionFull"
-                    class="text-xs text-gray-600 mt-0  ml-1 mr-1 mb-2 sm:hidden description-toggle underline-button" 
-                    @click="propertyItem.descriptionFull = true"
-                  >
-                    See more information
-                  </button>
-
-                  <div v-if="propertyItem.descriptionFull" class="sm:hidden">
-                    <p class="text-xs ml-1 mr-4">
-                      {{ propertyItem.description }}
-                    </p>
-                    <button
-                      class="text-xs ml-1 mr-1 mb-2 description-toggle underline-button"
-                      @click="propertyItem.descriptionFull = false"
-                    >
-                      Hide information
-                    </button>
-                  </div>
-
-                  <!-- Larger screens: Show initial description with a 'Read more' link -->
-                  <p class="text-sm ml-1 mr-4 mb-2 hidden sm:block" v-if="!propertyItem.descriptionFull">
-                    {{ propertyItem.description.split(' ').slice(0, 20).join(' ') + '...' }}
-                    <button 
-                      @click="propertyItem.descriptionFull = true" 
-                      class="description-toggle underline-button"
-                    >
-                      Read full description
-                    </button>
-                  </p>
-
-                  <!-- Full description shown after clicking 'See more information' or 'Read full description', hidden on small screens -->
-                  <p class="text-sm ml-1 mr-4 mb-2 hidden sm:block" v-if="propertyItem.descriptionFull">
-                    {{ propertyItem.description }}
-                    <button 
-                      @click="propertyItem.descriptionFull = false" 
-                      class="description-toggle underline-button"
-                    >
-                      Hide full description
-                    </button>
-                  </p>
+                <!-- Laptops -->
+                <div v-if="!isMobileDevice" class="tooltip text-xs w-full">
+                  {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
+                  <span class="tooltiptext">{{ propertyItem.description }}</span>
                 </div>
+                <!-- Mobile Devices -->
+                <div v-else>
+                  <div class="tooltip text-xs w-full relative" @click="toggleTooltip">
+                      {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
+                      <span class="tooltiptext" v-if="isTooltipVisible || !isMobileDevice">
+                          {{ propertyItem.description }}
+                          <button class="absolute top-0 right-0 text-xs p-1" @click.stop="toggleTooltip">Close</button>
+                      </span>
+                  </div>
+              </div>
+
 
                 
                 <icon-dependent-filters-list
@@ -340,6 +312,7 @@
    },
    data() {
      return {
+       isTooltipVisible: false,
        showFullDescription: false,
        timelineSelectorOn: false, // Set to true on mounted if includeTimeline.
        timelineSelectorKey: 0,
@@ -479,11 +452,56 @@
     if (this.includeTimeline) {
       this.timelineSelectorOn = true;
     }
-   }
+   },
+   isMobileDevice() {
+    return window.innerWidth <= 768; // You can adjust the width as needed
+  }
  }
 </script>
 
 <style>
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px; /* If you want dots under the hoverable text */
+  }
+
+  .tooltip .tooltiptext::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 10%;
+  margin-left: -5px; /* Adjust based on the arrow's size */
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgb(223, 223, 223) transparent; /* Adjust the color as needed */
+}
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    max-width: 70%;
+    background-color: rgb(223, 223, 223);
+    color: #070707;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+  
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+  .underline-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+  }
 
   .underline-button {
     background: none;
@@ -492,6 +510,47 @@
     text-decoration: underline;
     padding: 0;
   }
+
+  @media (min-width: 769px) {
+  .tooltip .tooltiptext {
+    display: none;
+  }
+  .tooltip:hover .tooltiptext {
+    display: block;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px; /* If you want dots under the hoverable text */
+    }
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        max-width: 100%;
+        background-color: rgb(223, 223, 223);
+        color: #070707;
+        text-align: center;
+        padding: 10px;
+        border-radius: 6px;
+
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        top: 100%; /* Position the tooltip below the button */
+        /*left: 50%; /* Center the tooltip horizontally */
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+    /* Show the tooltip text when you click on the tooltip container */
+    .tooltip.active .tooltiptext {
+        visibility: visible;
+    }
+}
+
+
 
  .arrow-container {
    border-radius: 50%;
