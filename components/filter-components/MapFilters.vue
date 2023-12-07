@@ -488,11 +488,13 @@
   .tooltip .tooltiptext {
     visibility: hidden;
     max-width: 70%;
-    background-color: rgb(223, 223, 223);
+    background-color: rgb(255, 255, 255);
     color: #070707;
     text-align: center;
     padding: 10px;
     border-radius: 6px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+    
   
     /* Position the tooltip text - see examples below! */
     position: absolute;
@@ -519,7 +521,7 @@
     .tooltip .tooltiptext {
         visibility: hidden;
         max-width: 70%;
-        background-color: rgb(223, 223, 223);
+        background-color: rgb(255, 255, 255);
         color: #070707;
         text-align: center;
         padding: 10px;
