@@ -160,7 +160,10 @@
                   <span class="label-and-icon">
                     {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
                   </span>
-                  <span class="tooltiptext">{{ propertyItem.description }}</span>
+                  <span class="tooltiptext">
+                    <h4>{{propertyItem.label}}</h4>
+                    {{propertyItem.description }}
+                  </span>
                 </div>
 
                 <!-- Mobile Devices -->
@@ -170,6 +173,7 @@
                       {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
                     </span>
                     <span class="tooltiptext">
+                      <h4>{{propertyItem.label}}</h4>
                       {{ propertyItem.description }}
                     </span>
                   </div>
