@@ -141,10 +141,37 @@
 
               <!-- Property titles -->
               <div class="flex pl-2 py-1 flex-wrap items-center mt-2
-                          cursor-pointer" style="width: 225px;" 
+                          cursor-pointer w-full" 
                   @click="togglePropertyShowing(property)">
                 <div class="title-point"></div>
-                <p style="font-weight: 500;"> {{ propertyItem.label }} </p>
+                <!--Descriptions-->
+                <div v-if="!isMobileDevice" class="tooltip">
+                <span class="label-and-icon">
+                  {{ propertyItem.label }}  
+                  <div class="inline-flex items-center justify-center
+                              align-middle rounded-full border-r-2  
+                              border-l-2 border-gray-400
+                              w-5 h-5"><img src="/images/infoIcon.svg" class="pt-0.5 h-5 inline"> </div>
+                </span>
+                <span class="tooltiptext text-xs">
+                    <h4 class="font-semibold">{{propertyItem.label}}</h4>
+                    {{propertyItem.description }}
+                </span>
+                </div>
+                <!-- Mobile Devices -->
+                <div v-else class="tooltip  relative">
+                  <span class="label-and-icon">
+                    {{ propertyItem.label }}  
+                    <div class="inline-flex items-center justify-center
+                                align-middle rounded-full border-r-2  
+                                border-l-2 border-gray-400
+                                w-5 h-5"><img src="/images/infoIcon.svg" class="pt-0.5 h-5 inline"> </div>
+                  </span>
+                  <span class="tooltiptext">
+                    <h4 class="font-semibold">{{propertyItem.label}}</h4>
+                    {{ propertyItem.description }}
+                  </span>
+                </div>
                 <img src="/images/arrow-down.svg" v-if="!propertyItem.showing"
                     class="w-6 h-6" />
                 <img src="/images/arrow-up.svg" v-if="propertyItem.showing"
@@ -154,30 +181,7 @@
               <!-- Filters list if property is showing. -->
                 <div v-if="propertyItem.showing" class="w-full">
 
-                <!-- Filters Description -->
-                <!-- Laptops -->
-                <div v-if="!isMobileDevice" class="tooltip text-xs w-full">
-                  <span class="label-and-icon">
-                    {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
-                  </span>
-                  <span class="tooltiptext">
-                    <h4>{{propertyItem.label}}</h4>
-                    {{propertyItem.description }}
-                  </span>
-                </div>
-
-                <!-- Mobile Devices -->
-                <div v-else>
-                  <div class="tooltip text-xs w-full relative">
-                    <span class="label-and-icon">
-                      {{ propertyItem.label }} Info (<img src="/images/infoIcon.svg" class="pt-0.5 h-6 inline">)
-                    </span>
-                    <span class="tooltiptext">
-                      <h4>{{propertyItem.label}}</h4>
-                      {{ propertyItem.description }}
-                    </span>
-                  </div>
-                </div>
+                
 
 
                 
@@ -524,7 +528,8 @@
     /* Tooltip text */
     .tooltip .tooltiptext {
         visibility: hidden;
-        max-width: 70%;
+        max-width: 60vw;
+        min-width: 50vw;
         background-color: rgb(255, 255, 255);
         color: #070707;
         text-align: center;
