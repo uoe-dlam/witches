@@ -1,5 +1,5 @@
 <template>
-  <div id="main-content" class="text-wrapper">
+  <div id="main-content" class="text-wrapper" style="width:100%">
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">About The Project</h1>
     <p class="mb-3"><span class="font-medium">Please Note: </span>This is a first attempt to geolocate this data. We have consulted a number of historical sources to locate places that have variant spellings in the records or that have since disappeared. We appreciate all feedback and will incorporate it into future iterations of the map. <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/week-3-time-travel-through-scotland-in-search-of-the-missing-locations/" target="_blank">Read more about how we went about geo locating some of this information</a>.</p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">Background to the project</p>
