@@ -112,6 +112,27 @@
       
   }
 
+  @media screen and (max-width: 767px) {
+  .paragraph-container {
+    display: block; 
+    margin-bottom: 20px; 
+  }
+
+  .text,
+  .image {
+    width: 80%; 
+    float: none; 
+    margin: 0; 
+  }
+
+  .image {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
   ul {
   list-style-type: disc; 
   padding-left:20px;
