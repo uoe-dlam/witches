@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:100%;">
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
       <div class="flex content-start items-center">
         <h1 class="text-sm md:text-xl lg:text-2xl">People Associated with the Witch Trials: Residence and Occupation</h1>
@@ -11,9 +11,36 @@
         </span>
       </div>
 
-    </div>
-    <div>
-      <style>.embed-container {position: relative; padding-bottom: 80%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="People Associated With Trial - Residence Location with Recorded Occupation" src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=5d874d36222f45209a6faf7a348b5bd8&extent=-7.4825,54.0427,0.6309,56.7221&zoom=true&previewImage=false&scale=true&search=true&searchextent=true&legend=true&disable_scroll=false&theme=light"></iframe></div>
+    </div >
+    <div style="height:90%;">
+      <style>
+        .embed-container {
+          position: relative;
+          padding-bottom: 100%; /* Set padding-bottom to 100% to maintain aspect ratio */
+          height: 0;
+          max-width: 100%;
+        }
+
+        .embed-container iframe,
+        .embed-container object,
+        .embed-container iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        small {
+          position: absolute;
+          z-index: 40;
+          bottom: 0;
+          margin-bottom: -15px;
+        }
+      </style>
+      <div class="embed-container" style="height:100%;">
+        <iframe  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="People Associated With Trial - Residence Location with Recorded Occupation" src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=5d874d36222f45209a6faf7a348b5bd8&extent=-7.4825,54.0427,0.6309,56.7221&zoom=true&previewImage=false&scale=true&search=true&searchextent=true&legend=true&disable_scroll=false&theme=light"></iframe>
+      </div>
     </div>
   </div>
 </template>

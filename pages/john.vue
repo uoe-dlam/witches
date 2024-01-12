@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
       <div class="flex content-start items-center">
         <h1 class="text-sm md:text-xl lg:text-2xl">The Journey of a Witch-Pricker - John Kincaid of Tranent</h1>
@@ -12,8 +12,35 @@
       </div>
 
     </div>
-    <div>
-      <style>.embed-container {position: relative; padding-bottom: 80%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="The Story of John Kincaid" src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=6c3d5b6e5bf34189879f44ed69fc6391&extent=-7.5921,53.4613,0.4554,56.148&zoom=true&previewImage=false&scale=true&disable_scroll=false&theme=light"></iframe></div>
+    <div style="height: 90%;">
+      <div class="embed-container" style="height: 100%;">
+        <style>
+        .embed-container {
+          position: relative;
+          padding-bottom: 100%; /* Set padding-bottom to 100% to maintain aspect ratio */
+          height: 0;
+          max-width: 100%;
+        }
+
+        .embed-container iframe,
+        .embed-container object,
+        .embed-container iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        small {
+          position: absolute;
+          z-index: 40;
+          bottom: 0;
+          margin-bottom: -15px;
+        }
+      </style>
+        <iframe  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="The Story of John Kincaid" src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=6c3d5b6e5bf34189879f44ed69fc6391&extent=-7.5921,53.4613,0.4554,56.148&zoom=true&previewImage=false&scale=true&disable_scroll=false&theme=light"></iframe>
+      </div>
     </div>
   </div>
 </template>
