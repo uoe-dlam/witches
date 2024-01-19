@@ -81,7 +81,7 @@
        },
        hasWikiPage: {
          label: "Wikipedia Page",
-         description: "description will go here",
+         description: "Some of the accused witches have wikipedia pages written about them, to find out more about thier stories follow the link \"View Wiki Page\" when you are on an accused witch",
          descriptionFull: false,
          filters: {
            "hasWiki": {

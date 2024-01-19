@@ -156,7 +156,7 @@
                 </span>
                 <span class="tooltiptext text-xs">
                     <h4 class="font-semibold">{{propertyItem.label}}</h4>
-                    {{propertyItem.description }}
+                    <div v-html="propertyItem.description"></div>
                 </span>
                 </div>
                 <!-- Mobile Devices -->
@@ -171,7 +171,7 @@
                   <span class="tooltiptext">
                     <h4 class="font-semibold">{{propertyItem.label}}</h4>
                     <div class="close-button" @click="closeTooltip">&#10006;</div> <!-- Close button -->
-                    {{ propertyItem.description }}
+                    <div v-html="propertyItem.description"></div>
                   </span>
                 </div>
                 <img src="/images/arrow-down.svg" v-if="!propertyItem.showing"
@@ -482,10 +482,6 @@
     display: inline-block;
   }
 
-  .label-and-icon:hover + .tooltiptext {
-    visibility: visible;
-  }
-
   .tooltip .tooltiptext::before {
     content: '';
     position: absolute;
@@ -496,7 +492,22 @@
     border-style: solid;
     border-color: transparent transparent rgb(223, 223, 223) transparent; /* Adjust the color as needed */
   }
-  /* Tooltip text */
+
+  
+
+/*Links within the tooltip*/
+  .tooltip a {
+  text-decoration: underline;
+  color:rgb(0, 123, 255);
+}
+
+.tooltip .tooltiptext {
+    display: none;
+  }
+.tooltip:hover .tooltiptext {
+    display: block;
+  }
+
   .tooltip .tooltiptext {
     visibility: hidden;
     max-width: 80%;
@@ -506,20 +517,26 @@
     padding: 10px;
     border-radius: 6px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
-    
-  
-    /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
   }
 
+  .label-and-icon:hover + .tooltiptext {
+    visibility: visible;
+  }
+
   @media (min-width: 769px) {
-  .tooltip .tooltiptext {
-    display: none;
+ 
+  /*Tooltip stays when hovering over tooltip"*/
+    .tooltip:hover .tooltiptext,
+  .tooltip.active .tooltiptext {
+      visibility: visible;
   }
-  .tooltip:hover .tooltiptext {
-    display: block;
+
+  .tooltip.active .tooltiptext {
+      display: block;
   }
+
 }
 
 /* Mobile devices */
@@ -532,12 +549,12 @@
     /* Tooltip text */
     .tooltip .tooltiptext {
         visibility: hidden;
-        max-width: 60vw;
-        min-width: 50vw;
+        max-width: 70vw;
+        min-width: 60vw;
         background-color: rgb(255, 255, 255);
         color: #070707;
         text-align: center;
-        padding: 10px;
+        padding: 20px;
         border-radius: 6px;
         position: absolute;
         top: 100%; 
@@ -548,8 +565,15 @@
     .tooltip.active .tooltiptext {
         visibility: visible;
     }
+
+    /*Links within teh tooltip*/
+    .tooltip a {
+        text-decoration: underline;
+        color:rgb(0, 123, 255);
+    }
+
      /* Close button for the tooltip on mobile devices */
-     .close-button {
+    .close-button {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -557,21 +581,7 @@
         color:rgb(0, 123, 255);
     }
 }
-  .underline-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-  }
 
-  .underline-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-  }
 
 
  .arrow-container {

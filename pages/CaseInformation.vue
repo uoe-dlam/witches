@@ -45,21 +45,25 @@ export default {
     filterProperties: {
       demonicPact: {
         label: "Pact with the devil",
+        description: "Descriptions of meeting the Devil and entering a pact with him feature in the majority of records that have detailed information. This relationship with the Devil was crucial to the church and the law in proving someone was guilty. 90% of those whose records show demonic features were women. Many people were tortured into confessing to Devil-worship. For more information about the types of pact please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
         filters: {},
         showing: true
       },
       propertyDamage: {
         label: "Property damage",
+        description:"The witch was accused of causing damage to property as part of the case investigation’s allegations. For more information about the types of property damage mentioned below please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
         filters: {},
         showing: false
       },
       meetingsPlaces: {
         label: "Meetings places",
+        description:"This section covers where the accused was supposed to have held their witches meeting or Sabbath. There are some cases where people described meeting in groups. However, the numbers involved varied greatly: from 2 to over 100, and in one case 2,400. Moreover, most of these meetings were probably invented by suspects under heavy pressure to confess. For more information about the meeting places mentioned please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
         filters: {},
         showing: false
       },
       meetingsInfo: {
         label: "Meetings information",
+        description:"This section covers some of the main accusations of what was alleged to have transpired during the witches meeting or Sabbath. There are some cases where people described indulging in communal rituals. The stereotype coven of 13 is a modern invention. The idea derives largely from the fantastical confession of a Scottish witch, Isobel Gowdie. For more information about the meeting themes mentioned below please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
         filters: {},
         showing: false
       },
