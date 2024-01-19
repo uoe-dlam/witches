@@ -160,17 +160,19 @@
                 </span>
                 </div>
                 <!-- Mobile Devices -->
-                <div v-else class="tooltip  relative">
+                <div v-else class="tooltip relative" >
                   <p style="font-weight: 500; display: inline;"> {{ propertyItem.label }} </p>
-                  <span class="label-and-icon">  
+                  <span class="label-and-icon" @click="toggleTooltip(propertyItem)"  @touchstart="toggleTooltip">  
                     <div class="inline-flex items-center justify-center
-                                align-middle rounded-full border-r-2  
-                                border-l-2 border-gray-400
-                                w-5 h-5"><img src="/images/infoIcon.svg" class="pt-0.5 h-5 inline"> </div>
+                              align-middle rounded-full border-r-2  
+                              border-l-2 border-gray-400
+                              w-5 h-5">
+                      <img src="/images/infoIcon.svg" class="pt-0.5 h-5 inline">
+                    </div>
                   </span>
-                  <span class="tooltiptext">
+                  <span v-if="propertyItem.descriptionShowing" class="tooltiptext text-xs">
                     <h4 class="font-semibold">{{propertyItem.label}}</h4>
-                    <div class="close-button" @click="closeTooltip">&#10006;</div> <!-- Close button -->
+                    <div class="close-button" @click="closeTooltip(propertyItem)">&#10006;</div> <!-- Close button -->
                     <div v-html="propertyItem.description"></div>
                   </span>
                 </div>
@@ -326,7 +328,6 @@
    data() {
      return {
        isTooltipVisible: false,
-       showFullDescription: false,
        timelineSelectorOn: false, // Set to true on mounted if includeTimeline.
        timelineSelectorKey: 0,
        filtersBox: true,
@@ -339,8 +340,13 @@
      };
    },
    methods: {
-    closeTooltip() {
-        this.isTooltipVisible = false;
+    toggleTooltip: function(propertyItem) {
+    if (this.isMobileDevice) {
+      propertyItem.descriptionShowing= !propertyItem.descriptionShowing;
+    }
+    },
+    closeTooltip(propertyItem) {
+        propertyItem.descriptionShowing = false;
     },
      setFilterInactive: function (property, filterType) {
        this.filterProperties[property].filters[filterType].active = false;
@@ -501,14 +507,20 @@
   color:rgb(0, 123, 255);
 }
 
-.tooltip .tooltiptext {
+
+
+
+  
+
+
+
+  @media (min-width: 769px) {
+
+    .tooltip .tooltiptext {
     display: none;
   }
-.tooltip:hover .tooltiptext {
-    display: block;
-  }
 
-  .tooltip .tooltiptext {
+    .tooltip .tooltiptext {
     visibility: hidden;
     max-width: 80%;
     background-color: rgb(255, 255, 255);
@@ -521,11 +533,13 @@
     z-index: 1;
   }
 
+    .tooltip:hover .tooltiptext {
+    display: block;
+  }
+
   .label-and-icon:hover + .tooltiptext {
     visibility: visible;
   }
-
-  @media (min-width: 769px) {
  
   /*Tooltip stays when hovering over tooltip"*/
     .tooltip:hover .tooltiptext,
@@ -546,9 +560,9 @@
         display: inline-block;
         border-bottom: 1px; 
     }
+
     /* Tooltip text */
     .tooltip .tooltiptext {
-        visibility: hidden;
         max-width: 70vw;
         min-width: 60vw;
         background-color: rgb(255, 255, 255);
@@ -556,31 +570,32 @@
         text-align: center;
         padding: 20px;
         border-radius: 6px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
         position: absolute;
         top: 100%; 
         left: 2%; 
         z-index: 1;
     }
-    /* Show the tooltip text when you click on the tooltip container */
-    .tooltip.active .tooltiptext {
-        visibility: visible;
-    }
+    
 
-    /*Links within teh tooltip*/
+    /* Links within the tooltip */
     .tooltip a {
         text-decoration: underline;
-        color:rgb(0, 123, 255);
+        color: rgb(0, 123, 255);
     }
 
-     /* Close button for the tooltip on mobile devices */
+    /* Close button for the tooltip on mobile devices */
     .close-button {
         position: absolute;
         top: 5px;
         right: 5px;
         cursor: pointer;
-        color:rgb(0, 123, 255);
+        color: rgb(0, 123, 255);
     }
+
+    
 }
+
 
 
 

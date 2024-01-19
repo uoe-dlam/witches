@@ -43,6 +43,7 @@ export default {
       primary: {
         label: "Primary",
         description: "In examining, the documents of the 3,837 people who were accused of witchcraft in Scotland, the Survey of Scottish Witchcraft project team determined there were primary and secondary aspects of the cases that could be used to characterise them. For more information about the characteristics used below, please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
+        descriptionShowing: false,
         filters: {
         },
         showing: true
@@ -50,6 +51,7 @@ export default {
       secondary: {
         label: "Secondary",
         description: "In examining, the documents of the 3,837 people who were accused of witchcraft in Scotland, the Survey of Scottish Witchcraft project team determined there were primary and secondary aspects of the cases that could be used to characterise them. For more information about the characteristics used below, please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
+        descriptionShowing: false,
         filters: {},
         showing: false
       }

@@ -69,18 +69,21 @@
        socialClass: {
          label: "Social Classification",
          description: "Were they poor? No, not by contemporary standards. It is difficult to classify early modern people into socio-economic categories, but where status was indicated the majority fell into the middle range—64%. The total of those who came from lower socio-economic categories—lower, very poor and landless—accounted for 29%, with upper, lairds and nobility accounting for 6%. We do not know this information for the majority of accused, but these figures may be typical.",
+         descriptionShowing: false,
          filters: {},
          showing: false
        },
        occupation: {
          label: "Occupations",
          description: "Were the witches midwives or healers? Only 9 individuals have an occupation recorded as being a midwife. A tiny percentage. Folk healing was more common and featured in 141 witchcraft accusations (about 4%). Even so, it was not something that the typical accused seems to have engaged in—though the beliefs that underpinned folk healing were closely related to witchcraft beliefs. If magic could be used to heal, it could also be used to harm.",
+         descriptionShowing: false,
          filters: {},
          showing: false
        },
        hasWikiPage: {
          label: "Wikipedia Page",
          description: "Some of the accused witches have wikipedia pages written about them, to find out more about thier stories follow the link \"View Wiki Page\" when you are on an accused witch",
+         descriptionShowing: false,
          filters: {
            "hasWiki": {
              "label": "Has wiki",
