@@ -130,7 +130,8 @@
                   class="w-7 h-7 mt-1" />
           </div>
 
-          <!-- Filter dropdowns -->
+        
+               <!-- Filter dropdowns -->
           <div v-if="filtersGeneralInfo.filtersShowing"
                class="w-full">
 
@@ -147,7 +148,7 @@
                 <!--Descriptions-->
                 <div v-if="!isMobileDevice" class="tooltip">
                 <span class="label-and-icon">
-                  {{ propertyItem.label }}  
+                  <p style="font-weight: 500; display: inline;"> {{ propertyItem.label }} </p>
                   <div class="inline-flex items-center justify-center
                               align-middle rounded-full border-r-2  
                               border-l-2 border-gray-400
@@ -160,7 +161,7 @@
                 </div>
                 <!-- Mobile Devices -->
                 <div v-else class="tooltip  relative">
-                  {{ propertyItem.label }}
+                  <p style="font-weight: 500; display: inline;"> {{ propertyItem.label }} </p>
                   <span class="label-and-icon">  
                     <div class="inline-flex items-center justify-center
                                 align-middle rounded-full border-r-2  
@@ -178,7 +179,6 @@
                 <img src="/images/arrow-up.svg" v-if="propertyItem.showing"
                     class="w-6 h-6" />
               </div>
-              
               <!-- Filters list if property is showing. -->
                 <div v-if="propertyItem.showing" class="w-full">
 
@@ -499,7 +499,7 @@
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
-    max-width: 70%;
+    max-width: 80%;
     background-color: rgb(255, 255, 255);
     color: #070707;
     text-align: center;
