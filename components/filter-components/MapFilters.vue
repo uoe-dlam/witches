@@ -160,8 +160,8 @@
                 </div>
                 <!-- Mobile Devices -->
                 <div v-else class="tooltip  relative">
-                  <span class="label-and-icon">
-                    {{ propertyItem.label }}  
+                  {{ propertyItem.label }}
+                  <span class="label-and-icon">  
                     <div class="inline-flex items-center justify-center
                                 align-middle rounded-full border-r-2  
                                 border-l-2 border-gray-400
@@ -169,6 +169,7 @@
                   </span>
                   <span class="tooltiptext">
                     <h4 class="font-semibold">{{propertyItem.label}}</h4>
+                    <div class="close-button" @click="closeTooltip">&#10006;</div> <!-- Close button -->
                     {{ propertyItem.description }}
                   </span>
                 </div>
@@ -338,6 +339,9 @@
      };
    },
    methods: {
+    closeTooltip() {
+        this.isTooltipVisible = false;
+    },
      setFilterInactive: function (property, filterType) {
        this.filterProperties[property].filters[filterType].active = false;
      },
@@ -458,16 +462,16 @@
     },
     iconsConstant () {
       return this.iconBehaviour === "constant"
-    }
+    },
+    isMobileDevice() {
+    return window.innerWidth <= 768; // You can adjust the width as needed
+  }
    },
    mounted: function () {
     if (this.includeTimeline) {
       this.timelineSelectorOn = true;
     }
-   },
-   isMobileDevice() {
-    return window.innerWidth <= 768; // You can adjust the width as needed
-  }
+   }
  }
 </script>
 
@@ -523,7 +527,7 @@
     .tooltip {
         position: relative;
         display: inline-block;
-        border-bottom: 1px; /* If you want dots under the hoverable text */
+        border-bottom: 1px; 
     }
     /* Tooltip text */
     .tooltip .tooltiptext {
@@ -535,17 +539,22 @@
         text-align: center;
         padding: 10px;
         border-radius: 6px;
-
-        /* Position the tooltip text - see examples below! */
         position: absolute;
-        top: 100%; /* Position the tooltip below the button */
-        left: 2%; /* Center the tooltip horizontally */
-        /*transform: translateX(-50%);*/
+        top: 100%; 
+        left: 2%; 
         z-index: 1;
     }
     /* Show the tooltip text when you click on the tooltip container */
     .tooltip.active .tooltiptext {
         visibility: visible;
+    }
+     /* Close button for the tooltip on mobile devices */
+     .close-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        color:rgb(0, 123, 255);
     }
 }
   .underline-button {
