@@ -34,7 +34,7 @@
               </div>
               
               <!-- Display number of active witches. -->
-              <div class="ml-3 flex mt-3 items-center pb-2">
+              <div class="ml-3 flex mt-3 items-center pb-1">
                 <p class="mr-2 text-lg witchy-text">
                   Showing
                 </p>
@@ -49,13 +49,13 @@
                   Accused Witches
                 </p>
               </div>
-              <div  class="ml-3 flex mt-3 items-center pb-2" v-if="!iconsConstant">
+              <div  class="ml-3 flex mt-1y items-center pb-2" v-if="!iconsConstant">
                 <p class="text-base witchy-text mr-2">
-                    Showing icons for  
+                    Colour of Map Icons Indicating
                   </p>
                 <div class="h-6 px-1 flex items-center justify-center
                             mr-2 border-2 rounded-md text-white text-base
-                            font-medium bg-slate-500 border-slate-700">
+                            bg-slate-500 border-slate-700">
                     <p>
                       {{filterProperties[currentProperty].label}} 
                     </p>
