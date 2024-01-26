@@ -49,6 +49,11 @@
                   Accused Witches
                 </p>
               </div>
+              <div  class="ml-3" v-if="!iconsConstant">
+                <p class="text-sm witchy-text">
+                    Showing icons for <b>{{filterProperties[currentProperty].label}} </b>.
+                </p>
+              </div>
             </div>
             <div class="w-full border mt-1"></div>
           </div>
@@ -188,9 +193,6 @@
           <div class="self-end flex flex-col mt-3 mr-3 h-full
                       justify-end"
                v-if="!iconsConstant">
-            <p class="text-sm">
-              - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
-            </p>
             <div class="flex items-center">
               <p class="text-sm mr-0.5">-</p>
               <img class="witch-icon mb-1 ml-1" 
