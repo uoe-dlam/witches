@@ -55,7 +55,7 @@
                   </p>
                 <div class="h-6 px-1 flex items-center justify-center
                             mr-2 border-2 rounded-md text-white text-base
-                            bg-slate-500 border-slate-700">
+                            bg-slate-500 border-slate-700 font medium">
                     <p>
                       {{filterProperties[currentProperty].label}} 
                     </p>
