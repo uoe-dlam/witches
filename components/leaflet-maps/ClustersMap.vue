@@ -21,7 +21,7 @@
 
               <div class="font-semibold text-base">{{ witch.name }}</div><br>
               <div>
-                <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
+                <b>Investigation Date:</b> {{ getJulianDate(witch.investigationDates[1]) }}<br>
               </div>
 
               <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
@@ -195,6 +195,29 @@
        })
 
        return optionalsWithValue
+     },
+     getJulianDate: function (date){
+      let [day, month, year] = date.split('/');
+      day = Number(day);
+      month = Number(month)
+      year = Number(year);
+      let currentDate = new Date(year, month - 1, day);
+      let earlierDate = new Date(currentDate);
+      const cutoffDate = new Date(1700,3,1)
+
+      if (currentDate < cutoffDate) {
+        earlierDate.setDate(currentDate.getDate()-10);
+      }
+      else {
+        earlierDate.setDate(currentDate.getDate()-11);
+      }
+
+      const earlierDateString =
+        `${earlierDate.getDate().toString().padStart(2, '0')}/` +
+        `${(earlierDate.getMonth() + 1).toString().padStart(2, '0')}/` +
+        `${earlierDate.getFullYear()}`;
+
+      return earlierDateString;
      }
    },
    computed: {
