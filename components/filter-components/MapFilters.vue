@@ -51,7 +51,7 @@
               </div>
               <div  class="ml-3 flex mt-1y items-center pb-2" v-if="!iconsConstant">
                 <p class="text-base witchy-text mr-2">
-                    Colour of Map Icons Indicating
+                    Colour of map icons indicating
                   </p>
                 <div class="h-6 px-1 flex items-center justify-center
                             mr-2 border-2 rounded-md text-white text-base
