@@ -19,7 +19,6 @@ import json from "../big-query-output.json";
 import MapComponent from "../components/MapComponent.vue";
 import LoadingMessage from "../components/LoadingMessage.vue";
 
-<<<<<<< HEAD
  export default {
    components: { MapComponent, LoadingMessage },
    data: () => ({
@@ -105,85 +104,6 @@ import LoadingMessage from "../components/LoadingMessage.vue";
    methods: {
      loadWikiEntries: function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
-=======
-export default {
-  components: { MapComponent, LoadingMessage },
-  data: () => ({
-    pageInfo: {
-      title: "Witchcraft Prosecutions In Time and Place",
-      html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3142</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
-      footer: "witches.is.ed.ac.uk",
-      confirmButtonText: "Close",
-      type: "info",
-      showCloseButton: true,
-    },
-    queryOutput: json,
-    sparqlUrl: "https://query.wikidata.org/sparql",
-    wikiPages: [],
-    loading: true,
-    originalMarkers: [],
-    filtersToFind: [
-      ["socialClass", "changing"],
-      ["occupation", "changing"],
-    ],
-    filtersGeneralInfo: {
-      title: "Accused witch filters",
-      filtersShowing: true,
-    },
-    filterProperties: {
-      sex: {
-        label: "Gender",
-        filters: {
-          male: {
-            label: "Male",
-            active: true,
-            iconUrl: "/images/witch-single-blue.png",
-          },
-          female: {
-            label: "Female",
-            active: true,
-            iconUrl: "/images/witch-single-orange.png",
-          },
-          unknown: {
-            label: "Unknown",
-            active: true,
-            iconUrl: "/images/witch-single-BW.png",
-          },
-        },
-        showing: true,
-      },
-      socialClass: {
-        label: "Social Classification",
-        filters: {},
-        showing: false,
-      },
-      occupation: {
-        label: "Occupations",
-        filters: {},
-        showing: false,
-      },
-      hasWikiPage: {
-        label: "Wikipedia Page",
-        filters: {
-          hasWiki: {
-            label: "Has wiki",
-            active: true,
-            iconUrl: "/images/witch-single-blue.png",
-          },
-          noWiki: {
-            label: "No wiki",
-            active: true,
-            iconUrl: "/images/witch-single-orange.png",
-          },
-        },
-        showing: false,
-      },
-    },
-  }),
-  methods: {
-    loadWikiEntries: function () {
-      const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
->>>>>>> develop
             WHERE {
               ?item wdt:P4478 ?witch .
               ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ;  schema:name ?page_title .
