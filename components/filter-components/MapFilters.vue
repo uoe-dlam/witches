@@ -34,7 +34,7 @@
               </div>
               
               <!-- Display number of active witches. -->
-              <div class="ml-3 flex mt-3 items-center pb-2">
+              <div class="ml-3 flex mt-3 items-center pb-1">
                 <p class="mr-2 text-lg witchy-text">
                   Showing
                 </p>
@@ -48,6 +48,19 @@
                 <p class="mr-1 text-lg witchy-text">
                   Accused Witches
                 </p>
+              </div>
+              <div  class="ml-3 flex mt-1y items-center pb-2" v-if="!iconsConstant">
+                <p class="text-base witchy-text mr-2">
+                    Colour of map icons indicating
+                  </p>
+                <div class="h-6 px-1 flex items-center justify-center
+                            mr-2 border-2 rounded-md text-white text-base
+                            bg-slate-500 border-slate-700 font medium">
+                    <p>
+                      {{filterProperties[currentProperty].label}} 
+                    </p>
+                </div>
+                
               </div>
             </div>
             <div class="w-full border mt-1"></div>
@@ -227,9 +240,6 @@
           <div class="self-end flex flex-col mt-3 mr-3 h-full
                       justify-end"
                v-if="!iconsConstant">
-            <p class="text-sm">
-              - &nbsp Showing icons for {{filterProperties[currentProperty].label}}.
-            </p>
             <div class="flex items-center">
               <p class="text-sm mr-0.5">-</p>
               <img class="witch-icon mb-1 ml-1" 
