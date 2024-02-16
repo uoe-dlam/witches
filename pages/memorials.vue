@@ -1,11 +1,28 @@
 <template>
     <div id="map-wrapper" class="w-full h-full">
-    <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap"> 
+    <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
       <l-control-zoom position="bottomright"></l-control-zoom>
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker v-for="(marker, index) in markers" :key="index" :lat-lng="marker.longLat" :icon="customMarkerIconUrl"></l-marker>
+        <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat"></l-marker>
     </l-map>
     </div>
+    <!-- <div id="map-wrapper" class="w-full h-full">
+    <div v-if="markers.length === 0">
+      <LoadingMessage />
+    </div>
+    <div v-else>
+      <div v-for="(marker, index) in markers" :key="index">
+        <h3>{{ marker.location }}</h3>
+        <ul>
+          <li v-for="(memorial, i) in marker.memorials" :key="i">
+            <p>Name: {{ memorial.name }}</p>
+            <p>Coordinates: {{ memorial.longLat }}</p>
+            <p>Instance of: {{ memorial.instanceOf }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
  </template>
 
 <script>
@@ -57,7 +74,7 @@ export default {
             
             //add to list of instances???
 
-            memorial = {
+           let memorial = {
                 id: id,
                 name: item.itemLabel.value,
                 longLat: memorialCoords,
@@ -70,30 +87,34 @@ export default {
         }
         this.noItems = memorials.length;
         this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-        this.saveDataToLocalStorage();
         this.loading = false;
         });
         
     },
-    addMemorialToMarkers: function(memorial, memorialLocation , memorialCoords){
-            // find marker for current location so you can add witch
-            let marker = this.markers.find( marker => {
-                return marker.location === memorialLocation;
-            });
+    addMemorialToMarkers: function(memorial, memorialLocation, memorialCoords) {
+    // Check if memorialCoords is null
+    if (memorialCoords && memorialCoords.length === 2) {
+        // find marker for current location so you can add witch
+        let marker = this.markers.find(marker => {
+            return marker.location === memorialLocation;
+        });
 
-            // if a marker exists for the witche's location add the witch to it. if not create a new marker for the location and add the witch.
-            if(marker){
-                marker.memorials.push(memorial);
-            } else {
-                let marker = {
-                    location: memorialLocation,
-                    longLat: memorialCoords,
-                    memorials: [memorial],
-                }
-
-                this.markers.push(marker);
+        // if a marker exists for the witch's location add the witch to it. if not create a new marker for the location and add the witch.
+        if (marker) {
+            marker.memorials.push(memorial);
+        } else {
+            let marker = {
+                location: memorialLocation,
+                longLat: memorialCoords,
+                memorials: [memorial],
             }
-        },
+
+            this.markers.push(marker);
+        }
+    } else {
+        console.log('Skipping marker with null coordinates:', memorial);
+    }
+},
     convertPointToLongLatArray: function(pointString) {
             pointString = pointString.substr(6);
             pointString = pointString.slice(0,-1);
@@ -102,15 +123,36 @@ export default {
             return longLatArray;
 
         },
+    emitMapData() {
+        let centerInfo = this.$refs.myMap.mapObject.getCenter();
+        let centerArray = [centerInfo.lat, centerInfo.lng];
+        let changeInfo = {
+        center: centerArray,
+        zoom: this.$refs.myMap.mapObject.getZoom(),
+        };
+        this.$emit("changeMaps", changeInfo);
+    }
   },
 
   mounted: function () {
-    this.loadData();
-
-    
-  }
+    this.loadMemorials();
+    console.log('Markers:', this.markers);
+  },
+  beforeDestroy: function () {
+     this.emitMapData();
+   }
 };
 </script>
 
 <style>
+
+.icon-shadow {
+    position: absolute;
+    top: 15px !important;
+    left: 0;
+    z-index: -1;
+    width: 25.6px;
+    height: 17.6px !important;
+}
+
 </style>
