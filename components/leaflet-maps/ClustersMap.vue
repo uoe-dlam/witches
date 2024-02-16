@@ -21,7 +21,9 @@
 
               <div class="font-semibold text-base">{{ witch.name }}</div><br>
               <div>
-                <b>Investigation Date:</b> {{ getFormatDate(witch.investigationDates[1],witch.precision) }}<br>
+                <b>Investigation Date:</b>
+                <!-- Displaying Converted Date if available  -->
+                {{ witch.investigationDates[1] !== "N/A" ? getJulianConvertedDate(witch.investigationDates[1], witch.precision) : witch.investigationDates[1] }}<br />
               </div>
 
               <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
@@ -79,6 +81,9 @@
 </template>
 
 <script>
+
+ import DateConversion from "~/assets/js/DateConversion";
+
  export default {
    props: {
      mapMarkers: {
@@ -196,51 +201,8 @@
 
        return optionalsWithValue
      },
-     getFormatDate: function (date,precision){
-
-      let [day, month, year] = date.split('/');
-      day = Number(day);
-      month = Number(month)
-      year = Number(year);
-      let currentDate = new Date(year, month - 1, day);
-      
-      
-      //the precision of the dates can either be or 9 11(full day/month/year),10(month/year),9(year)
-      
-      // If we don't know the day, month, and year, then wikidata precision will be less than 11 and the dates don't need Julian conversion
-      if (precision === '10') {
-          // Then return the date with month and year only
-          let dateString = `${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/` + `${currentDate.getFullYear()}`;
-          return dateString;
-      }  
-          // If only year is known
-      if (precision === '9')  {
-          // Then return the date with year only
-          let dateString = `${currentDate.getFullYear()}`;
-          return dateString;
-      }
-        
-      
-
-      //if we have the full date (day,month,year) them the date needs to be converted into Julian
-      const cutoffDate = new Date(1700,3,1) // the date where the difference between julian and gregorian cjanges from 10 to 11
-      let earlierDate = new Date(currentDate);
-
-      // JULIAN CONVERSION - https://en.wikipedia.org/wiki/Conversion_between_Julian_and_Gregorian_calendars
-      if (currentDate < cutoffDate) {
-        earlierDate.setDate(currentDate.getDate()-10);
-      }
-      else {
-        earlierDate.setDate(currentDate.getDate()-11);
-      }
-
-      // covert back to string
-      const earlierDateString =
-        `${earlierDate.getDate().toString().padStart(2, '0')}/` +
-        `${(earlierDate.getMonth() + 1).toString().padStart(2, '0')}/` +
-        `${earlierDate.getFullYear()}`;
-
-      return earlierDateString;
+     getJulianConvertedDate: function (date, precision){
+      return DateConversion.getJulianDate(date, precision);
     }
    },
    computed: {
