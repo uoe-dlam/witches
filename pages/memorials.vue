@@ -34,10 +34,9 @@ export default {
   data: () => ({
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     zoom: 7,
-    center: [56.00, -6], 
+    center: [57.00, -4], 
     attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
     markers:[],
-    customMarkerIconUrl: '../static/images/witch-group-yellow.png',
     originalMarkers:[],
     queryOutput: json,
     sparqlUrl: 'https://query.wikidata.org/sparql',
