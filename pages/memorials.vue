@@ -1,5 +1,5 @@
 <template>
-    <div id="map-wrapper" class="w-full h-full">
+    <div id="map-wrapper" class="w-full h-full relative">
     <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
       <l-control-zoom position="bottomright"></l-control-zoom>
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
