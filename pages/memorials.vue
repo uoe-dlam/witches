@@ -3,32 +3,28 @@
     <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
       <l-control-zoom position="bottomright"></l-control-zoom>
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-        <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat"></l-marker>
+      <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat" >
+        <l-popup class="adapted-popup">
+            <h3>{{memorial.name}}</h3><br>
+            <div>
+              <b>Location:</b> {{ memorial.location }}<br>
+              <b>Instance Of:</b> {{ memorial.instance }}<br>
+            </div>
+        </l-popup>
+        <l-icon :icon-anchor="iconAnchor">
+        <div class="icon-wrapper">
+          <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
+          <img class="icon-shadow" src="../static/images/witch-single-shadow.png" />
+        </div>
+      </l-icon>
+    </l-marker>
     </l-map>
     </div>
-    <!-- <div id="map-wrapper" class="w-full h-full">
-    <div v-if="markers.length === 0">
-      <LoadingMessage />
-    </div>
-    <div v-else>
-      <div v-for="(marker, index) in markers" :key="index">
-        <h3>{{ marker.location }}</h3>
-        <ul>
-          <li v-for="(memorial, i) in marker.memorials" :key="i">
-            <p>Name: {{ memorial.name }}</p>
-            <p>Coordinates: {{ memorial.longLat }}</p>
-            <p>Instance of: {{ memorial.instanceOf }}</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
  </template>
 
 <script>
 import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher'
-import APIDataHandler from '~/assets/js/ApiDataHandler';
-import FilteringMethods from '../assets/js/FilteringMethods';
+
 import json from '../big-query-output.json'
 import MapComponent from '../components/MapComponent.vue';
 import LoadingMessage from '../components/LoadingMessage.vue';
@@ -45,7 +41,6 @@ export default {
     originalMarkers:[],
     queryOutput: json,
     sparqlUrl: 'https://query.wikidata.org/sparql',
-    originalMarkers: [],
   }),
   methods: {
 
@@ -83,7 +78,7 @@ export default {
             }
 
             memorials.push(memorial);
-            this.addMemorialToMarkers(memorial, memorialLocation , memorialCoords);
+            this.addMemorialToMarkers(memorial, memorialLocation , memorialCoords, instance, item.itemLabel.value);
         }
         this.noItems = memorials.length;
         this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
@@ -91,7 +86,7 @@ export default {
         });
         
     },
-    addMemorialToMarkers: function(memorial, memorialLocation, memorialCoords) {
+    addMemorialToMarkers: function(memorial, memorialLocation, memorialCoords, instance, name) {
     // Check if memorialCoords is null
     if (memorialCoords && memorialCoords.length === 2) {
         // find marker for current location so you can add witch
@@ -104,6 +99,8 @@ export default {
             marker.memorials.push(memorial);
         } else {
             let marker = {
+                name: name,
+                instance: instance,
                 location: memorialLocation,
                 longLat: memorialCoords,
                 memorials: [memorial],
@@ -131,7 +128,13 @@ export default {
         zoom: this.$refs.myMap.mapObject.getZoom(),
         };
         this.$emit("changeMaps", changeInfo);
-    }
+    },
+    removeMarkersFromMap() {
+        this.markers.forEach(marker => {
+            this.$refs.myMap.mapObject.removeLayer(marker); // Remove marker from the map
+        });
+        this.markers = []; // Clear the markers array
+        }
   },
 
   mounted: function () {
@@ -140,11 +143,17 @@ export default {
   },
   beforeDestroy: function () {
      this.emitMapData();
+     this.removeMarkersFromMap();
    }
 };
 </script>
 
 <style>
+.zoomed-in-img {
+   float: left;
+   width: 25px;
+   height: 38px;
+ }
 
 .icon-shadow {
     position: absolute;
