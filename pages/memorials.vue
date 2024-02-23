@@ -1,166 +1,167 @@
 <template>
     <div id="map-wrapper" class="w-full h-full relative">
-    <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
-      <l-control-zoom position="bottomright"></l-control-zoom>
-      <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-      <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat" >
-        <l-popup class="adapted-popup">
-            <h3>{{memorial.name}}</h3><br>
+      <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
+        <l-control-zoom position="bottomright"></l-control-zoom>
+        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+        <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat" >
+          <l-popup class="adapted-popup">
+            <h3>{{ memorial.name }}</h3><br>
+            <div v-if="memorial.imageUrl" class="mb-5">
+              <a :title="'Image Source: ' + memorial.imageUrl" :href="memorial.imageUrl">
+                <img width="150vw" :alt="memorial.name" :src="memorial.imageUrl">
+              </a>
+            </div>
             <div>
               <b>Location:</b> {{ memorial.location }}<br>
+              <b>Street Address:</b> {{ memorial.streetAddress }}<br>
               <b>Instance Of:</b> {{ memorial.instance }}<br>
             </div>
-        </l-popup>
-        <l-icon :icon-anchor="iconAnchor">
-        <div class="icon-wrapper">
-          <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
-          <img class="icon-shadow" src="../static/images/witch-single-shadow.png" />
-        </div>
-      </l-icon>
-    </l-marker>
-    </l-map>
+          </l-popup>
+          <l-icon :icon-anchor="iconAnchor">
+            <div class="icon-wrapper">
+              <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
+              <img class="icon-shadow" src="../static/images/witch-single-shadow.png" />
+            </div>
+          </l-icon>
+        </l-marker>
+      </l-map>
     </div>
- </template>
-
-<script>
-import {SPARQLQueryDispatcher} from '~/assets/js/SPARQLQueryDispatcher'
-
-import json from '../big-query-output.json'
-import MapComponent from '../components/MapComponent.vue';
-import LoadingMessage from '../components/LoadingMessage.vue';
-
-export default {
-  components: { MapComponent, LoadingMessage },
-  data: () => ({
-    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    zoom: 7,
-    center: [57.00, -4], 
-    attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
-    markers:[],
-    originalMarkers:[],
-    queryOutput: json,
-    sparqlUrl: 'https://query.wikidata.org/sparql',
-  }),
-  methods: {
-
-    loadMemorials: function(){
-        const sparqlQuery = `SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel
-            WHERE 
-            {
-                ?item wdt:P361 wd:Q123249004 .
-                OPTIONAL { ?item wdt:P31 ?instance .}
-                OPTIONAL { ?item wdt:P131 ?location .}
-                OPTIONAL { ?item wdt:P625 ?coords . }
-                SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-            }`; 
-
-        const queryDispatcher = new SPARQLQueryDispatcher( this.sparqlUrl );
-        queryDispatcher.query( sparqlQuery ).then( result => {
-            let memorials =[];
-
-            for (let i = 0; i < result.results.bindings.length; i++) {
-                let item = result.results.bindings[i];
-                let id = item.item.value;
-                let instance = item.hasOwnProperty('instanceLabel') ? item.instanceLabel.value : 'unknown';
-                let memorialCoords = item.hasOwnProperty('coords') ? this.convertPointToLongLatArray(item.coords.value) : '';
-                let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
-
-            
-            //add to list of instances???
-
-           let memorial = {
-                id: id,
-                name: item.itemLabel.value,
-                longLat: memorialCoords,
-                location: memorialLocation,
-                instanceOf: instance
-            }
-
-            memorials.push(memorial);
-            this.addMemorialToMarkers(memorial, memorialLocation , memorialCoords, instance, item.itemLabel.value);
-        }
-        this.noItems = memorials.length;
-        this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-        this.loading = false;
-        });
-        
+  </template>
+  
+  <script>
+  import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
+  import json from '../big-query-output.json'
+  import MapComponent from '../components/MapComponent.vue';
+  import LoadingMessage from '../components/LoadingMessage.vue';
+  
+  export default {
+    components: { MapComponent, LoadingMessage },
+    data() {
+      return {
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        zoom: 7,
+        center: [57.00, -4],
+        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
+        markers: [],
+        originalMarkers: [],
+        queryOutput: json,
+        sparqlUrl: 'https://query.wikidata.org/sparql',
+      }
     },
-    addMemorialToMarkers: function(memorial, memorialLocation, memorialCoords, instance, name) {
-    // Check if memorialCoords is null
-    if (memorialCoords && memorialCoords.length === 2) {
-        // find marker for current location so you can add witch
-        let marker = this.markers.find(marker => {
-            return marker.location === memorialLocation;
-        });
-
-        // if a marker exists for the witch's location add the witch to it. if not create a new marker for the location and add the witch.
-        if (marker) {
-            marker.memorials.push(memorial);
-        } else {
-            let marker = {
-                name: name,
-                instance: instance,
-                location: memorialLocation,
-                longLat: memorialCoords,
-                memorials: [memorial],
+    methods: {
+      loadMemorials() {
+        const sparqlQuery = `
+          SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address
+          WHERE {
+            ?item wdt:P361 wd:Q123249004 .
+            OPTIONAL { ?item wdt:P31 ?instance .}
+            OPTIONAL { ?item wdt:P131 ?location .}
+            OPTIONAL { ?item wdt:P625 ?coords . }
+            OPTIONAL { ?item wdt:P18 ?image . }
+            OPTIONAL { ?item wdt:P6375 ?address . }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+          }`;
+  
+        const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
+        queryDispatcher.query(sparqlQuery).then(result => {
+          let memorials = [];
+  
+          for (let i = 0; i < result.results.bindings.length; i++) {
+            let item = result.results.bindings[i];
+            let id = item.item.value;
+            let instance = item.hasOwnProperty('instanceLabel') ? item.instanceLabel.value : 'unknown';
+            let memorialCoords = item.hasOwnProperty('coords') ? this.convertPointToLongLatArray(item.coords.value) : '';
+            let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
+            let imageUrl = item.hasOwnProperty('image') ? item.image.value : '';
+            let streetAddress = item.hasOwnProperty('address') ? item.address.value : '';
+  
+            let memorial = {
+              id: id,
+              name: item.itemLabel.value,
+              longLat: memorialCoords,
+              location: memorialLocation,
+              instanceOf: instance,
+              imageUrl: imageUrl,
+              streetAddress: streetAddress
             }
-
+  
+            memorials.push(memorial);
+            this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress);
+          }
+          this.noItems = memorials.length;
+          this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+          this.loading = false;
+        });
+  
+      },
+      addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress) {
+        if (memorialCoords && memorialCoords.length === 2) {
+          let marker = this.markers.find(marker => marker.location === memorialLocation);
+  
+          if (marker) {
+            marker.memorials.push(memorial);
+          } else {
+            let marker = {
+              name: name,
+              instance: instance,
+              location: memorialLocation,
+              longLat: memorialCoords,
+              imageUrl: imageUrl,
+              streetAddress: streetAddress,
+              memorials: [memorial],
+            }
+  
             this.markers.push(marker);
+          }
+        } else {
+          console.log('Skipping marker with null coordinates:', memorial);
         }
-    } else {
-        console.log('Skipping marker with null coordinates:', memorial);
-    }
-},
-    convertPointToLongLatArray: function(pointString) {
-            pointString = pointString.substr(6);
-            pointString = pointString.slice(0,-1);
-            let pointArray = pointString.split(' ');
-            let longLatArray = [pointArray[1], pointArray[0]];
-            return longLatArray;
-
-        },
-    emitMapData() {
+      },
+      convertPointToLongLatArray(pointString) {
+        pointString = pointString.substr(6);
+        pointString = pointString.slice(0, -1);
+        let pointArray = pointString.split(' ');
+        let longLatArray = [pointArray[1], pointArray[0]];
+        return longLatArray;
+      },
+      emitMapData() {
         let centerInfo = this.$refs.myMap.mapObject.getCenter();
         let centerArray = [centerInfo.lat, centerInfo.lng];
         let changeInfo = {
-        center: centerArray,
-        zoom: this.$refs.myMap.mapObject.getZoom(),
+          center: centerArray,
+          zoom: this.$refs.myMap.mapObject.getZoom(),
         };
         this.$emit("changeMaps", changeInfo);
-    },
-    removeMarkersFromMap() {
+      },
+      removeMarkersFromMap() {
         this.markers.forEach(marker => {
-            this.$refs.myMap.mapObject.removeLayer(marker); // Remove marker from the map
+          this.$refs.myMap.mapObject.removeLayer(marker);
         });
-        this.markers = []; // Clear the markers array
-        }
-  },
-
-  mounted: function () {
-    this.loadMemorials();
-    console.log('Markers:', this.markers);
-  },
-  beforeDestroy: function () {
-     this.emitMapData();
-     this.removeMarkersFromMap();
+        this.markers = [];
+      }
+    },
+    mounted() {
+      this.loadMemorials();
+      console.log('Markers:', this.markers);
+    },
+    beforeDestroy() {
+      this.emitMapData();
+      this.removeMarkersFromMap();
+    }
+  };
+  </script>
+  
+  <style>
+  .zoomed-in-img {
+     float: left;
+     width: 25px;
+     height: 38px;
    }
-};
-</script>
-
-<style>
-.zoomed-in-img {
-   float: left;
-   width: 25px;
-   height: 38px;
- }
-
-.icon-shadow {
-    position: absolute;
-    top: 15px !important;
-    left: 0;
-    z-index: -1;
-    width: 25.6px;
-    height: 17.6px !important;
-}
-
-</style>
+  
+  .icon-shadow {
+      position: absolute;
+      top: 15px !important;
+      left: 0;
+      z-index: -1;
+     
+  
