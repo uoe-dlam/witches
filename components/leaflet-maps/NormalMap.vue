@@ -31,10 +31,19 @@
             <br />
             <div>
               <b>Investigation Date:</b>
-              {{ witch.investigationDates[1] !== "N/A" ? getJulianConvertedDate(witch.investigationDates[1], witch.precision) : witch.investigationDates[1] }}<br />
+              {{
+                witch.investigationDates[1] !== "N/A"
+                  ? getJulianConvertedDate(
+                      witch.investigationDates[1],
+                      witch.precision
+                    )
+                  : witch.investigationDates[1]
+              }}<br />
             </div>
 
-            <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
+            <div
+              v-for="standardAttribute in getStandardAttributesWithValue(witch)"
+            >
               <b>{{ standardAttributeLabels[standardAttribute] }}:</b>
               {{ witch[standardAttribute] }}
               <br />
@@ -160,7 +169,7 @@ export default {
   methods: {
     hasWikiEntry: function (marker) {
       let witchesWithEntry = marker.witches.filter(
-        (witch) => witch.wikiPage !== "",
+        (witch) => witch.wikiPage !== ""
       );
       return witchesWithEntry.length > 0;
     },
@@ -215,9 +224,9 @@ export default {
 
       return optionalsWithValue;
     },
-    getJulianConvertedDate: function (date, precision){
+    getJulianConvertedDate: function (date, precision) {
       return DateConversion.getJulianDate(date, precision);
-    }
+    },
   },
   computed: {
     iconAnchor: function () {
