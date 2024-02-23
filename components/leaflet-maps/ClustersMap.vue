@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import DateConversion from "~/assets/js/DateConversion";
+import getJulianDate from "assets/js/DateConversion.js";
 
 export default {
   props: {
@@ -246,7 +246,7 @@ export default {
       return optionalsWithValue;
     },
     getJulianConvertedDate: function (date, precision) {
-      return DateConversion.getJulianDate(date, precision);
+      return getJulianDate(date, precision);
     },
   },
   computed: {
