@@ -19,83 +19,91 @@ import json from "../big-query-output.json";
 import MapComponent from "../components/MapComponent.vue";
 import LoadingMessage from "../components/LoadingMessage.vue";
 
-export default {
-  components: { MapComponent, LoadingMessage },
-  data: () => ({
-    pageInfo: {
-      title: "Witchcraft Prosecutions In Time and Place",
+ export default {
+   components: { MapComponent, LoadingMessage },
+   data: () => ({
+     pageInfo: {
+       title: 'Witchcraft Prosecutions In Time and Place',
       html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3142</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
-      footer: "witches.is.ed.ac.uk",
-      confirmButtonText: "Close",
-      type: "info",
-      showCloseButton: true,
-    },
-    queryOutput: json,
-    sparqlUrl: "https://query.wikidata.org/sparql",
-    wikiPages: [],
-    loading: true,
-    originalMarkers: [],
-    filtersToFind: [
-      ["socialClass", "changing"],
-      ["occupation", "changing"],
-    ],
-    filtersGeneralInfo: {
-      title: "Accused witch filters",
-      filtersShowing: true,
-    },
-    filterProperties: {
-      sex: {
-        label: "Gender",
-        filters: {
-          male: {
-            label: "Male",
-            active: true,
-            iconUrl: "/images/witch-single-blue.png",
-          },
-          female: {
-            label: "Female",
-            active: true,
-            iconUrl: "/images/witch-single-orange.png",
-          },
-          unknown: {
-            label: "Unknown",
-            active: true,
-            iconUrl: "/images/witch-single-BW.png",
-          },
-        },
-        showing: true,
-      },
-      socialClass: {
-        label: "Social Classification",
-        filters: {},
-        showing: false,
-      },
-      occupation: {
-        label: "Occupations",
-        filters: {},
-        showing: false,
-      },
-      hasWikiPage: {
-        label: "Wikipedia Page",
-        filters: {
-          hasWiki: {
-            label: "Has wiki",
-            active: true,
-            iconUrl: "/images/witch-single-blue.png",
-          },
-          noWiki: {
-            label: "No wiki",
-            active: true,
-            iconUrl: "/images/witch-single-orange.png",
-          },
-        },
-        showing: false,
-      },
-    },
-  }),
-  methods: {
-    loadWikiEntries: function () {
-      const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
+       footer: 'witches.is.ed.ac.uk',
+       confirmButtonText: 'Close',
+       type: 'info',
+       showCloseButton: true,
+     },
+     queryOutput: json,
+     sparqlUrl: 'https://query.wikidata.org/sparql',
+     wikiPages: [],
+     loading: true,
+     originalMarkers: [],
+     filtersToFind: [
+       ["socialClass", "changing"],
+       ["occupation", "changing"],
+     ],
+     filtersGeneralInfo: {
+       title: "Accused witch filters",
+       filtersShowing: true
+     },
+     filterProperties: {
+       sex: {
+         label: "Gender",
+         description: "84% of the accused were women and 15% men. The sex is not known for 1% of those accused.  A gender division of 85% women and 15% men is seen in most other parts of Europe, but in areas like Estonia, Russia and Finland the percentage of men accused is as high and in some areas higher than of women. In Iceland the percentage of men executed was as high as 90%. ",
+         descriptionShowing: false,
+         filters: {
+           "male": {
+             "label": "Male",
+             "active": true,
+             "iconUrl": "/images/witch-single-blue.png"
+           },
+           "female": {
+             "label": "Female",
+             "active": true,
+             "iconUrl": "/images/witch-single-orange.png"
+           },
+           "unknown": {
+             "label": "Unknown",
+             "active": true,
+             "iconUrl": "/images/witch-single-BW.png"
+           }
+         },
+         showing: true
+       },
+       socialClass: {
+         label: "Social Classification",
+         description: "Were they poor? No, not by contemporary standards. It is difficult to classify early modern people into socio-economic categories, but where status was indicated the majority fell into the middle range—64%. The total of those who came from lower socio-economic categories—lower, very poor and landless—accounted for 29%, with upper, lairds and nobility accounting for 6%. We do not know this information for the majority of accused, but these figures may be typical.",
+         descriptionShowing: false,
+         filters: {},
+         showing: false
+       },
+       occupation: {
+         label: "Occupations",
+         description: "Were the witches midwives or healers? Only 9 individuals have an occupation recorded as being a midwife. A tiny percentage. Folk healing was more common and featured in 141 witchcraft accusations (about 4%). Even so, it was not something that the typical accused seems to have engaged in—though the beliefs that underpinned folk healing were closely related to witchcraft beliefs. If magic could be used to heal, it could also be used to harm.",
+         descriptionShowing: false,
+         filters: {},
+         showing: false
+       },
+       hasWikiPage: {
+         label: "Wikipedia Page",
+         description: "Some of the accused witches have wikipedia pages written about them, to find out more about thier stories follow the link \"View Wiki Page\" when you are on an accused witch",
+         descriptionShowing: false,
+         filters: {
+           "hasWiki": {
+             "label": "Has wiki",
+             "active": true,
+             "iconUrl": "/images/witch-single-blue.png"
+           },
+           "noWiki": {
+             "label": "No wiki",
+             "active": true,
+             "iconUrl": "/images/witch-single-orange.png"
+           }
+         },
+         showing: false
+       }
+     }
+   }),
+   methods: {
+     loadWikiEntries: function () {
+       const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
             WHERE {
               ?item wdt:P4478 ?witch .
               ?article schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> ;  schema:name ?page_title .
@@ -189,8 +197,25 @@ export default {
       this.setMarkersIcons();
       this.loading = false;
     },
-  },
+    numberOfWitches: function() {
+      let noWitches = 0;
 
+      for (let i = 0; i < this.originalMarkers.length; i++) {
+        noWitches += this.originalMarkers[i].witches.length;
+      }
+
+      return noWitches;
+    }
+  },
+  watch: {
+  originalMarkers: {
+    handler(newVal) {
+      const numberOfWitches = this.numberOfWitches();
+      this.pageInfo.html = `<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">${numberOfWitches }</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>`;
+    },
+    immediate: true // Computes numberOfWitches immediately when originalMarkers gets filled
+  }
+},
   mounted: function () {
     this.loadData();
   },

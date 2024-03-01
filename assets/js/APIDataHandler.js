@@ -266,7 +266,8 @@ class APIDataHandler {
       wikiPage: wikiPage === '' ? '' : wikiPage,
       socialClass: item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown',
       occupation: item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown',
-      investigationDates: investigationDates
+      investigationDates: investigationDates,
+      precision: item.hasOwnProperty('investigationStartPrecision') ? item.investigationStartPrecision.value : 'unknown'
     }
   }
 
