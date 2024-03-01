@@ -91,7 +91,6 @@
                 </p>
                 <div
                   class="
-                    h-6
                     px-1
                     flex
                     items-center
