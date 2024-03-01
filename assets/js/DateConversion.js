@@ -5,7 +5,6 @@ export default function (date, precision) {
   year = Number(year);
   let currentGregorianDate = new Date(year, month - 1, day);
 
-  const PRECISION_DAY_MONTH_YEAR = "11";
   const PRECISION_MONTH_YEAR = "10";
   const PRECISION_YEAR = "9";
 
