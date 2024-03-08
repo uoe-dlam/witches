@@ -15,6 +15,7 @@
               <b>Location:</b> {{ memorial.location }}<br>
               <b>Street Address:</b> {{ memorial.streetAddress }}<br>
               <b>Instance Of:</b> {{ memorial.instance }}<br>
+              <a :href="memorial.url" class="underline text-sky-500 hover:text-sky-700">Read More Here</a><br>
             </div>
           </l-popup>
           <l-icon :icon-anchor="iconAnchor">
@@ -58,21 +59,22 @@
     methods: {
       loadMemorials() {
         const sparqlQuery = `
-          SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address
+          SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address ?url
           WHERE {
             ?item wdt:P361 wd:Q123249004 .
-            OPTIONAL { ?item wdt:P31 ?instance .}
-            OPTIONAL { ?item wdt:P131 ?location .}
+            OPTIONAL { ?item wdt:P31 ?instance . }
+            OPTIONAL { ?item wdt:P131 ?location . }
             OPTIONAL { ?item wdt:P625 ?coords . }
             OPTIONAL { ?item wdt:P18 ?image . }
             OPTIONAL { ?item wdt:P6375 ?address . }
+            OPTIONAL { ?item wdt:P973 ?url . } # Collect described at URL property
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
           }`;
-  
+
         const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
         queryDispatcher.query(sparqlQuery).then(result => {
           let memorials = [];
-  
+
           for (let i = 0; i < result.results.bindings.length; i++) {
             let item = result.results.bindings[i];
             let id = item.item.value;
@@ -81,7 +83,8 @@
             let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
             let imageUrl = item.hasOwnProperty('image') ? item.image.value : '';
             let streetAddress = item.hasOwnProperty('address') ? item.address.value : '';
-  
+            let url = item.hasOwnProperty('url') ? item.url.value : ''; // Extract described at URL property
+
             let memorial = {
               id: id,
               name: item.itemLabel.value,
@@ -89,19 +92,20 @@
               location: memorialLocation,
               instanceOf: instance,
               imageUrl: imageUrl,
-              streetAddress: streetAddress
+              streetAddress: streetAddress,
+              url: url // Add URL to the memorial object
             }
-  
+
             memorials.push(memorial);
-            this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress);
+            this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url);
           }
           this.noItems = memorials.length;
           this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
           this.loading = false;
         });
-  
       },
-      addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress) {
+
+      addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress, url) {
         if (memorialCoords && memorialCoords.length === 2) {
           let marker = this.markers.find(marker => marker.location === memorialLocation);
   
@@ -115,6 +119,7 @@
               longLat: memorialCoords,
               imageUrl: imageUrl,
               streetAddress: streetAddress,
+              url: url,
               memorials: [memorial],
             }
   
