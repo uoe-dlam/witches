@@ -19,7 +19,12 @@
           </l-popup>
           <l-icon :icon-anchor="iconAnchor">
             <div class="icon-wrapper">
-              <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
+              <div v-if="poiList.includes(memorial.instance)">
+              <img src="../static/images/witch-single-brown.png" class="zoomed-in-img" />
+              </div>
+              <div v-else>
+                <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
+              </div>
               <img class="icon-shadow" src="../static/images/witch-single-shadow.png" />
             </div>
           </l-icon>
@@ -46,6 +51,8 @@
         originalMarkers: [],
         queryOutput: json,
         sparqlUrl: 'https://query.wikidata.org/sparql',
+        poiList: ['historic landmark','tourist attraction','statue'],
+        memList: ['memorial','standing stone','commemorative plaque']
       }
     },
     methods: {
@@ -140,6 +147,7 @@
         this.markers = [];
       }
     },
+    
     mounted() {
       this.loadMemorials();
       console.log('Markers:', this.markers);
