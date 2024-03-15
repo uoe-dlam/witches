@@ -82,7 +82,7 @@
            { name : 'Contact', url : '/contact', external: false },
          ] },
          { name: 'Blog', url: 'https://blogs.ed.ac.uk/witchcraft_visualisation/', external: true, subpages : [] },
-         { name: 'Memorials', url: '/memorials', external: false, subpages : [] },
+         { name: 'Memorials & Sites of Interest', url: '/memorials', external: false, subpages : [] },
        ]
      }
    },
