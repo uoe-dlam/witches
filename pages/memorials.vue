@@ -12,6 +12,7 @@
               </a>
             </div>
             <div>
+              <b>Description:</b> {{ memorial.description }}<br>
               <b>Location:</b> {{ memorial.location }}<br>
               <b>Street Address:</b> {{ memorial.streetAddress }}<br>
               <b>Instance Of:</b> {{ memorial.instance }}<br>
@@ -59,76 +60,80 @@
     methods: {
       loadMemorials() {
         const sparqlQuery = `
-          SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address ?url
-          WHERE {
-            ?item wdt:P361 wd:Q123249004 .
-            OPTIONAL { ?item wdt:P31 ?instance . }
-            OPTIONAL { ?item wdt:P131 ?location . }
-            OPTIONAL { ?item wdt:P625 ?coords . }
-            OPTIONAL { ?item wdt:P18 ?image . }
-            OPTIONAL { ?item wdt:P6375 ?address . }
-            OPTIONAL { ?item wdt:P973 ?url . } # Collect described at URL property
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-          }`;
+            SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address ?url ?itemdesc
+            WHERE {
+                ?item wdt:P361 wd:Q123249004 .
+                OPTIONAL { ?item wdt:P31 ?instance . }
+                OPTIONAL { ?item wdt:P131 ?location . }
+                OPTIONAL { ?item wdt:P625 ?coords . }
+                OPTIONAL { ?item wdt:P18 ?image . }
+                OPTIONAL { ?item wdt:P6375 ?address . }
+                OPTIONAL { ?item wdt:P973 ?url . }
+                OPTIONAL { ?item schema:description ?itemdesc . } # Collect description
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            }`;
 
         const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
         queryDispatcher.query(sparqlQuery).then(result => {
-          let memorials = [];
+            let memorials = [];
 
-          for (let i = 0; i < result.results.bindings.length; i++) {
-            let item = result.results.bindings[i];
-            let id = item.item.value;
-            let instance = item.hasOwnProperty('instanceLabel') ? item.instanceLabel.value : 'unknown';
-            let memorialCoords = item.hasOwnProperty('coords') ? this.convertPointToLongLatArray(item.coords.value) : '';
-            let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
-            let imageUrl = item.hasOwnProperty('image') ? item.image.value : '';
-            let streetAddress = item.hasOwnProperty('address') ? item.address.value : '';
-            let url = item.hasOwnProperty('url') ? item.url.value : ''; // Extract described at URL property
+            for (let i = 0; i < result.results.bindings.length; i++) {
+                let item = result.results.bindings[i];
+                let id = item.item.value;
+                let instance = item.hasOwnProperty('instanceLabel') ? item.instanceLabel.value : 'unknown';
+                let memorialCoords = item.hasOwnProperty('coords') ? this.convertPointToLongLatArray(item.coords.value) : '';
+                let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
+                let imageUrl = item.hasOwnProperty('image') ? item.image.value : '';
+                let streetAddress = item.hasOwnProperty('address') ? item.address.value : '';
+                let url = item.hasOwnProperty('url') ? item.url.value : '';
+                let description = item.hasOwnProperty('itemdesc') ? item.itemdesc.value : ''; // Extract description
 
-            let memorial = {
-              id: id,
-              name: item.itemLabel.value,
-              longLat: memorialCoords,
-              location: memorialLocation,
-              instanceOf: instance,
-              imageUrl: imageUrl,
-              streetAddress: streetAddress,
-              url: url // Add URL to the memorial object
+                let memorial = {
+                    id: id,
+                    name: item.itemLabel.value,
+                    longLat: memorialCoords,
+                    location: memorialLocation,
+                    instanceOf: instance,
+                    imageUrl: imageUrl,
+                    streetAddress: streetAddress,
+                    url: url,
+                    description: description // Add description to the memorial object
+                }
+
+                memorials.push(memorial);
+                this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url, description);
             }
-
-            memorials.push(memorial);
-            this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url);
-          }
-          this.noItems = memorials.length;
-          this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-          this.loading = false;
+            this.noItems = memorials.length;
+            this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+            this.loading = false;
         });
-      },
+    },
 
-      addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress, url) {
-        if (memorialCoords && memorialCoords.length === 2) {
+  addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress, url, description) {
+      if (memorialCoords && memorialCoords.length === 2) {
           let marker = this.markers.find(marker => marker.location === memorialLocation);
-  
+
           if (marker) {
-            marker.memorials.push(memorial);
+              marker.memorials.push(memorial);
           } else {
-            let marker = {
-              name: name,
-              instance: instance,
-              location: memorialLocation,
-              longLat: memorialCoords,
-              imageUrl: imageUrl,
-              streetAddress: streetAddress,
-              url: url,
-              memorials: [memorial],
-            }
-  
-            this.markers.push(marker);
+              let marker = {
+                  name: name,
+                  instance: instance,
+                  location: memorialLocation,
+                  longLat: memorialCoords,
+                  imageUrl: imageUrl,
+                  streetAddress: streetAddress,
+                  url: url,
+                  memorials: [memorial],
+                  description: description // Add description to the marker
+              }
+
+              this.markers.push(marker);
           }
-        } else {
+      } else {
           console.log('Skipping marker with null coordinates:', memorial);
-        }
-      },
+      }
+  },
       convertPointToLongLatArray(pointString) {
         pointString = pointString.substr(6);
         pointString = pointString.slice(0, -1);
