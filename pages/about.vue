@@ -56,7 +56,7 @@
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/Maggie.png">
-        <p class="text-xs text-center"> Maggie Lin displaying the map of accuesed witches. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center"> Maggie Lin  at the University of Edinburgh's Gender Ed 5th anniversary event on 29 May 2023. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Josep Garcia-Reyero (June to September 2023)</p>
