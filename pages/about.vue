@@ -13,6 +13,7 @@
       </div>
       <div class="image">
         <img src="~/static/images/data-science.png">
+        <p class="text-xs text-center"> Data Science for Design MSc students with thier project. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mb-3">Emma Carroll, a Geology and Physical Geography undergraduate student, was recruited in May 2019 as the new Data and Visualisation intern, or ‘Witchfinder General’, as part of a three month long Equate Scotland internship.</p>
@@ -24,6 +25,7 @@
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/emma.png">
+        <p class="text-xs text-center"> Emma Carrol locating the accused witches residencies. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mb-3">Some of these place-names were already recorded on Wikidata with coordinates however, there were around 500 place-names which were still to be located and added to Wikidata. The unfound place-names were then located using a variety of different sources mainly: Ordnance Survey 1890-1913 maps, place-name books, historical maps, gazetteers and recorded records (see reference section). Once the place-name were geographically identified, a Wikidata page was created for this settlement with coordinate points and then added to the accused witch as their place of residence.</p>
@@ -33,13 +35,17 @@
       </div>
       <div class="image">
         <img src="~/static/images/emma-map.png">
+        <p class="text-xs text-center"> Emma Carrol exploring collectins at the National Library of Scotland. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mb-3">As a result, there was a place of residence recorded onto each accused witches’ Wikidata page which could then be queried for. Geographical information such as trial location, place of detainment and place of death locations were also added onto the accused witches’ Wikidata pages using the open source software, OpenRefine. There were also other properties added for the accused witches from their charge to inhumane treatment type to build a strong Wikidata page for each accused witch which is displayed for each accused witch on the website maps.</p>
     <p class="mb-3">The uploaded data could then be directly queried for using the Wikidata Query Service and geographically projected onto a map using Leaflet or downloaded into a CSV file and uploaded onto ArcGIS Online. The geographical data was used to create a variety of different visualisations.</p>
+    <div>
     <div style="display: flex; justify-content: center;">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/j3Hf4lTHJj4?si=qiMt9Z8em4LnkCUe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+    <p class="text-xs text-center"> Emma Carrol giving a TEDx Talk at the University of St Andrews</p>
+   </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Richard Lawson (June 2019 to October 2023)</p>
     <p class="mb-3">Emma was supported by Learning, Teaching & Web colleagues to embed her visualisations in a newly created University of Edinburgh website. Richard Lawson, a Software Developer with over 15 years’ experience developing for the web had been with us since 2016. Richard was the person most responsible for creating this website and for always giving his time generously to Emma and to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all subsequent ‘Witchfinder General’: Data Visualisation student interns and always with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory.</p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Maggie Lin (June to September 2022)</p>
@@ -50,6 +56,7 @@
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/Maggie.png">
+        <p class="text-xs text-center"> Maggie Lin displaying the map of accuesed witches. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Josep Garcia-Reyero (June to September 2023)</p>
@@ -68,6 +75,7 @@
       </div>
       <div class="image">
         <img src="~/static/images/josep.png">
+        <p class="text-xs text-center">Josep Garcia-Reyero working on the website. CC-BY-SA 4.0 </p>
       </div>
     </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Claire Panella (February to May 2023)</p>
@@ -77,6 +85,7 @@
       </div>
       <div class="image" style="width:calc(35% - 20px)">
         <img src="~/static/images/claire.png">
+        <p class="text-xs text-center">Claire Panella developing a quality assurace process. CC-BY-SA 4.0 </p>
       </div>
     </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Ruby Imrie (June to September 2023 (and ongoing))</p>
@@ -86,6 +95,7 @@
       </div>
       <div class="image">
         <img src="~/static/images/ruby-julian.png">
+        <p class="text-xs text-center">Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0 </p>
       </div> 
     </div>
 </div>
