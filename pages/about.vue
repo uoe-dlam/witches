@@ -2,10 +2,16 @@
   <div id="main-content" class="text-wrapper" style="width:100%">
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">About The Project</h1>
     <p class="mb-3"><span class="font-medium">Please Note: </span>This is a first attempt to geolocate this data. We have consulted a number of historical sources to locate places that have variant spellings in the records or that have since disappeared. We appreciate all feedback and will incorporate it into future iterations of the map. <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/week-3-time-travel-through-scotland-in-search-of-the-missing-locations/" target="_blank">Read more about how we went about geo locating some of this information</a>.</p>
-    <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">Background to the project</p>
-    <p class="mb-3">The Data and Visualisation internship project at the University of Edinburgh had as its core aim to geographically locate and visualise the different locations recorded within the Survey of Scottish Witchcraft Database - <a class="underline hover:text-gray-500" href="http://www.shca.ed.ac.uk/witches/" target="_blank">http://www.shca.ed.ac.uk/witches</a>.</p>
-    <p class="mb-3">You can read an excellent summary of the project to date on Anne-Marie Scott's blog here: <a class="underline hover:text-gray-500" href="https://ammienoot.com/brain-fluff/some-witchy-history-and-a-very-smart-woman-in-data-science/" target="_blank">Some witchy history and a very smart woman in data science</a></p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">Teaching data science with ‘real-world’ datasets</p>
+    <p class="mb-3">This Data and Visualisation internship project at the University of Edinburgh had as its core aim to geographically locate and visualise the different locations recorded within the Survey of Scottish Witchcraft Database - <a class="underline hover:text-gray-500" href="http://www.shca.ed.ac.uk/witches/" target="_blank">http://www.shca.ed.ac.uk/witches</a>.</p>
+    <p class="mb-3">The technical work on this project has been led by colleagues in our Digital Learning and Media Teams and in Wikimedia UK . Most notably Karen Howie, Ewan McAndrew, Anne-Marie Scott, Richard Lawson, Stewart Cromar, Andrew Middleton, Navino Evans, Martin Poulter and Simon Cobb. We are indebted to them for the work they have done and the time they spend supporting students who work on data skills curriculum projects and internships.</p>
+    <p class="mb-3">You can read an excellent summary of the hsitory of the project up to 2020 on Anne-Marie Scott's blog here: <a class="underline hover:text-gray-500" href="https://ammienoot.com/brain-fluff/some-witchy-history-and-a-very-smart-woman-in-data-science/" target="_blank">Some witchy history and a very smart woman in data science</a></p>
+    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Richard Lawson</p>
+    <p class="mb-3">Richard was the person most responsible for creating this website and for always giving his time generously to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all subsequent ‘Witchfinder General’: Data Visualisation student interns and always with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory</p>
+    
+    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Work done by University of Edinburgh students</h1>
+    <p class="mb-3">Since 2017 teams at the University of Edinburgh have been supporting students to learn about data science and develop their skills through working with a ‘real-world’ datasets.</p>
+    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Data Science for Design MSc Projects 2017-19</p>
     <p class="mb-3">In 2017, Anne-Marie Scott, Deputy Director of Learning, Teaching and Web Services at the University of Edinburgh, suggested that if course leaders on the Data Science for Design MSc were looking for students to learn about data science from working with a ‘real-world’ datasets as part of their annual ‘Data Fair’ then the much-loved (but relatively static) Survey of Scottish Witchcraft database would be an ideal dataset.</p>
     <div class="paragraph-container">
       <div class="text">
@@ -16,39 +22,38 @@
         <p class="text-xs text-center"> Data Science for Design MSc students with thier project. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p class="mb-3">Emma Carroll, a Geology and Physical Geography undergraduate student, was recruited in May 2019 as the new Data and Visualisation intern, or ‘Witchfinder General’, as part of a three month long Equate Scotland internship.</p>
+    <p>Students on the Data Science for Design MSc created engaging visualisations from these real world datasets. One group chose create an interactive physical map of accused witches in Scotland laser cut and engraved from an A1 block of wood and creating bespoke pieces to visualise the gender distribution of accused witches in each region of Scotland and the different torture techniques employed in each region. </p>
+    <p class="mb-3">You can see a short film of the results: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_wn428698" target="_blank">An interactive laser cut map of accused witches in Scotland</a></p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">The ‘Witchfinder General’ Internship</p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Emma Carroll (June to September 2019)</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(60% - 20px)">
-        <p class="mb-3">The bulk of the project work undertaken by Emma was to geographically locate the residence location of these accused witches. There were locations recorded within the dataset for 3141 different accused witches and from these locations there were 822 different place-names. The places of residence which were correctly identified were to be recorded onto each accused witches’ Wikidata page. Wikidata is a sister project of Wikipedia which acts as a hub of structured and machine-readable linked open data. By adding the place of residence to the accused witches’ Wikidata page, it would allow for these places to later be queried using the Wikidata Query Service and then downloaded in different formats to then be visualised.</p>
+        <p class="mb-3">Emma Carroll, a Geology and Physical Geography undergraduate student, was recruited in May 2019 as the new Data and Visualisation intern, or ‘Witchfinder General’, as part of a three month long Equate Scotland internship. Emma was asked to do the detective work and data reconciliation required in order to geolocate the places mentioned in the Survey so that each accused witch in Scotland could be plotted on an interactive map as linked open data through Wikipedia's sister project, Wikidata.There were locations recorded within the dataset for 3141 different accused witches and from these locations there were 822 different place-names.</p>
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/emma.png">
         <p class="text-xs text-center"> Emma Carroll locating the accused witches residencies. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p class="mb-3">Some of these place-names were already recorded on Wikidata with coordinates however, there were around 500 place-names which were still to be located and added to Wikidata. The unfound place-names were then located using a variety of different sources mainly: Ordnance Survey 1890-1913 maps, place-name books, historical maps, gazetteers and recorded records (see reference section). Once the place-name were geographically identified, a Wikidata page was created for this settlement with coordinate points and then added to the accused witch as their place of residence.</p>
+    <p class="mb-3">Some of these place-names were already recorded on Wikidata with coordinates however, there were around 500 place-names which were still to be located and added to Wikidata. The unfound place-names were then located using a variety of different sources mainly: Ordnance Survey 1890-1913 maps, place-name books, historical maps, gazetteers and recorded records (see reference section). Some of the locations could of been abandoned or renamed over the years, making them difficult to find. In those cases help from place-name and history researchers was needed. Once the place-name were geographically identified, a Wikidata page was created for this settlement with coordinate points and then added to the accused witch as their place of residence.</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(60% - 20px)">
-        <p class="mb-3">However, the issue with using many of these historical resources, is that the majority of these sources were recorded over 200 years after the recording of the witchcraft records. Therefore, many of the locations could have been abandoned or renamed over these years. Consequently, to locate the last few places recorded within the dataset, help from different place-name and history researchers was needed.</p>
+        <p class="mb-3">As a result of Emma’s work, there was a place of residence recorded onto each accused witches’ Wikidata page which could then be queried for. Geographical information such as trial location, place of detainment and place of death locations were also added onto the accused witches’ Wikidata pages using the open source software, OpenRefine. There were also other properties added for the accused witches from their charge to inhumane treatment type to build a strong Wikidata page for each accused witch which is displayed for each accused witch on the website maps.</p>
+
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/emma-map.png">
         <p class="text-xs text-center"> Emma Carroll exploring collections at the National Library of Scotland. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p class="mb-3">As a result, there was a place of residence recorded onto each accused witches’ Wikidata page which could then be queried for. Geographical information such as trial location, place of detainment and place of death locations were also added onto the accused witches’ Wikidata pages using the open source software, OpenRefine. There were also other properties added for the accused witches from their charge to inhumane treatment type to build a strong Wikidata page for each accused witch which is displayed for each accused witch on the website maps.</p>
-    <p class="mb-3">The uploaded data could then be directly queried for using the Wikidata Query Service and geographically projected onto a map using Leaflet or downloaded into a CSV file and uploaded onto ArcGIS Online. The geographical data was used to create a variety of different visualisations.</p>
     <div>
+      <p class="mb-3">The uploaded data could then be directly queried for using the Wikidata Query Service and geographically projected onto a map using Leaflet or downloaded into a CSV file and uploaded onto ArcGIS Online. The geographical data was used to create a variety of different visualisations.</p>
     <div style="display: flex; justify-content: center;">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/j3Hf4lTHJj4?si=qiMt9Z8em4LnkCUe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <p class="text-xs text-center"> Emma Carroll giving a TEDx Talk at the University of St Andrews</p>
    </div>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Richard Lawson (June 2019 to October 2023)</p>
-    <p class="mb-3">Emma was supported by Learning, Teaching & Web colleagues to embed her visualisations in a newly created University of Edinburgh website. Richard Lawson, a Software Developer with over 15 years’ experience developing for the web had been with us since 2016. Richard was the person most responsible for creating this website and for always giving his time generously to Emma and to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all subsequent ‘Witchfinder General’: Data Visualisation student interns and always with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory.</p>
-    <h1 class="text-center text-xl md:text-2xl lg:text-3xl mb-3">Latest Developments</h1>
+    <h1 class="text-center text-xl md:text-2xl lg:text-3xl mb-3 mt-3">Latest Developments</h1>
     <p class="mb-3">Since the site went live in 2019, work has continued on the project. Several more student interns have worked on new features, conducted user testing, and imported more data to create an upcoming version of the site wheich we hope will go live in August 2024. </p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Maggie Lin (June to September 2022)</p>
     <div class="paragraph-container">
@@ -104,9 +109,8 @@
         <p class="text-xs text-center">Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0 </p>
       </div> 
     </div>
-    <p class="mb-3">Watch this video where Ruby discusses the work she did on the project Summer of 2023:</p>
-    <div style="display: flex; justify-content: center;">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/DKwfk7mgxk0?si=6rP_06xIIhDjqexV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p class="mb-3">Watch a video discussing her work: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_4i7shdne" target="_blank">Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship</a></p>
+  
     </div>
 </div>
 </template>
