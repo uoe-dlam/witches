@@ -4,26 +4,27 @@
     <p class="mb-3"><span class="font-medium">Please Note: </span>This is a first attempt to geolocate this data. We have consulted a number of historical sources to locate places that have variant spellings in the records or that have since disappeared. We appreciate all feedback and will incorporate it into future iterations of the map. <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/week-3-time-travel-through-scotland-in-search-of-the-missing-locations/" target="_blank">Read more about how we went about geo locating some of this information</a>.</p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">Teaching data science with ‘real-world’ datasets</p>
     <p class="mb-3">This Data and Visualisation internship project at the University of Edinburgh had as its core aim to geographically locate and visualise the different locations recorded within the Survey of Scottish Witchcraft Database - <a class="underline hover:text-gray-500" href="http://www.shca.ed.ac.uk/witches/" target="_blank">http://www.shca.ed.ac.uk/witches</a>.</p>
-    <p class="mb-3">The technical work on this project has been led by colleagues in our Digital Learning and Media Teams and in Wikimedia UK . Most notably Karen Howie, Ewan McAndrew, Anne-Marie Scott, Richard Lawson, Stewart Cromar, Andrew Middleton, Navino Evans, Martin Poulter and Simon Cobb. We are indebted to them for the work they have done and the time they spend supporting students who work on data skills curriculum projects and internships.</p>
-    <p class="mb-3">You can read an excellent summary of the hsitory of the project up to 2020 on Anne-Marie Scott's blog here: <a class="underline hover:text-gray-500" href="https://ammienoot.com/brain-fluff/some-witchy-history-and-a-very-smart-woman-in-data-science/" target="_blank">Some witchy history and a very smart woman in data science</a></p>
+    <p class="mb-3">The technical work on this project has all been undertaken by student interns with direction and support from colleagues in our Digital Learning and Media Teams and in Wikimedia UK . Most notably Karen Howie, Ewan McAndrew, Anne-Marie Scott, Richard Lawson, Stewart Cromar, Andrew Middleton, Navino Evans, Martin Poulter and Simon Cobb. We are indebted to them for the work they have done and the time they spend supporting students who work on data skills curriculum projects and internships.</p>
+    <p class="mb-3">You can read an excellent summary of the history of the project up to 2020 on Anne-Marie Scott's blog here: <a class="underline hover:text-gray-500" href="https://ammienoot.com/brain-fluff/some-witchy-history-and-a-very-smart-woman-in-data-science/" target="_blank">Some witchy history and a very smart woman in data science</a></p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Richard Lawson</p>
-    <p class="mb-3">Richard was the person most responsible for creating this website and for always giving his time generously to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all subsequent ‘Witchfinder General’: Data Visualisation student interns and always with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory</p>
+    <p class="mb-3">Richard was the person most responsible for creating this website and for always giving his time generously to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all  ‘Witchfinder General’: Data Visualisation student interns and always did so with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory</p>
     
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Work done by University of Edinburgh students</h1>
+    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Students working with Scottish witchcraft data</h1>
     <p class="mb-3">Since 2017 teams at the University of Edinburgh have been supporting students to learn about data science and develop their skills through working with a ‘real-world’ datasets.</p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Data Science for Design MSc Projects 2017-19</p>
     <p class="mb-3">In 2017, Anne-Marie Scott, Deputy Director of Learning, Teaching and Web Services at the University of Edinburgh, suggested that if course leaders on the Data Science for Design MSc were looking for students to learn about data science from working with a ‘real-world’ datasets as part of their annual ‘Data Fair’ then the much-loved (but relatively static) Survey of Scottish Witchcraft database would be an ideal dataset.</p>
     <div class="paragraph-container">
       <div class="text">
-        <p class="mb-3">During the 2017/2018 and 2018/2019 course programme, the University of Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported Data Science for Design MSc students to surface selected data from the original MS Access database to Wikipedia’s sister project, Wikidata, as structured, machine-readable, linked open data. The success of this project, and the engaging visualisations created as a result, made the case that an internship dedicated to geographically locating the places recorded in the database as linked open data would be the next logical step.</p>
+        <p class="mb-3">During the 2017/2018 and 2018/2019 course programme, the University of Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported Data Science for Design MSc students to surface selected data from the original MS Access database to Wikipedia’s sister project, Wikidata, as structured, machine-readable, linked open data.</p>
+        <p>Students on the Data Science for Design MSc created engaging visualisations from these real world datasets. One group chose create an interactive physical map of accused witches in Scotland laser cut and engraved from an A1 block of wood and creating bespoke pieces to visualise the gender distribution of accused witches in each region of Scotland and the different torture techniques employed in each region. </p>
       </div>
       <div class="image">
         <img src="~/static/images/data-science.png">
-        <p class="text-xs text-center"> Data Science for Design MSc students with thier project. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center"> Data Science for Design MSc students with their project. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p>Students on the Data Science for Design MSc created engaging visualisations from these real world datasets. One group chose create an interactive physical map of accused witches in Scotland laser cut and engraved from an A1 block of wood and creating bespoke pieces to visualise the gender distribution of accused witches in each region of Scotland and the different torture techniques employed in each region. </p>
     <p class="mb-3">You can see a short film of the results: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_wn428698" target="_blank">An interactive laser cut map of accused witches in Scotland</a></p>
+    <p class="mb-3">The success of this project, and the engaging visualisations created as a result, made the case that an internship dedicated to geographically locating the places recorded in the database as linked open data would be the next logical step.</p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">The ‘Witchfinder General’ Internship</p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Emma Carroll (June to September 2019)</p>
     <div class="paragraph-container">
@@ -54,7 +55,7 @@
     <p class="text-xs text-center"> Emma Carroll giving a TEDx Talk at the University of St Andrews</p>
    </div>
     <h1 class="text-center text-xl md:text-2xl lg:text-3xl mb-3 mt-3">Latest Developments</h1>
-    <p class="mb-3">Since the site went live in 2019, work has continued on the project. Several more student interns have worked on new features, conducted user testing, and imported more data to create an upcoming version of the site wheich we hope will go live in August 2024. </p>
+    <p class="mb-3">Since the site went live in 2019, work has continued on the project. Several more student interns have worked on new features, conducted user testing, and imported more data to create an upcoming version of the site which we hope will go live in Autumn 2024 (to coincide with 5th anniversary of the original site launching). </p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Maggie Lin (June to September 2022)</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(60% - 20px)">
@@ -92,14 +93,18 @@
     <div class="paragraph-container">
       <div class="text" style="width:calc(65% - 20px)">
         <p class="mb-3">Claire Panella worked as the Scottish Witchhunter intern for 1 day a week from February to May 2023. During this time she created and documented a robust and reusable quality assurance process (using RStudio) for the data behind our website so that we could compare the original 2003 Survey of Scottish Witchcraft data with the data shared to Wikidata since 2017 to check for any data anomalies.</p>
-        <p class="mb-3">Read all about his work here: <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/finding-impossible-witches-part-one/" target="_blank">Claire's blog on the Data Quality Assuarce process</a></p>
+        <p class="mb-3">Read all about her work here: <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/finding-impossible-witches-part-one/" target="_blank">Claire's blog on the Data Quality Assurance process</a></p>
       </div>
       <div class="image" style="width:calc(35% - 20px)">
         <img src="~/static/images/claire.png">
-        <p class="text-xs text-center">Claire Panella developing a Data Quality Assurace process. CC-BY-SA 4.0 </p>
+        <p class="text-xs text-center mb-3">Claire Panella developing a Data Quality Assurance process. CC-BY-SA 4.0 </p>
       </div>
     </div>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Ruby Imrie (June to September 2023 (and ongoing))</p>
+    <div style="display: flex; justify-content: center;">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/T6Sdb29b0xo?si=w3Qh9SXfrfEtp0fe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <p class="text-xs text-center">Claire Panell describing the Data Quality Assurance process</p>
+    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Ruby Imrie (June to October 2024)</p>
     <div class="paragraph-container">
       <div class="text">
         <p class="mb-3">Ruby has been quality checking and consistency checking the data using newly developed quality assurance methods in R Studio created by another student intern, Claire Panella, earlier this year that can be reused for many years to come. Ruby’s other focus has been on taking the extremely rich) data Maggie Lin added on all the 3,816 full witchcraft investigations recorded in Scotland from 1563-1736 and embedding those new interactive visualisations on our Map of Accused Witches in Scotland website using a Javascript and the Vue.js framework. By also identifying and addressing bug fixes, conducting rigorous user testing sessions and using the feedback received to address areas for site improvement and action planning for developing new features she has helped to show how the data, and the individual human stories behind the data, can be better visualised, explored and interrogated as never before.</p>
@@ -109,8 +114,9 @@
         <p class="text-xs text-center">Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0 </p>
       </div> 
     </div>
-    <p class="mb-3">Watch a video discussing her work: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_4i7shdne" target="_blank">Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship</a></p>
-  
+    <p class="mb-3">Watch a video of her discussing her work on the project: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_4i7shdne" target="_blank">Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship</a></p>
+    <p class="mb-3">You can listen to a podcast where Professor Julian Goodare, Ewan McAndrew and Ruby Imrie discuss this project  (available on Spotify or wherever you get your podcasts):</p>
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2Q1Jwnqev1feL5j7AOZKDK?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 </div>
 </template>
