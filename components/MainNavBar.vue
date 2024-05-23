@@ -76,7 +76,7 @@
            { name : 'Social Bubble Chart', url : '/social', external: false },
          ] },
          { name : 'About', url : '#', external: false, subpages : [
-           { name : 'Overview', url : '/about', external: false },
+           { name : 'About the Project', url : '/about', external: false },
            { name : 'References', url : '/reference', external: false },
            { name : 'Resources', url : '/resources', external: false },
            { name : 'Contact', url : '/contact', external: false },
