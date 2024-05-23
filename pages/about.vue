@@ -25,17 +25,17 @@
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/emma.png">
-        <p class="text-xs text-center"> Emma Carrol locating the accused witches residencies. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center"> Emma Carroll locating the accused witches residencies. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mb-3">Some of these place-names were already recorded on Wikidata with coordinates however, there were around 500 place-names which were still to be located and added to Wikidata. The unfound place-names were then located using a variety of different sources mainly: Ordnance Survey 1890-1913 maps, place-name books, historical maps, gazetteers and recorded records (see reference section). Once the place-name were geographically identified, a Wikidata page was created for this settlement with coordinate points and then added to the accused witch as their place of residence.</p>
     <div class="paragraph-container">
-      <div class="text">
+      <div class="text" style="width:calc(60% - 20px)">
         <p class="mb-3">However, the issue with using many of these historical resources, is that the majority of these sources were recorded over 200 years after the recording of the witchcraft records. Therefore, many of the locations could have been abandoned or renamed over these years. Consequently, to locate the last few places recorded within the dataset, help from different place-name and history researchers was needed.</p>
       </div>
-      <div class="image">
+      <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/emma-map.png">
-        <p class="text-xs text-center"> Emma Carrol exploring collectins at the National Library of Scotland. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center"> Emma Carroll exploring collections at the National Library of Scotland. CC-BY-SA 4.0</p>
       </div>
     </div>
     <p class="mb-3">As a result, there was a place of residence recorded onto each accused witches’ Wikidata page which could then be queried for. Geographical information such as trial location, place of detainment and place of death locations were also added onto the accused witches’ Wikidata pages using the open source software, OpenRefine. There were also other properties added for the accused witches from their charge to inhumane treatment type to build a strong Wikidata page for each accused witch which is displayed for each accused witch on the website maps.</p>
@@ -44,10 +44,12 @@
     <div style="display: flex; justify-content: center;">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/j3Hf4lTHJj4?si=qiMt9Z8em4LnkCUe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <p class="text-xs text-center"> Emma Carrol giving a TEDx Talk at the University of St Andrews</p>
+    <p class="text-xs text-center"> Emma Carroll giving a TEDx Talk at the University of St Andrews</p>
    </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Richard Lawson (June 2019 to October 2023)</p>
     <p class="mb-3">Emma was supported by Learning, Teaching & Web colleagues to embed her visualisations in a newly created University of Edinburgh website. Richard Lawson, a Software Developer with over 15 years’ experience developing for the web had been with us since 2016. Richard was the person most responsible for creating this website and for always giving his time generously to Emma and to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all subsequent ‘Witchfinder General’: Data Visualisation student interns and always with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory.</p>
+    <h1 class="text-center text-xl md:text-2xl lg:text-3xl mb-3">Latest Developments</h1>
+    <p class="mb-3">Since the site went live in 2019, work has continued on the project. Several more student interns have worked on new features, conducted user testing, and imported more data to create an upcoming version of the site wheich we hope will go live in August 2024. </p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Maggie Lin (June to September 2022)</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(60% - 20px)">
@@ -59,7 +61,9 @@
         <p class="text-xs text-center"> Maggie Lin  at the University of Edinburgh's Gender Ed 5th anniversary event on 29 May 2023. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Josep Garcia-Reyero (June to September 2023)</p>
+    <p class="mb-3">You can listen to a podcast where Maggie discusses her work on the project (available on Spotify or wherever you get your podcasts):</p>
+    <iframe style="border-radius:10px; margin-bottom:0px;" src="https://open.spotify.com/embed/episode/27FCH1GKXsUJ0fM8Qc2lSp?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <p class="mt-1 mb-3 text-md md:text-gl lg:text-lg font-medium">Josep Garcia-Reyero (June to September 2023)</p>
     <p class="mb-3">Josep worked as our Open Source Web Developer intern and had a close collaboration with Maggie Lin to embed her new visualisations in the website by the end of the Summer</p>
     <p class="mb-3">His goals were:</p>
     <div class="paragraph-container">
@@ -78,14 +82,16 @@
         <p class="text-xs text-center">Josep Garcia-Reyero working on the website. CC-BY-SA 4.0 </p>
       </div>
     </div>
+    <p class="mb-3">Read all about his work here: <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/weeks-3-and-4-site-re-development-is-underway/" target="_blank">Josep's blog on the Witch Visualisation site</a></p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Claire Panella (February to May 2023)</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(65% - 20px)">
         <p class="mb-3">Claire Panella worked as the Scottish Witchhunter intern for 1 day a week from February to May 2023. During this time she created and documented a robust and reusable quality assurance process (using RStudio) for the data behind our website so that we could compare the original 2003 Survey of Scottish Witchcraft data with the data shared to Wikidata since 2017 to check for any data anomalies.</p>
+        <p class="mb-3">Read all about his work here: <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/finding-impossible-witches-part-one/" target="_blank">Claire's blog on the Data Quality Assuarce process</a></p>
       </div>
       <div class="image" style="width:calc(35% - 20px)">
         <img src="~/static/images/claire.png">
-        <p class="text-xs text-center">Claire Panella developing a quality assurace process. CC-BY-SA 4.0 </p>
+        <p class="text-xs text-center">Claire Panella developing a Data Quality Assurace process. CC-BY-SA 4.0 </p>
       </div>
     </div>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Ruby Imrie (June to September 2023 (and ongoing))</p>
@@ -97,6 +103,10 @@
         <img src="~/static/images/ruby-julian.png">
         <p class="text-xs text-center">Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0 </p>
       </div> 
+    </div>
+    <p class="mb-3">Watch this video where Ruby discusses the work she did on the project Summer of 2023:</p>
+    <div style="display: flex; justify-content: center;">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/DKwfk7mgxk0?si=6rP_06xIIhDjqexV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </div>
 </template>
