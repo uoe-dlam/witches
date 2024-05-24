@@ -1,11 +1,11 @@
 [
     {
         "wikidata_code": "Q123249315",
-        "description": "Erected to mark the spot where the last accused witch executed in Britain, Janet Horne, was burnt to death in 1727. The stone is incorrectly marked with the date \u20181722\u2019."
+        "description": "Erected to commemorate the execution in Dornoch of the last accused witch in Britain, known as Janet Horne. She was executed in 1727. The stone is incorrectly marked with the date \u20181722\u2019."
     },
     {
         "wikidata_code": "Q123250243",
-        "description": "A commemorative plaque dedicated to Lilias Aide. Located on the Fife Witches Trail."
+        "description": "A commemorative plaque dedicated to Lilias Adie. Located on the Fife Witches Trail."
     },
     {
         "wikidata_code": "Q123249648",
@@ -17,11 +17,11 @@
     },
     {
         "wikidata_code": "Q123249829",
-        "description": "Stone which marks the place where witches were burned. Accompanying plaque reads \u201cFrom Cluny Hill, witches were rolled in stout barrels through which spikes were driven. Where the barrels stopped they were burned with their mangled contents. This stone marks the site of one such burning\u201d."
+        "description": "Stone with accompanying plaque reading \u201cFrom Cluny Hill, witches were rolled in stout barrels through which spikes were driven. Where the barrels stopped they were burned with their mangled contents. This stone marks the site of one such burning\u201d. This plaque was probably erected in the early twentieth century. The story that it tells is based on no known historical evidence, and appears to be a modern fantasy."
     },
     {
         "wikidata_code": "Q123250014",
-        "description": "Plaque which commemorates 27 local people from around Peebles who were executed in 1629. Erected in 2022."
+        "description": "Description: Plaque, erected in 2022, which commemorates twenty-seven local people from around Peebles who, it says, were executed in 1629. In fact, most of the people listed were probably investigated but not tried. Six executions for witchcraft are likely to have taken place in Peebles in 1629: Marion Greig, Isobel Rutherford alias Graham, and Katherine Young in February, and Susanna Elphinstone, John Graham, and Margaret Johnstone in December."
     },
     {
         "wikidata_code": "Q123249155",
@@ -49,7 +49,7 @@
     },
     {
         "wikidata_code": "Q123249956",
-        "description": "A plaque which memorializes the victims of the Orkney witch trials, which occured between 1594-1708. The inscribed stone sits at Gallow Ha, the old execution site. Unveiled in 2019."
+        "description": "A plaque which memorializes the victims of the Orkney witch trials, which occured between 1594 and 1708. The inscribed stone sits at Gallow Ha, the old execution site. Unveiled in 2019."
     },
     {
         "wikidata_code": "Q123250271",
@@ -57,11 +57,11 @@
     },
     {
         "wikidata_code": "Q123250163",
-        "description": "A metal frame sculpture of a woman to commemorate 81 accused witches from Prestonpans. Installed in 2011 by Andy Scott, creator of the Kelpies, the sculpture is sometimes referred to as \u2018Athena\u2019."
+        "description": "A metal frame sculpture of a woman to commemorate estimated number of 81 accused witches from Prestonpans. Installed in 2011 by Andy Scott, creator of the Kelpies, the sculpture is sometimes referred to as \u2018Athena\u2019."
     },
     {
         "wikidata_code": "Q123249873",
-        "description": "A beech-tree maze with a sandstone pillar at the center commemorating 11 accused witches who were sentenced by the owner of Tullibole Castle to be executed in 1662. Located at the Castle and unveiled in 2012."
+        "description": "A beech-tree maze with a sandstone pillar at the centre commemorating 11 accused witches who were sentenced by the owner of Tullibole Castle to be executed in 1662. Located at the Castle and unveiled in 2012."
     },
     {
         "wikidata_code": "Q123250431",
@@ -74,5 +74,18 @@
     {
         "wikidata_code": "Q123249352",
         "description": "Only known grave of an accused witch in Scotland. Lilias Adie died in prison in 1704 after confessing to a pact with the Devil but her sentence had not yet been passed. The town buried her in an intertidal grave due to witch revenant fear."
+    },
+    {
+        "wikidata_code": "Q65493510",
+        "description": "Located on the present-day esplanade, Castle Hill was the most prominent execution site for accused witches in Edinburgh. Witches waiting to be executed were taken up the high street from the Tolbooth. The exact number of people executed here is unknown, but it was probably around two or three hundred."
+    },
+    {
+        "wikidata_code": "Q125084095",
+        "description": "Wall mural at Auldearn village green depicting the life and trial of accused witch Isobel Gowdie. Created by local artist and storyteller, Helen Wright."
+    },
+    {
+        "wikidata_code": "Q123249733",
+        "description": "A standing sone in a field near Monzie Castle. Said to mark the site where reputed witch Kate McNiven was burnt. This is unlikely as there are no contemporary records proving the existence of McNiven and the stone has been classified as pre-historic by HES. "
     }
+
 ]
