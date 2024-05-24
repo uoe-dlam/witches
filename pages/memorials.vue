@@ -6,7 +6,7 @@
       <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat">
         <l-popup class="adapted-popup">
           <h3>{{ memorial.name }}</h3><br>
-          <div v-if="memorial.imageUrl" class="mb-5">
+          <div v-if="memorial.imageUrl" class="mb-5 flex justify-center items-center">
             <a :title="'Image Source: ' + memorial.imageUrl" :href="memorial.imageUrl">
               <img width="150vw" :alt="memorial.name" :src="memorial.imageUrl">
             </a>
