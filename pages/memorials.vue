@@ -62,7 +62,7 @@
         const sparqlQuery = `
             SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address ?url ?itemdesc
             WHERE {
-                ?item wdt:P361 wd:Q123249004 .
+                ?item wdt:P5008 wd:Q123249004 .
                 OPTIONAL { ?item wdt:P31 ?instance . }
                 OPTIONAL { ?item wdt:P131 ?location . }
                 OPTIONAL { ?item wdt:P625 ?coords . }
