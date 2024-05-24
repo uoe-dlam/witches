@@ -12,10 +12,10 @@
             </a>
           </div>
           <div>
-            <b>Description:</b> {{ memorial.description }}<br>
+            <b>Instance Of:</b> {{ memorial.instance }}<br>
+            <b class>Description:</b> {{ memorial.description }}<br>
             <b>Location:</b> {{ memorial.location }}<br>
             <b>Street Address:</b> {{ memorial.streetAddress }}<br>
-            <b>Instance Of:</b> {{ memorial.instance }}<br>
             <a :href="memorial.url" class="underline text-sky-500 hover:text-sky-700">Read More Here</a><br>
           </div>
         </l-popup>
