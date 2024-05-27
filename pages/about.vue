@@ -1,22 +1,19 @@
 <template>
   <div id="main-content" class="text-wrapper" style="width:100%">
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">About The Project</h1>
-    <p class="mb-3"><span class="font-medium">Please Note: </span>This is a first attempt to geolocate this data. We have consulted a number of historical sources to locate places that have variant spellings in the records or that have since disappeared. We appreciate all feedback and will incorporate it into future iterations of the map. <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/week-3-time-travel-through-scotland-in-search-of-the-missing-locations/" target="_blank">Read more about how we went about geo locating some of this information</a>.</p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">Teaching data science with ‘real-world’ datasets</p>
-    <p class="mb-3">This Data and Visualisation internship project at the University of Edinburgh started with the aim of geographically locating and visualising the different locations recorded within the <a class="underline hover:text-gray-500" href="http://www.shca.ed.ac.uk/witches/" target="_blank">Survey of Scottish Witchcraft Database</a>. Since the project stared more data and visualisations have been added to the site.</p>
-    <p class="mb-3">The technical work on this project has all been undertaken by student interns with direction and support from colleagues in our Digital Learning and Media Teams and in Wikimedia UK. Most notably Karen Howie, Ewan McAndrew, Anne-Marie Scott, Richard Lawson, Stewart Cromar, Andrew Millington, Navino Evans, Martin Poulter and Simon Cobb. We are indebted to them for the time they spend supporting students who work on data skills, curriculum projects and internships.</p>
-    <p class="mb-3">You can read an excellent summary of the history of the project up to 2020 on Anne-Marie Scott's blog here: <a class="underline hover:text-gray-500" href="https://ammienoot.com/brain-fluff/some-witchy-history-and-a-very-smart-woman-in-data-science/" target="_blank">Some witchy history and a very smart woman in data science</a></p>
+    <p class="mb-3">Since 2017 teams at the University of Edinburgh have been supporting students to learn about data science and develop their skills through working with a ‘real-world’ datasets.  The Survey of Scottish Witchcraft database is one of those datasets.</p>
+    <p class="mb-3"><a class="underline hover:text-gray-500" href="http://www.shca.ed.ac.uk/witches" target="_blank">The Survey of Scottish Witchcraft Database</a></p>
+    <p class="mb-3">We appreciate all feedback and will incorporate it into future iterations of the map and the projects delivered by students.</p>
+    <p class="mb-3">Professor Julian Goodare is a historian and project director for the original Survey of Scottish Witchcraft, so his input and suggestions continue to be extremely valuable to us. The technical work on this project has been led by colleagues in our Digital Learning and Media Teams and in Wikimedia UK . Most notably Karen Howie, Ewan McAndrew, Anne-Marie Scott, Richard Lawson, Stewart Cromar, Andrew Middleton, Navino Evans, Martin Poulter and Simon Cobb. We are indebted to them for the work they have done and the time they spend supporting students who work on data skills curriculum projects and internships.</p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Richard Lawson</p>
-    <p class="mb-3">Richard was the person most responsible for creating this website and for always giving his time generously to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all  ‘Witchfinder General’: Data Visualisation student interns and always did so with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory</p>
-    
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Students working with Scottish witchcraft data</h1>
-    <p class="mb-3">Since 2017 teams at the University of Edinburgh have been supporting students to learn about data science and develop their skills through working with a ‘real-world’ datasets.</p>
+    <p class="mb-3">Richard was the person most responsible for creating this website and for always giving his time generously to this project; to support student learning within the University and to support understanding about the Scottish witch trials globally. He taught himself within two weeks how to work with an unfamiliar platform and achieved the remarkable in always using his considerable technical expertise to solve any issue we had in creating the site and helping put these persecuted women on the map. Richard supported all subsequent ‘Witchfinder General’: Data Visualisation student interns and always with kindness, humility and a gentle humour. He died suddenly on 10 October 2023 and this site is a tribute to his brilliance and commitment to the project and we dedicate it to his memory.</p>
+    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Work done by University of Edinburgh students</h1>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Data Science for Design MSc Projects 2017-19</p>
-    <p class="mb-3">In 2017, Anne-Marie Scott, Deputy Director of Learning, Teaching and Web Services at the University of Edinburgh, suggested that if course leaders on the Data Science for Design MSc were looking for students to learn about data science from working with a ‘real-world’ datasets as part of their annual ‘Data Fair’ then the much-loved (but relatively static) Survey of Scottish Witchcraft database would be an ideal dataset.</p>
     <div class="paragraph-container">
       <div class="text">
         <p class="mb-3">During the 2017/2018 and 2018/2019 course programme, the University of Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported students to surface selected data from the original MS Access database to Wikipedia’s sister project, Wikidata, as structured, machine-readable, linked open data.</p>
-        <p>The students worked in groups of three and created engaging  created engaging visualisations from these real world datasets. One group chose create an interactive physical map of accused witches in Scotland laser cut and engraved from an A1 block of wood and creating bespoke pieces to visualise the gender distribution of accused witches in each region of Scotland and the different torture techniques employed in each region. </p>
+        <p> Students on the Data Science for Design MSc created engaging visualisations from these real world datasets. One group chose create an interactive physical map of accused witches in Scotland laser cut and engraved from an A1 block of wood and creating bespoke pieces to visualise the gender distribution of accused witches in each region of Scotland and the different torture techniques employed in each region.</p>
       </div>
       <div class="image">
         <img src="~/static/images/data-science.png">
@@ -26,17 +23,17 @@
     <p class="mb-3">You can see a short film of the results: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_wn428698" target="_blank">An interactive laser cut map of accused witches in Scotland</a></p>
     <p class="mb-3">The success of this project, and the engaging visualisations created as a result, made the case that an internship dedicated to geographically locating the places recorded in the database as linked open data would be the next logical step.</p>
     <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">The ‘Witchfinder General’ Internship</p>
+    <!-- Emma Carroll  -->
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Emma Carroll (June to September 2019)</p>
     <div class="paragraph-container">
-      <div class="text" style="width:calc(60% - 20px)">
-        <p class="mb-3">Emma Carroll, a Geology and Physical Geography undergraduate student, was recruited in May 2019 as the new Data and Visualisation intern, or ‘Witchfinder General’, as part of a three month long Equate Scotland internship. Emma was asked to do the detective work and data reconciliation required in order to geolocate the places mentioned in the Survey so that each accused witch in Scotland could be plotted on an interactive map as linked open data through Wikipedia's sister project, Wikidata.There were locations recorded within the dataset for 3141 different accused witches and from these locations there were 822 different place-names.</p>
+      <div class="text" style="width:calc(65% - 20px)">
+        <p class="mb-3">Emma Carroll, a Geology and Physical Geography undergraduate student, was recruited in May 2019 as the new Data and Visualisation intern, or ‘Witchfinder General’, as part of a three month long Equate Scotland internship. Emma was asked to do the detective work and data reconciliation required in order to geolocate the places mentioned in the Survey so that each accused witch in Scotland could be plotted on an interactive map as linked open data through Wikipedia's sister project, Wikidata</p>
       </div>
-      <div class="image" style="width:calc(40% - 20px)">
+      <div class="image" style="width:calc(35% - 20px)">
         <img src="~/static/images/emma.png">
         <p class="text-xs text-center"> Emma Carroll locating the accused witches residencies. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p class="mb-3">Some of these place-names were already recorded on Wikidata with coordinates however, there were around 500 place-names which were still to be located and added to Wikidata. The unfound place-names were then located using a variety of different sources mainly: Ordnance Survey 1890-1913 maps, place-name books, historical maps, gazetteers and recorded records (see reference section). Some of the locations could of been abandoned or renamed over the years, making them difficult to find. In those cases help from place-name and history researchers was needed. Once the place-name were geographically identified, a Wikidata page was created for this settlement with coordinate points and then added to the accused witch as their place of residence.</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(60% - 20px)">
         <p class="mb-3">As a result of Emma’s work, there was a place of residence recorded onto each accused witches’ Wikidata page which could then be queried for. Geographical information such as trial location, place of detainment and place of death locations were also added onto the accused witches’ Wikidata pages using the open source software, OpenRefine. There were also other properties added for the accused witches from their charge to inhumane treatment type to build a strong Wikidata page for each accused witch which is displayed for each accused witch on the website maps.</p>
@@ -44,18 +41,19 @@
       </div>
       <div class="image" style="width:calc(40% - 20px)">
         <img src="~/static/images/emma-map.png">
-        <p class="text-xs text-center"> Emma Carroll exploring collections at the National Library of Scotland. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center mb-3"> Emma Carroll exploring collections at the National Library of Scotland. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <div>
-      <p class="mb-3">The uploaded data could then be directly queried for using the Wikidata Query Service and geographically projected onto a map using Leaflet or downloaded into a CSV file and uploaded onto ArcGIS Online. The geographical data was used to create a variety of different visualisations.</p>
-    <div style="display: flex; justify-content: center;">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/j3Hf4lTHJj4?si=qiMt9Z8em4LnkCUe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p class="mb-3">The uploaded data could then be directly queried for using the Wikidata Query Service and geographically projected onto a map using Leaflet or downloaded into a CSV file and uploaded onto ArcGIS Online. The geographical data was used to create a variety of different visualisations.</p>
+    <p class="mb-3">You can learn about her experiences, the digital skills she learned working on the project:</p>
+    <div style="display: flex; justify-content: center;" class="mb-3">
+      <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_jk5cgld0&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_obvvfsl3" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Emma Carroll - The Wicked Findings of a Witchfinder General #OEAwards2021"></iframe>
     </div>
-    <p class="text-xs text-center"> Emma Carroll giving a TEDx Talk at the University of St Andrews</p>
-   </div>
-    <h1 class="text-center text-xl md:text-2xl lg:text-3xl mb-3 mt-3">Latest Developments</h1>
+    <p class="text-xs text-center mb-3">The Wicked Findings of a Witchfinder General #OEAwards2021. CC-BY-SA 4.0</p>
+    <!-- Latest Developmemts -->
     <p class="mb-3">Since the site went live in September 2019, work has continued on the project. Several more student interns have worked on new features, conducted user testing, and imported more data to create an upcoming version of the site which we hope will go live in Autumn 2024 (to coincide with 5th anniversary of the original site launching). </p>
+    
+    <!-- Maggie Lin -->
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Maggie Lin (June to September 2022)</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(60% - 20px)">
@@ -67,8 +65,12 @@
         <p class="text-xs text-center"> Maggie Lin  at the University of Edinburgh's Gender Ed 5th anniversary event on 29 May 2023. CC-BY-SA 4.0</p>
       </div>
     </div>
-    <p class="mb-3">You can listen to a podcast where Maggie discusses her work on the project (available on Spotify or wherever you get your podcasts):</p>
-    <iframe style="border-radius:10px; margin-bottom:0px;" src="https://open.spotify.com/embed/episode/27FCH1GKXsUJ0fM8Qc2lSp?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <p class="mb-3">Watch Maggie Lin's tutorial for a guide to bulk data item creation using OpenRefine:</p>
+    <div style="display: flex; justify-content: center;" class="mb-3">
+      <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_uro2ssh3&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_qcpukd4t" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Bulk  data item creation using OpenRefine - tutorial by Maggie Lin"></iframe>
+    </div>
+    <p class="text-xs text-center">Bulk data item creation using OpenRefine -tutorial by Maggie LinS. CC-BY-SA 4.0</p>
+      <!-- Josep Garcia-Reyero -->
     <p class="mt-1 mb-3 text-md md:text-gl lg:text-lg font-medium">Josep Garcia-Reyero (June to September 2023)</p>
     <p class="mb-3">Josep worked as our Open Source Web Developer intern and had a close collaboration with Maggie Lin to embed her new visualisations in the website by the end of the Summer.</p>
     <p class="mb-3">His goals were:</p>
@@ -89,6 +91,8 @@
       </div>
     </div>
     <p class="mb-3">Read all about his work here: <a class="underline hover:text-gray-500" href="https://blogs.ed.ac.uk/witchcraft_visualisation/weeks-3-and-4-site-re-development-is-underway/" target="_blank">Josep's blog on the Witch Visualisation site</a></p>
+    
+    <!-- Claire Panella -->
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Claire Panella (February to May 2023)</p>
     <div class="paragraph-container">
       <div class="text" style="width:calc(65% - 20px)">
@@ -100,10 +104,12 @@
         <p class="text-xs text-center mb-3">Claire Panella developing a Data Quality Assurance process. CC-BY-SA 4.0 </p>
       </div>
     </div>
-    <div style="display: flex; justify-content: center;">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/T6Sdb29b0xo?si=w3Qh9SXfrfEtp0fe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div style="display: flex; justify-content: center;" class="mb-3">
+      <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_329d8lvo&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_qitma0rh" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Finding the Impossible Witches"></iframe>
     </div>
-    <p class="text-xs text-center">Claire Panella describing the Data Quality Assurance process. . CC-BY-SA 4.0</p>
+    <p class="text-xs text-center">Claire Panella describing the Data Quality Assurance process. CC-BY-SA 4.0</p>
+
+    <!-- Ruby Imrie -->
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">Ruby Imrie (June 2023 to October 2024)</p>
     <div class="paragraph-container">
       <div class="text">
@@ -114,10 +120,18 @@
         <p class="text-xs text-center">Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0 </p>
       </div> 
     </div>
-    <p class="mb-3">Watch a video of her discussing her work on the project: <a class="underline hover:text-gray-500" href="https://media.ed.ac.uk/media/1_4i7shdne" target="_blank">Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship</a></p>
-    <p class="mb-3">You can listen to a podcast where Professor Julian Goodare, Ewan McAndrew and Ruby Imrie discuss this project  (available on Spotify or wherever you get your podcasts):</p>
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2Q1Jwnqev1feL5j7AOZKDK?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div style="display: flex; justify-content: center;" class="mb-3">
+      <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_4i7shdne&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ipwtfqas" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship"></iframe>
     </div>
+    <p class="text-xs text-center mb-3">Ruby Imrie on the Map of Accused Witches in Scotland project. CC-BY-SA 4.0</p>
+  
+    <div style="display: flex; justify-content: center;" class="mb-3">
+      <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_ngpi1aon&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[forceMobileHTML5]=true&amp;flashvars[scrubber.sliderPreview]=false&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_0h0syjo8" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Map of Accused Witches in Scotland internship - Summer 2023 Summary"></iframe>
+    </div>
+    <p class="text-xs text-center mb-3">Map of Accused Witches in Scotland internship - Summer 2023 Summary. CC-BY-SA 4.0</p>
+
+    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Media Responses</h1>
+    
 </div>
 </template>
 
@@ -162,6 +176,14 @@
       margin-left: 20px;
       
   }
+
+  .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
 
   @media screen and (max-width: 767px) {
   .paragraph-container {
