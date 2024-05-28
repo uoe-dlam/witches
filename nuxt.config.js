@@ -2,7 +2,6 @@ import { defineNuxtConfig } from "@nuxt/bridge";
 
 export default defineNuxtConfig({
   bridge: false,
-  mode: "universal",
   /*
    ** Headers of the page
    */
@@ -40,9 +39,9 @@ export default defineNuxtConfig({
     { src: "~/plugins/vue-google-analytics", mode: "client" },
   ],
   /*
-   ** Nuxt.js dev-modules
+   ** Nuxt.js build-modules
    */
-  devModules: [
+  buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     "@nuxtjs/tailwindcss",
   ],
