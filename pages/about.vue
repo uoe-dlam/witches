@@ -66,10 +66,16 @@
         </p>
       </div>
       <div class="flex-auto">
-        <img src="~/static/images/data-science.png" />
-        <p class="text-xs text-center">
-          Data Science for Design MSc students with their project. CC-BY-SA 4.0
-        </p>
+        <figure>
+          <img
+            src="~/static/images/data-science.png"
+            alt="four students standing infront of a wooden laser cut model of scotland, engraved on an A1 block of wood"
+          />
+          <figcaption class="text-xs text-center">
+            Data Science for Design MSc students with their project. CC-BY-SA
+            4.0
+          </figcaption>
+        </figure>
       </div>
     </div>
     <p class="mb-3">
