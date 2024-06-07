@@ -59,7 +59,7 @@
         <p class="mb-3">
           Students on the Data Science for Design MSc created engaging
           visualisations from these real world datasets. One group chose create
-          an interactive physical map of accused witches in Scotland laser cut
+          an interactive physical map of accused witches in Scotland, laser cut
           and engraved from an A1 block of wood and creating bespoke pieces to
           visualise the gender distribution of accused witches in each region of
           Scotland and the different torture techniques employed in each region.
