@@ -58,6 +58,14 @@ figure {
   @apply mb-3;
 }
 
+ul {
+  @apply list-disc pl-2 space-y-2 sm:pl-6 md:pl-8;
+}
+
+ul ul {
+  @apply mt-2 mb-4 pl-2 space-y-1 sm:pl-4;
+}
+
 .lds-facebook {
   display: inline-block;
   position: relative;

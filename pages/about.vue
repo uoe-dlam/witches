@@ -55,8 +55,8 @@
     </p>
     <h2>Work done by University of Edinburgh students</h2>
     <h3>Data Science for Design MSc Projects 2017-19</h3>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4">
+      <div class="basis-2/3">
         <p>
           During the 2017/2018 and 2018/2019 course programme, the University of
           Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported students
@@ -89,7 +89,7 @@
           employed in each region.
         </p>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img
             src="~/static/images/data-science.png"
@@ -111,8 +111,8 @@
     <h3>The ‘Witchfinder General’ Internship</h3>
     <!-- Emma Carroll  -->
     <h4>Emma Carroll (June to September 2019)</h4>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4">
+      <div class="basis-2/3">
         <p>
           Emma Carroll, a Geology and Physical Geography undergraduate student,
           was recruited in May 2019 as the new Data and Visualisation intern, or
@@ -129,7 +129,7 @@
           project, Wikidata
         </p>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img
             src="~/static/images/emma.png"
@@ -141,8 +141,8 @@
         </figure>
       </div>
     </div>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4">
+      <div class="basis-2/3">
         <p>
           As a result of Emma’s work, there was a place of residence recorded
           onto each accused witches’ Wikidata page which could then be queried.
@@ -159,7 +159,7 @@
           for each accused witch on the website maps.
         </p>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img
             src="~/static/images/emma-map.png"
@@ -216,8 +216,8 @@
 
     <!-- Maggie Lin -->
     <h4 id="maggie">Maggie Lin (June to September 2022)</h4>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4 mb-3">
+      <div class="basis-2/3">
         <p>
           4th year Computer Science student, Maggie Lin, was employed as our
           second <em>Witchfinder General</em>: Data Visualisation intern and
@@ -254,7 +254,7 @@
           documenting her work and recorded a podcast interview.
         </p>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img
             src="~/static/images/Maggie.png"
@@ -266,7 +266,7 @@
         </figure>
       </div>
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center mb-6">
       <figure class="m-auto">
         <iframe
           id="kaltura_player"
@@ -302,8 +302,8 @@
       embed her new visualisations in the website by the end of the Summer.
     </p>
     <p>His goals were:</p>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4">
+      <div class="basis-2/3">
         <ul class="mb-3">
           <li>To update the software packages and refactor the site code.</li>
           <li>
@@ -336,7 +336,7 @@
           </li>
         </ul>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img src="~/static/images/josep.png" />
           <figcaption class="text-xs text-center">
@@ -347,8 +347,8 @@
     </div>
     <!-- Claire Panella -->
     <h4 id="claire">Claire Panella (February to May 2023)</h4>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4">
+      <div class="basis-2/3">
         <p>
           Claire Panella worked as the Scottish Witchhunter intern for 1 day a
           week from February to May 2023. During this time she created and
@@ -364,7 +364,7 @@
           data shared to Wikidata since 2017 to check for any data anomalies.
         </p>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img src="~/static/images/claire.png" />
           <figcaption class="text-xs text-center">
@@ -396,8 +396,8 @@
     </div>
     <!-- Ruby Imrie -->
     <h4>Ruby Imrie (June 2023 to October 2024)</h4>
-    <div class="flex">
-      <div class="flex-auto">
+    <div class="flex gap-4 mb-4">
+      <div class="basis-2/3">
         <p>
           Ruby has been quality checking and consistency checking the data using
           newly developed quality assurance methods in R Studio created by
@@ -420,7 +420,7 @@
           never before.
         </p>
       </div>
-      <div class="flex-auto">
+      <div class="basis-1/3">
         <figure>
           <img src="~/static/images/ruby-julian.png" />
           <figcaption class="text-xs text-center">
@@ -429,44 +429,48 @@
         </figure>
       </div>
     </div>
-    <div style="display: flex; justify-content: center" class="mb-3">
-      <iframe
-        id="kaltura_player"
-        src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_4i7shdne&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ipwtfqas"
-        width="400"
-        height="285"
-        allowfullscreen
-        webkitallowfullscreen
-        mozAllowFullScreen
-        allow="autoplay *; fullscreen *; encrypted-media *"
-        sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-        frameborder="0"
-        title="Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship"
-      ></iframe>
+    <div class="flex justify-center">
+      <figure>
+        <iframe
+          id="kaltura_player"
+          src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_4i7shdne&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ipwtfqas"
+          width="400"
+          height="285"
+          allowfullscreen
+          webkitallowfullscreen
+          mozAllowFullScreen
+          allow="autoplay *; fullscreen *; encrypted-media *"
+          sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+          frameborder="0"
+          title="Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship"
+        ></iframe>
+        <figcaption class="text-xs text-center mb-3">
+          Ruby Imrie on the Map of Accused Witches in Scotland project. CC-BY-SA
+          4.0
+        </figcaption>
+      </figure>
     </div>
-    <p class="text-xs text-center mb-3">
-      Ruby Imrie on the Map of Accused Witches in Scotland project. CC-BY-SA 4.0
-    </p>
-
-    <div style="display: flex; justify-content: center" class="mb-3">
-      <iframe
-        id="kaltura_player"
-        src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_ngpi1aon&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[forceMobileHTML5]=true&amp;flashvars[scrubber.sliderPreview]=false&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_0h0syjo8"
-        width="400"
-        height="285"
-        allowfullscreen
-        webkitallowfullscreen
-        mozAllowFullScreen
-        allow="autoplay *; fullscreen *; encrypted-media *"
-        sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-        frameborder="0"
-        title="Map of Accused Witches in Scotland internship - Summer 2023 Summary"
-      ></iframe>
+    <div class="flex justify-center">
+      <figure>
+        <iframe
+          id="kaltura_player"
+          src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_ngpi1aon&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[forceMobileHTML5]=true&amp;flashvars[scrubber.sliderPreview]=false&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_0h0syjo8"
+          width="400"
+          height="285"
+          allowfullscreen
+          webkitallowfullscreen
+          mozAllowFullScreen
+          allow="autoplay *; fullscreen *; encrypted-media *"
+          sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+          frameborder="0"
+          title="Map of Accused Witches in Scotland internship - Summer 2023 Summary"
+        ></iframe>
+        <figcaption class="text-xs text-center mb-3">
+          Map of Accused Witches in Scotland internship - Summer 2023 Summary.
+          CC-BY-SA 4.0
+        </figcaption>
+      </figure>
     </div>
-    <p class="text-xs text-center mb-3">
-      Map of Accused Witches in Scotland internship - Summer 2023 Summary.
-      CC-BY-SA 4.0
-    </p>
 
     <!-- Media Responses -->
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
