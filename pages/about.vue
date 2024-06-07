@@ -52,11 +52,11 @@
         <p class="mb-3">
           During the 2017/2018 and 2018/2019 course programme, the University of
           Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported students
-          to surface selected data from the original MS Access database to
-          Wikipedia’s sister project, Wikidata, as structured, machine-readable,
-          linked open data.
+          to surface selected data from the original Microsoft Access database
+          to Wikipedia’s sister project, Wikidata, as structured,
+          machine-readable, linked open data.
         </p>
-        <p>
+        <p class="mb-3">
           Students on the Data Science for Design MSc created engaging
           visualisations from these real world datasets. One group chose create
           an interactive physical map of accused witches in Scotland laser cut
