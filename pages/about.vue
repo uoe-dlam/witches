@@ -21,7 +21,7 @@
         >
       </p>
       <p class="mb-3">
-        We appreciate all feedback and will incorporate it into future iterations
+        We appreciate all feedback and will use it to inform future iterations
         of the map and the projects delivered by students.
       </p>
       <p class="mb-3">
