@@ -47,8 +47,8 @@
     </p>
     <h2>Work done by University of Edinburgh students</h2>
     <h3>Data Science for Design MSc Projects 2017-19</h3>
-    <div class="paragraph-container">
-      <div class="text">
+    <div class="flex">
+      <div class="flex-auto">
         <p class="mb-3">
           During the 2017/2018 and 2018/2019 course programme, the University of
           Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported students
@@ -65,7 +65,7 @@
           Scotland and the different torture techniques employed in each region.
         </p>
       </div>
-      <div class="image">
+      <div class="flex-auto">
         <img src="~/static/images/data-science.png" />
         <p class="text-xs text-center">
           Data Science for Design MSc students with their project. CC-BY-SA 4.0
