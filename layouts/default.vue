@@ -6,36 +6,56 @@
 </template>
 
 <script>
-    import  MainNavBar from '~/components/MainNavBar.vue'
+import MainNavBar from "~/components/MainNavBar.vue";
 
-    export default {
-        components: {
-            MainNavBar
-        }
-    }
+export default {
+  components: {
+    MainNavBar,
+  },
+};
 </script>
 
 <style>
-
-body{
-    padding: 0 0;
-    margin: 0 0 0 0;
-    font-family: Arial;
-    background: #F8FAFC;
+body {
+  padding: 0 0;
+  margin: 0 0 0 0;
+  font-family: Arial;
+  background: #f8fafc;
 }
-
 
 @tailwind base;
 
 h1 {
-    @apply text-2xl;
-    font-family: 'EB Garamond';
+  @apply text-3xl font-bold mb-4;
+  font-family: "EB Garamond";
 }
+
 h2 {
-    @apply text-xl;
+  @apply text-2xl font-semibold mb-3;
 }
+
 h3 {
-    @apply text-lg;
+  @apply text-xl font-semibold mb-2;
+}
+
+h4 {
+  @apply text-lg font-medium mb-2;
+}
+
+h5 {
+  @apply text-base font-medium mb-1;
+}
+
+h6 {
+  @apply text-sm font-medium mb-1;
+}
+
+p {
+  @apply mb-3;
+}
+
+figure {
+  @apply mb-3;
 }
 
 .lds-facebook {
@@ -75,13 +95,15 @@ h3 {
     top: 6px;
     height: 51px;
   }
-  50%, 100% {
+
+  50%,
+  100% {
     top: 19px;
     height: 26px;
   }
 }
 
-#main-wrapper{
+#main-wrapper {
   display: -webkit-flex;
   -webkit-flex-direction: column;
   display: flex;
@@ -91,7 +113,7 @@ h3 {
 
 #outer {
   -webkit-flex: 1;
-  flex : 1;
+  flex: 1;
 }
 
 #inner {
@@ -99,20 +121,20 @@ h3 {
   -webkit-flex-direction: column;
   display: flex;
   flex-direction: column;
-  height: 100%
+  height: 100%;
 }
 
-#page-intro{
-  font-size:12px;
+#page-intro {
+  font-size: 12px;
 }
 
 #map-wrapper {
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   -webkit-flex: 1;
-  flex : 1;
+  flex: 1;
 }
 
-.icon-wrapper{
+.icon-wrapper {
   position: relative;
   text-align: center;
   width: 25px;
@@ -120,7 +142,7 @@ h3 {
   font-color: #fff;
 }
 
-.icon-text{
+.icon-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -129,7 +151,7 @@ h3 {
   text-shadow: 1px 1px 3px #000;
 }
 
-.icon-wiki{
+.icon-wiki {
   position: absolute;
   top: -5px;
   left: 13px;
@@ -137,22 +159,20 @@ h3 {
   text-shadow: 1px 1px 3px #000;
 }
 
-.icon-shadow{
+.icon-shadow {
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
 }
 
-.witch-scroller{
-  height:225px;
-  overflow:scroll;
-  padding-right:5px;
+.witch-scroller {
+  height: 225px;
+  overflow: scroll;
+  padding-right: 5px;
 }
 
-.no-witch-scroller{
-
-}
+.no-witch-scroller {}
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
@@ -161,20 +181,19 @@ h3 {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
-div.leaflet-popup.leaflet-zoom-animated{
+div.leaflet-popup.leaflet-zoom-animated {
   bottom: 1px !important;
 }
 
 #main-nav {
-  font-family: 'EB Garamond';
+  font-family: "EB Garamond";
 }
 
 .text-wrapper {
   @apply mx-auto max-w-screen-lg px-5 py-3;
 }
-
 </style>

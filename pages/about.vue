@@ -4,7 +4,7 @@
       About The Project
     </h1>
     <h2>Teaching data science with ‘real-world’ datasets</h2>
-    <p class="mb-3">
+    <p>
       Since 2017 teams at the University of Edinburgh have been supporting
       students to learn about data science and develop their skills through
       working with a <em>real-world</em> dataset. The
@@ -16,11 +16,11 @@
       </a>
       is one of those datasets.
     </p>
-    <p class="mb-3">
+    <p>
       We appreciate all feedback and will incorporate it into future iterations
       of the map and the projects delivered by students.
     </p>
-    <p class="mb-3">
+    <p>
       Professor Julian Goodare is a historian and project director for the
       original Survey of Scottish Witchcraft, so his input and suggestions
       continue to be extremely valuable to us. The technical work on this
@@ -32,31 +32,49 @@
       on data skills curriculum projects and internships.
     </p>
     <h3>Richard Lawson</h3>
-    <p class="mb-3">
-      Richard was the person most responsible for creating this website and for
-      always giving his time generously to this project; to support student
-      learning within the University and to support understanding about the
-      Scottish witch trials globally. He taught himself within two weeks how to
-      work with an unfamiliar platform and achieved the remarkable in always
-      using his considerable technical expertise to solve any issue we had in
-      creating the site and helping put these persecuted women on the map.
-      Richard supported all subsequent ‘Witchfinder General’: Data Visualisation
-      student interns and always with kindness, humility and a gentle humour. He
-      died suddenly on 10 October 2023 and this site is a tribute to his
-      brilliance and commitment to the project and we dedicate it to his memory.
+    <p>
+      Richard was the principle developer and original author of this website.
+      Over a two week period in August 2019, Richard built a website to support
+      the new location based dataset created by an intern working on the
+      Scottish Survey Witchcraft Database. He had no previous experience
+      creating map based interfaces or JavaScript based websites, but relished
+      the challenge, and gave his time generously to the project, to bring this
+      dataset to thousands around the world.
+    </p>
+    <p>
+      For subsequent updates to the site, Richard mentored all subsequent
+      <em>Witchfinder General</em>, Data Visualisation student interns, guiding
+      them on technical matters with kindness, humility, and a gentle humour.
+      Every intern Richard worked with spoke fondly of him and the assistance
+      and time he gave to them.
+    </p>
+    <p>
+      Richard sadly died in October 2023 and this site is a tribute to his
+      brilliance and commitment to the project. We dedicate this site to his
+      memory.
     </p>
     <h2>Work done by University of Edinburgh students</h2>
     <h3>Data Science for Design MSc Projects 2017-19</h3>
     <div class="flex">
       <div class="flex-auto">
-        <p class="mb-3">
+        <p>
           During the 2017/2018 and 2018/2019 course programme, the University of
           Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported students
           to surface selected data from the original Microsoft Access database
-          to Wikipedia’s sister project, Wikidata, as structured,
-          machine-readable, linked open data.
+          to
+          <a
+            href="https://www.wikipedia.org/"
+            class="underline hover:text-gray-500"
+            >Wikipedia’s</a
+          >
+          sister project,
+          <a
+            href="https://www.wikidata.org"
+            class="underline hover:text-gray-500"
+            >Wikidata</a
+          >, as structured, machine-readable, linked open data.
         </p>
-        <p class="mb-3">
+        <p>
           Students on the Data Science for Design MSc created engaging
           visualisations from these real world datasets. One group chose create
           an
@@ -84,7 +102,7 @@
         </figure>
       </div>
     </div>
-    <p class="mb-3">
+    <p>
       The success of this project, and the engaging visualisations created as a
       result, made the case that an internship dedicated to geographically
       locating the places recorded in the database as linked open data would be
@@ -95,10 +113,15 @@
     <h4>Emma Carroll (June to September 2019)</h4>
     <div class="flex">
       <div class="flex-auto">
-        <p class="mb-3">
+        <p>
           Emma Carroll, a Geology and Physical Geography undergraduate student,
           was recruited in May 2019 as the new Data and Visualisation intern, or
-          ‘Witchfinder General’, as part of a three month long Equate Scotland
+          <em>Witchfinder General</em>, as part of a three month long
+          <a
+            href="https://equatescotland.org.uk/"
+            class="underline hover:text-gray-500"
+            >Equate Scotland</a
+          >
           internship. Emma was asked to do the detective work and data
           reconciliation required in order to geolocate the places mentioned in
           the Survey so that each accused witch in Scotland could be plotted on
@@ -120,16 +143,20 @@
     </div>
     <div class="flex">
       <div class="flex-auto">
-        <p class="mb-3">
+        <p>
           As a result of Emma’s work, there was a place of residence recorded
-          onto each accused witches’ Wikidata page which could then be queried
-          for. Geographical information such as trial location, place of
-          detainment and place of death locations were also added onto the
-          accused witches’ Wikidata pages using the open source software,
-          OpenRefine. There were also other properties added for the accused
-          witches from their charge to inhumane treatment type to build a strong
-          Wikidata page for each accused witch which is displayed for each
-          accused witch on the website maps.
+          onto each accused witches’ Wikidata page which could then be queried.
+          Geographical information such as trial location, place of detainment
+          and place of death locations were also added onto the accused witches’
+          Wikidata pages using the open source software,
+          <a
+            href="https://openrefine.org/"
+            class="underline hover:text-gray-500"
+            >OpenRefine</a
+          >. There were also other properties added for the accused witches from
+          their charge, to type of inhumane treatment they suffered, to help
+          build a strong Wikidata page for each accused witch which is displayed
+          for each accused witch on the website maps.
         </p>
       </div>
       <div class="flex-auto">
@@ -145,61 +172,66 @@
         </figure>
       </div>
     </div>
-    <p class="mb-3">
+    <p>
       The uploaded data could then be directly queried for using the Wikidata
-      Query Service and geographically projected onto a map using Leaflet or
-      downloaded into a CSV file and uploaded onto ArcGIS Online. The
-      geographical data was used to create a variety of different
+      Query Service and geographically projected onto a map using
+      <a href="https://leafletjs.com/" class="underline hover:text-gray-500"
+        >Leaflet</a
+      >
+      or downloaded into a CSV file and uploaded onto
+      <a href="https://www.arcgis.com" class="underline hover:text-gray-500"
+        >ArcGIS Online</a
+      >. The geographical data was used to create a variety of different
       visualisations.
     </p>
-    <p class="mb-3">
-      You can learn about her experiences, the digital skills she learned
-      working on the project:
-    </p>
     <div style="display: flex; justify-content: center" class="mb-3">
-      <iframe
-        id="kaltura_player"
-        src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_jk5cgld0&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_obvvfsl3"
-        width="400"
-        height="285"
-        allowfullscreen
-        webkitallowfullscreen
-        mozAllowFullScreen
-        allow="autoplay *; fullscreen *; encrypted-media *"
-        sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-        frameborder="0"
-        title="Emma Carroll - The Wicked Findings of a Witchfinder General #OEAwards2021"
-      ></iframe>
+      <figure>
+        <iframe
+          id="kaltura_player"
+          src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_jk5cgld0&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_obvvfsl3"
+          width="400"
+          height="285"
+          allowfullscreen
+          webkitallowfullscreen
+          mozAllowFullScreen
+          allow="autoplay *; fullscreen *; encrypted-media *"
+          sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+          frameborder="0"
+          title="Emma Carroll - The Wicked Findings of a Witchfinder General #OEAwards2021"
+        ></iframe>
+        <figcaption class="text-xs text-center mb-3">
+          The Wicked Findings of a Witchfinder General #OEAwards2021. CC-BY-SA
+          4.0
+        </figcaption>
+      </figure>
     </div>
-    <p class="text-xs text-center mb-3">
-      The Wicked Findings of a Witchfinder General #OEAwards2021. CC-BY-SA 4.0
-    </p>
-    <!-- Latest Developmemts -->
-    <p class="mb-3">
+    <!-- Latest Developments -->
+    <p>
       Since the site went live in September 2019, work has continued on the
       project. Several more student interns have worked on new features,
       conducted user testing, and imported more data to create an upcoming
-      version of the site which we hope will go live in Autumn 2024 (to coincide
-      with 5th anniversary of the original site launching).
+      version of the site which we hope will go live in Autumn 2024 to coincide
+      with 5th anniversary of the original site launching.
     </p>
 
     <!-- Maggie Lin -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Maggie Lin (June to September 2022)
-    </p>
-    <div class="paragraph-container">
-      <div class="text" style="width: calc(60% - 20px)">
-        <p class="mb-3">
+    <h4 id="maggie">Maggie Lin (June to September 2022)</h4>
+    <div class="flex">
+      <div class="flex-auto">
+        <p>
           4th year Computer Science student, Maggie Lin, was employed as our
-          second ‘Witchfinder General’: Data Visualisation intern and worked
-          incredibly hard to help illuminate what happened in the Scottish
-          witchhunts of 1563 to 1736 by focusing on opening up the rich
+          second <em>Witchfinder General</em>: Data Visualisation intern and
+          worked incredibly hard to help illuminate what happened in the
+          Scottish witchhunts of 1563 to 1736 by focusing on opening up the rich
           historical data in the Survey of Scottish Witchcraft database and
           turning it into linked open data, creating user-friendly web
-          visualisations with her developer colleague Josep Garcia-Reyero (also
-          an undergrad student).
+          visualisations with her developer colleague
+          <a href="#josep" class="underline hover:text-gray-500"
+            >Josep Garcia-Reyero</a
+          >
+          (also an undergrad student).
         </p>
-        <p class="mb-3">
+        <p>
           Maggie’s focus was on the hitherto unexplored temporal data and the
           all the rich information on the witchcraft investigations, which
           encompassed the initial or supposed denunciation, the arrest, the
@@ -210,57 +242,70 @@
           to turn this data into something parseable she created timelines,
           network analyses of who named who, helped show how the hysteria spread
           in space and time during panic and non panic periods and even
-          investigated accusations of demonology and attended a symposium on
-          such. She presented on her work at the Edinburgh Book Festival 2022
-          before the Jenni Fagan book event, <i>Hex</i>, and has contributed
-          blog articles documenting her work and recorded a podcast interview.
+          investigated accusations of demonology, attending a symposium on this
+          topic. She presented on her work at the Edinburgh Book Festival 2022
+          before the
+          <a
+            href="https://www.jennifagan.com"
+            class="underline hover:text-gray-500"
+            >Jenni Fagan</a
+          >
+          book event, <em>Hex</em>, and has contributed blog articles
+          documenting her work and recorded a podcast interview.
         </p>
       </div>
-      <div class="image" style="width: calc(40% - 20px)">
-        <img src="~/static/images/Maggie.png" />
-        <p class="text-xs text-center">
-          Maggie Lin at the University of Edinburgh's Gender Ed 5th anniversary
-          event on 29 May 2023. CC-BY-SA 4.0
-        </p>
+      <div class="flex-auto">
+        <figure>
+          <img
+            src="~/static/images/Maggie.png"
+            alt="Maggie Lin at the University of Edinburgh"
+          />
+          <figcaption class="text-xs text-center">
+            Maggie Lin at the University
+          </figcaption>
+        </figure>
       </div>
     </div>
-    <p class="mb-3">
-      Watch Maggie Lin's tutorial for a guide to bulk data item creation using
-      OpenRefine:
-    </p>
-    <div style="display: flex; justify-content: center" class="mb-3">
-      <iframe
-        id="kaltura_player"
-        src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_uro2ssh3&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_qcpukd4t"
-        width="400"
-        height="285"
-        allowfullscreen
-        webkitallowfullscreen
-        mozAllowFullScreen
-        allow="autoplay *; fullscreen *; encrypted-media *"
-        sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-        frameborder="0"
-        title="Bulk  data item creation using OpenRefine - tutorial by Maggie Lin"
-      ></iframe>
+    <div class="flex justify-center">
+      <figure class="m-auto">
+        <iframe
+          id="kaltura_player"
+          src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_uro2ssh3&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_qcpukd4t"
+          width="400"
+          height="285"
+          allowfullscreen
+          webkitallowfullscreen
+          mozAllowFullScreen
+          allow="autoplay *; fullscreen *; encrypted-media *"
+          sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+          frameborder="0"
+          title="Bulk  data item creation using OpenRefine - tutorial by Maggie Lin"
+        ></iframe>
+        <figcaption class="text-xs text-center">
+          Bulk data item creation using OpenRefine - tutorial by Maggie Lin.
+          CC-BY-SA 4.0
+        </figcaption>
+      </figure>
     </div>
-    <p class="text-xs text-center">
-      Bulk data item creation using OpenRefine -tutorial by Maggie LinS.
-      CC-BY-SA 4.0
-    </p>
     <!-- Josep Garcia-Reyero -->
-    <p class="mt-1 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Josep Garcia-Reyero (June to September 2023)
+    <h4 id="josep">Josep Garcia-Reyero (June to September 2023)</h4>
+    <p>
+      Josep
+      <a
+        class="underline hover:text-gray-500"
+        href="https://blogs.ed.ac.uk/witchcraft_visualisation/weeks-3-and-4-site-re-development-is-underway/"
+        target="_blank"
+        >worked as our Open Source Web Developer intern</a
+      >
+      and had a close collaboration with
+      <a href="#maggie" class="underline hover:text-gray-500">Maggie Lin</a> to
+      embed her new visualisations in the website by the end of the Summer.
     </p>
-    <p class="mb-3">
-      Josep worked as our Open Source Web Developer intern and had a close
-      collaboration with Maggie Lin to embed her new visualisations in the
-      website by the end of the Summer.
-    </p>
-    <p class="mb-3">His goals were:</p>
-    <div class="paragraph-container">
-      <div class="text">
+    <p>His goals were:</p>
+    <div class="flex">
+      <div class="flex-auto">
         <ul class="mb-3">
-          <li>To update the software packages and re-factor the site code.</li>
+          <li>To update the software packages and refactor the site code.</li>
           <li>
             Improve the site functionality, accessibility and user interface.
           </li>
@@ -276,110 +321,112 @@
             panic’ periods and ‘non-panic’ periods.
           </li>
           <li>
-            Add Maggie’s new visualisations including: filters for accusations
-            of shape-shifting, demonic pacts, property damage, ritual objects
-            used, witches’ meetings, a network analysis of who named/denounced
-            who and an interactive Histropedia timeline that is searchable by
-            name of accused.
+            Add Maggie’s new visualisations:
+            <ul>
+              <li>filters for accusations of shape-shifting</li>
+              <li>demonic pacts</li>
+              <li>property damage</li>
+              <li>ritual objects used</li>
+              <li>witches' meetings</li>
+              <li>
+                a network analysis of who named/denounced who and an interactive
+                Histropedia timeline that is searchable by name of accused
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
-      <div class="image">
-        <img src="~/static/images/josep.png" />
-        <p class="text-xs text-center">
-          Josep Garcia-Reyero working on the website. CC-BY-SA 4.0
-        </p>
+      <div class="flex-auto">
+        <figure>
+          <img src="~/static/images/josep.png" />
+          <figcaption class="text-xs text-center">
+            Josep Garcia-Reyero working on the website. CC-BY-SA 4.0
+          </figcaption>
+        </figure>
       </div>
     </div>
-    <p class="mb-3">
-      Read all about his work here:
-      <a
-        class="underline hover:text-gray-500"
-        href="https://blogs.ed.ac.uk/witchcraft_visualisation/weeks-3-and-4-site-re-development-is-underway/"
-        target="_blank"
-        >Josep's blog on the Witch Visualisation site</a
-      >
-    </p>
-
     <!-- Claire Panella -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Claire Panella (February to May 2023)
-    </p>
-    <div class="paragraph-container">
-      <div class="text" style="width: calc(65% - 20px)">
-        <p class="mb-3">
+    <h4 id="claire">Claire Panella (February to May 2023)</h4>
+    <div class="flex">
+      <div class="flex-auto">
+        <p>
           Claire Panella worked as the Scottish Witchhunter intern for 1 day a
           week from February to May 2023. During this time she created and
-          documented a robust and reusable quality assurance process (using
-          RStudio) for the data behind our website so that we could compare the
-          original 2003 Survey of Scottish Witchcraft data with the data shared
-          to Wikidata since 2017 to check for any data anomalies.
-        </p>
-        <p class="mb-3">
-          Read all about her work here:
+          documented a
           <a
-            class="underline hover:text-gray-500"
             href="https://blogs.ed.ac.uk/witchcraft_visualisation/finding-impossible-witches-part-one/"
+            class="underline hover:text-gray-500"
             target="_blank"
-            >Claire's blog on the Data Quality Assurance process</a
+            >robust and reusable quality assurance process</a
           >
+          (using RStudio) for the data behind our website so that we could
+          compare the original 2003 Survey of Scottish Witchcraft data with the
+          data shared to Wikidata since 2017 to check for any data anomalies.
         </p>
       </div>
-      <div class="image" style="width: calc(35% - 20px)">
-        <img src="~/static/images/claire.png" />
-        <p class="text-xs text-center mb-3">
-          Claire Panella developing a Data Quality Assurance process. CC-BY-SA
-          4.0
-        </p>
+      <div class="flex-auto">
+        <figure>
+          <img src="~/static/images/claire.png" />
+          <figcaption class="text-xs text-center">
+            Claire Panella developing a Data Quality Assurance process. CC-BY-SA
+            4.0
+          </figcaption>
+        </figure>
       </div>
     </div>
-    <div style="display: flex; justify-content: center" class="mb-3">
-      <iframe
-        id="kaltura_player"
-        src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_329d8lvo&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_qitma0rh"
-        width="400"
-        height="285"
-        allowfullscreen
-        webkitallowfullscreen
-        mozAllowFullScreen
-        allow="autoplay *; fullscreen *; encrypted-media *"
-        sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-        frameborder="0"
-        title="Finding the Impossible Witches"
-      ></iframe>
+    <div class="flex justify-center">
+      <figure>
+        <iframe
+          id="kaltura_player"
+          src="https://cdnapisec.kaltura.com/p/2010292/sp/201029200/embedIframeJs/uiconf_id/32599141/partner_id/2010292?iframeembed=true&playerId=kaltura_player&entry_id=1_329d8lvo&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_qitma0rh"
+          width="400"
+          height="285"
+          allowfullscreen
+          webkitallowfullscreen
+          mozAllowFullScreen
+          allow="autoplay *; fullscreen *; encrypted-media *"
+          sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+          frameborder="0"
+          title="Finding the Impossible Witches"
+        ></iframe>
+        <figcaption class="text-xs text-center">
+          Finding the Impossible Witches. CC-BY-SA 4.0
+        </figcaption>
+      </figure>
     </div>
-    <p class="text-xs text-center">
-      Claire Panella describing the Data Quality Assurance process. CC-BY-SA 4.0
-    </p>
-
     <!-- Ruby Imrie -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Ruby Imrie (June 2023 to October 2024)
-    </p>
-    <div class="paragraph-container">
-      <div class="text">
-        <p class="mb-3">
+    <h4>Ruby Imrie (June 2023 to October 2024)</h4>
+    <div class="flex">
+      <div class="flex-auto">
+        <p>
           Ruby has been quality checking and consistency checking the data using
           newly developed quality assurance methods in R Studio created by
-          another student intern, Claire Panella, earlier this year that can be
-          reused for many years to come. Ruby’s other focus has been on taking
-          the extremely rich) data Maggie Lin added on all the 3,816 full
-          witchcraft investigations recorded in Scotland from 1563-1736 and
-          embedding those new interactive visualisations on our Map of Accused
-          Witches in Scotland website using a Javascript and the Vue.js
-          framework. By also identifying and addressing bug fixes, conducting
-          rigorous user testing sessions and using the feedback received to
-          address areas for site improvement and action planning for developing
-          new features she has helped to show how the data, and the individual
-          human stories behind the data, can be better visualised, explored and
-          interrogated as never before.
+          another student intern,
+          <a href="#claire" class="underline hover:text-gray-500"
+            >Claire Panella</a
+          >. Ruby’s other focus has been on taking the extremely rich data
+          <a href="#maggie" class="underline hover:text-gray-500">Maggie Lin</a>
+          added on all the 3,816 full witchcraft investigations recorded in
+          Scotland from 1563-1736 and embedding those new interactive
+          visualisations on our Map of Accused Witches in Scotland website using
+          a JavaScript and the
+          <a href="https://nuxt.com/" class="underline hover:text-gray-500"
+            >Nuxt framework</a
+          >. Ruby has tackled a wide range of tasks for the website, fixing and
+          identifying bugs, conducting rigorous user testing sessions, using the
+          feedback from them to improve the site, and planning and developing
+          new site features. She has helped show how the data, and human stories
+          behind the data, can be visualised, explored, and interrogated as
+          never before.
         </p>
       </div>
-      <div class="image">
-        <img src="~/static/images/ruby-julian.png" />
-        <p class="text-xs text-center">
-          Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0
-        </p>
+      <div class="flex-auto">
+        <figure>
+          <img src="~/static/images/ruby-julian.png" />
+          <figcaption class="text-xs text-center">
+            Ruby Imrie with Professor Julian Goodare. CC-BY-SA 4.0
+          </figcaption>
+        </figure>
       </div>
     </div>
     <div style="display: flex; justify-content: center" class="mb-3">
@@ -431,9 +478,9 @@
           href="https://www.scotsman.com/heritage-and-retro/retro/map-of-scots-women-accused-of-witchcraft-published-for-first-time-637272"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Map of Scots women accused of witchcraft published for first
-            time</i
+            time</em
           >
           - The Scotsman, 26 September 2019</a
         >
@@ -443,9 +490,9 @@
           href="https://www.edinburghlive.co.uk/news/edinburgh-news/tragic-tale-edinburgh-woman-strangled-16986490"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Tale of Edinburgh woman 'strangled and burnt' for witchcraft
-            brought to life in map</i
+            brought to life in map</em
           >
           - Edinburgh Live, 17 May 2022
         </a>
@@ -455,9 +502,9 @@
           href="https://www.pressandjournal.co.uk/fp/news/scotland/1849701/new-interactive-map-highlights-more-than-3000-cases-of-scottish-women-accused-of-being-witches/"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >New interactive map shows where women accused of witchcraft lived
-            in the north and north-east</i
+            in the north and north-east</em
           >
           - The Press & Journal, 28 October 2019</a
         >
@@ -467,9 +514,9 @@
           href="https://www.smithsonianmag.com/smart-news/map-visualizes-scale-16th-and-17th-century-scottish-witch-hunts-180973226/"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >This Map Shows the Scale of 16th- and 17th-Century Scottish Witch
-            Hunts</i
+            Hunts</em
           >
           - Smithsonian Magazine, 26 September 2019</a
         >
@@ -505,9 +552,9 @@
           href="https://www.thecourier.co.uk/fp/news/perth-kinross/987108/interactive-map-reveals-the-stories-of-witches-male-and-female-in-tayside-and-fife/"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Interactive map reveals the stories of witches – male and female –
-            in Tayside and Fife</i
+            in Tayside and Fife</em
           >
           - The Courier, 28 September 2019</a
         >
@@ -553,9 +600,9 @@
           href="https://www.edinburghnews.scotsman.com/heritage-and-retro/retro/map-of-scots-women-accused-of-witchcraft-published-for-first-time-637272"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Map of Scots women accused of witchcraft published for first
-            time</i
+            time</em
           >
           - Edinburgh News, 26 September 2019</a
         >
@@ -609,9 +656,9 @@
           href="https://www.clydebankpost.co.uk/news/17951248.new-map-reveals-three-clydebank-women-branded-witches-1677-trials/"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >New map reveals three Clydebank women branded witches in 1677
-            trials</i
+            trials</em
           >
           - Clydebank Post, 7 October 2019</a
         >
@@ -621,9 +668,9 @@
           href="https://www.dailystar.co.uk/news/weird-news/ancient-spellbinding-map-shows-witches-20317887"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Ancient spellbinding map shows where witches once dwelled and were
-            burned alive</i
+            burned alive</em
           >
           - Daily Star, 6 October 2019</a
         >
@@ -642,9 +689,9 @@
           href="https://www.eastlothiancourier.com/news/17957718.interactive-map-shows-east-lothian-residents-accused-witchcraft/"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Interactive map shows all East Lothian residents accused of
-            witchcraft</i
+            witchcraft</em
           >
           - East Lothian Courier, 9 October 2019</a
         >
@@ -655,9 +702,9 @@
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
         ></a
-        ><i
+        ><em
           >Map shows where 17th century Scottish witches lived and where they
-          were burned</i
+          were burned</em
         >
       </li>
       <li>
@@ -665,9 +712,9 @@
           href="https://www.courrierinternational.com/article/histoire-une-carte-devoile-lampleur-de-la-chasse-aux-sorcieres-en-ecosse"
           target="_blank"
           class="underline hover:text-gray-500 mb-3"
-          ><i
+          ><em
             >Histoire. Une carte dévoile l’ampleur de la “chasse aux sorcières”
-            en Écosse</i
+            en Écosse</em
           >
           - Courrier International, 4 October 2019</a
         >
@@ -704,9 +751,9 @@
           href="https://www.heraldscotland.com/news/17996591.marianne-taylor-can-learn-wicked-persecution-witches/"
           target="_blank"
           class="underline hover:text-gray-500 mb-9"
-          ><i
+          ><em
             >Marianne Taylor: What can we learn from our wicked persecution of
-            witches?</i
+            witches?</em
           >
           - The Herald, 28 October 2019</a
         >
