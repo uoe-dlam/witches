@@ -19,7 +19,7 @@
       is one of those datasets.
     </p>
     <p class="mb-3">
-        We appreciate all feedback and will use it to inform future iterations
+      We appreciate all feedback and will incorporate it into future iterations
       of the map and the projects delivered by students.
     </p>
     <p class="mb-3">
@@ -27,11 +27,11 @@
       original Survey of Scottish Witchcraft, so his input and suggestions
       continue to be extremely valuable to us. The technical work on this
       project has been led by colleagues in our Digital Learning and Media Teams
-      and in Wikimedia UK . Most notably Karen Howie, Ewan McAndrew, Anne-Marie
-      Scott, Richard Lawson, Stewart Cromar, Andrew Middleton, Navino Evans,
-      Martin Poulter and Simon Cobb. We are indebted to them for the work they
-      have done and the time they spend supporting students who work on data
-      skills curriculum projects and internships.
+      and in Wikimedia UK . Most notably Simon Cobb, Stewart Cromar, Navino
+      Evans, Karen Howie, Richard Lawson, Anne-Marie Scott, Ewan McAndrew,
+      Andrew Millington, and Martin Poulter. We are indebted to them for the
+      work they have done and the time they spend supporting students who work
+      on data skills curriculum projects and internships.
     </p>
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
       Richard Lawson
