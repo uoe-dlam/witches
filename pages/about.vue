@@ -92,11 +92,9 @@
     </p>
     <h3>The ‘Witchfinder General’ Internship</h3>
     <!-- Emma Carroll  -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Emma Carroll (June to September 2019)
-    </p>
-    <div class="paragraph-container">
-      <div class="text" style="width: calc(65% - 20px)">
+    <h4>Emma Carroll (June to September 2019)</h4>
+    <div class="flex">
+      <div class="flex-auto">
         <p class="mb-3">
           Emma Carroll, a Geology and Physical Geography undergraduate student,
           was recruited in May 2019 as the new Data and Visualisation intern, or
@@ -108,15 +106,20 @@
           project, Wikidata
         </p>
       </div>
-      <div class="image" style="width: calc(35% - 20px)">
-        <img src="~/static/images/emma.png" />
-        <p class="text-xs text-center">
-          Emma Carroll locating the accused witches residencies. CC-BY-SA 4.0
-        </p>
+      <div class="flex-auto">
+        <figure>
+          <img
+            src="~/static/images/emma.png"
+            alt="Emma Carroll, wearing a yellow cardigan, sitting at a desk with a computer monitor in the background showing the Map of Accused Witches in Scotland website"
+          />
+          <figcaption class="text-xs text-center">
+            Emma Carroll locating the accused witches residencies. CC-BY-SA 4.0
+          </figcaption>
+        </figure>
       </div>
     </div>
-    <div class="paragraph-container">
-      <div class="text" style="width: calc(60% - 20px)">
+    <div class="flex">
+      <div class="flex-auto">
         <p class="mb-3">
           As a result of Emma’s work, there was a place of residence recorded
           onto each accused witches’ Wikidata page which could then be queried
@@ -129,12 +132,17 @@
           accused witch on the website maps.
         </p>
       </div>
-      <div class="image" style="width: calc(40% - 20px)">
-        <img src="~/static/images/emma-map.png" />
-        <p class="text-xs text-center mb-3">
-          Emma Carroll exploring collections at the National Library of
-          Scotland. CC-BY-SA 4.0
-        </p>
+      <div class="flex-auto">
+        <figure>
+          <img
+            src="~/static/images/emma-map.png"
+            alt="Emma Carroll exploring collections at the National Library of Scotland"
+          />
+          <figcaption class="text-xs text-center mb-3">
+            Emma Carroll exploring collections at the National Library of
+            Scotland. CC-BY-SA 4.0
+          </figcaption>
+        </figure>
       </div>
     </div>
     <p class="mb-3">
