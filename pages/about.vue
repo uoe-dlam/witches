@@ -59,10 +59,16 @@
         <p class="mb-3">
           Students on the Data Science for Design MSc created engaging
           visualisations from these real world datasets. One group chose create
-          an interactive physical map of accused witches in Scotland, laser cut
-          and engraved from an A1 block of wood and creating bespoke pieces to
-          visualise the gender distribution of accused witches in each region of
-          Scotland and the different torture techniques employed in each region.
+          an
+          <a
+            class="underline hover:text-gray-500"
+            href="https://media.ed.ac.uk/media/1_wn428698"
+            target="_blank"
+            >interactive physical map of accused witches in Scotland</a
+          >, laser cut and engraved from an A1 block of wood and creating
+          bespoke pieces to visualise the gender distribution of accused witches
+          in each region of Scotland and the different torture techniques
+          employed in each region.
         </p>
       </div>
       <div class="flex-auto">
@@ -79,23 +85,12 @@
       </div>
     </div>
     <p class="mb-3">
-      You can see a short film of the results:
-      <a
-        class="underline hover:text-gray-500"
-        href="https://media.ed.ac.uk/media/1_wn428698"
-        target="_blank"
-        >An interactive laser cut map of accused witches in Scotland</a
-      >
-    </p>
-    <p class="mb-3">
       The success of this project, and the engaging visualisations created as a
       result, made the case that an internship dedicated to geographically
       locating the places recorded in the database as linked open data would be
       the next logical step.
     </p>
-    <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">
-      The ‘Witchfinder General’ Internship
-    </p>
+    <h3>The ‘Witchfinder General’ Internship</h3>
     <!-- Emma Carroll  -->
     <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
       Emma Carroll (June to September 2019)
