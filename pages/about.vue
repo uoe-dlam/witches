@@ -3,9 +3,7 @@
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
       About The Project
     </h1>
-    <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">
-      Teaching data science with ‘real-world’ datasets
-    </p>
+    <h2>Teaching data science with ‘real-world’ datasets</h2>
     <p class="mb-3">
       Since 2017 teams at the University of Edinburgh have been supporting
       students to learn about data science and develop their skills through
@@ -33,9 +31,7 @@
       work they have done and the time they spend supporting students who work
       on data skills curriculum projects and internships.
     </p>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Richard Lawson
-    </p>
+    <h3>Richard Lawson</h3>
     <p class="mb-3">
       Richard was the person most responsible for creating this website and for
       always giving his time generously to this project; to support student
@@ -49,12 +45,8 @@
       died suddenly on 10 October 2023 and this site is a tribute to his
       brilliance and commitment to the project and we dedicate it to his memory.
     </p>
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
-      Work done by University of Edinburgh students
-    </h1>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Data Science for Design MSc Projects 2017-19
-    </p>
+    <h2>Work done by University of Edinburgh students</h2>
+    <h3>Data Science for Design MSc Projects 2017-19</h3>
     <div class="paragraph-container">
       <div class="text">
         <p class="mb-3">
