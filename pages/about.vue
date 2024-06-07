@@ -9,7 +9,7 @@
       <p class="mb-3">
         Since 2017 teams at the University of Edinburgh have been supporting
         students to learn about data science and develop their skills through
-        working with a ‘real-world’ datasets. The Survey of Scottish Witchcraft
+        working with a <em>real-world</em> dataset. The Survey of Scottish Witchcraft
         database is one of those datasets.
       </p>
       <p class="mb-3">
