@@ -80,6 +80,7 @@
            { name : 'References', url : '/reference', external: false },
            { name : 'Resources', url : '/resources', external: false },
            { name : 'Contact', url : '/contact', external: false },
+           { name : 'Glossary', url : '/glossary', external: false },
          ] },
          { name: 'Blog', url: 'https://blogs.ed.ac.uk/witchcraft_visualisation/', external: true, subpages : [] }
        ]
