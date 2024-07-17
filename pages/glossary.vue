@@ -12,22 +12,14 @@
   </template>
   
   <script>
+  import glossaryJSON from "../static/glossary.json";
   export default {
     data() {
       return {
-        glossary: []
+        glossary: glossaryJSON,
       };
     },
-    async asyncData() {
-      try {
-        const res = await fetch('/glossary.json'); // Correct path to fetch the glossary.json file
-        const data = await res.json(); // Parse the JSON response
-        return { glossary: data }; // Directly return the array since the JSON file is an array
-      } catch (error) {
-        console.error('Error fetching glossary:', error);
-        return { glossary: [] }; // Return empty glossary on error
-      }
-    }
+
   };
   </script>
   
