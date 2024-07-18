@@ -10,7 +10,7 @@
     </div>
     <div :style="{ marginLeft: '10%', marginRight: '10%' }">
       <div v-for="letterObj in letters" :key="letterObj.letter">
-        <h2 @click="toggleLetter(letterObj.letter)" class="cursor-pointer">
+        <h2 @click="toggleShowingLetter(letterObj.letter)" class="cursor-pointer">
           {{ letterObj.letter }} <span v-if="letterObj.expanded">-</span><span v-else>+</span>
         </h2>
         <hr class="mb-3">
@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     sortedGlossary() {
-      // Create an object to store groups of glossary items by letter
+      // object to store groups of glossary items by letter
       let grouped = {};
       
-      // Loop through glossary items and group them by the first letter of 'word'
+      // group by the first letter of each word
       this.glossary.forEach(item => {
         let letter = item.word.charAt(0).toUpperCase(); // Get the first letter and convert to uppercase
         if (!grouped[letter]) {
@@ -50,7 +50,7 @@ export default {
         grouped[letter].push(item);
       });
       
-      // Sort groups by letter
+      // within group sort into alphabetical order
       const sortedGroups = {};
       Object.keys(grouped).sort().forEach(key => {
         sortedGroups[key] = grouped[key].sort((a, b) => {
@@ -62,13 +62,13 @@ export default {
     }
   },
   mounted() {
-    // Initialize letters array with the expanded state set to false
+    // create letters array to use for expandable/collapsable sections
     this.letters = Object.keys(this.sortedGlossary).sort().map(letter => {
       return { letter, expanded: false };
     });
   },
   methods: {
-    toggleLetter(letter) {
+    toggleShowingLetter(letter) {
       const letterObj = this.letters.find(l => l.letter === letter);
       if (letterObj) {
         letterObj.expanded = !letterObj.expanded;
@@ -89,8 +89,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add styling for the expand/collapse indicator */
-h2 span {
-  float: right;
-}
+
 </style>
