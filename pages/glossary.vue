@@ -1,16 +1,23 @@
 <template>
   <div>
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Glossary</h1>
+    <p class="text-center mb-3">
+      This glossary contains unusual or specialist words used across this website, including in filters and explanations, to help you better understand the terms and their meanings.
+    </p>
+    <div class="text-right mb-5" :style="{marginRight: '10%' }">
+      <button @click="expandAll" class="hover:text-gray-400 text-gray-800 font-bold py-2 px-1 underline text-xs">Expand All</button>
+      <button @click="collapseAll" class="hover:text-gray-400 text-gray-800 font-bold py-2 px-1 underline text-xs">Collapse All</button>
+    </div>
     <div :style="{ marginLeft: '10%', marginRight: '10%' }">
       <div v-for="letterObj in letters" :key="letterObj.letter">
         <h2 @click="toggleLetter(letterObj.letter)" class="cursor-pointer">
           {{ letterObj.letter }} <span v-if="letterObj.expanded">-</span><span v-else>+</span>
         </h2>
-        <hr>
+        <hr class="mb-3">
         <ul v-show="letterObj.expanded" class="mb-3">
-          <li v-for="item in sortedGlossary[letterObj.letter]" :key="item.word">
-            <h3><strong>{{ item.word }}</strong></h3>
-            <p><span class="font-medium">Category:</span> {{ item.category }} </p>
+          <li v-for="item in sortedGlossary[letterObj.letter]" :key="item.word" class="mb-3">
+            <h3 class="font-semibold">{{ item.word }}</h3>
+            <p><span class="font-medium">Category:</span> {{ item.category }}</p>
             <p><span class="font-medium">Definition:</span> {{ item.definition }}</p>
           </li>
         </ul>
@@ -66,6 +73,16 @@ export default {
       if (letterObj) {
         letterObj.expanded = !letterObj.expanded;
       }
+    },
+    expandAll() {
+      this.letters.forEach(letterObj => {
+        letterObj.expanded = true;
+      });
+    },
+    collapseAll() {
+      this.letters.forEach(letterObj => {
+        letterObj.expanded = false;
+      });
     }
   }
 };
