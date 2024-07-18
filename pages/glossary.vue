@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-2xl text-center mb-3">Glossary</h1>
-    <div class="ml-20 mr-20">
+    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Glossary</h1>
+    <div :style="{ marginLeft: '10%', marginRight: '10%' }">
       <div v-for="letterObj in letters" :key="letterObj.letter">
         <h2 @click="toggleLetter(letterObj.letter)" class="cursor-pointer">
           {{ letterObj.letter }} <span v-if="letterObj.expanded">-</span><span v-else>+</span>
