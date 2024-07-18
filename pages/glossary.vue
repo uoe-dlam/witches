@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-2xl text-center mb-3">Glossary</h1>
-    <div class="ml-10 mr-10">
+    <div class="ml-20 mr-20">
       <div v-for="letterObj in letters" :key="letterObj.letter">
         <h2 @click="toggleLetter(letterObj.letter)" class="cursor-pointer">
           {{ letterObj.letter }} <span v-if="letterObj.expanded">-</span><span v-else>+</span>
@@ -9,9 +9,9 @@
         <hr>
         <ul v-show="letterObj.expanded" class="mb-3">
           <li v-for="item in sortedGlossary[letterObj.letter]" :key="item.word">
-            <h3>{{ item.word }}</h3>
-            <p><strong>Category:</strong> {{ item.category }}</p>
-            <p><strong>Definition:</strong> {{ item.definition }}</p>
+            <h3><strong>{{ item.word }}</strong></h3>
+            <p><span class="font-medium">Category:</span> {{ item.category }} </p>
+            <p><span class="font-medium">Definition:</span> {{ item.definition }}</p>
           </li>
         </ul>
       </div>
