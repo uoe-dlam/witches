@@ -1,22 +1,85 @@
 <template>
-  <div id="map-wrapper" class="w-full h-full relative">
+  <div id="map-wrapper" class="flex flex-col h-full w-full relative">
+    <!-- Filters -->
+    <div class="absolute flex flex-col w-full h-full">
+      <div
+        class="xs:w-11/12 sm:w-1/2 lg:w-2/5 xl:w-1/3 z-20 left-0"
+        :style="filtersBox ? {} : { 'pointer-events': 'none' }"
+      >
+        <transition>
+          <div class="w-full h-full flex" v-if="filtersBox">
+            <div class="h-full flex flex-col bg-white
+                        rounded-tr-xl rounded-br-xl filters-shadow
+                        overflow-y-visible overflow-x-hidden
+                        relative" 
+             style="width:90%">
+            <!-- Header -->
+            <div class="flex w-full flex-col bg-white md:sticky md:top-0 md:z-10" ref="FiltersHeader">
+              <div class="flex flex-col w-full h-full" style="backdrop-filter: blur(1.5px);">
+                <!-- Title and info-->
+                <div class="flex text-center mt-1">
+                  <h1 class="text-3xl mx-0 px-2">Map of Memorials</h1>
+                </div>
+
+                <!-- Display number of active witches. -->
+                <div class="ml-3 flex mt-3 items-center pb-2">
+                  <p class="mr-2 text-lg witchy-text">Showing</p>
+                  <div class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700">
+                    <p>110</p>
+                  </div>
+                  <p class="mr-1 text-lg witchy-text">Locations</p>
+                </div>
+              </div>
+              <div class="w-full border mt-1"></div>
+            </div>
+            <!-- Explanation Paragraph -->
+            <div class="ml-3 mb-3">
+              <p>This is a map showing locations relating to the Scottish witch trials. Some are memorials to remember them, some are tourist attractions to educate, and some are folklorian</p>
+            </div>
+            <!-- Filter -->
+          </div>
+        </div>
+          <!-- Left chevron to hide filters. -->
+          <div class="w-8 flex flex-col justify-center ml-1">
+            <div
+              class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
+              @click="toggleFiltersBox"
+            >
+              <img class="max-w-full max-h-full" src="/images/chevrons-left.svg" />
+            </div>
+          </div>
+        </transition>
+
+        <!-- Right chevron to show filters. -->
+        <div class="w-8 flex flex-col justify-center ml-1 h-full" v-if="!filtersBox" style="pointer-events: auto;">
+          <div
+            class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
+            @click="toggleFiltersBox"
+          >
+            <img class="max-w-full max-h-full" src="/images/chevrons-right.svg" />
+          </div>
+        </div>
+      </div>
+    
+
+    <!-- Map -->
     <l-map class="w-full h-full z-0 absolute" :zoom="zoom" :center="center" ref="myMap">
       <l-control-zoom position="bottomright"></l-control-zoom>
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
       <l-marker v-for="(memorial, i) in markers" :key="i" :lat-lng="memorial.longLat">
         <l-popup class="adapted-popup">
-          <h3>{{ memorial.name }}</h3><br>
+          <h3>{{ memorial.name }}</h3><br />
           <div v-if="memorial.imageUrl" class="mb-5 flex justify-center items-center">
             <a :title="'Image Source: ' + memorial.imageUrl" :href="memorial.imageUrl">
-              <img width="150vw" :alt="memorial.name" :src="memorial.imageUrl">
+              <img width="150vw" :alt="memorial.name" :src="memorial.imageUrl" />
             </a>
           </div>
           <div>
-            <b>Instance Of:</b> {{ memorial.instance }}<br>
-            <b class>Description:</b> {{ memorial.description }}<br>
-            <b>Location:</b> {{ memorial.location }}<br>
-            <b>Street Address:</b> {{ memorial.streetAddress }}<br>
-            <a :href="memorial.url" class="underline text-sky-500 hover:text-sky-700">Read More Here</a><br>
+            <b>Instance Of:</b> {{ memorial.instance }}<br />
+            <b>Description:</b> {{ memorial.description }}<br />
+            <b>Location:</b> {{ memorial.location }}<br />
+            <b>Street Address:</b> {{ memorial.streetAddress }}<br />
+            <a :href="memorial.url" class="underline text-sky-500 hover:text-sky-700">Read More Here</a><br />
           </div>
         </l-popup>
         <l-icon :icon-anchor="iconAnchor">
@@ -33,6 +96,7 @@
       </l-marker>
     </l-map>
   </div>
+  </div>
 </template>
 
 <script>
@@ -41,6 +105,7 @@ import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 export default {
   data() {
     return {
+      filtersBox: true,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 7,
       center: [57.00, -4],
@@ -48,8 +113,8 @@ export default {
       markers: [],
       originalMarkers: [],
       sparqlUrl: 'https://query.wikidata.org/sparql',
-      poiList: ['historic landmark','tourist attraction','statue'],
-      memList: ['memorial','standing stone','commemorative plaque'],
+      poiList: ['historic landmark', 'tourist attraction', 'statue'],
+      memList: ['memorial', 'standing stone', 'commemorative plaque'],
       descriptions: {} // To store descriptions from JSON
     }
   },
@@ -78,64 +143,64 @@ export default {
 
       const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
       queryDispatcher.query(sparqlQuery).then(result => {
-          let memorials = [];
+        let memorials = [];
 
-          for (let i = 0; i < result.results.bindings.length; i++) {
-              let item = result.results.bindings[i];
-              let id = item.item.value;
-              let instance = item.hasOwnProperty('instanceLabel') ? item.instanceLabel.value : 'unknown';
-              let memorialCoords = item.hasOwnProperty('coords') ? this.convertPointToLongLatArray(item.coords.value) : '';
-              let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
-              let imageUrl = item.hasOwnProperty('image') ? item.image.value : '';
-              let streetAddress = item.hasOwnProperty('address') ? item.address.value : '';
-              let url = item.hasOwnProperty('url') ? item.url.value : '';
-              let description = this.descriptions[id.split('/').pop()] || ''; // Use description from JSON
+        for (let i = 0; i < result.results.bindings.length; i++) {
+          let item = result.results.bindings[i];
+          let id = item.item.value;
+          let instance = item.hasOwnProperty('instanceLabel') ? item.instanceLabel.value : 'unknown';
+          let memorialCoords = item.hasOwnProperty('coords') ? this.convertPointToLongLatArray(item.coords.value) : '';
+          let memorialLocation = item.hasOwnProperty('locationLabel') ? item.locationLabel.value : '';
+          let imageUrl = item.hasOwnProperty('image') ? item.image.value : '';
+          let streetAddress = item.hasOwnProperty('address') ? item.address.value : '';
+          let url = item.hasOwnProperty('url') ? item.url.value : '';
+          let description = this.descriptions[id.split('/').pop()] || ''; // Use description from JSON
 
-              let memorial = {
-                  id: id,
-                  name: item.itemLabel.value,
-                  longLat: memorialCoords,
-                  location: memorialLocation,
-                  instanceOf: instance,
-                  imageUrl: imageUrl,
-                  streetAddress: streetAddress,
-                  url: url,
-                  description: description // Add description to the memorial object
-              }
-
-              memorials.push(memorial);
-              this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url, description);
+          let memorial = {
+            id: id,
+            name: item.itemLabel.value,
+            longLat: memorialCoords,
+            location: memorialLocation,
+            instanceOf: instance,
+            imageUrl: imageUrl,
+            streetAddress: streetAddress,
+            url: url,
+            description: description // Add description to the memorial object
           }
-          this.noItems = memorials.length;
-          this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
-          this.loading = false;
+
+          memorials.push(memorial);
+          this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url, description);
+        }
+        this.noItems = memorials.length;
+        this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+        this.loading = false;
       });
     },
 
     addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress, url, description) {
-        if (memorialCoords && memorialCoords.length === 2) {
-            let marker = this.markers.find(marker => marker.location === memorialLocation);
+      if (memorialCoords && memorialCoords.length === 2) {
+        let marker = this.markers.find(marker => marker.location === memorialLocation);
 
-            if (marker) {
-                marker.memorials.push(memorial);
-            } else {
-                let marker = {
-                    name: name,
-                    instance: instance,
-                    location: memorialLocation,
-                    longLat: memorialCoords,
-                    imageUrl: imageUrl,
-                    streetAddress: streetAddress,
-                    url: url,
-                    memorials: [memorial],
-                    description: description // Add description to the marker
-                }
-
-                this.markers.push(marker);
-            }
+        if (marker) {
+          marker.memorials.push(memorial);
         } else {
-            console.log('Skipping marker with null coordinates:', memorial);
+          let marker = {
+            name: name,
+            instance: instance,
+            location: memorialLocation,
+            longLat: memorialCoords,
+            imageUrl: imageUrl,
+            streetAddress: streetAddress,
+            url: url,
+            memorials: [memorial],
+            description: description // Add description to the marker
+          }
+
+          this.markers.push(marker);
         }
+      } else {
+        console.log('Skipping marker with null coordinates:', memorial);
+      }
     },
     convertPointToLongLatArray(pointString) {
       pointString = pointString.substr(6);
@@ -158,7 +223,10 @@ export default {
         this.$refs.myMap.mapObject.removeLayer(marker);
       });
       this.markers = [];
-    }
+    },
+    toggleFiltersBox() {
+      this.filtersBox = !this.filtersBox;
+    },
   },
 
   async mounted() {
