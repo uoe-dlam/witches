@@ -38,9 +38,8 @@
             </div>
             <!-- Filter -->
           </div>
-        </div>
           <!-- Left chevron to hide filters. -->
-          <div class="w-8 flex flex-col justify-center ml-1">
+          <div class="w-8 flex flex-col justify-center ml-1" v-if="filtersBox" >
             <div
               class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
               @click="toggleFiltersBox"
@@ -48,6 +47,7 @@
               <img class="max-w-full max-h-full" src="/images/chevrons-left.svg" />
             </div>
           </div>
+        </div>
         </transition>
 
         <!-- Right chevron to show filters. -->
