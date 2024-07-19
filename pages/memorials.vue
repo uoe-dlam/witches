@@ -18,7 +18,7 @@
                 <div class="flex flex-col w-full h-full" style="backdrop-filter: blur(1.5px);">
                   <!-- Title and info-->
                   <div class="flex text-center mt-1">
-                    <h1 class="text-3xl mx-0 px-2">Map of Memorials</h1>
+                    <h1 class="text-3xl mx-0 px-2">Map of Memorials & Sites of Interest</h1>
                   </div>
 
                   <!-- Display number of active witches. -->
@@ -34,20 +34,28 @@
               </div>
 
               <!-- Explanation Paragraph -->
-              <div class="ml-3 mb-3">
-                <p>This is a map showing locations relating to the Scottish witch trials. Some are memorials to remember them, some are tourist attractions to educate, and some are folklorian.</p>
+              <div class="m-3">
+                <p>This map displays locations connected to the Scottish witch trials. It includes memorials honoring those accused and suffering from the trials, as well as Points of Interest such as sites of folklore, tourist attractions, and locations where executions took place.</p>
               </div>
 
               <!-- Filter Checklist -->
-              <div class="ml-3 mb-3">
-                <h2 class="text-lg font-semibold">Filter by:</h2>
-                <div class="flex items-center">
-                  <input type="checkbox" id="poi-filter" v-model="filters.poi" class="mr-2" />
-                  <label for="poi-filter">Points of Interest</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="memorial-filter" v-model="filters.memorial" class="mr-2" />
-                  <label for="memorial-filter">Memorials</label>
+              <div class="ml-3 mb-6">
+                <h1 class="text-2xl mb-3">Filters</h1>
+                <div class="flex space-x-6">
+                  <div class="flex flex-col items-center">
+                    <label for="poi-filter" class="flex flex-col items-center cursor-pointer">
+                      <img class="w-8 mb-2" src="../static/images/witch-single-brown.png" alt="Point of Interest Icon" />
+                      <span class="text-xs">Sites of Interest</span>
+                    </label>
+                    <input type="checkbox" id="poi-filter" v-model="filters.poi"  />
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <label for="memorial-filter" class="flex flex-col items-center cursor-pointer">
+                      <img class="w-8 mb-2" src="../static/images/witch-single-grey.png" alt="Memorial Icon" />
+                      <span class="text-xs">Memorials</span>
+                    </label>
+                    <input type="checkbox" id="memorial-filter" v-model="filters.memorial" />
+                  </div>
                 </div>
               </div>
             </div>
