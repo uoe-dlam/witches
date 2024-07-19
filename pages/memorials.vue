@@ -35,7 +35,7 @@
 
               <!-- Explanation Paragraph -->
               <div class="m-3">
-                <p>This map displays locations connected to the Scottish witch trials. It includes memorials honoring those accused and suffering from the trials, as well as Points of Interest such as sites of folklore, tourist attractions, and locations where executions took place.</p>
+                <p>This map displays locations connected to the Scottish witch trials. It includes memorials honoring those accused during the trials, as well as Points of Interest such as sites of folklore, tourist attractions, and locations where executions took place.</p>
               </div>
 
               <!-- Filter Checklist -->
