@@ -86,6 +86,22 @@
     {
         "wikidata_code": "Q123249733",
         "description": "A standing sone in a field near Monzie Castle. Said to mark the site where reputed witch Kate McNiven was burnt. This is unlikely as there are no contemporary records proving the existence of McNiven and the stone has been classified as pre-historic by HES. "
+    },
+    {
+        "wikidata_code": "Q123249755",
+        "description": "A stone commemorating accused witch Marion Lillie, who it claims was burnt at the site in 1698. There is, however, no evidence of this. The claim it marks the site of burning for the last witch in South Scotland probably refers to 3 witches who were burned in Spott in 1705."
+    },
+    {
+        "wikidata_code": "Q55076772",
+        "description": "Tourist attraction where which interactive actors present as accused witch Agnes Finnie. A mock court room is set up and replica witch trials conducted, however these draw from a loose historic basis."
+    },
+    {
+        "wikidata_code": "Q1633842",
+        "description": "Case located on Level 1 exhibiting objects said to be related to Scottish witchcraft, such as thumb screws and an iron collar. However, it is likely some of these objects date from after the Scottish witch-hunts had finished."
+    },
+    {
+        "wikidata_code": "",
+        "description": ""
     }
 
 ]
