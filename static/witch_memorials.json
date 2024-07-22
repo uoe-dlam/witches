@@ -100,8 +100,17 @@
         "description": "Case located on Level 1 exhibiting objects said to be related to Scottish witchcraft, such as thumb screws and an iron collar. However, it is likely some of these objects date from after the Scottish witch-hunts had finished."
     },
     {
-        "wikidata_code": "",
-        "description": ""
+        "wikidata_code": "Q127691054",
+        "description": "An extended personal collection of objects associated with magic and the occult, dating from the 17th century to the present day. More emphasis on modern witchcraft than historic interest."
+    },
+    {
+        "wikidata_code": "Q127691255",
+        "description": "George Mackenzie of Rosehaugh (1636-1691) was a prominent Scottish Lawyer and Lord Advocate. He called for higher standards of evidence to be used in witchcraft trials, signifying a change in tide for witchcraft prosecution."
+    },
+    {
+        "wikidata_code": "Q7085231",
+        "description": "Located next to St Giles’ Cathedral the Tolbooth was where accused witches in Edinburgh, and sometimes from across Scotland, would have been taken to be interrogated and held prior to their execution."
     }
+
 
 ]

@@ -139,7 +139,7 @@ export default {
       markers: [],
       originalMarkers: [],
       sparqlUrl: 'https://query.wikidata.org/sparql',
-      poiList: ['historic landmark', 'tourist attraction', 'statue','mural','museum','haunted attraction'],
+      poiList: ['historic landmark', 'tourist attraction', 'statue','mural','museum','haunted attraction','tomb','destroyed building or structure'],
       memList: ['memorial', 'standing stone', 'commemorative plaque','labyrinth','grave'],
       descriptions: {}, 
       filters: {
