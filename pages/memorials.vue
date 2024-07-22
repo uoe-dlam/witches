@@ -139,7 +139,7 @@ export default {
       markers: [],
       originalMarkers: [],
       sparqlUrl: 'https://query.wikidata.org/sparql',
-      poiList: ['historic landmark', 'tourist attraction', 'statue','mural','museum'],
+      poiList: ['historic landmark', 'tourist attraction', 'statue','mural','museum','haunted attraction'],
       memList: ['memorial', 'standing stone', 'commemorative plaque','labyrinth','grave'],
       descriptions: {}, 
       filters: {
@@ -212,17 +212,20 @@ export default {
           }
 
           memorials.push(memorial);
+          console.log('Memorial:', memorial);
           this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url, description);
         }
+
         this.noItems = memorials.length;
         this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
+        console.log('originalMarkers:', this.originalMarkers);
         this.loading = false;
       });
     },
 
     addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress, url, description) {
       if (memorialCoords && memorialCoords.length === 2) {
-        let marker = this.markers.find(marker => marker.location === memorialLocation);
+        let marker = this.markers.find(marker => marker.name === name);
 
         if (marker) {
           marker.memorials.push(memorial);
