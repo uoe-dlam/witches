@@ -35,8 +35,11 @@
 
               <!-- Explanation Paragraph -->
               <div class="m-3">
-                <p>
+                <p class="mb-3">
                   This map displays some of the locations across Scotland connected to the Scottish Witch trials (1563-1736). It includes memorials commemorating and honouring those accused of witchcraft during this period, as well as highlighting Points of Interest, such as tourist attractions, sites connected to popular belief surrounding witchcraft, and locations where executions took place.
+                </p>
+                <p>
+                  If you know of any other memorials or sites of interest related to the Scottish witch trials that are not already included, please let us know on our <a class="underline hover:text-gray-500" href="/contact">Contact</a> page.
                 </p>
               </div>
 
