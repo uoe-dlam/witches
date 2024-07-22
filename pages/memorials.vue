@@ -136,8 +136,8 @@ export default {
       markers: [],
       originalMarkers: [],
       sparqlUrl: 'https://query.wikidata.org/sparql',
-      poiList: ['historic landmark', 'tourist attraction', 'statue'],
-      memList: ['memorial', 'standing stone', 'commemorative plaque'],
+      poiList: ['historic landmark', 'tourist attraction', 'statue','mural','museum'],
+      memList: ['memorial', 'standing stone', 'commemorative plaque','labyrinth','grave'],
       descriptions: {}, 
       filters: {
         poi: true,
