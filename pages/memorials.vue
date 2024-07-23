@@ -104,7 +104,7 @@
                 <b>Instance Of:</b> {{ memorial.instance }}<br />
               </div>
               <div v-if="memorial.description">
-                <b>Description:</b> {{ memorial.description }}<br />
+                <b>Description:</b> <span v-html="memorial.description"></span><br />
               </div>
               <div v-if="memorial.location">
                 <b>Location:</b> {{ memorial.location }}<br />
