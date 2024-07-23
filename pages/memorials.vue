@@ -1,7 +1,7 @@
 <template>
   <div id="map-wrapper" class="flex flex-col h-full w-full relative">
     <!-- Filters -->
-    <div class="absolute flex flex-col w-full h-full">
+    <div class="absolute flex flex-col w-full h-full relative scroll-auto">
       <div
         class="xs:w-11/12 sm:w-1/2 lg:w-2/5 xl:w-1/3 z-20 left-0"
         :style="filtersBox ? {} : { 'pointer-events': 'none' }"
@@ -14,7 +14,7 @@
                         relative"
              style="width:90%">
               <!-- Header -->
-              <div class="flex w-full flex-col bg-white md:sticky md:top-0 md:z-10" ref="FiltersHeader">
+              <div class="flex w-full flex-col bg-white sticky md:top-0 md:z-10" ref="FiltersHeader">
                 <div class="flex flex-col w-full h-full" style="backdrop-filter: blur(1.5px);">
                   <!-- Title and info-->
                   <div class="flex text-center mt-1">
@@ -100,11 +100,21 @@
               </a>
             </div>
             <div>
-              <b>Instance Of:</b> {{ memorial.instance }}<br />
-              <b>Description:</b> {{ memorial.description }}<br />
-              <b>Location:</b> {{ memorial.location }}<br />
-              <b>Street Address:</b> {{ memorial.streetAddress }}<br />
-              <a :href="memorial.url" class="underline text-sky-500 hover:text-sky-700">Read More Here</a><br />
+              <div v-if="memorial.instance">
+                <b>Instance Of:</b> {{ memorial.instance }}<br />
+              </div>
+              <div v-if="memorial.description">
+                <b>Description:</b> {{ memorial.description }}<br />
+              </div>
+              <div v-if="memorial.location">
+                <b>Location:</b> {{ memorial.location }}<br />
+              </div>
+              <div v-if="memorial.streetAddress">
+                <b>Street Address:</b> {{ memorial.streetAddress }}<br />
+              </div>
+              <div v-if="memorial.url">
+                <a :href="memorial.url" class="underline text-sky-500 hover:text-sky-700">Read More Here</a><br />
+              </div>
             </div>
           </l-popup>
           <l-icon :icon-anchor="iconAnchor">
