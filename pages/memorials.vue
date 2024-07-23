@@ -48,18 +48,18 @@
                 <h1 class="text-2xl mb-3">Filters</h1>
                 <div class="flex space-x-6">
                   <div class="flex flex-col items-center">
-                    <label for="poi-filter" class="flex flex-col items-center cursor-pointer">
-                      <img class="w-8 mb-2" src="../static/images/witch-single-brown.png" alt="Point of Interest Icon" />
-                      <span class="text-xs">Sites of Interest</span>
-                    </label>
-                    <input type="checkbox" id="poi-filter" v-model="filters.poi"  />
-                  </div>
-                  <div class="flex flex-col items-center">
                     <label for="memorial-filter" class="flex flex-col items-center cursor-pointer">
                       <img class="w-8 mb-2" src="../static/images/witch-single-grey.png" alt="Memorial Icon" />
                       <span class="text-xs">Memorials</span>
                     </label>
                     <input type="checkbox" id="memorial-filter" v-model="filters.memorial" />
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <label for="poi-filter" class="flex flex-col items-center cursor-pointer">
+                      <img class="w-8 mb-2" src="../static/images/witch-single-brown.png" alt="Point of Interest Icon" />
+                      <span class="text-xs">Sites of Interest</span>
+                    </label>
+                    <input type="checkbox" id="poi-filter" v-model="filters.poi"  />
                   </div>
                 </div>
               </div>
