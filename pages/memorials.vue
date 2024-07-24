@@ -119,11 +119,11 @@
           </l-popup>
           <l-icon :icon-anchor="iconAnchor">
             <div class="icon-wrapper">
-              <div v-if="poiList.includes(memorial.instance)">
-                <img src="../static/images/witch-single-brown.png" class="zoomed-in-img" />
+              <div v-if="memList.includes(memorial.instance)">
+                <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
               </div>
               <div v-else>
-                <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
+                <img src="../static/images/witch-single-brown.png" class="zoomed-in-img" />
               </div>
               <img class="icon-shadow" src="../static/images/witch-single-shadow.png" />
             </div>
@@ -161,7 +161,7 @@ export default {
   computed: {
     filteredMarkers() {
       return this.markers.filter(marker => {
-        if (this.filters.poi && this.poiList.includes(marker.instance)) {
+        if (this.filters.poi && !(this.memList.includes(marker.instance))) {
           return true;
         }
         if (this.filters.memorial && this.memList.includes(marker.instance)) {
