@@ -149,8 +149,7 @@ export default {
       markers: [],
       originalMarkers: [],
       sparqlUrl: 'https://query.wikidata.org/sparql',
-      poiList: ['historic landmark', 'tourist attraction', 'statue','mural','museum','haunted attraction','tomb','destroyed building or structure','church building','grave','tower house','castle','tolbooth','market cross'],
-      memList: ['memorial', 'standing stone', 'commemorative plaque','labyrinth'],
+      memList: ['memorial', 'standing stone', 'commemorative plaque','labyrinth','work of art'],
       descriptions: {}, 
       filters: {
         poi: true,
