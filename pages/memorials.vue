@@ -49,14 +49,14 @@
                 <div class="flex space-x-6">
                   <div class="flex flex-col items-center">
                     <label for="memorial-filter" class="flex flex-col items-center cursor-pointer">
-                      <img class="w-8 mb-2" src="../static/images/witch-single-grey.png" alt="Memorial Icon" />
+                      <img class="w-8 mb-2" :src="memIcon" alt="Memorial Icon" />
                       <span class="text-xs">Memorials</span>
                     </label>
                     <input type="checkbox" id="memorial-filter" v-model="filters.memorial" />
                   </div>
                   <div class="flex flex-col items-center">
                     <label for="poi-filter" class="flex flex-col items-center cursor-pointer">
-                      <img class="w-8 mb-2" src="../static/images/witch-single-brown.png" alt="Point of Interest Icon" />
+                      <img class="w-8 mb-2" :src="poiIcon" alt="Point of Interest Icon" />
                       <span class="text-xs">Sites of Interest</span>
                     </label>
                     <input type="checkbox" id="poi-filter" v-model="filters.poi"  />
@@ -120,12 +120,12 @@
           <l-icon :icon-anchor="iconAnchor">
             <div class="icon-wrapper">
               <div v-if="memList.includes(memorial.instance)">
-                <img src="../static/images/witch-single-grey.png" class="zoomed-in-img" />
+                <img :src="memIcon" class="zoomed-in-img" />
               </div>
               <div v-else>
-                <img src="../static/images/witch-single-brown.png" class="zoomed-in-img" />
+                <img :src="poiIcon" class="zoomed-in-img" />
               </div>
-              <img class="icon-shadow" src="../static/images/witch-single-shadow.png" />
+              <img class="icon-shadow" :src="shadow" />
             </div>
           </l-icon>
         </l-marker>
@@ -137,6 +137,9 @@
 
 <script>
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
+import memIcon from '../static/images/witch-single-grey.png';
+import poiIcon from '../static/images/witch-single-brown.png';
+import shadow from '../static/images/witch-single-shadow.png';
 
 export default {
   data() {
@@ -155,6 +158,9 @@ export default {
         poi: true,
         memorial: true,
       },
+      memIcon,
+      poiIcon,
+      shadow
     }
   },
   computed: {
