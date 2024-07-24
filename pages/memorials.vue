@@ -138,7 +138,7 @@
 <script>
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import memIcon from '../static/images/witch-single-grey.png';
-import poiIcon from '../static/images/witch-single-brown.png';
+import poiIcon from '../static/images/witch-single-orange.png';
 import shadow from '../static/images/witch-single-shadow.png';
 
 export default {
