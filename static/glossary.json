@@ -201,127 +201,127 @@
     },
     {
       "word": "Not enough information",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The record lacks sufficient details to characterize the case."
     },
     {
       "word": "Other",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "A non-natural being appeared in the form of a demon, distinct from the Devil."
     },
     {
       "word": "Political motive",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The case involved a dynastic or political struggle."
     },
     {
       "word": "Property motive",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The case involved an attempt to obtain the property of the witchcraft suspect."
     },
     {
       "word": "Refused charity to economic dependent",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The witchcraft suspect was denied charity by a social superior, who then accused them of witchcraft."
     },
     {
       "word": "Traditional medicine",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The suspect used herbs, ointments, and objects believed to have healing properties on the sick or injured, aligned with folk healing practices."
     },
     {
       "word": "Treason",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The witchcraft accusation was linked to treason, such as accusations of witches plotting to kill the king or conspiring against the state."
     },
     {
       "word": "White magic",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Non-malicious magic used for healing, finding lost items, divination, or love spells, not intended to harm."
     },
     {
       "word": "Midwifery",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The suspect practiced midwifery, assisting women during childbirth."
     },
     {
       "word": "Unorthodox religious practices (characterization)",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The suspect was accused of engaging in religious practices outside officially sanctioned Protestant or Catholic orthodoxy."
     },
     {
       "word": "Unorthodox religious practices (folk belief)",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The accused used religious practices considered unorthodox according to popular folk beliefs."
     },
     {
       "word": "Pact with the Devil",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "An agreement made with the Devil, often involving the exchange of one's soul or services for supernatural powers or favors."
     },
     {
       "word": "Anti-baptism",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Renunciation of Christian baptism, seen as an act of apostasy and a pact with the Devil."
     },
     {
       "word": "Body and soul",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Giving oneself over completely to the Devil, involving surrender of both body and soul."
     },
     {
       "word": "Bond",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The person who pays the caution or bail is under bond of caution, potentially involving the accusation of making a pact with the Devil."
     },
     {
       "word": "Demonic possession",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The witch was accused of causing someone (a victim) to be possessed by the Devil, often involving bewitchment leading to convulsions and visions."
     },
     {
       "word": "Devil's mark",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "A mark received from the Devil as a sign of pact, often described as insensible to feeling."
     },
     {
       "word": "Head and foot",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Touching the head and foot with opposite hands, symbolizing dedication or allegiance to the Devil."
     },
     {
       "word": "Kisses devil's bottom",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Worship of the Devil in a manner that perverts or inverts Christian symbolism."
     },
     {
       "word": "New name",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "A new name given to a witch by the Devil, indicating a rejection of Christian baptism and a renaming by the Devil."
     },
     {
       "word": "Paction",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "A general, non-specific pact made with the Devil, involving an agreement with supernatural entities."
     },
     {
       "word": "Servant",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Indicates that the accused had agreed to be the Devil’s servant, fulfilling tasks or services for the Devil."
     },
     {
       "word": "Sex with the devil",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "Indicated that the accused had sexual relations with the Devil, often considered a grave act of spiritual and moral corruption."
     },
     {
       "word": "Tacit pact",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The accused used power of the pact but did not describe any specific features, implying an implicit agreement or understanding with the Devil."
     },
     {
       "word": "Want nothing",
-      "category": "Case characterizations",
+      "category": "Case categorisations",
       "definition": "The accused confessed that the Devil promised to provide everything for them and that they ‘should never want’, indicating complete dependence on the Devil's provisions."
     },
     {
@@ -436,7 +436,7 @@
     },
     {
       "word": "Maleficium",
-      "category": "Maleficium",
+      "category": "Meetings",
       "definition": "The practice of causing harm to people, goods, or animals through magical means, often attributed to witches or sorcerers."
     },
     {
