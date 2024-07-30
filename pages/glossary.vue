@@ -1,21 +1,52 @@
 <template>
   <div>
-    <AlphabetGlossary :glossary="glossary" />
+    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Glossary</h1>
+    <p class="text-center mb-3">
+      This glossary contains unusual or specialist words used across this website, including in filters and explanations, to help you better understand the terms and their meanings.
+    </p>
+    <div class="flex justify-center mb-5">
+      <button
+        @click="setSortMode('letters')"
+        :class="['px-4 py-2 mx-2', { 'bg-gray-200': sortMode === 'letters' }]"
+        class="bg-white border rounded"
+      >
+        Sort by Letters
+      </button>
+      <button
+        @click="setSortMode('category')"
+        :class="['px-4 py-2 mx-2', { 'bg-gray-200': sortMode === 'category' }]"
+        class="bg-white border rounded"
+      >
+        Sort by Category
+      </button>
+    </div>
+    <div :style="{ marginLeft: '10%', marginRight: '10%' }">
+      <AlphabetGlossary v-if="sortMode === 'letters'" :glossary="glossary" />
+      <CategoryGlossary v-if="sortMode === 'category'" :glossary="glossary" />
+    </div>
   </div>
 </template>
 
 <script>
 import AlphabetGlossary from '@/components/AlphabetGlossary.vue';
+import CategoryGlossary from '@/components/CategoryGlossary.vue';
 import glossaryJSON from "../static/glossary.json";
 
 export default {
   components: {
-    AlphabetGlossary
+    AlphabetGlossary,
+    CategoryGlossary
   },
   data() {
     return {
+      sortMode: 'letters', // Default sort mode
       glossary: glossaryJSON
     };
+  },
+  methods: {
+    setSortMode(mode) {
+      this.sortMode = mode;
+    }
   }
 };
 </script>
