@@ -1,93 +1,25 @@
 <template>
   <div>
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Glossary</h1>
-    <p class="text-center mb-3">
-      This glossary contains unusual or specialist words used across this website, including in filters and explanations, to help you better understand the terms and their meanings.
-    </p>
-    <div class="text-right mb-5" :style="{marginRight: '10%' }">
-      <button @click="expandAll" class="hover:text-gray-400 text-gray-800 font-bold py-2 px-1 underline text-xs">Expand All</button>
-      <button @click="collapseAll" class="hover:text-gray-400 text-gray-800 font-bold py-2 px-1 underline text-xs">Collapse All</button>
-    </div>
-    <div :style="{ marginLeft: '10%', marginRight: '10%' }">
-      <div v-for="letterObj in letters" :key="letterObj.letter">
-        <h2 @click="toggleShowingLetter(letterObj.letter)" class="cursor-pointer">
-          {{ letterObj.letter }} <span v-if="letterObj.expanded">-</span><span v-else>+</span>
-        </h2>
-        <hr class="mb-3">
-        <ul v-show="letterObj.expanded" class="mb-3">
-          <li v-for="item in sortedGlossary[letterObj.letter]" :key="item.word" class="mb-3">
-            <h3 class="font-semibold">{{ item.word }}</h3>
-            <p><span class="font-medium">Category:</span> {{ item.category }}</p>
-            <p><span class="font-medium">Definition:</span> {{ item.definition }}</p>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <AlphabetGlossary :glossary="glossary" />
   </div>
 </template>
 
 <script>
+import AlphabetGlossary from '@/components/AlphabetGlossary.vue';
 import glossaryJSON from "../static/glossary.json";
 
 export default {
+  components: {
+    AlphabetGlossary
+  },
   data() {
     return {
-      glossary: glossaryJSON,
-      letters: [] // Array to track letters and their expanded states
+      glossary: glossaryJSON
     };
-  },
-  computed: {
-    sortedGlossary() {
-      // object to store groups of glossary items by letter
-      let grouped = {};
-      
-      // group by the first letter of each word
-      this.glossary.forEach(item => {
-        let letter = item.word.charAt(0).toUpperCase(); // Get the first letter and convert to uppercase
-        if (!grouped[letter]) {
-          grouped[letter] = [];
-        }
-        grouped[letter].push(item);
-      });
-      
-      // within group sort into alphabetical order
-      const sortedGroups = {};
-      Object.keys(grouped).sort().forEach(key => {
-        sortedGroups[key] = grouped[key].sort((a, b) => {
-          return a.word.localeCompare(b.word);
-        });
-      });
-      
-      return sortedGroups;
-    }
-  },
-  mounted() {
-    // create letters array to use for expandable/collapsable sections
-    this.letters = Object.keys(this.sortedGlossary).sort().map(letter => {
-      return { letter, expanded: false };
-    });
-  },
-  methods: {
-    toggleShowingLetter(letter) {
-      const letterObj = this.letters.find(l => l.letter === letter);
-      if (letterObj) {
-        letterObj.expanded = !letterObj.expanded;
-      }
-    },
-    expandAll() {
-      this.letters.forEach(letterObj => {
-        letterObj.expanded = true;
-      });
-    },
-    collapseAll() {
-      this.letters.forEach(letterObj => {
-        letterObj.expanded = false;
-      });
-    }
   }
 };
 </script>
 
 <style scoped>
-
+/* Add your styles here if needed */
 </style>
