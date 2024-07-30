@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div>
       <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Glossary</h1>
       <p class="text-center mb-3">
         This glossary contains unusual or specialist words used across this website, including in filters and explanations, to help you better understand the terms and their meanings.
@@ -10,9 +10,10 @@
       </div>
       <div :style="{ marginLeft: '10%', marginRight: '10%' }">
         <div v-for="letterObj in letters" :key="letterObj.letter">
-          <h2 @click="toggleShowingLetter(letterObj.letter)" class="cursor-pointer">
-            {{ letterObj.letter }} <span v-if="letterObj.expanded">-</span><span v-else>+</span>
-          </h2>
+            <h2 @click="toggleShowingLetter(letterObj.letter)" class="flex justify-between items-center cursor-pointer px-4">
+                <span>{{ letterObj.letter }}</span>
+                <span v-if="letterObj.expanded">-</span><span v-else>+</span>
+            </h2>
           <hr class="mb-3">
           <ul v-show="letterObj.expanded" class="mb-3">
             <li v-for="item in sortedGlossary[letterObj.letter]" :key="item.word" class="mb-3">
