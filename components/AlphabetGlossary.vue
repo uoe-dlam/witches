@@ -43,7 +43,7 @@
   
         // group by the first letter of each word
         this.glossary.forEach(item => {
-          let letter = item.word.charAt(0).toUpperCase(); // Get the first letter and convert to uppercase
+          let letter = item.word.charAt(0).toUpperCase();
           if (!grouped[letter]) {
             grouped[letter] = [];
           }

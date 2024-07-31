@@ -7,14 +7,14 @@
     <div class="flex justify-center mb-5">
       <button
         @click="setSortMode('letters')"
-        :class="['px-4 py-2 mx-2', { 'bg-gray-200': sortMode === 'letters' }]"
+        :class="['px-4 py-2 mx-2', { 'bg-gray-200 font-semibold outline': sortMode === 'letters' }]"
         class="bg-white border rounded"
       >
         Sort by Letters
       </button>
       <button
         @click="setSortMode('category')"
-        :class="['px-4 py-2 mx-2', { 'bg-gray-200': sortMode === 'category' }]"
+        :class="['px-4 py-2 mx-2', { 'bg-gray-200 font-semibold outline': sortMode === 'category' }]"
         class="bg-white border rounded"
       >
         Sort by Category

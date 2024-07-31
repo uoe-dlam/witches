@@ -37,19 +37,19 @@
     },
     computed: {
       sortedGlossary() {
-        // Object to store groups of glossary items by category
+        // object to store groups of glossary items by category
         let grouped = {};
   
-        // Group by category
+        // group by category
         this.glossary.forEach(item => {
-          let category = item.category || 'Uncategorized'; // Use 'Uncategorized' if category is missing
+          let category = item.category || 'Uncategorized'; 
           if (!grouped[category]) {
             grouped[category] = [];
           }
           grouped[category].push(item);
         });
   
-        // Sort categories and items within each category alphabetically
+        // sort categories and items within each category alphabetically
         const sortedGroups = {};
         Object.keys(grouped).sort().forEach(key => {
           sortedGroups[key] = grouped[key].sort((a, b) => {
@@ -61,7 +61,7 @@
       }
     },
     mounted() {
-      // Create categories array to use for expandable/collapsible sections
+      // create categories array to use for expandable/collapsible sections
       this.categories = Object.keys(this.sortedGlossary).sort().map(category => {
         return { category, expanded: false };
       });
@@ -88,6 +88,5 @@
   </script>
   
   <style scoped>
-  /* Add your styles here if needed */
   </style>
   
