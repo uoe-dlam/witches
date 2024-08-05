@@ -1,7 +1,7 @@
 <template>
   <div id="main-content" class="text-wrapper">
     <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Further Reading</h1>
-    <p class="text-justify">The following list of works, curated by Professor Julian Goodare, a lecturer in Scottish History and Project Director of the Survey of Scottish Witchcraft, along with Ellie Whitehead, is highly recommended for anyone seeking to learn more about history of the Scottish witch trials.</p>
+    <p class="text-justify">The following list of works, curated by Professor Julian Goodare, a lecturer in Scottish History and Project Director of the Survey of Scottish Witchcraft, along with Ellie Whitehead, Assistant Wikimedian in Residence and and MScR researcher at the University of Edinburgh, is highly recommended for anyone seeking to learn more about history of the Scottish witch trials.</p>
     <div v-for="(book, index) in books" :key="index" class="book-container">
       <div>
         <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">{{ book.title }}</p>
