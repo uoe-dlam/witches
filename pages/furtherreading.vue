@@ -78,8 +78,25 @@
           author: "Liv Helene Willumson (Leiden: Brill, 2013)",
           link:"https://brill.com/display/title/24241",
           name: "Link to this work on the BRILL website"
-        }
- 
+        },
+        {
+          title: "Witchcraft in Early Modern Scotland: James VI's Demonology and the North Berwick Witches ",
+          author: "Lawrence Normand and Gareth Roberts  (Liverpool: Liverpool University Press, 2000)",
+          link:"https://www.jstor.org/stable/j.ctt5vjmvw",
+          name: "Link to this work on the JSTOR website"
+        },
+        {
+          title: "Witch Hunt Podcast",
+          author: "Presented by Louise Yeoman and Susan Morrison (BBC Scotland, 2019)",
+          link:"https://www.bbc.co.uk/programmes/p07rn38z/episodes/player",
+          name: "Link to this work on the BBC website"
+        },
+        {
+          title: "Lucy Worsley Investigates: The Witch Hunts, ",
+          author: "Presented by Lucy Worsely (BBC, 2022)",
+          link:"https://www.bbc.co.uk/programmes/p0bvhk3w",
+          name: "Link to this work on the BBC website"
+        },
       ]
 
    }),
