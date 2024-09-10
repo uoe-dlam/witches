@@ -1,6 +1,5 @@
 <template>
   <div class="ml-4 mt-2 flex flex-col">
-
     <div class="flex items-center">
       <div class="title-point"></div>
       <p>Choose slider date range: </p>
@@ -18,13 +17,13 @@
             class="w-6 h-6" />
     </div>
 
-    <div class="ml-6 lg:ml-8 mt-2 flex mb-2"
-         v-if="recommendedOn"
-         @click="scrollRecommendedIntoView()">
-      <v-select :options="recommendedOptions"
-                placeholder="(recommended ranges)"
-                v-model="recommendedRange">
-      </v-select>
+    <div class="ml-2 lg:ml-8 mt-2 flex mb-2"
+         v-if="recommendedOn">
+          <select v-model="recommendedRange"  class="h-8 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-gray-400">
+            <option v-for="option in recommendedOptions" :value="option.value">
+              {{ option.label }}
+            </option>
+          </select>
     </div>
 
     <div class="flex pl-2 py-1 flex-wrap items-center mt-2
@@ -39,29 +38,25 @@
     </div>
 
     <div v-if="customSelectorOn" 
-         class="ml-6 lg:ml-8 mt-2 flex flex-col">
-      <date-picker v-model="customInputRange" 
-                   range :placeholder="defaultMessage"
-                   valueType="date"
-                   format="DD-MM-YYYY"
-                   :default-value="defaultRangeCustom"
-                   :disabled-date="getEnabledDateRange"
-                   :lang="lang">
-      </date-picker>
-    </div>
-
+         class="ml-2 lg:ml-8 mt-2 flex flex-col w-60" >
+         <VueDatePicker v-model="customInputRange" range multi-calendars  :start-date="defaultRangeCustom[0]" position="left" 
+         :teleport="true" class="custom-datepicker" focus-start-date :year-range="[1562, 1670]"  @update:model-value="handleCustomInputRange"
+         :enable-time-picker="false" placeholder="Select Custom Date Range" format="dd/MM/yyyy"
+         />
+        </div>
+        
   </div>
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
-import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+
 import TimelineMethods from '../../assets/js/TimelineMethods';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 
 export default {
-  components: { DatePicker, vSelect },
+  components: {VueDatePicker},
   data() {
     return {
       panicsRanges: [
@@ -82,25 +77,26 @@ export default {
         [new Date("01/01/1663"), new Date("12/31/1736")]
       ],
       fullRange: [
-        new Date("1562-02-21T00:00:00.000Z"),
-        new Date("1727-06-12T00:00:00.000Z")
+        new Date("21/02/1562"),
+        new Date("12/06/1727")
       ],
       recommendedOptions: [
-        { label: "1563-89 (non-panic period)", index: 0 },
-        { label: "1590-91 (panic period)", index: 1 },
-        { label: "1592-96 (non-panic period)", index: 2 },
-        { label: "1597 (panic period)", index: 3 },
-        { label: "1598-1627 (non-panic period)", index: 4 },
-        { label: "1628-31 (panic period)", index: 5 },
-        { label: "1632-42 (non-panic period)", index: 6 },
-        { label: "1643-44 (panic period)", index: 7 },
-        { label: "1645-48 (non-panic period)", index: 8 },
-        { label: "1649-50 (panic period)", index: 9 },
-        { label: "1651-57 (non-panic period)", index: 10 },
-        { label: "1658-59 (panic period)", index: 11 },
-        { label: "1660 (non-panic period)", index: 12 },
-        { label: "1661-62 (panic period)", index: 13 },
-        { label: "1663-1736 (non-panic period)", index: 14 }
+      { value: null, label: "(recommended ranges)" }, //placeholder
+      { value: 0, label: "1563-89 (non-panic period)" }, 
+      { value: 1, label: "1590-91 (panic period)" },
+      { value: 2, label: "1592-96 (non-panic period)" },
+      { value: 3, label: "1597 (panic period)" },
+      { value: 4, label: "1598-1627 (non-panic period)" },
+      { value: 5, label: "1628-31 (panic period)" },
+      { value: 6, label: "1632-42 (non-panic period)" },
+      { value: 7, label: "1643-44 (panic period)" },
+      { value: 8, label: "1645-48 (non-panic period)" },
+      { value: 9, label: "1649-50 (panic period)" },
+      { value: 10, label: "1651-57 (non-panic period)" },
+      { value: 11, label: "1658-59 (panic period)" },
+      { value: 12, label: "1660 (non-panic period)" },
+      { value: 13, label: "1661-62 (panic period)" },
+      { value: 14, label: "1663-1736 (non-panic period)" }
       ],
       recommendedOn: true,
       recommendedRange: null,
@@ -117,9 +113,9 @@ export default {
     }
   },
   watch: {
-    recommendedRange(newRecommendedRange, oldQuestion) {
+    recommendedRange(newRecommendedRange) {
       if (newRecommendedRange !== null) {
-        let index = newRecommendedRange.index;
+        let index = newRecommendedRange;
         let dateRange = this.panicsRanges[index];
         let startRange = [dateRange[0], dateRange[1]];
         this.$emit("scrollHeaderIntoView")
@@ -127,16 +123,21 @@ export default {
       }
     },
     customInputRange(newCustomInputRange) {
-      if (newCustomInputRange) {
-        this.$emit("selectedDateRange", [newCustomInputRange, newCustomInputRange]);
-      } else {
-        this.$emit("selectedDateRange", [this.defaultRangeCustom, this.defaultRangeCustom])
+      if (newCustomInputRange && newCustomInputRange.length === 2) {
+        //Converting strings to date format
+        const parsedDates = newCustomInputRange.map(dateStr => {
+          return new Date(dateStr); 
+        });
+        this.$emit("selectedDateRange", [parsedDates,parsedDates]);
       }
-    },
+    }
   },
   methods: {
     getEnabledDateRange: function (date) {
       return date < this.fullRange[0] || date > this.fullRange[1]
+    },
+    handleCustomInputRange(newCustomInputRange) {
+      this.customInputRange = newCustomInputRange;
     },
     toggleCustomSelector: function () {
       this.customSelectorOn = !this.customSelectorOn;
@@ -154,76 +155,33 @@ export default {
   },
   computed: {
     defaultMessage() {
-      return "Default: " + this.defaultRangeCustomSrt[0] + "~" + this.defaultRangeCustomSrt[1]
+      return "Default Date Range: ";
     }
   }
 }
 </script>
 
 <style>
-.v-select {
-  width: 270px;
-}
+  /*Sizing of Vue Datepicker*/
+  :root  { --dp-button-height: 25px; /* Size for buttons in overlays */
+  --dp-month-year-row-height: 25px; /* Height of the month-year select row */
+  --dp-month-year-row-button-size: 25px; /* Specific height for the next/previous buttons */
+  --dp-button-icon-height: 15px; /* Icon sizing in buttons */
+  --dp-cell-size: 25px; /* Width and height of calendar cell */
+  --dp-cell-padding: 3px; /* Padding in the cell */
+  --dp-common-padding: 5px; /* Common padding used */
+  --dp-input-icon-padding: 25px; /* Padding on the left side of the input if icon is present */
+  --dp-input-padding: 4px 20px 4px 8px; /* Padding in the input */
+  --dp-menu-min-width: 200px; /* Adjust the min width of the menu */
+  --dp-action-buttons-padding: 1px 3px; /* Adjust padding for the action buttons in action row */
+  --dp-row-margin: 3px 0; /* Reduced spacing between rows in the calendar */
+  --dp-calendar-header-cell-padding: 0.3rem; /* Adjust padding in calendar header cells */
+  --dp-two-calendars-spacing: 5px; /* Space between multiple calendars */
+  --dp-overlay-col-padding: 2px; /* Padding in the overlay column */
+  --dp-time-inc-dec-button-size: 20px; /* Sizing for arrow buttons in the time picker */
+  --dp-menu-padding: 4px 6px; /* Menu padding */
 
-.vs__open-indicator {
-  cursor: pointer;
-}
-
-.vs__selected-options {
-  color: #565656;
-}
-
-.mx-input-wrapper {
-  position: relative;
-  width: 311px;
-}
-
-.mx-icon-calendar,
-.mx-icon-clear {
-  position: absolute;
-  top: 50%;
-  left: 226px;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  font-size: 16px;
-  line-height: 1;
-  color: rgba(0, 0, 0, .5);
-  vertical-align: middle;
-}
-
-.mx-input {
-  display: inline-block;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 80%;
-  height: 34px;
-  padding: 6px 30px;
-  padding-left: 10px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #555;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-}
-</style>
-
-<style scoped>
->>> {
-  --vs-controls-color: #664cc3;
-  --vs-border-color: #664cc3;
-
-  --vs-dropdown-bg: #E2E8F0;
-  --vs-dropdown-color: #555;
-  --vs-dropdown-option-color: #555;
-
-  --vs-selected-bg: #664cc3;
-
-  --vs-controls-cursor: pointer; 
-
-  --vs-dropdown-option--active-bg: #664cc3;
-  --vs-dropdown-option--active-color: #eeeeee;
+  /* Adjust the font size */
+  --dp-font-size: 12px; 
 }
 </style>

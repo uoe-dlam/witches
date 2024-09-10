@@ -389,7 +389,7 @@
               <p class="text-sm mr-0.5">-</p>
               <img
                 class="witch-icon mb-1 ml-1"
-                src="/images/witch-single-purple.png"
+                src="public/images/witch-single-purple.png"
               />
               <p class="ml-1 text-sm">= Mixed.</p>
             </div>
@@ -485,6 +485,7 @@ import TimelineRangeSelector from "./TimelineRangeSelector.vue";
 import IconDependentFiltersList from "./IconDependentFiltersList.vue";
 import NormalFiltersList from "./NormalFiltersList.vue";
 import TimelineMethods from "../../assets/js/TimelineMethods";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -661,7 +662,7 @@ export default {
       this.$emit("deactivatedTimeline");
     },
     showPageInfo: function () {
-      this.$swal(this.pageInfo);
+      Swal.fire(this.pageInfo);
     },
     scrollHeaderIntoView() {
       const el = this.$refs.FiltersHeader;

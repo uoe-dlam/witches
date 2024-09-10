@@ -29,12 +29,9 @@ module.exports = {
         'icon-grey': "#606f7b",
         'witch-yellow': '#eeb518e1'
       },
-    },
-    extend: {
       backgroundImage: {
         'wood-cut': "url('/images/wood-cut-background.jpeg')",
-      }
-    },
+      },
     fontSize: {
       'xs': '.75rem',
       'sm': '.875rem',
@@ -49,8 +46,9 @@ module.exports = {
       '6xl': '4rem',
       '7xl': '5rem',
     }
+  }
   },
   variants: {},
-  plugins: []
+  plugins: [require('@vueform/slider/tailwind'),]
 }
 

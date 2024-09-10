@@ -12,12 +12,19 @@
 </template>
 
 <script>
-import { SPARQLQueryDispatcher } from "~/assets/js/SPARQLQueryDispatcher";
-import APIDataHandler from "~/assets/js/APIDataHandler";
-import FilteringMethods from "../assets/js/FilteringMethods";
-import json from "../big-query-output.json";
-import MapComponent from "../components/MapComponent.vue";
-import LoadingMessage from "../components/LoadingMessage.vue";
+import { ref, onMounted } from 'vue';
+import { useIcons } from '@/composables/useIcons';
+import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher';
+import APIDataHandler from '~/assets/js/APIDataHandler';
+import FilteringMethods from '~/assets/js/FilteringMethods';
+import json from '../big-query-output.json';
+import MapComponent from '../components/MapComponent.vue';
+import LoadingMessage from '../components/LoadingMessage.vue';
+import Swal from "sweetalert2";
+
+definePageMeta({
+   layout: 'default'
+ })
 
  export default {
    components: { MapComponent, LoadingMessage },
@@ -101,6 +108,12 @@ import LoadingMessage from "../components/LoadingMessage.vue";
        }
      }
    }),
+   computed: {
+    icons() {
+      const { icons } = useIcons();
+      return icons.value;
+    }
+  },
    methods: {
      loadWikiEntries: function () {
        const sparqlQuery = `SELECT DISTINCT ?item ?LabelEN ?page_title
@@ -159,15 +172,18 @@ import LoadingMessage from "../components/LoadingMessage.vue";
           Filtering.getMarkerStateIconDependant(marker);
       }
     },
-    loadData: async function () {
-      this.loadWikiEntries();
-      let icons = this.$store.getters["icons/getIcons"];
+    async loadData() {
+      console.log('Loading data...');
+      await this.loadWikiEntries();
+      const icons = this.icons;
+
+      console.log('Fetched icons:', icons);
 
       try {
-        let response = await this.$axios.get("/main.php?type=accused");
+        let response = await useMyFetch("/main.php?type=accused");
         this.queryOutput = response.data;
       } catch (e) {
-        this.$swal({
+        Swal.fire({
           title: "Server Error",
           html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
           footer: "witches.is.ed.ac.uk",
