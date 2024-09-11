@@ -193,7 +193,7 @@ export default {
     if (this.filters.tourist && this.touristAttractionList.includes(marker.id)) {
       return true;
     }
-    return false; // If the marker doesn't match any of the filters, don't display it
+    return false; 
   });
 },
     iconAnchor: function () {
