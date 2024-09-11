@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       baseURL: process.env.NODE_ENV === 'development'
-        ? 'https://witches.is.ed.ac.uk'
+        ? 'http://localhost:8181'
         : 'https://witches.is.ed.ac.uk'
     }
   },
