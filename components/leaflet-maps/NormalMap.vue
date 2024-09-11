@@ -183,7 +183,7 @@
        return '/images/North-Berwick-witch-shadow.png';
      }
    },
-   beforeDestroy: function () {
+   beforeUnmount: function () {
      this.emitMapData();
    }
  }
