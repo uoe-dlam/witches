@@ -54,7 +54,14 @@
         </div>
       </LPopup>
 
-      <LIcon :icon-size="[25, 38]" :icon-anchor="iconAnchor" :iconUrl="marker.markerIcon" :shadowUrl="shadowUrl" :shadowSize="[25.6,17.6]" :shadowAnchor="shadowAnchor">
+      <LIcon :icon-anchor="iconAnchor" class-name="">
+        <div class="icon-wrapper">
+          <div v-if="marker.witches.length > 1" class="icon-text">
+            {{ marker.witches.length }}
+          </div>
+          <img :src="marker.markerIcon" class="zoomed-in-img" />
+          <img class="icon-shadow" :src="shadowUrl" />
+        </div>
       </LIcon>
 
     </LMarker>
