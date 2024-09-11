@@ -49,6 +49,6 @@ module.exports = {
   }
   },
   variants: {},
-  plugins: [require('@vueform/slider/tailwind'),]
+  plugins: []
 }
 
