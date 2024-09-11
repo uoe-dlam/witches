@@ -61,6 +61,13 @@
                     </label>
                     <input type="checkbox" id="poi-filter" v-model="filters.poi"  />
                   </div>
+                  <div class="flex flex-col items-center">
+                    <label for="poi-filter" class="flex flex-col items-center cursor-pointer">
+                      <img class="w-8 mb-2" :src="touristIcon" alt="Point of Interest Icon" />
+                      <span class="text-xs">Tourist Attraction</span>
+                    </label>
+                    <input type="checkbox" id="poi-filter" v-model="filters.tourist"  />
+                  </div>
                 </div>
               </div>
             </div>
@@ -119,10 +126,13 @@
           </l-popup>
           <l-icon :icon-anchor="iconAnchor">
             <div class="icon-wrapper">
-              <div v-if="memList.includes(memorial.instance)">
+              <div v-if="memorialList.includes(memorial.id)">
                 <img :src="memIcon" class="zoomed-in-img" />
               </div>
-              <div v-else>
+              <div v-if="touristAttractionList.includes(memorial.id)">
+                <img :src="touristIcon" class="zoomed-in-img" />
+              </div>
+              <div v-if="sitesOfInterestList.includes(memorial.id)">
                 <img :src="poiIcon" class="zoomed-in-img" />
               </div>
               <img class="icon-shadow" :src="shadow" />
@@ -139,6 +149,7 @@
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import memIcon from '../static/images/witch-single-grey.png';
 import poiIcon from '../static/images/witch-single-orange.png';
+import touristIcon from '../static/images/witch-single-brown.png';
 import shadow from '../static/images/witch-single-shadow.png';
 
 export default {
@@ -152,29 +163,42 @@ export default {
       markers: [],
       originalMarkers: [],
       sparqlUrl: 'https://query.wikidata.org/sparql',
-      memList: ['memorial', 'standing stone', 'commemorative plaque','labyrinth','work of art'],
-      descriptions: {}, 
+
+      memorialList:['Q123249315','Q123250243','Q123249648','Q123249613','Q123249829','Q123250014','Q123249155','Q123250129','Q123250198','Q123250089','Q123249274','Q95568172','Q123249956','Q123250271','Q123250163','Q123249873'],
+      sitesOfInterestList:['Q123250431','Q103854635','Q123249352','Q123249755','Q65493510','Q127691255','Q7085231','Q6818041','Q5033345','Q123249733','Q125084095','Q127699733','Q1955420','Q124413739'],
+      touristAttractionList:['Q55076772','Q1633842','Q127691054','Q130234617','Q432422'],
+      descriptions: {},
+      memorials:[], 
       filters: {
         poi: true,
         memorial: true,
+        tourist: true
       },
       memIcon,
       poiIcon,
-      shadow
+      shadow,
+      touristIcon
     }
   },
   computed: {
     filteredMarkers() {
-      return this.markers.filter(marker => {
-        if (this.filters.poi && !(this.memList.includes(marker.instance))) {
-          return true;
-        }
-        if (this.filters.memorial && this.memList.includes(marker.instance)) {
-          return true;
-        }
-        return false;
-      });
-    },
+  return this.markers.filter(marker => {
+    // Check if the marker should be displayed based on the selected filters
+    if (this.filters.poi && this.sitesOfInterestList.includes(marker.id)) {
+      return true;
+    }
+    if (this.filters.memorial && this.memorialList.includes(marker.id)) {
+      return true;
+    }
+    if (this.filters.tourist && this.touristAttractionList.includes(marker.id)) {
+      return true;
+    }
+    return false; // If the marker doesn't match any of the filters, don't display it
+  });
+},
+    iconAnchor: function () {
+       return [11, 41];
+     },
   },
   methods: {
     async loadDescriptions() {
@@ -201,7 +225,6 @@ export default {
 
       const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
       queryDispatcher.query(sparqlQuery).then(result => {
-        let memorials = [];
 
         for (let i = 0; i < result.results.bindings.length; i++) {
           let item = result.results.bindings[i];
@@ -215,7 +238,7 @@ export default {
           let description = this.descriptions[id.split('/').pop()] || ''; 
 
           let memorial = {
-            id: id,
+            id: id.split('/').pop(),
             name: item.itemLabel.value,
             longLat: memorialCoords,
             location: memorialLocation,
@@ -226,42 +249,16 @@ export default {
             description: description 
           }
 
-          memorials.push(memorial);
-          console.log('Memorial:', memorial);
-          this.addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, item.itemLabel.value, imageUrl, streetAddress, url, description);
+          this.markers.push(memorial);
+          
         }
 
-        this.noItems = memorials.length;
+        this.noItems = this.markers.length;
+        console.log('Memorials', this.markers);
         this.originalMarkers = JSON.parse(JSON.stringify(this.markers));
         console.log('originalMarkers:', this.originalMarkers);
         this.loading = false;
       });
-    },
-
-    addMemorialToMarkers(memorial, memorialLocation, memorialCoords, instance, name, imageUrl, streetAddress, url, description) {
-      if (memorialCoords && memorialCoords.length === 2) {
-        let marker = this.markers.find(marker => marker.name === name);
-
-        if (marker) {
-          marker.memorials.push(memorial);
-        } else {
-          let marker = {
-            name: name,
-            instance: instance,
-            location: memorialLocation,
-            longLat: memorialCoords,
-            imageUrl: imageUrl,
-            streetAddress: streetAddress,
-            url: url,
-            memorials: [memorial],
-            description: description 
-          }
-
-          this.markers.push(marker);
-        }
-      } else {
-        console.log('Skipping marker with null coordinates:', memorial);
-      }
     },
     convertPointToLongLatArray(pointString) {
       pointString = pointString.substr(6);
