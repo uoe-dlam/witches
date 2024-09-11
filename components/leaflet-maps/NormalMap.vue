@@ -121,7 +121,7 @@
        return witchesWithEntry.length > 0;
      },
      flyTo: function (coords) {
-       this.$refs.myMap.mapObject.flyTo(coords ,14);
+       this.$refs.myMap.leafletObject.flyTo(coords ,14);
      },
      emitMapData: function () {
        // Emmits an object containing the information about
@@ -129,11 +129,11 @@
        // map type to change to when the map is turned off,
        // in this case changing to clustersOn.
 
-       let centerInfo = this.$refs.myMap.mapObject.getCenter();
+       let centerInfo = this.$refs.myMap.leafletObject.getCenter();
        let centerArray = [centerInfo.lat, centerInfo.lng];
        let changeInfo = {
          center: centerArray,
-         zoom: this.$refs.myMap.mapObject.getZoom(),
+         zoom: this.$refs.myMap.leafletObject.getZoom(),
          changeTo: "clustersOn"
        };
        this.$emit("changeMaps", changeInfo);
