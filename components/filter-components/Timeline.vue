@@ -23,6 +23,7 @@
 
 <script>
 import Slider from '@vueform/slider'
+import '@vueform/slider/themes/default.css'
 
 export default {
   components: { Slider },
@@ -45,12 +46,12 @@ export default {
       dates: this.timelineDates,
       markers: this.timelineMarkers,
       timelineShowing: true,
-      numberRangeValue: [0, 0] // initialize with dummy values
+      numberRangeValue: [0, 0] // Initialize with dummy values
     }
   },
   mounted() {
     // Set initial range after `max` is computed
-    this.numberRangeValue = [0, this.max]; //index of first and last dates 
+    this.numberRangeValue = [0, this.max];
   },
   watch: {
     numberRangeValue(newRange) {
@@ -60,6 +61,7 @@ export default {
         this.parseDate(this.dates[newRange[1]].label)
       ];
       this.$emit("updatedRangeValue", dateRange);
+      console.log("Updated Date Range", dateRange);
     }
   },
   computed: {
@@ -80,15 +82,22 @@ export default {
     },
     handleCustomInputRangeChange(newCustomInputRange) {
       this.numberRangeValue = newCustomInputRange;
+      console.log("New Number range value", newCustomInputRange);
     },
     parseDate(dateStr) {
       // Convert DD/MM/YYYY to Date object
       const [day, month, year] = dateStr.split('/').map(Number);
-      // Date & Months are 0-indexed, so subtract 1 from month and day
+      //  JavaScript Date months are 0-indexed, so subtract 1 from month and day
       return new Date(year, month - 1, day -1);
     }
   }
 }
 </script>
 
-<style src="@vueform/slider/themes/default.css"></style>
+<style>
+:root {
+  --slider-connect-bg: #0284C7;
+  --slider-tooltip-bg: #0284C7;
+  --slider-handle-ring-color: #3B82F630;
+}
+</style>
