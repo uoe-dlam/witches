@@ -11,37 +11,37 @@
     },
     {
       "word": "Nobility/Chiefs",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "Major landowners, high status, inherited titles and lands. People from this category did not work their land or perform a craft, they lived off rents and income from property."
     },
     {
       "word": "Upper",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "People in this category were wealthy, they often had access to land and/or property but no titles. They can be distinguished from Lairds/Barons and Nobility/Chief because they usually had to work for their living. They were more successful than the middling category either because they were very successful at their work or were employed in more lucrative professions. They include wealthy burgesses, important merchants, top level craftsmen (silversmiths, surgeons, etc.), tacksmen (leaseholders), advocates/lawyers. Some people in this category had as much or more wealth as the Lairds/Barons or Nobility/Chiefs, but they earned it and did not generally have titles."
     },
     {
       "word": "Lairds/Barons",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "High status landowners with inherited titles and lands, but not the top rung of land holding society. These people were usually referred to as the laird of somewhere. People in this category did not work their land or perform a craft. They lived off rents or other kinds of income."
     },
     {
       "word": "Middling",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "This category was assigned to people who had a secure access tenancy of land and/or were secure craftsmen. The category includes tenant farmers (variously described, e.g. 'portioner'), baillies/factors, burgesses, lesser craftsmen (bakers, skinners, weavers, cordiners, fleshers, etc.), and ministers. These were people who had to work the land or at a craft for their living but were doing OK."
     },
     {
       "word": "Lower",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "Quite poor, but people assigned this category had some access to land and at least some kind of employment. They were subtenants, semi-skilled artisans, colliers, gardeners, fishermen, workmen or sailors."
     },
     {
       "word": "Very Poor",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "People in this category had some, limited access to land/employment to provide a meagre living. They include cottars (cottagers), servants in small households, grassmen, shepherds, and other types of odd jobs."
     },
     {
       "word": "Landless",
-      "category": "Social Class",
+      "category": "Social Classification",
       "definition": "People without any access to any land or steady work, often described as vagrants or vagabonds."
     },
     {
@@ -142,7 +142,7 @@
     {
       "word": "Servant",
       "category": "Occupations",
-      "definition": "A person in the employment of a someone, usually of higher social class, who would carry out domestic activities for them."
+      "definition": "A person in the employment of a someone, usually of higher social classification, who would carry out domestic activities for them."
     },
     {
       "word": "Slater",
@@ -273,11 +273,6 @@
       "word": "Bond",
       "category": "Case categorisations",
       "definition": "The person who pays the caution or bail is under bond of caution, potentially involving the accusation of making a pact with the Devil."
-    },
-    {
-      "word": "Demonic possession",
-      "category": "Case categorisations",
-      "definition": "The witch was accused of causing someone (a victim) to be possessed by the Devil, often involving bewitchment leading to convulsions and visions."
     },
     {
       "word": "Devil's mark",
@@ -440,8 +435,8 @@
       "definition": "The practice of causing harm to people, goods, or animals through magical means, often attributed to witches or sorcerers."
     },
     {
-      "word": "Shape shifting",
-      "category": "Shape shifting",
+      "word": "Shapeshifting",
+      "category": "Shapeshifting",
       "definition": "The ability of a witch or sorcerer to transform into different forms, often animals, as part of magical practice or to evade detection."
     },
     {

@@ -306,30 +306,11 @@
               </div>
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
-                <icon-dependent-filters-list
-                  v-if="!iconsConstant"
-                  :currentProperty="currentProperty"
-                  :property="property"
-                  :filterTypes="propertyItem.filters"
-                  :propertyLabel="propertyItem.label"
-                  @filterOff="emitFilterOff($event)"
-                  @filterOn="emitFilterOn($event)"
-                  @setPropertyToCurrent="setPropertyToCurrent($event)"
-                >
-                </icon-dependent-filters-list>
-
-                <normal-filters-list
-                  v-else
-                  :property="property"
-                  :filterTypes="propertyItem.filters"
-                  @filterOff="emitFilterOff($event)"
-                  @filterOn="emitFilterOn($event)"
-                >
-                </normal-filters-list>
-
+                <div>
                 <button
                   @click="selectAll(property, propertyItem)"
                   class="
+                    ml-2
                     inline-block
                     rounded
                     hover:bg-gray-300
@@ -377,6 +358,32 @@
                 >
                   Clear All
                 </button>
+              </div>
+
+                <icon-dependent-filters-list
+                  v-if="!iconsConstant"
+                  :currentProperty="currentProperty"
+                  :property="property"
+                  :filterTypes="propertyItem.filters"
+                  :propertyLabel="propertyItem.label"
+                  @filterOff="emitFilterOff($event)"
+                  @filterOn="emitFilterOn($event)"
+                  @setPropertyToCurrent="setPropertyToCurrent($event)"
+                >
+                </icon-dependent-filters-list>
+
+                <normal-filters-list
+                  v-else
+                  :property="property"
+                  :filterTypes="propertyItem.filters"
+                  @filterOff="emitFilterOff($event)"
+                  @filterOn="emitFilterOn($event)"
+                >
+                </normal-filters-list>
+                <NuxtLink :to="{ path: '/glossary', query: { category: propertyItem.label } }" 
+                          class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2">
+                  {{ propertyItem.label }} Glossary
+                </NuxtLink>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@
       <button
         @click="setSortMode('letters')"
         :class="['px-4 py-2 mx-2', { 'bg-gray-200': sortMode === 'letters' }]"
-        :style="sortMode === 'letters' ? { outline: '1.5px solid black' , fontWeight:'600'} : {}"
+        :style="sortMode === 'letters' ? { outline: '1.5px solid black', fontWeight:'600'} : {}"
         class="bg-white border rounded"
       >
         Sort Alphabetically
@@ -24,7 +24,7 @@
     </div>
     <div :style="{ marginLeft: '10%', marginRight: '10%' }">
       <AlphabetGlossary v-if="sortMode === 'letters'" :glossary="glossary" />
-      <CategoryGlossary v-if="sortMode === 'category'" :glossary="glossary" />
+      <CategoryGlossary v-if="sortMode === 'category'" :glossary="glossary" :initialCategory="initialCategory" />
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@
 import AlphabetGlossary from '@/components/AlphabetGlossary.vue';
 import CategoryGlossary from '@/components/CategoryGlossary.vue';
 import glossaryJSON from "../static/glossary.json";
+import { useRoute } from 'vue-router';
 
 export default {
   components: {
@@ -42,9 +43,19 @@ export default {
   data() {
     return {
       sortMode: 'letters', // Default sort mode
-      glossary: glossaryJSON
+      glossary: glossaryJSON,
+      initialCategory: null // Store initial category from query
     };
   },
+  mounted() {
+  const queryCategory = this.$route.query.category || null; // Access query params using this.$route
+
+  // If a category is passed, switch to 'category' sort mode
+  if (queryCategory) {
+    this.setSortMode('category');
+    this.initialCategory = queryCategory; // Set the initial category
+  }
+},
   methods: {
     setSortMode(mode) {
       this.sortMode = mode;
