@@ -380,9 +380,9 @@
                   @filterOn="emitFilterOn($event)"
                 >
                 </normal-filters-list>
-                <NuxtLink :to="{ path: '/glossary', query: { category: propertyItem.label } }" 
+                <NuxtLink v-if="getGlossaryLabel(propertyItem.label)" :to="{ path: '/glossary', query: { category: getGlossaryLabel(propertyItem.label) } }" 
                           class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2">
-                  {{ propertyItem.label }} Glossary
+                  {{ getGlossaryLabel(propertyItem.label) }} Glossary
                 </NuxtLink>
               </div>
             </div>
@@ -677,6 +677,17 @@ export default {
         el.scrollIntoView({ behavior: "smooth" });
       }
     },
+    getGlossaryLabel: function (label) {
+      if (label === 'Gender' || label === 'Shapeshifting' || label === 'Wikipedia Page' ){
+        return null
+      }
+      if (label === 'Primary' || label === 'Secondary' ){
+        return 'Case Characterisations'
+      }
+      else {
+        return label
+      }
+    }
   },
   computed: {
     dateRangeFormatted() {
