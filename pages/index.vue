@@ -181,7 +181,7 @@ definePageMeta({
 
       try {
         let response = await useMyFetch("/main.php?type=accused");
-        this.queryOutput = response.data;
+        this.queryOutput = response;
       } catch (e) {
         Swal.fire({
           title: "Server Error",
