@@ -65,7 +65,7 @@
          ] },
          { name : 'People Involved', url : '#', external: false, subpages : [
            { name : 'People Associated with the Witch Trials: Residence', url : '/', external: false },
-           { name : 'People Associated with the Witch Trials: Residence and Occupation', url : '/', external: false },
+           { name : 'People Associated with the Witch Trials: Residence and Occupation', url : '/people', external: false },
            { name : 'A Witch-Prickers Journey', url : '/john', external: false },
          ] },
          { name : 'Extra Visualisations', url : '#', external: false, subpages : [
