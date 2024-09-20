@@ -59,7 +59,7 @@
          ] },
          { name : 'Trials', url : '#', external: false, subpages : [
              { name : 'Named Witches', url: '/', external: false },
-             { name : 'Detention Locations', url: '/', external: false },
+             { name : 'Detention Locations', url: '/detention', external: false },
              { name : 'Trial Locations', url: '/', external: false },
              { name : 'Trials in Each Modern Authority', url: '/council', external: false },
          ] },
