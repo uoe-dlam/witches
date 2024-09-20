@@ -53,7 +53,7 @@
            { name : 'Linking Residence to Place of Death', url : '/link', external: false },
          ] },
          { name : 'Investigations', url : '#', external: false, subpages : [
-             { name: 'Case Characterisations', url: '/', external: false },
+             { name: 'Case Characterisations', url: '/PrimarySecondary', external: false },
              { name: 'Witches Meetings', url: '/CaseInformation', external: false },
              { name: 'Shapeshifting and Ritual Objects', url: '/', external: false },
          ] },
