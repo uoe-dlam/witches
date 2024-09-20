@@ -54,7 +54,7 @@
          ] },
          { name : 'Investigations', url : '#', external: false, subpages : [
              { name: 'Case Characterisations', url: '/', external: false },
-             { name: 'Witches Meetings', url: '/', external: false },
+             { name: 'Witches Meetings', url: '/CaseInformation', external: false },
              { name: 'Shapeshifting and Ritual Objects', url: '/', external: false },
          ] },
          { name : 'Trials', url : '#', external: false, subpages : [
