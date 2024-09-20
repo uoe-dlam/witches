@@ -60,7 +60,7 @@
          { name : 'Trials', url : '#', external: false, subpages : [
              { name : 'Named Witches', url: '/flourish', external: false },
              { name : 'Detention Locations', url: '/detention', external: false },
-             { name : 'Trial Locations', url: '/', external: false },
+             { name : 'Trial Locations', url: '/trials', external: false },
              { name : 'Trials in Each Modern Authority', url: '/council', external: false },
          ] },
          { name : 'People Involved', url : '#', external: false, subpages : [
