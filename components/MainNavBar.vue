@@ -70,7 +70,7 @@
          ] },
          { name : 'Extra Visualisations', url : '#', external: false, subpages : [
            { name : 'Accused Witches Occupations with Unknown Values', url : '/extravisual', external: false },
-           { name : 'Types of Torture at Different Residence Locations', url : '/', external: false },
+           { name : 'Types of Torture at Different Residence Locations', url : '/torture', external: false },
            { name : 'The Story of Isobel Young', url : '/storymap', external: false },
            { name : 'Ordeal Bubble Chart', url : '/ordeal', external: false },
            { name : 'Social Bubble Chart', url : '/social', external: false },
