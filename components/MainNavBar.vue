@@ -58,7 +58,7 @@
              { name: 'Shapeshifting and Ritual Objects', url: '/', external: false },
          ] },
          { name : 'Trials', url : '#', external: false, subpages : [
-             { name : 'Named Witches', url: '/', external: false },
+             { name : 'Named Witches', url: '/flourish', external: false },
              { name : 'Detention Locations', url: '/detention', external: false },
              { name : 'Trial Locations', url: '/', external: false },
              { name : 'Trials in Each Modern Authority', url: '/council', external: false },
