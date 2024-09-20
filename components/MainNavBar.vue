@@ -77,6 +77,7 @@
          ] },
          { name : 'About', url : '#', external: false, subpages : [
            { name : 'Overview', url : '/about', external: false },
+           { name : 'Introduction to Scottish Witchcraft', url : '/introduction', external: false },
            { name : 'Further Reading', url : '/further-reading', external: false },
            { name : 'References', url : '/reference', external: false },
            { name : 'Resources', url : '/resources', external: false },
