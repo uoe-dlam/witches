@@ -69,7 +69,7 @@
            { name : 'A Witch-Prickers Journey', url : '/', external: false },
          ] },
          { name : 'Extra Visualisations', url : '#', external: false, subpages : [
-           { name : 'Accused Witches Occupations with Unknown Values', url : '/', external: false },
+           { name : 'Accused Witches Occupations with Unknown Values', url : '/extravisual', external: false },
            { name : 'Types of Torture at Different Residence Locations', url : '/', external: false },
            { name : 'The Story of Isobel Young', url : '/', external: false },
            { name : 'Ordeal Bubble Chart', url : '/', external: false },
