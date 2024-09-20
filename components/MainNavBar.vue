@@ -48,7 +48,7 @@
            { name : 'Witchcraft Prosecutions In Time and Place', url: '/', external: false },
            { name : 'Timeline Search', url: '/histropedia', external: false },
            { name : 'Residences on ArcGIS Online', url : '/gismap', external: false },
-           { name : 'Residences Within Each Parish', url : '/', external: false },
+           { name : 'Residences Within Each Parish', url : '/parish', external: false },
            { name : 'Death Locations', url : '/death', external: false },
            { name : 'Linking Residence to Place of Death', url : '/link', external: false },
          ] },
