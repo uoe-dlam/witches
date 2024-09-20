@@ -61,7 +61,7 @@
              { name : 'Named Witches', url: '/', external: false },
              { name : 'Detention Locations', url: '/', external: false },
              { name : 'Trial Locations', url: '/', external: false },
-             { name : 'Trials in Each Modern Authority', url: '/', external: false },
+             { name : 'Trials in Each Modern Authority', url: '/council', external: false },
          ] },
          { name : 'People Involved', url : '#', external: false, subpages : [
            { name : 'People Associated with the Witch Trials: Residence', url : '/', external: false },
