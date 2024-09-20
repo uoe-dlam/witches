@@ -64,7 +64,7 @@
              { name : 'Trials in Each Modern Authority', url: '/council', external: false },
          ] },
          { name : 'People Involved', url : '#', external: false, subpages : [
-           { name : 'People Associated with the Witch Trials: Residence', url : '/', external: false },
+           { name : 'People Associated with the Witch Trials: Residence', url : '/peopleloc', external: false },
            { name : 'People Associated with the Witch Trials: Residence and Occupation', url : '/people', external: false },
            { name : 'A Witch-Prickers Journey', url : '/john', external: false },
          ] },
