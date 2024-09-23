@@ -75,6 +75,7 @@
            { name : 'Ordeal Bubble Chart', url : '/ordeal', external: false },
            { name : 'Social Bubble Chart', url : '/social', external: false },
          ] },
+         { name: 'Memorials & Sites of Interest', url: '/memorials', external: true, subpages : [] },
          { name : 'About', url : '#', external: false, subpages : [
            { name : 'Overview', url : '/about', external: false },
            { name : 'Introduction to Scottish Witchcraft', url : '/introduction', external: false },
