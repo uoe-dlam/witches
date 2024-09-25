@@ -150,7 +150,7 @@
        this.$refs.myMap.mapObject.flyTo(coords ,14);
      },
      emitMapData: function () {
-       // Emmits an object containing the information about
+       // Emits an object containing the information about
        // where the center of the map is, the zoom, and what 
        // map type to change to when the map is turned off,
        // in this case changing to clustersOff.
