@@ -1,7 +1,7 @@
 <template>
   <div id="main-wrapper">
     <main-nav-bar></main-nav-bar>
-    <nuxt />
+    <slot />
     <cookie-banner></cookie-banner>
   </div>
 </template>
