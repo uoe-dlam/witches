@@ -104,7 +104,7 @@
        standardAttributeLabels:{
         sex: "Gender",
         occupation: "Occupation",
-        socialClass: "Social Class"
+        socialClass: "Social Class",
       },
        optionalAttributes: [
          "demonicPact", "propertyDamage", "meetingsInfo", "meetingsPlaces",
