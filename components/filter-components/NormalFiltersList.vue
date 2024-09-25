@@ -1,6 +1,9 @@
 <template>
   <div class="w-full flex flex-wrap pl-0 pr-4 mt-2">
-    <div v-for="(filterItem, filterType) in sortedFiltersList" :key="filterType">
+    <div
+      v-for="(filterItem, filterType) in sortedFiltersList"
+      :key="filterType"
+    >
       <div class="flex mb-3 mx-2 w-full items-center">
         <input
           :checked="filterItem.active"
@@ -37,8 +40,12 @@ export default {
       const filtersEntries = Object.entries(this.filtersList);
 
       // Separating unknown so that it can appear first
-      const unknownFilterEntry = filtersEntries.find((entry) => entry[1].label === "Unknown");
-      const restFiltersEntries = filtersEntries.filter((entry) => entry[1].label !== "Unknown");
+      const unknownFilterEntry = filtersEntries.find(
+        (entry) => entry[1].label === "Unknown"
+      );
+      const restFiltersEntries = filtersEntries.filter(
+        (entry) => entry[1].label !== "Unknown"
+      );
 
       // Sorting rest of filters into alphabetical order
       restFiltersEntries.sort((a, b) => a[1].label.localeCompare(b[1].label));
@@ -72,5 +79,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

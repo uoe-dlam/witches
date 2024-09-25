@@ -307,57 +307,57 @@
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
                 <div>
-                <button
-                  @click="selectAll(property, propertyItem)"
-                  class="
-                    inline-block
-                    rounded
-                    hover:bg-gray-300
-                    text-black
-                    px-1
-                    pb-1
-                    pt-1
-                    text-xs
-                    leading-normal
-                    border border-gray-200
-                    hover:shadow-md hover:-translate-y-1
-                    transform
-                    transition-all
-                    duration-200
-                    focus:outline-none
-                    focus:ring
-                    focus:ring-blue-300
-                    focus:ring-opacity-50
-                  "
-                >
-                  Select All
-                </button>
-                <button
-                  @click="clearAll(property, propertyItem)"
-                  class="
-                    inline-block
-                    rounded
-                    hover:bg-gray-300
-                    text-black
-                    px-1
-                    pb-1
-                    pt-1
-                    text-xs
-                    leading-normal
-                    border border-gray-200
-                    hover:shadow-md hover:-translate-y-1
-                    transform
-                    transition-all
-                    duration-200
-                    focus:outline-none
-                    focus:ring
-                    focus:ring-blue-300
-                    focus:ring-opacity-50
-                  "
-                >
-                  Clear All
-                </button>
-              </div>
+                  <button
+                    @click="selectAll(property, propertyItem)"
+                    class="
+                      inline-block
+                      rounded
+                      hover:bg-gray-300
+                      text-black
+                      px-1
+                      pb-1
+                      pt-1
+                      text-xs
+                      leading-normal
+                      border border-gray-200
+                      hover:shadow-md hover:-translate-y-1
+                      transform
+                      transition-all
+                      duration-200
+                      focus:outline-none
+                      focus:ring
+                      focus:ring-blue-300
+                      focus:ring-opacity-50
+                    "
+                  >
+                    Select All
+                  </button>
+                  <button
+                    @click="clearAll(property, propertyItem)"
+                    class="
+                      inline-block
+                      rounded
+                      hover:bg-gray-300
+                      text-black
+                      px-1
+                      pb-1
+                      pt-1
+                      text-xs
+                      leading-normal
+                      border border-gray-200
+                      hover:shadow-md hover:-translate-y-1
+                      transform
+                      transition-all
+                      duration-200
+                      focus:outline-none
+                      focus:ring
+                      focus:ring-blue-300
+                      focus:ring-opacity-50
+                    "
+                  >
+                    Clear All
+                  </button>
+                </div>
 
                 <icon-dependent-filters-list
                   v-if="!iconsConstant"
@@ -379,8 +379,21 @@
                   @filterOn="emitFilterOn($event)"
                 >
                 </normal-filters-list>
-                <NuxtLink v-if="getGlossaryLabel(propertyItem.label)" :to="{ path: '/glossary', query: { category: getGlossaryLabel(propertyItem.label) } }" 
-                          class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2">
+                <NuxtLink
+                  v-if="getGlossaryLabel(propertyItem.label)"
+                  :to="{
+                    path: '/glossary',
+                    query: { category: getGlossaryLabel(propertyItem.label) },
+                  }"
+                  class="
+                    block
+                    font-sans
+                    text-gray-500 text-xs
+                    underline
+                    hover:text-gray-800
+                    ml-2
+                  "
+                >
                   {{ getGlossaryLabel(propertyItem.label) }} Glossary
                 </NuxtLink>
               </div>
@@ -678,14 +691,18 @@ export default {
       }
     },
     getGlossaryLabel: function (label) {
-      if (label === 'Gender' || label === 'Shapeshifting' || label === 'Wikipedia Page' ){
-        return null
+      if (
+        label === "Gender" ||
+        label === "Shapeshifting" ||
+        label === "Wikipedia Page"
+      ) {
+        return null;
       }
-      if (label === 'Primary' || label === 'Secondary' ){
-        return 'Case Characterisations'
+      if (label === "Primary" || label === "Secondary") {
+        return "Case Characterisations";
       }
-     return label 
-    }
+      return label;
+    },
   },
   computed: {
     dateRangeFormatted() {
