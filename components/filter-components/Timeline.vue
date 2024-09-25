@@ -61,7 +61,6 @@ export default {
         this.parseDate(this.dates[newRange[1]].label)
       ];
       this.$emit("updatedRangeValue", dateRange);
-      console.log("Updated Date Range", dateRange);
     }
   },
   computed: {
@@ -82,10 +81,8 @@ export default {
     },
     handleCustomInputRangeChange(newCustomInputRange) {
       this.numberRangeValue = newCustomInputRange;
-      console.log("New Number range value", newCustomInputRange);
     },
     parseDate(dateStr) {
-      // Convert DD/MM/YYYY to Date object
       const [day, month, year] = dateStr.split('/').map(Number);
       //  JavaScript Date months are 0-indexed, so subtract 1 from month and day
       return new Date(year, month - 1, day -1);

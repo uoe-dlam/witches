@@ -38,7 +38,7 @@ export default {
       $cookies.set("edW", 'yes');
       this.hideBanner = true;
 
-      if (process.client) {//process.browser is depreceated
+      if (process.client) {
         this.isOpen = false;
         localStorage.setItem("GDPR:accepted", "yes");
         this.$gtag.optIn();
@@ -49,7 +49,7 @@ export default {
       $cookies.set("edW", 'yes');
       this.hideBanner = true;
 
-      if (process.client) { //process.browser is depreceated
+      if (process.client) { 
         this.isOpen = false;
         localStorage.setItem("GDPR:accepted", "no");
         this.$gtag.optOut();

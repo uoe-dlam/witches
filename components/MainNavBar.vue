@@ -43,7 +43,7 @@
    data : function(){
      return {
        open : false,
-       links : [ //will add pages back in one by one
+       links : [ 
          { name : 'Accused Witches', url : '#', external: false, subpages : [
            { name : 'Witchcraft Prosecutions In Time and Place', url: '/', external: false },
            { name : 'Timeline Search', url: '/', external: false },

@@ -3,7 +3,6 @@ export const useMyFetch = async (request, opts) => {
 
   try {
     const {data,error} = await useFetch(request, { baseURL: config.public.baseURL, ...opts })
-    console.log("Fetch error:", data);
     if (!data.value ) {
       throw createError({
         ...error.value,
@@ -14,7 +13,6 @@ export const useMyFetch = async (request, opts) => {
     return data;
 
   } catch (error) {
-    console.error("Fetch error:", error);
     throw error;
   }
 }
