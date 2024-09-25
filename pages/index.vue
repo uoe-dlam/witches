@@ -173,7 +173,6 @@ definePageMeta({
       }
     },
     async loadData() {
-      console.log('Loading data...');
       await this.loadWikiEntries();
       const icons = this.icons;
 
