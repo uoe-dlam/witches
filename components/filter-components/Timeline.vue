@@ -23,7 +23,6 @@
 
 <script>
 import Slider from '@vueform/slider'
-import '@vueform/slider/themes/default.css'
 
 export default {
   components: { Slider },
@@ -92,10 +91,4 @@ export default {
 }
 </script>
 
-<style>
-:root {
-  --slider-connect-bg: #0284C7;
-  --slider-tooltip-bg: #0284C7;
-  --slider-handle-ring-color: #3B82F630;
-}
-</style>
+<style src="@vueform/slider/themes/default.css"></style>
