@@ -141,16 +141,13 @@
        // where the center of the map is, the zoom, and what 
        // map type to change to when the map is turned off,
        // in this case changing to clustersOff.
-       console.log("Emitting Map Data")
        let centerInfo = this.$refs.myMap.leafletObject.getCenter();
-       console.log("Center Info", centerInfo)
        let centerArray = [centerInfo.lat, centerInfo.lng];
        let changeInfo = {
          center: centerArray,
          zoom: this.$refs.myMap.leafletObject.getZoom(),
          changeTo: "clustersOff"
        };
-       console.log("Zoom", changeInfo.zoom)
        this.$emit("changeMaps", changeInfo);
      },
      getLocationsWithValue: function (witch) {

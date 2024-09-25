@@ -173,11 +173,8 @@ definePageMeta({
       }
     },
     async loadData() {
-      console.log('Loading data...');
       await this.loadWikiEntries();
       const icons = this.icons;
-
-      console.log('Fetched icons:', icons);
 
       try {
         let response = await useMyFetch("/main.php?type=accused");

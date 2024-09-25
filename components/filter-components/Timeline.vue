@@ -61,7 +61,6 @@ export default {
         this.parseDate(this.dates[newRange[1]].label)
       ];
       this.$emit("updatedRangeValue", dateRange);
-      console.log("Updated Date Range", dateRange);
     }
   },
   computed: {
@@ -82,7 +81,6 @@ export default {
     },
     handleCustomInputRangeChange(newCustomInputRange) {
       this.numberRangeValue = newCustomInputRange;
-      console.log("New Number range value", newCustomInputRange);
     },
     parseDate(dateStr) {
       // Convert DD/MM/YYYY to Date object
