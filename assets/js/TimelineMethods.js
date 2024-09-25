@@ -183,7 +183,6 @@ const TimelineMethods = {
       dates, markerDates, dateRange[1],
       lastDateFormatted, lastDateFormatted
     )
-    //console.log(dates[dates.length - 2]);
     this.checkEndMarkers(dateRange[1], markerDates, 1, dateFrequency, "months");
 
     return [dates, markerDates]
