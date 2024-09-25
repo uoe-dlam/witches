@@ -17,15 +17,15 @@
 
             <div class="font-semibold text-base">{{ witch.name }}</div><br>
             <div>
-              <b>Investigation Date:</b> {{ witch.investigationDates[1] }}<br>
+              <strong>Investigation Date:</strong> {{ witch.investigationDates[1] }}<br>
             </div>
             
             <div v-for="standardAttribute in getStandardAttributesWithValue(witch)">
-              <b>{{standardAttributeLabels[standardAttribute]}}:</b> {{ witch[standardAttribute] }}<br>
+              <strong>{{standardAttributeLabels[standardAttribute]}}:</strong> {{ witch[standardAttribute] }}<br>
             </div>
 
             <div v-for="locationOption in getLocationsWithValue(witch)">
-              <b>{{ locationsLabels[locationOption] }}:</b>
+              <strong>{{ locationsLabels[locationOption] }}:</strong>
               <template v-for="(subLocation, index) in witch[locationOption].locations">
                 <a @click="flyTo(witch[locationOption].coordinates[index])" :style="{ cursor: 'pointer'}">{{ subLocation }}</a>
                 <template v-if="index < witch[locationOption].locations.length - 1">, </template>
@@ -34,7 +34,7 @@
             </div>
 
             <div v-for="optionalAttribute in getOptionalsWithValue(witch)">
-              <b>{{optionalsLabels[optionalAttribute]}}:</b>
+              <strong>{{optionalsLabels[optionalAttribute]}}:</strong>
               <template v-for="(subAtribute, index) in witch[optionalAttribute]">
                 {{ subAtribute.toLowerCase() }}<template v-if="index < witch[optionalAttribute].length - 1">,</template>
               </template>
@@ -42,7 +42,7 @@
             </div>
 
             <div v-if="witch.mannerOfDeath !== ''">
-              <b>Manner of Death:</b> {{ witch.mannerOfDeath }}<br>
+              <strong>Manner of Death:</strong> {{ witch.mannerOfDeath }}<br>
             </div>
             <div v-if="witch.wikiPage !== ''">
               <a :href="witch.wikiPage" target="_blank">
