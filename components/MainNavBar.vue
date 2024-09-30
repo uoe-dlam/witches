@@ -120,7 +120,7 @@ export default {
             { name: "Case Characterisations", url: "/", external: false },
             {
               name: "Witches Meetings",
-              url: "/case-information",
+              url: "/witches-meetings",
               external: false,
             },
             {
