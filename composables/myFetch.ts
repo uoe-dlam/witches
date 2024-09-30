@@ -1,7 +1,6 @@
 export const myFetch = async (request, opts = {}) => {
     const config = useRuntimeConfig();
-    const baseURL = config.public.baseURL;
-    const url = new URL(request, baseURL);
+    const url = new URL(request, config.public.baseURL);
 
     try {
       const data = await $fetch(url, opts)
