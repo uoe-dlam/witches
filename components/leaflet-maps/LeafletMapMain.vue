@@ -19,15 +19,9 @@
             <span class="slider round"></span>
           </label>
         </div>
-        <!--Will change back to clusters when get clusters map working  -->
-        <normal-map
-          v-if="clusterState.clustersOn"
-          :mapMarkers="mapMarkers"
-          :mapUrl="mapUrl"
-          :center="center"
-          :zoom="zoom"
-          @changeMaps="changeMaps($event)"
-        />
+        <clusters-map v-if="clusterState.clustersOn" :mapMarkers="mapMarkers" 
+                      :mapUrl="mapUrl" :center="center"
+                      :zoom="zoom" @changeMaps="changeMaps($event)" />
 
         <normal-map
           v-if="clusterState.clustersOff"

@@ -17,6 +17,7 @@
     "@pinia/nuxt": "^0.5.3",
     "@vueform/slider": "^2.1.10",
     "@vuepic/vue-datepicker": "^9.0.2",
+    "leaflet.markercluster": "^1.5.3",
     "nuxt": "^3.12.4",
     "sweetalert2": "^11.13.1",
     "tailwindcss": "^3.4.10",
