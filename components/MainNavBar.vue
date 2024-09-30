@@ -51,6 +51,11 @@
             :subpages="link.subpages"
           >
             {{ link.name }}
+            <img
+              v-if="link.subpages.length"
+              src="/images/arrow-down.svg"
+              class="w-4 h-4 inline-block"
+            />
           </main-nav-bar-item>
         </div>
       </div>
@@ -178,7 +183,7 @@ export default {
           url: "#",
           external: false,
           subpages: [
-            { name: "Overview", url: "/", external: false },
+            { name: "Overview", url: "/about", external: false },
             { name: "References", url: "/", external: false },
             { name: "Resources", url: "/", external: false },
             { name: "Contact", url: "/", external: false },
