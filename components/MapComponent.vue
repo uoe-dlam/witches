@@ -131,7 +131,7 @@ export default {
           this.Filtering.getMarkerStateIconDependant(marker);
       } else {
         marker.active = this.Filtering.getMarkerStateNonIconDependant(
-          marker.witches
+          marker.witches,
         );
       }
     },
@@ -154,7 +154,7 @@ export default {
           if (
             this.Filtering.checkMeetsCondition(
               witch[filterProperty],
-              filterType
+              filterType,
             )
           ) {
             witch.witchState.on = false;
@@ -178,13 +178,13 @@ export default {
           if (
             this.Filtering.checkMeetsCondition(
               witch[filterProperty],
-              filterType
+              filterType,
             )
           ) {
             [witch.witchState.activeFilters, witch.witchState.on] =
               this.Filtering.checkWitchOn(
                 witch.witchState.activeFilters,
-                filterProperty
+                filterProperty,
               );
           }
         }
@@ -214,7 +214,7 @@ export default {
             [witch.witchState.activeFilters, witch.witchState.on] =
               this.Filtering.checkWitchOn(
                 witch.witchState.activeFilters,
-                "timeline"
+                "timeline",
               );
           }
         }
