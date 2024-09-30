@@ -86,7 +86,6 @@ export default {
     return {
       open: false,
       links: [
-        //will add pages back in one by one
         {
           name: "Accused Witches",
           url: "#",
