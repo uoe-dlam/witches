@@ -51,6 +51,11 @@
             :subpages="link.subpages"
           >
             {{ link.name }}
+            <img
+              v-if="link.subpages.length"
+              src="/images/arrow-down.svg"
+              class="w-4 h-4 inline-block"
+            />
           </main-nav-bar-item>
         </div>
       </div>
