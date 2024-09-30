@@ -31,7 +31,7 @@ export default {
   data: () => ({
     pageInfo: {
       title: "Places of Death Map for Accused Witches",
-      html: '<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <b class="font-bold">execution under the charge of witchcraft</b>. Although there were <strong>3212</strong> accused witches named, there are recorded places of death for only <strong>152</strong> of them. Many of these locations are recorded as precise sites of execution. There are another <strong>119</strong> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>',
+      html: "",
       footer: "witches.is.ed.ac.uk",
       confirmButtonText: "Close",
       type: "info",
@@ -113,6 +113,11 @@ export default {
     },
   }),
   computed: {
+    totalWitches() {
+      return this.originalMarkers.reduce((total, marker) => {
+        return total + (marker.witches.length || 0);
+      }, 0);
+    },
     icons() {
       const { icons } = useIcons();
       return icons.value;
@@ -149,6 +154,9 @@ export default {
         [marker.markerIcon, marker.active] =
           Filtering.getMarkerStateIconDependant(marker);
       }
+    },
+    updatePageInfo() {
+      this.pageInfo.html = `<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <strong">execution under the charge of witchcraft</strong>. Although there were <strong>3212</strong> accused witches named, there are recorded places of death for only <stong>${this.totalWitches}<strong> of them. Many of these locations are recorded as precise sites of execution. There are another <strong>119</strong> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>`;
     },
     hasLocalStorageExpired: function () {
       let hours = 24; // Reset when storage is more than 24hours
@@ -200,6 +208,9 @@ export default {
 
       this.setMarkersIcons();
       this.loading = false;
+
+      // Update the pageInfo with the calculated number of witches
+      this.updatePageInfo();
     },
   },
   mounted: function () {
