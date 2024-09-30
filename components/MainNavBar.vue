@@ -51,6 +51,13 @@
             :subpages="link.subpages"
           >
             {{ link.name }}
+            <<<<<<< HEAD =======
+            <img
+              v-if="link.subpages.length"
+              src="/images/arrow-down.svg"
+              class="w-4 h-4 inline-block"
+            />
+            >>>>>>> contact-page
           </main-nav-bar-item>
         </div>
       </div>
@@ -81,7 +88,6 @@ export default {
     return {
       open: false,
       links: [
-        //will add pages back in one by one
         {
           name: "Accused Witches",
           url: "#",
@@ -115,7 +121,7 @@ export default {
             { name: "Case Characterisations", url: "/", external: false },
             {
               name: "Witches Meetings",
-              url: "/CaseInformation",
+              url: "/witches-meetings",
               external: false,
             },
             {
