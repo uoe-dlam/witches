@@ -168,7 +168,6 @@ export default {
 
       try {
         let response = await myFetch("/main.php?type=death");
-        console.log("API Response:", response);
         this.queryOutput = response;
       } catch (e) {
         Swal.fire({
