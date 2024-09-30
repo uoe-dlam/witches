@@ -99,7 +99,11 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "Death Locations", url: "/death", external: false },
+            {
+              name: "Death Locations",
+              url: "/death-locations",
+              external: false,
+            },
             {
               name: "Linking Residence to Place of Death",
               url: "/",
@@ -133,7 +137,7 @@ export default {
             { name: "Named Witches", url: "/", external: false },
             {
               name: "Detention Locations",
-              url: "/death-locations",
+              url: "/",
               external: false,
             },
             { name: "Trial Locations", url: "/", external: false },
