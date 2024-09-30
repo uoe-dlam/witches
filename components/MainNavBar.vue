@@ -117,7 +117,11 @@ export default {
           external: false,
           subpages: [
             { name: "Case Characterisations", url: "/", external: false },
-            { name: "Witches Meetings", url: "/", external: false },
+            {
+              name: "Witches Meetings",
+              url: "/witches-meetings",
+              external: false,
+            },
             {
               name: "Shapeshifting and Ritual Objects",
               url: "/",
