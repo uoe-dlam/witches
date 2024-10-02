@@ -10,15 +10,7 @@
       <div class="w-full h-full flex" v-if="filtersBox">
         <!-- Filters box -->
         <div
-          class="
-            h-full
-            flex flex-col
-            bg-white
-            rounded-tr-xl rounded-br-xl
-            filters-shadow
-            overflow-y-visible overflow-x-hidden
-            relative
-          "
+          class="h-full flex flex-col bg-white rounded-tr-xl rounded-br-xl filters-shadow overflow-y-visible overflow-x-hidden relative"
           style="width: 90%"
         >
           <!-- Header -->
@@ -35,18 +27,7 @@
                 <h1 class="text-3xl mx-0 px-2">
                   {{ pageInfo.title }}
                   <div
-                    class="
-                      inline-flex
-                      items-center
-                      justify-center
-                      align-middle
-                      rounded-full
-                      border-r-2 border-l-2 border-gray-400
-                      w-6
-                      h-6
-                      hover:w-7 hover:h-7
-                      mb-0.5
-                    "
+                    class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5"
                   >
                     <img
                       src="/images/infoIcon.svg"
@@ -61,20 +42,7 @@
               <div class="ml-3 flex mt-3 items-center pb-1">
                 <p class="mr-2 text-lg witchy-text">Showing</p>
                 <div
-                  class="
-                    h-6
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white
-                    font-medium
-                    bg-slate-500
-                    border-slate-700
-                  "
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
                 >
                   <p>
                     {{ noWitches }}
@@ -90,20 +58,7 @@
                   Colour of map icons indicating
                 </p>
                 <div
-                  class="
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white text-base
-                    bg-slate-500
-                    border-slate-700
-                    font
-                    medium
-                  "
+                  class="px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white text-base bg-slate-500 border-slate-700 font medium"
                 >
                   <p>
                     {{ filterProperties[currentProperty].label }}
@@ -141,16 +96,7 @@
             </transition>
 
             <button
-              class="
-                rounded-lg
-                w-24
-                text-white
-                ml-4
-                bg-sky-600
-                py-1
-                hover:bg-sky-700
-                text-sm
-              "
+              class="rounded-lg w-24 text-white ml-4 bg-sky-600 py-1 hover:bg-sky-700 text-sm"
               :style="[
                 timelineOn
                   ? { 'margin-top': '20px' }
@@ -172,20 +118,7 @@
               </p>
               <div class="flex items-center mt-3 justify-center">
                 <div
-                  class="
-                    h-6
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white
-                    font-medium
-                    bg-slate-500
-                    border-slate-700
-                  "
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
                 >
                   <p class="text-sm">
                     {{ dateRangeFormatted[0] }}
@@ -193,20 +126,7 @@
                 </div>
                 <p class="mr-2 text-lg witchy-text">and</p>
                 <div
-                  class="
-                    h-6
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white
-                    font-medium
-                    bg-slate-500
-                    border-slate-700
-                  "
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
                 >
                   <p class="text-sm">
                     {{ dateRangeFormatted[1] }}
@@ -251,16 +171,7 @@
             >
               <!-- Property titles -->
               <div
-                class="
-                  flex
-                  pl-2
-                  py-1
-                  flex-wrap
-                  items-center
-                  mt-2
-                  cursor-pointer
-                  w-full
-                "
+                class="flex pl-2 py-1 flex-wrap items-center mt-2 cursor-pointer w-full"
                 @click="togglePropertyShowing(property)"
               >
                 <div class="title-point"></div>
@@ -271,16 +182,7 @@
                       {{ propertyItem.label }}
                     </p>
                     <div
-                      class="
-                        inline-flex
-                        items-center
-                        justify-center
-                        align-middle
-                        rounded-full
-                        border-r-2 border-l-2 border-gray-400
-                        w-5
-                        h-5
-                      "
+                      class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-5 h-5"
                     >
                       <img
                         src="/images/infoIcon.svg"
@@ -329,51 +231,13 @@
 
                 <button
                   @click="selectAll(property, propertyItem)"
-                  class="
-                    inline-block
-                    rounded
-                    hover:bg-gray-300
-                    text-black
-                    px-1
-                    pb-1
-                    pt-1
-                    text-xs
-                    leading-normal
-                    border border-gray-200
-                    hover:shadow-md hover:-translate-y-1
-                    transform
-                    transition-all
-                    duration-200
-                    focus:outline-none
-                    focus:ring
-                    focus:ring-blue-300
-                    focus:ring-opacity-50
-                  "
+                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                 >
                   Select All
                 </button>
                 <button
                   @click="clearAll(property, propertyItem)"
-                  class="
-                    inline-block
-                    rounded
-                    hover:bg-gray-300
-                    text-black
-                    px-1
-                    pb-1
-                    pt-1
-                    text-xs
-                    leading-normal
-                    border border-gray-200
-                    hover:shadow-md hover:-translate-y-1
-                    transform
-                    transition-all
-                    duration-200
-                    focus:outline-none
-                    focus:ring
-                    focus:ring-blue-300
-                    focus:ring-opacity-50
-                  "
+                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                 >
                   Clear All
                 </button>
@@ -407,16 +271,7 @@
 
             <!-- Map tiles -->
             <div
-              class="
-                w-full
-                flex
-                justify-between
-                px-2
-                sm:px-3
-                md:px-5
-                lg:px-10
-                mb-3
-              "
+              class="w-full flex justify-between px-2 sm:px-3 md:px-5 lg:px-10 mb-3"
             >
               <div v-for="tile in tiles">
                 <input
@@ -434,16 +289,7 @@
         <!-- Left chevron to hide filters. -->
         <div class="w-8 flex flex-col justify-center ml-1">
           <div
-            class="
-              flex
-              items-center
-              justify-center
-              w-8
-              h-8
-              rounded-full
-              bg-slate-200
-              filters-shadow
-            "
+            class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
             @click="toggleFiltersBox()"
           >
             <img
@@ -462,16 +308,7 @@
       style="pointer-events: auto"
     >
       <div
-        class="
-          flex
-          items-center
-          justify-center
-          w-8
-          h-8
-          rounded-full
-          bg-slate-200
-          filters-shadow
-        "
+        class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
         @click="toggleFiltersBox()"
       >
         <img class="max-w-full max-h-full" src="/images/chevrons-right.svg" />
@@ -536,7 +373,7 @@ export default {
       filtersBox: true,
       currentTileName: "Modern Map",
       filtersGeneralInfo: JSON.parse(
-        JSON.stringify(this.startingFiltersGeneralInfo)
+        JSON.stringify(this.startingFiltersGeneralInfo),
       ),
       filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
       tiles: [

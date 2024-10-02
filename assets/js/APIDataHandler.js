@@ -2,7 +2,7 @@ class APIDataHandler {
   // Class that handles data from the json from the API
   // (json obtained from running the big query).
 
-  constructor (queryOutput, wikiPages, icons, constantIcon) {
+  constructor(queryOutput, wikiPages, icons, constantIcon) {
     this.originalMarkers = [];
     this.icons = icons;
     this.constantIcon = constantIcon;
@@ -21,58 +21,57 @@ class APIDataHandler {
       shapeshifting: {},
       ritualObjects: {},
       primary: {},
-      secondary: {}
-    }
+      secondary: {},
+    };
     this.plotFieldsLabels = {
-      "residence": "residenceCoords",
-      "detention": "detentionLocationCoords",
-      "placeOfDeath": "placeOfDeathCoords"
-    }
+      residence: "residenceCoords",
+      detention: "detentionLocationCoords",
+      placeOfDeath: "placeOfDeathCoords",
+    };
   }
 
-  convertWikiDateToFriendlyDate (wikiDate) {
+  convertWikiDateToFriendlyDate(wikiDate) {
     let dateYear = wikiDate.substr(0, 4);
     let dateMonth = wikiDate.substr(5, 2);
     let dateDay = wikiDate.substr(8, 2);
 
-    return dateDay + '/' + dateMonth + '/' + dateYear;
-  }  
+    return dateDay + "/" + dateMonth + "/" + dateYear;
+  }
 
-  capitalizeFirstLetter (string) {
+  capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   convertPointToLongLatArray(pointString) {
-    // Converts an location pulled out of wikidata 
+    // Converts an location pulled out of wikidata
     // to a usable location array.
 
     pointString = pointString.substr(6);
     pointString = pointString.slice(0, -1);
-    let pointArray = pointString.split(' ');
+    let pointArray = pointString.split(" ");
     let longLatArray = [pointArray[1], pointArray[0]];
 
     return longLatArray;
   }
 
   getItemWikiPage(item) {
-    // Gets the wiki page for an item. Returns '' if 
+    // Gets the wiki page for an item. Returns '' if
     // it doesn't have one.
-    let wikiPage = '';
+    let wikiPage = "";
 
     for (let i = 0; i < this.wikiPages.length; i++) {
-
       if (this.wikiPages[i].id === item.item.value) {
         wikiPage = this.wikiPages[i].pageTitle;
-        wikiPage.split(' ').join('_');
-        wikiPage = 'https://en.wikipedia.org/wiki/' + wikiPage;
+        wikiPage.split(" ").join("_");
+        wikiPage = "https://en.wikipedia.org/wiki/" + wikiPage;
       }
     }
 
     return wikiPage;
   }
 
-  selectIcon (filterTypes) {
-    // Selects an accused witch icon for a newly found based 
+  selectIcon(filterTypes) {
+    // Selects an accused witch icon for a newly found based
     // filterType(male, vagrant etc.) based on the already existing
     // number.
     let position = filterTypes.length % this.icons.length;
@@ -80,7 +79,7 @@ class APIDataHandler {
     return this.icons[position];
   }
 
-  getFilterObject (filter, found, behaviour) {
+  getFilterObject(filter, found, behaviour) {
     // returns a filter object, where the icon depends
     // on whether iconBehaviour is constant or not. If it
     // is constant, then we set iconUrl to null.
@@ -90,51 +89,49 @@ class APIDataHandler {
       return {
         label: this.capitalizeFirstLetter(filter),
         active: true,
-        iconUrl: icon
-      }
+        iconUrl: icon,
+      };
     }
 
     return {
       label: this.capitalizeFirstLetter(filter),
       active: true,
-      iconUrl: null
-    }
+      iconUrl: null,
+    };
   }
 
-  checkFilters (witchProperty, filterProperty) {
+  checkFilters(witchProperty, filterProperty) {
     // Checks if witchProperty (a filterType - either string
-    // or array) doesn't exist already in 
-    // the object of filterProperty in filterProperties, and if so 
+    // or array) doesn't exist already in
+    // the object of filterProperty in filterProperties, and if so
     // adds it.
     let found = Object.keys(this.filterProperties[filterProperty[0]]);
 
     if (Array.isArray(witchProperty)) {
-      witchProperty.map(filter => {
+      witchProperty.map((filter) => {
         this.filterProperties[filterProperty[0]][filter] = this.getFilterObject(
-          filter, found, filterProperty[1]
+          filter,
+          found,
+          filterProperty[1],
         );
-      })
+      });
     } else {
       if (!found.includes(witchProperty)) {
-        this.filterProperties[filterProperty[0]][witchProperty] = this.getFilterObject(
-          witchProperty, found, filterProperty[1]
-        );
+        this.filterProperties[filterProperty[0]][witchProperty] =
+          this.getFilterObject(witchProperty, found, filterProperty[1]);
       }
     }
   }
 
   getStringBetweenBrackets(quality) {
-    if (!quality.includes('(')) {
-        return null
+    if (!quality.includes("(")) {
+      return null;
     }
-    
-    return quality.slice(
-     quality.indexOf('(') + 1,
-     quality.lastIndexOf(')'),
-    );
+
+    return quality.slice(quality.indexOf("(") + 1, quality.lastIndexOf(")"));
   }
 
-  getFilterTypesFromData (filterProperty, dataArray) {
+  getFilterTypesFromData(filterProperty, dataArray) {
     // For a given property in a string with properties seperated
     // by | and filterTypes between brackets, returns all the
     // filterTypes if finds for the property.
@@ -144,42 +141,51 @@ class APIDataHandler {
     // Here <pact with the devil> and <Witches' Sabbath> are filterProperties and
     // everything between brackets filter types.
     let filterTypes = [];
-    
-    dataArray.map(dataEntry => {
-        if (dataEntry.includes(filterProperty)) {
-            let filterType = this.getStringBetweenBrackets(dataEntry);
-        
-            if (filterType !== null) {
-                filterTypes.push(filterType);
-            }
+
+    dataArray.map((dataEntry) => {
+      if (dataEntry.includes(filterProperty)) {
+        let filterType = this.getStringBetweenBrackets(dataEntry);
+
+        if (filterType !== null) {
+          filterTypes.push(filterType);
         }
-    })
+      }
+    });
 
     if (filterTypes.length === 0) {
-      return ["unknown"]
+      return ["unknown"];
     }
-    
+
     return filterTypes;
   }
 
-  getWitchShapeshifting (charges) {
+  getWitchShapeshifting(charges) {
     // Returns an array with all the shapeshifting
     // charges for a witch.
-    let chargesArray = charges.split("|")
-    return this.getFilterTypesFromData("shapeshifting", chargesArray)
+    let chargesArray = charges.split("|");
+    return this.getFilterTypesFromData("shapeshifting", chargesArray);
   }
 
-  getWitchInfoFromQualities (qualities) {
+  getWitchInfoFromQualities(qualities) {
     // Returns an object with the data from the qualities
-    // string. (demonic pact, property damage, meetings 
+    // string. (demonic pact, property damage, meetings
     // information.)
     let qualitiesArray = qualities.split("|");
 
     return {
-      demonicPact: this.getFilterTypesFromData("pact with the devil", qualitiesArray),
-      propertyDamage: this.getFilterTypesFromData("property damage", qualitiesArray),
-      meetingsInfo: this.getFilterTypesFromData("Witches' Sabbath", qualitiesArray)
-    }
+      demonicPact: this.getFilterTypesFromData(
+        "pact with the devil",
+        qualitiesArray,
+      ),
+      propertyDamage: this.getFilterTypesFromData(
+        "property damage",
+        qualitiesArray,
+      ),
+      meetingsInfo: this.getFilterTypesFromData(
+        "Witches' Sabbath",
+        qualitiesArray,
+      ),
+    };
   }
 
   getPrimary(charac) {
@@ -188,27 +194,27 @@ class APIDataHandler {
     let bracketIndex = charac.indexOf("(");
 
     if (bracketIndex === -1) {
-      return null
+      return null;
     }
 
-    return charac.slice(0, bracketIndex - 1)
+    return charac.slice(0, bracketIndex - 1);
   }
 
-  getPrimaryAndSecondary (including) {
+  getPrimaryAndSecondary(including) {
     // Returns the primary and secondary characteristics
     // for a witch.
     if (including === "") {
       return {
         primary: ["unknown"],
-        secondary: ["unknown"]
-      }
+        secondary: ["unknown"],
+      };
     }
 
     let includingArray = including.split(" | ");
     let secondaries = [];
     let primaries = [];
 
-    includingArray.map(charac => {
+    includingArray.map((charac) => {
       let primaryCharac = this.getPrimary(charac);
 
       if (primaryCharac !== null) {
@@ -216,7 +222,7 @@ class APIDataHandler {
       } else {
         secondaries.push(charac);
       }
-    })
+    });
 
     if (secondaries.length === 0) {
       secondaries = ["unknown"];
@@ -228,88 +234,115 @@ class APIDataHandler {
 
     return {
       primary: primaries,
-      secondary: secondaries
-    }
+      secondary: secondaries,
+    };
   }
 
-  getSplitData (data) {
+  getSplitData(data) {
     // Given a string of data separated by "|" it returns
-    // such string split into a list, or an empty list if 
+    // such string split into a list, or an empty list if
     // the string is empty. Used for ritualObjects and witchMeetings
     // locations.
     if (data === "") {
-      return ["unknown"]
+      return ["unknown"];
     }
     let dataArray = data.split(" | ");
 
-    return dataArray
+    return dataArray;
   }
 
-  getWitchNonOptionalProperties (item) {
+  getWitchNonOptionalProperties(item) {
     // Returns a witch object with the properties that
     // need to be had by any given witch, and have 'unknown'
     // or 'N/A' otherwise.
     let wikiPage = this.getItemWikiPage(item);
-    let investigationDate = item.hasOwnProperty('investigationStart') ? item.investigationStart.value : 'N/A';
-    let investigationDates = [new Date(investigationDate), investigationDate]
+    let investigationDate = item.hasOwnProperty("investigationStart")
+      ? item.investigationStart.value
+      : "N/A";
+    let investigationDates = [new Date(investigationDate), investigationDate];
 
-    if (investigationDate !== 'N/A') {
-      investigationDates[1] = this.convertWikiDateToFriendlyDate(investigationDate);
+    if (investigationDate !== "N/A") {
+      investigationDates[1] =
+        this.convertWikiDateToFriendlyDate(investigationDate);
     }
 
     return {
       id: item.item.value,
-      sex: item.hasOwnProperty('sexLabel') ? item.sexLabel.value : 'unknown',
+      sex: item.hasOwnProperty("sexLabel") ? item.sexLabel.value : "unknown",
       name: item.itemLabel.value,
-      link: 'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=' + item.link.value + '&search_string=lastname',
-      hasWikiPage: wikiPage === '' ? 'noWiki' : 'hasWiki',
-      wikiPage: wikiPage === '' ? '' : wikiPage,
-      socialClass: item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown',
-      occupation: item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown',
+      link:
+        "http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.accusedrecord&accusedref=" +
+        item.link.value +
+        "&search_string=lastname",
+      hasWikiPage: wikiPage === "" ? "noWiki" : "hasWiki",
+      wikiPage: wikiPage === "" ? "" : wikiPage,
+      socialClass: item.hasOwnProperty("socialClassificationLabel")
+        ? item.socialClassificationLabel.value
+        : "unknown",
+      occupation: item.hasOwnProperty("occupationLabel")
+        ? item.occupationLabel.value
+        : "unknown",
       investigationDates: investigationDates,
-      precision: item.hasOwnProperty('investigationStartPrecision') ? item.investigationStartPrecision.value : 'unknown'
-    }
+      precision: item.hasOwnProperty("investigationStartPrecision")
+        ? item.investigationStartPrecision.value
+        : "unknown",
+    };
   }
 
   getWitchLocations(item) {
     return {
       residence: {
-        locations: item.hasOwnProperty('residenceLabel') ? [item.residenceLabel.value] : [], 
-        coordinates: item.hasOwnProperty('residenceCoords') ? [this.convertPointToLongLatArray(item.residenceCoords.value)] : []
+        locations: item.hasOwnProperty("residenceLabel")
+          ? [item.residenceLabel.value]
+          : [],
+        coordinates: item.hasOwnProperty("residenceCoords")
+          ? [this.convertPointToLongLatArray(item.residenceCoords.value)]
+          : [],
       },
       detention: {
-        locations: item.hasOwnProperty('detentionLocationLabel') ? [item.detentionLocationLabel.value] : [],
-        coordinates: item.hasOwnProperty('detentionLocationCoords') ? [this.convertPointToLongLatArray(item.detentionLocationCoords.value)] : []
+        locations: item.hasOwnProperty("detentionLocationLabel")
+          ? [item.detentionLocationLabel.value]
+          : [],
+        coordinates: item.hasOwnProperty("detentionLocationCoords")
+          ? [
+              this.convertPointToLongLatArray(
+                item.detentionLocationCoords.value,
+              ),
+            ]
+          : [],
       },
       placeOfDeath: {
-        locations: item.hasOwnProperty('placeOfDeathLabel') ? [item.placeOfDeathLabel.value] : [],
-        coordinates: item.hasOwnProperty('placeOfDeathCoords') ? [this.convertPointToLongLatArray(item.placeOfDeathCoords.value)] : []
-      }
-    }
+        locations: item.hasOwnProperty("placeOfDeathLabel")
+          ? [item.placeOfDeathLabel.value]
+          : [],
+        coordinates: item.hasOwnProperty("placeOfDeathCoords")
+          ? [this.convertPointToLongLatArray(item.placeOfDeathCoords.value)]
+          : [],
+      },
+    };
   }
 
-  addFiltersFound (witch, filtersToProduce) {
+  addFiltersFound(witch, filtersToProduce) {
     // Checks the witch data for each filter to produce
     // property, and adds any new filters to the corresponding
-    // filterProperty in filterProperties. Works by calling 
+    // filterProperty in filterProperties. Works by calling
     // either checkFiltersArray or checkFiltersString.
 
-    filtersToProduce.map(filterProperty => {
+    filtersToProduce.map((filterProperty) => {
       let witchProperty = witch[filterProperty[0]];
 
       this.checkFilters(witchProperty, filterProperty);
-    })
+    });
   }
 
-  loadAccussed (plotByField, filtersToProduce) {
+  loadAccussed(plotByField, filtersToProduce) {
     let witches = [];
 
     for (let i = 0; i < this.queryOutput.results.bindings.length; i++) {
       let item = this.queryOutput.results.bindings[i];
 
       if (item.hasOwnProperty(this.plotFieldsLabels[plotByField])) {
-        
-        let repeatedWitch = witches.find(existingWitch => {
+        let repeatedWitch = witches.find((existingWitch) => {
           return existingWitch.id === item.item.value;
         });
 
@@ -317,43 +350,48 @@ class APIDataHandler {
           let witch = this.getWitchNonOptionalProperties(item);
           witch = Object.assign(witch, this.getWitchLocations(item));
 
-          if (item.hasOwnProperty('qualities')) {
+          if (item.hasOwnProperty("qualities")) {
             witch = Object.assign(
               witch,
-              this.getWitchInfoFromQualities(item.qualities.value)
+              this.getWitchInfoFromQualities(item.qualities.value),
             );
           }
 
-          witch.mannerOfDeath = item.hasOwnProperty('mannerOfDeathLabel') ? item.mannerOfDeathLabel.value : '';
+          witch.mannerOfDeath = item.hasOwnProperty("mannerOfDeathLabel")
+            ? item.mannerOfDeathLabel.value
+            : "";
 
-          if (item.hasOwnProperty('meetingLocations')) {
-            witch.meetingsPlaces = this.getSplitData(item.meetingLocations.value);
+          if (item.hasOwnProperty("meetingLocations")) {
+            witch.meetingsPlaces = this.getSplitData(
+              item.meetingLocations.value,
+            );
           }
 
-          if (item.hasOwnProperty('charges')) {
-            witch.shapeshifting = this.getWitchShapeshifting(item.charges.value);
+          if (item.hasOwnProperty("charges")) {
+            witch.shapeshifting = this.getWitchShapeshifting(
+              item.charges.value,
+            );
           }
 
-          if (item.hasOwnProperty('ritualObjects')) {
+          if (item.hasOwnProperty("ritualObjects")) {
             witch.ritualObjects = this.getSplitData(item.ritualObjects.value);
           }
 
-          if (item.hasOwnProperty('including')) {
+          if (item.hasOwnProperty("including")) {
             witch = Object.assign(
               witch,
-              this.getPrimaryAndSecondary(item.including.value)
+              this.getPrimaryAndSecondary(item.including.value),
             );
           }
 
           witch.witchState = {
             activeFilters: [],
-            on: true
-          }
+            on: true,
+          };
 
           this.addFiltersFound(witch, filtersToProduce);
           witches.push(witch);
           this.addWitchToMarkers(witch, plotByField, 0);
-
         } else {
           // If witch is repeated, add already existing witch with the new locations
           // like we did before.
@@ -363,53 +401,66 @@ class APIDataHandler {
           let newLocationsKeys = Object.keys(newLocations);
 
           if (!existingPlotBys.includes(newLocationPlotBy)) {
-            repeatedWitch[plotByField].locations.push(newLocations[plotByField].locations[0]);
-            repeatedWitch[plotByField].coordinates.push(newLocations[plotByField].coordinates[0]);
-            
-            newLocationsKeys.map(newLocationKey => {
+            repeatedWitch[plotByField].locations.push(
+              newLocations[plotByField].locations[0],
+            );
+            repeatedWitch[plotByField].coordinates.push(
+              newLocations[plotByField].coordinates[0],
+            );
+
+            newLocationsKeys.map((newLocationKey) => {
               if (newLocationKey !== plotByField) {
                 if (newLocations[newLocationKey].locations.length !== 0) {
-
                   let newLocation = newLocations[newLocationKey].locations[0];
-                  let newCoordinates = newLocations[newLocationKey].coordinates[0];
+                  let newCoordinates =
+                    newLocations[newLocationKey].coordinates[0];
 
-                  if (!repeatedWitch[newLocationKey].locations.includes(newLocation)) {
+                  if (
+                    !repeatedWitch[newLocationKey].locations.includes(
+                      newLocation,
+                    )
+                  ) {
                     repeatedWitch[newLocationKey].locations.push(newLocation);
-                    repeatedWitch[newLocationKey].coordinates.push(newCoordinates);
+                    repeatedWitch[newLocationKey].coordinates.push(
+                      newCoordinates,
+                    );
                   }
                 }
               }
-            })
+            });
 
-            this.addWitchToMarkers(repeatedWitch, plotByField, repeatedWitch[plotByField].locations.length - 1);
+            this.addWitchToMarkers(
+              repeatedWitch,
+              plotByField,
+              repeatedWitch[plotByField].locations.length - 1,
+            );
           }
         }
       }
     }
 
-    return [
-      this.originalMarkers,
-      this.filterProperties
-    ]
+    return [this.originalMarkers, this.filterProperties];
   }
 
-  getFiltersProduced (filtersToProduce) {
+  getFiltersProduced(filtersToProduce) {
     let filtersProduced = [];
 
-    filtersToProduce.map(filterProperty => {
+    filtersToProduce.map((filterProperty) => {
       filtersProduced.push(this.filterProperties[filterProperty]);
-    })
+    });
 
     return filtersProduced;
   }
 
-  addWitchToMarkers (witch, plotByField, locationIndex) {
+  addWitchToMarkers(witch, plotByField, locationIndex) {
     // Adds witch to markers.
     let location = witch[plotByField].locations[locationIndex];
-    if (location === null) {console.log(witch);}
+    if (location === null) {
+      console.log(witch);
+    }
 
     // find marker for current location so you can add witch
-    let marker = this.originalMarkers.find(marker => {
+    let marker = this.originalMarkers.find((marker) => {
       return marker.location === location;
     });
 
@@ -421,18 +472,18 @@ class APIDataHandler {
 
       if (this.constantIcon !== null) {
         markerIcon = this.constantIcon;
-      } 
+      }
 
       let marker = {
         location: location,
         longLat: coords,
         witches: [witch],
         markerIcon: markerIcon,
-        active: true
-      }
+        active: true,
+      };
       this.originalMarkers.push(marker);
     }
   }
 }
 
-export default APIDataHandler
+export default APIDataHandler;
