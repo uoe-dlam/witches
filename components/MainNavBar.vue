@@ -51,6 +51,11 @@
             :subpages="link.subpages"
           >
             {{ link.name }}
+            <img
+              v-if="link.subpages.length"
+              src="/images/arrow-down.svg"
+              class="w-4 h-4 inline-block"
+            />
           </main-nav-bar-item>
         </div>
       </div>
@@ -81,7 +86,6 @@ export default {
     return {
       open: false,
       links: [
-        //will add pages back in one by one
         {
           name: "Accused Witches",
           url: "#",
@@ -115,7 +119,7 @@ export default {
             { name: "Case Characterisations", url: "/", external: false },
             {
               name: "Witches Meetings",
-              url: "/CaseInformation",
+              url: "/witches-meetings",
               external: false,
             },
             {
@@ -131,11 +135,15 @@ export default {
           external: false,
           subpages: [
             { name: "Named Witches", url: "/", external: false },
-            { name: "Detention Locations", url: "/detention", external: false },
+            {
+              name: "Detention Locations",
+              url: "/detention-locations",
+              external: false,
+            },
             { name: "Trial Locations", url: "/", external: false },
             {
               name: "Trials in Each Modern Authority",
-              url: "/council",
+              url: "/trials-in-each-modern-authority",
               external: false,
             },
           ],

@@ -1,11 +1,12 @@
 # Witches
 
-Witches is a website from the University of Edinburgh that uses data from the 
-[Survey of Scottish Witchcraft](http://www.shca.ed.ac.uk/Research/witches) to provide various maps about witches, their 
+Witches is a website from the University of Edinburgh that uses data from the
+[Survey of Scottish Witchcraft](http://www.shca.ed.ac.uk/Research/witches) to provide various maps about witches, their
 trials, and associated persons.
 
 ## Backend and running the site locally
-The witches project now includes a PHP backend, which can be found at:  [https://github.com/uoe-dlam/witches-php](https://github.com/uoe-dlam/witches-php)
+
+The witches project now includes a PHP backend, which can be found at: [https://github.com/uoe-dlam/witches-php](https://github.com/uoe-dlam/witches-php)
 
 To test locally, you should clone the backend:
 
@@ -18,20 +19,25 @@ And you can start the backend server by running the following command (You shoul
 ```
 cd <install-directory>/witches-php
 ```
+
 ```
 composer install (you only need to do this once)
 ```
+
 ```
 php -S localhost:8181
 ```
 
 And then test that everything is working run this project:
+
 ```
 npm i (you only need to do this once)
 ```
+
 ```
 npm run dev
 ```
+
 ## Support
 
 For technical support, please email ltw-apps-dev@ed.ac.uk. For questions or comments regarding the content of this site,
@@ -39,7 +45,7 @@ please email ewan.mcandrew@ed.ac.uk
 
 ## Contributing
 
-We would welcome pull requests to this site. If you have an improvement idea and would like to contribute to this site, 
+We would welcome pull requests to this site. If you have an improvement idea and would like to contribute to this site,
 please email use or open a pull request and we will aim to review it as quickly as possible.
 
 ## Authors and Acknowledgements
@@ -70,7 +76,8 @@ The map icons are licensed under the [CC BY 4.0 license](https://creativecommons
 This project is actively maintained by the University of Edinburgh's Digital Learning Applications and Media Team.
 
 ## Deploying the site
-This site is built using the [Nuxt.js](https://nuxtjs.org) framework. If you would like to get this site ready to deploy, 
+
+This site is built using the [Nuxt.js](https://nuxtjs.org) framework. If you would like to get this site ready to deploy,
 simply run the following commands in the project's root directory. Please note, you must have node
 and node package manager installed locally to issue these commands:
 
@@ -86,6 +93,6 @@ The commands will:
 - Generate the static web files used to serve the site
 - npm run start will show you what the site looks like when in production mode
 
- You should deploy the content of the dist folder to your server's root directory. 
- You should also push the content of the witches-php project to the root directory too.
- This includes the vendor folder and main.php
+You should deploy the content of the dist folder to your server's root directory.
+You should also push the content of the witches-php project to the root directory too.
+This includes the vendor folder and main.php

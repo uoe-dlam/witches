@@ -61,7 +61,7 @@
        standardAttributeLabels:{
         sex: "Gender",
         occupation: "Occupation",
-        socialClass: "Social Class"
+        socialClass: "Social Class",
       },
        optionalAttributes: [
         "demonicPact", "propertyDamage", "meetingsInfo", "meetingsPlaces",
@@ -141,48 +141,45 @@
        // where the center of the map is, the zoom, and what 
        // map type to change to when the map is turned off,
        // in this case changing to clustersOff.
-       console.log("Emitting Map Data")
        let centerInfo = this.$refs.myMap.leafletObject.getCenter();
-       console.log("Center Info", centerInfo)
        let centerArray = [centerInfo.lat, centerInfo.lng];
        let changeInfo = {
          center: centerArray,
          zoom: this.$refs.myMap.leafletObject.getZoom(),
          changeTo: "clustersOff"
        };
-       console.log("Zoom", changeInfo.zoom)
        this.$emit("changeMaps", changeInfo);
      },
      getLocationsWithValue: function (witch) {
        let locationsWithValue = []
 
-       this.locationOptions.map(option => {
-         if (witch[option].locations.length !== 0) {
-           locationsWithValue.push(option);
-         }
-       })
+      this.locationOptions.map((option) => {
+        if (witch[option].locations.length !== 0) {
+          locationsWithValue.push(option);
+        }
+      });
 
-       return locationsWithValue
-     },
-     getStandardAttributesWithValue: function (witch) {
-       let standardAttributesWithValue = [];
+      return locationsWithValue;
+    },
+    getStandardAttributesWithValue: function (witch) {
+      let standardAttributesWithValue = [];
 
-       this.standardAttributes.map(option => {
-         if (witch[option] !== "unknown") {
-           standardAttributesWithValue.push(option);
-         }
-       })
+      this.standardAttributes.map((option) => {
+        if (witch[option] !== "unknown") {
+          standardAttributesWithValue.push(option);
+        }
+      });
 
-       return standardAttributesWithValue
-     },
-     getOptionalsWithValue: function (witch) {
-       let optionalsWithValue = [];
+      return standardAttributesWithValue;
+    },
+    getOptionalsWithValue: function (witch) {
+      let optionalsWithValue = [];
 
-       this.optionalAttributes.map(option => {
-         if (witch.hasOwnProperty(option) && witch[option][0] !== "unknown") {
-           optionalsWithValue.push(option);
-         }
-       })
+      this.optionalAttributes.map((option) => {
+        if (witch.hasOwnProperty(option) && witch[option][0] !== "unknown") {
+          optionalsWithValue.push(option);
+        }
+      });
 
        return optionalsWithValue
      },
@@ -213,11 +210,11 @@
 </script>
 
 <style>
- .cluster-img {
-   float: left;
-   width: 72px;
-   height: 55px;
- }
+.cluster-img {
+  float: left;
+  width: 72px;
+  height: 55px;
+}
 
 
 
