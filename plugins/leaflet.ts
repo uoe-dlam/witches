@@ -4,6 +4,6 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 
-export default defineNuxtPlugin(nuxtApp => {
-  nuxtApp.provide('leaflet', L)
-})
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.provide("leaflet", L);
+});
