@@ -18,7 +18,7 @@
       Convictions were common but not universal; some people were acquitted.
     </p>
     <div>
-      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto mr-4">
+      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto ">
         <img src="../public/images/trial.png" class="w-full " />
         <p class="text-xs text-center mx-auto">Figure 1. Suspected witches from North Berwick appear before James VI and two Scottish magistrates, from the English pamphlet Newes from Scotland (1591) (Public domain, via Wikimedia Commons)</p>
       </div>
