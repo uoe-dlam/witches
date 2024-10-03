@@ -59,7 +59,9 @@
     <div>
       <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
         <img src="../public/images/intro.jpg" class="w-full lg:ml-6" />
-        <p class="text-xs text-center">Map of Accused Witches. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center">
+          Newes from Scotland - Woodcut of North Berwick Witches. Public Domain
+        </p>
       </div>
       <p class="mb-3 text-justify">
         Of these people accused as witches it is estimated that around 2,500,
