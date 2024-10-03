@@ -64,16 +64,6 @@
       confess after they were told that a mark had been found
     </p>
     <p class="mb-3 text-justify">
-      It is important to remember that, whilst this map allows you to explore
-      the accused witches for who names can be found, there are many more not
-      included on this map for whom the evidence is too sparse, or unfortunately
-      just does not exist. If you are interested in learning more about the
-      witch-hunts in Scotland, there are various books and articles that we can
-      recommend. Our Further Reading page gives you a list of up-to-date work on
-      witchcraft and witch-hunting in Scotland, for an older but more detailed
-      list of works, see the Survey of Scottish Witchcraft’s
-    </p>
-    <p class="mb-3 text-justify">
       Witch-prickers were all men; sometimes an ordinary interrogator (such as a
       parish elder or minister) would do the pricking, but during the major
       panics a handful of professional 'prickers' claimed special expertise in
