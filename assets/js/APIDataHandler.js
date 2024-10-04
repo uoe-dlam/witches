@@ -267,7 +267,31 @@ class APIDataHandler {
       socialClass: item.hasOwnProperty('socialClassificationLabel') ? item.socialClassificationLabel.value : 'unknown',
       occupation: item.hasOwnProperty('occupationLabel') ? item.occupationLabel.value : 'unknown',
       investigationDates: investigationDates,
-      precision: item.hasOwnProperty('investigationStartPrecision') ? item.investigationStartPrecision.value : 'unknown'
+      precision: item.hasOwnProperty("investigationStartPrecision") ? item.investigationStartPrecision.value : 'unknown'
+    }
+  }
+
+  getSourceDetails(item) {
+    // Extracts the "Described by Source" and its qualifiers
+    // from the item and returns them as an object.
+    if (item.hasOwnProperty("describedBySourceLabel")) {
+      return {
+        describedBySource: item.describedBySourceLabel.value,
+        seriesOrdinal: item.hasOwnProperty("seriesOrdinal") ? item.seriesOrdinal.value : "unknown",
+        volume: item.hasOwnProperty("volume") ? item.volume.value : "unknown",
+        page: item.hasOwnProperty("pageNumber") ? item.page.value : "unknown",
+        collection: item.hasOwnProperty("collectionLabel") ? item.collectionLabel.value : "unknown",
+        url: item.hasOwnProperty("urlLabel") ? item.url.value : "unknown"
+      };
+    } else {
+      return {
+        describedBySource: "unknown",
+        seriesOrdinal: "unknown",
+        volume: "unknown",
+        page: "unknown",
+        collection: "unknown",
+        url: "unknown"
+      };
     }
   }
 
@@ -317,6 +341,7 @@ class APIDataHandler {
           let witch = this.getWitchNonOptionalProperties(item);
           witch = Object.assign(witch, this.getWitchLocations(item));
 
+
           if (item.hasOwnProperty('qualities')) {
             witch = Object.assign(
               witch,
@@ -344,6 +369,14 @@ class APIDataHandler {
               this.getPrimaryAndSecondary(item.including.value)
             );
           }
+
+          if (item.hasOwnProperty('describedBySourceLabel')) {
+            witch = Object.assign(
+              witch,
+              this.getSourceDetails(item)
+            );
+          }
+
 
           witch.witchState = {
             activeFilters: [],
@@ -379,7 +412,7 @@ class APIDataHandler {
                   }
                 }
               }
-            })
+            });
 
             this.addWitchToMarkers(repeatedWitch, plotByField, repeatedWitch[plotByField].locations.length - 1);
           }
