@@ -267,7 +267,7 @@
                 <!--Descriptions-->
                 <div class="tooltip">
                   <span class="label-and-icon">
-                    <p style="font-weight: 500; display: inline">
+                    <p style="font-weight: 500; display: inline" class="mr-1">
                       {{ propertyItem.label }}
                     </p>
                     <div
@@ -306,27 +306,7 @@
               </div>
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
-                <icon-dependent-filters-list
-                  v-if="!iconsConstant"
-                  :currentProperty="currentProperty"
-                  :property="property"
-                  :filterTypes="propertyItem.filters"
-                  :propertyLabel="propertyItem.label"
-                  @filterOff="emitFilterOff($event)"
-                  @filterOn="emitFilterOn($event)"
-                  @setPropertyToCurrent="setPropertyToCurrent($event)"
-                >
-                </icon-dependent-filters-list>
-
-                <normal-filters-list
-                  v-else
-                  :property="property"
-                  :filterTypes="propertyItem.filters"
-                  @filterOff="emitFilterOff($event)"
-                  @filterOn="emitFilterOn($event)"
-                >
-                </normal-filters-list>
-
+                <div>
                 <button
                   @click="selectAll(property, propertyItem)"
                   class="
@@ -377,6 +357,32 @@
                 >
                   Clear All
                 </button>
+              </div>
+
+                <icon-dependent-filters-list
+                  v-if="!iconsConstant"
+                  :currentProperty="currentProperty"
+                  :property="property"
+                  :filterTypes="propertyItem.filters"
+                  :propertyLabel="propertyItem.label"
+                  @filterOff="emitFilterOff($event)"
+                  @filterOn="emitFilterOn($event)"
+                  @setPropertyToCurrent="setPropertyToCurrent($event)"
+                >
+                </icon-dependent-filters-list>
+
+                <normal-filters-list
+                  v-else
+                  :property="property"
+                  :filterTypes="propertyItem.filters"
+                  @filterOff="emitFilterOff($event)"
+                  @filterOn="emitFilterOn($event)"
+                >
+                </normal-filters-list>
+                <NuxtLink v-if="getGlossaryLabel(propertyItem.label)" :to="{ path: '/glossary', query: { category: getGlossaryLabel(propertyItem.label) } }" 
+                          class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2">
+                  {{ getGlossaryLabel(propertyItem.label) }} Glossary
+                </NuxtLink>
               </div>
             </div>
           </div>
@@ -671,6 +677,15 @@ export default {
         el.scrollIntoView({ behavior: "smooth" });
       }
     },
+    getGlossaryLabel: function (label) {
+      if (label === 'Gender' || label === 'Shapeshifting' || label === 'Wikipedia Page' ){
+        return null
+      }
+      if (label === 'Primary' || label === 'Secondary' ){
+        return 'Case Characterisations'
+      }
+     return label 
+    }
   },
   computed: {
     dateRangeFormatted() {
