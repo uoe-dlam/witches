@@ -56,7 +56,6 @@
               src="/images/arrow-down.svg"
               class="w-4 h-4 inline-block"
             />
-            >>>>>>> contact-page
           </main-nav-bar-item>
         </div>
       </div>
