@@ -190,7 +190,7 @@ export default {
             { name: "Overview", url: "/about", external: false },
             { name: "References", url: "/", external: false },
             { name: "Resources", url: "/", external: false },
-            { name: "Contact", url: "/", external: false },
+            { name: "Contact", url: "/contact", external: false },
           ],
         },
         {
