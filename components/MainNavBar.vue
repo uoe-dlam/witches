@@ -99,7 +99,7 @@ export default {
             { name: "Timeline Search", url: "/", external: false },
             { name: "Residences on ArcGIS Online", url: "/", external: false },
             {
-              name: "Residences Within in Each Parish",
+              name: "Residences Within Each Parish",
               url: "/",
               external: false,
             },
