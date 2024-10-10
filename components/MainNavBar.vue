@@ -139,7 +139,7 @@ export default {
             { name: "Trial Locations", url: "/", external: false },
             {
               name: "Trials in Each Modern Authority",
-              url: "/",
+              url: "/trials-in-each-modern-authority",
               external: false,
             },
           ],
