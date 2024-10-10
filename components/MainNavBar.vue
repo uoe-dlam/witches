@@ -103,7 +103,7 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "Death Locations", url: "/death", external: false },
+            { name: "Death Locations", url: "/death-locations", external: false },
             {
               name: "Linking Residence to Place of Death",
               url: "/",
