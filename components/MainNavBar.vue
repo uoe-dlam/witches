@@ -51,7 +51,6 @@
             :subpages="link.subpages"
           >
             {{ link.name }}
-            <<<<<<< HEAD =======
             <img
               v-if="link.subpages.length"
               src="/images/arrow-down.svg"
