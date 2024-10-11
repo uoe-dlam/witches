@@ -222,10 +222,10 @@ export default {
 
 .icon-shadow {
   position: absolute;
-  top: 15px !important;
+  top: 15px;
   left: 0;
   z-index: -1;
   width: 32px;
-  height: 22px !important;
+  height: 22px;
 }
 </style>
