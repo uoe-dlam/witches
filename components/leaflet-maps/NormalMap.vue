@@ -19,7 +19,7 @@
       :lat-lng="marker.longLat"
     >
       <LPopup class="adapted-popup">
-        <h2>{{ marker.location }}</h2>
+        <h4>{{ marker.location }}</h4>
         <br />
         <div
           :class="
