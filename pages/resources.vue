@@ -2,7 +2,7 @@
   <div id="main-content" class="text-wrapper">
     <h1 class="text-sm md:text-xl lg:text-2xl mb-3">Resources</h1>
     <p class="mb-3">
-      <a href="ArcGIS Online Files.zip" target="_blank" download
+      <a href="arcgis_online_files.zip" target="_blank" download
         >Download zipfile of CSV files for ArcGIS Online</a
       >
     </p>
