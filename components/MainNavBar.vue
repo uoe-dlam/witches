@@ -78,7 +78,7 @@
          { name : 'About', url : '#', external: false, subpages : [
            { name : 'Overview', url : '/about', external: false },
            { name : 'References', url : '/reference', external: false },
-           { name : 'Resources', url : '/', external: false },
+           { name : 'Resources', url : '/resources', external: false },
            { name : 'Contact', url : '/contact', external: false },
          ] },
          { name: 'Blog', url: 'https://blogs.ed.ac.uk/witchcraft_visualisation/', external: true, subpages : [] }
