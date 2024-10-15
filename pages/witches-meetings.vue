@@ -133,7 +133,6 @@ export default {
       let allFilters = JSON.parse(localStorage.getItem("allFilters"));
       this.setFilters(allFilters);
       this.setMarkersIcons();
-      console.log(this.filterProperties);
     },
     setMarkersIcons: function () {
       for (let i = 0; i < this.originalMarkers.length; i++) {
