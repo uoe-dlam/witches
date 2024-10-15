@@ -18,9 +18,13 @@
       Convictions were common but not universal; some people were acquitted.
     </p>
     <div>
-      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto ">
-        <img src="../public/images/trial.png" class="w-full " />
-        <p class="text-xs text-center mx-auto">Figure 1. Suspected witches from North Berwick appear before James VI and two Scottish magistrates, from the English pamphlet Newes from Scotland (1591) (Public domain, via Wikimedia Commons)</p>
+      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
+        <img src="../public/images/trial.png" class="w-full" />
+        <p class="text-xs text-center mx-auto">
+          Figure 1. Suspected witches from North Berwick appear before James VI
+          and two Scottish magistrates, from the English pamphlet Newes from
+          Scotland (1591) (Public domain, via Wikimedia Commons)
+        </p>
       </div>
       <p class="mb-3 text-justify">
         Evidence against the accused person had to be gathered beforehand. This
@@ -42,6 +46,7 @@
         present when you met the Devil?'.
       </p>
     </div>
+
     <p class="mb-3 text-justify">
       A third kind of evidence was sometimes used: 'pricking' to discover the
       Devil's mark. The accused witch was stripped partially or completely
@@ -51,18 +56,29 @@
       a witch, in an echo or parody of Christian baptism; the pin would find
       this mark.
     </p>
-    <p class="mb-3 text-justify">
-      It is important to distinguish witch-pricking from 'torture'. Torture
-      inflicted pain in order to make the suspect confess; the aim was to obtain
-      a confession as evidence. This was not a punishment, but an attempt to
-      secure evidence. Witch-pricking aimed to inflict no pain; the aim was to
-      identify the Devil's mark as evidence. However, in practice the process
-      probably did cause at least some pain. It was also coercive and
-      humiliating for a person, especially a woman, to be stripped naked in the
-      presence of a group of men. One side-effect of pricking could be to break
-      down a suspect's resistance to interrogation; some suspects began to
-      confess after they were told that a mark had been found
-    </p>
+    <div>
+      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
+        <img src="../public/images/oldtolbooth.png" class="w-full" />
+        <p class="text-xs text-center mx-auto">
+          Figure 2. The Old Tolbooth, Edinburgh. An engraving based on an 18th
+          century painting by Alexander NaysmithThe Old Tolbooth, Edinburgh.
+          Accused witches in Edinburgh would be taken there to be interrogated.
+          (Public domain, via Wikimedia Commons)
+        </p>
+      </div>
+      <p class="mb-3 text-justify">
+        It is important to distinguish witch-pricking from 'torture'. Torture
+        inflicted pain in order to make the suspect confess; the aim was to
+        obtain a confession as evidence. This was not a punishment, but an
+        attempt to secure evidence. Witch-pricking aimed to inflict no pain; the
+        aim was to identify the Devil's mark as evidence. However, in practice
+        the process probably did cause at least some pain. It was also coercive
+        and humiliating for a person, especially a woman, to be stripped naked
+        in the presence of a group of men. One side-effect of pricking could be
+        to break down a suspect's resistance to interrogation; some suspects
+        began to confess after they were told that a mark had been found
+      </p>
+    </div>
     <p class="mb-3 text-justify">
       Witch-prickers were all men; sometimes an ordinary interrogator (such as a
       parish elder or minister) would do the pricking, but during the major
