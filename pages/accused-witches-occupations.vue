@@ -2,9 +2,7 @@
   <div>
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
       <div class="flex content-start items-center">
-        <h1 class="text-sm md:text-xl lg:text-2xl mb-3">
-          Accussed Witches Occupations
-        </h1>
+        <h1 class="mb-3">Accussed Witches Occupations</h1>
       </div>
       <div>
         These bubble charts show the different occupations recorded for the
@@ -24,9 +22,7 @@
           while the second chart only includes the recorded occupations.</strong
         >
       </div>
-      <h2 class="text-sm md:text-l lg:text-xl mt-3">
-        Occupations with Unknown Values
-      </h2>
+      <h2 class="mt-3">Occupations with Unknown Values</h2>
       <div>
         <iframe
           style="width: 80vw; height: 70vh; border: none"
@@ -35,9 +31,7 @@
           sandbox="allow-scripts allow-same-origin allow-popups"
         ></iframe>
       </div>
-      <h2 class="text-sm md:text-l lg:text-xl mt-3">
-        Occupations without Unknown Values
-      </h2>
+      <h2 class="mt-3">Occupations without Unknown Values</h2>
       <iframe
         style="width: 80vw; height: 70vh; border: none"
         src="https://query.wikidata.org/embed.html#%23People%20Associated%20%0A%23defaultView%3ABubbleChart%0ASELECT%20%3FoccupationLabel(COUNT(%3Fperson)%20as%20%3Fcount)%20%0AWHERE%20%0A%7B%0A%20%20%3Fitem%20wdt%3AP4478%20%3Fperson.%0A%20%0A%20%20%3Fitem%20wdt%3AP106%20%3Foccupation.%20%0A%20%20%0A%20%20%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%0AGROUP%20BY%20%3FoccupationLabel%0A%0AORDER%20BY%20DESC%20(%3Fcount)"
@@ -50,7 +44,7 @@
 
 <script>
 definePageMeta({
-  layout: "default",
+  layout: "basic",
 });
 
 export default {

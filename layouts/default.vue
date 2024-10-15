@@ -28,14 +28,22 @@ body {
 @tailwind base;
 
 h1 {
-  @apply text-2xl;
-  font-family: "EB Garamond";
+  font-family: "EB Garamond", sans-serif;
+  font-weight: 500;
+  margin-top: 0;
+  font-size: 3.05em;
 }
 h2 {
-  @apply text-xl;
+  font-family: "EB Garamond", sans-serif;
+  font-size: 2.44em;
 }
 h3 {
-  @apply text-lg;
+  font-family: "EB Garamond", sans-serif;
+  font-size: 1.95em;
+}
+h4 {
+  font-size: 1.56em;
+  font-family: Arial;
 }
 
 p {
