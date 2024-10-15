@@ -210,25 +210,3 @@ export default {
 };
 </script>
 
-<style>
-.cluster-img {
-  float: left;
-  width: 72px;
-  height: 55px;
-}
-
-.zoomed-in-img {
-  float: left;
-  width: 25px;
-  height: 38px;
-}
-
-.icon-shadow {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  z-index: -1;
-  width: 32px;
-  height: 22px;
-}
-</style>
