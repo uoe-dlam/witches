@@ -27,23 +27,17 @@ body {
 
 h1 {
   font-family: "EB Garamond", sans-serif;
-  font-weight: 600;
-  margin-top: 0;
-  font-size: 3.05em;
+  @apply text-5xl font-semibold mt-0;
 }
 h2 {
   font-family: "EB Garamond", sans-serif;
-  font-size: 2.44em;
+  @apply text-4xl;
 }
 h3 {
   font-family: "EB Garamond", sans-serif;
-  font-size: 1.95em;
-}
-h3 {
-  font-family: "EB Garamond", sans-serif;
-  font-size: 1.95em;
+  @apply text-3xl;
 }
 h4 {
-  font-size: 1.56em;
+  @apply text-2xl;
 }
 </style>
