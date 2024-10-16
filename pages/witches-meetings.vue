@@ -128,7 +128,7 @@ export default {
     },
     loadDataFromLocalStorage: function () {
       this.originalMarkers = JSON.parse(
-        localStorage.getItem("residenceMarkers"),
+        localStorage.getItem("residenceMarkers")
       );
       let allFilters = JSON.parse(localStorage.getItem("allFilters"));
       this.setFilters(allFilters);
@@ -143,6 +143,7 @@ export default {
     loadData: async function () {
       this.loadWikiEntries();
       let icon = "/images/witch-single-orange.png";
+      const config = useRuntimeConfig();
 
       try {
         let response = await myFetch("/main.php?type=meetings");
@@ -150,7 +151,7 @@ export default {
       } catch (e) {
         Swal.fire({
           title: "Server Error",
-          html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
+          html: `<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:${config.public.supportEmail}">${config.public.supportEmail}</a></div>`,
           footer: "witches.is.ed.ac.uk",
           confirmButtonText: "Close",
           type: "error",
@@ -164,13 +165,13 @@ export default {
         this.queryOutput,
         this.wikiPages,
         null,
-        icon,
+        icon
       );
       let filtersFound = null;
 
       [this.originalMarkers, filtersFound] = getData.loadAccussed(
         "residence",
-        this.filtersToFind,
+        this.filtersToFind
       );
 
       this.setFilters(filtersFound);
