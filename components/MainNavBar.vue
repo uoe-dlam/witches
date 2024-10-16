@@ -97,7 +97,7 @@ export default {
               external: false,
             },
             {
-              name: "Histropedia Timeline",
+              name: "Timeline Search",
               url: "/timeline-search",
               external: false,
             },
