@@ -7,9 +7,9 @@
         <div
           class="absolute flex justify-center w-100 md:w-200 items-center top-0 right-0 z-10 bg-gray-400/80 px-2 py-0.5 rounded-sm"
         >
-          <h3 class="mr-2 font-medium" style="font-family: EB Garamond">
+          <p class="mr-2 font-medium text-lg" style="font-family: EB Garamond">
             Group witches:
-          </h3>
+          </p>
           <label class="switch relative pr-2">
             <input
               :checked="clustersInitial"
@@ -19,9 +19,14 @@
             <span class="slider round"></span>
           </label>
         </div>
-        <clusters-map v-if="clusterState.clustersOn" :mapMarkers="mapMarkers" 
-                      :mapUrl="mapUrl" :center="center"
-                      :zoom="zoom" @changeMaps="changeMaps($event)" />
+        <clusters-map
+          v-if="clusterState.clustersOn"
+          :mapMarkers="mapMarkers"
+          :mapUrl="mapUrl"
+          :center="center"
+          :zoom="zoom"
+          @changeMaps="changeMaps($event)"
+        />
 
         <normal-map
           v-if="clusterState.clustersOff"
