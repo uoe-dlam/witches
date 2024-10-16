@@ -52,7 +52,7 @@ export default {
     showPageInfo() {
       Swal.fire({
         title: "Linking Residence to Place of Death",
-        html: '<div>This map shows the geographical relationship between an accused witch’s place of residence and place of death. There are only 111 places of death recorded within the dataset. When selecting a coloured line, the recorded  <b class="font-bold">first location</b> is where the <b class="font-bold">person died, second location</b> is where the <b class="font-bold">accused witch resided</b> and <b class="font-bold">below</b> these places is the <b class="font-bold">name</b> of the accused witch </div>',
+        html: "<div>This map shows the geographical relationship between an accused witch’s place of residence and place of death. There are only 111 places of death recorded within the dataset. When selecting a coloured line, the recorded  <strong>first location</strong> is where the <strong>person died, second location</strong> is where the <strong>accused witch resided</strong> and <strong>below</strong> these places is the <strong>name</strong> of the accused witch </div>",
         footer: "witches.is.ed.ac.uk",
         confirmButtonText: "Close",
         type: "info",
