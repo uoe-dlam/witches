@@ -111,7 +111,11 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "Death Locations", url: "/death-locations", external: false },
+            {
+              name: "Death Locations",
+              url: "/death-locations",
+              external: false,
+            },
             {
               name: "Linking Residence to Place of Death",
               url: "/link-residence-death",
@@ -194,8 +198,16 @@ export default {
               external: false,
             },
             { name: "The Story of Isobel Young", url: "/", external: false },
-            { name: "Ordeal Bubble Chart", url: "/", external: false },
-            { name: "Social Bubble Chart", url: "/", external: false },
+            {
+              name: "Ordeal Bubble Chart",
+              url: "/ordeal-bubble-chart",
+              external: false,
+            },
+            {
+              name: "Social Bubble Chart",
+              url: "/accused-witches-occupations",
+              external: false,
+            },
           ],
         },
         {
