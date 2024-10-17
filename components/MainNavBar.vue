@@ -205,7 +205,7 @@ export default {
             },
             {
               name: "Social Bubble Chart",
-              url: "/accused-witches-occupations",
+              url: "/",
               external: false,
             },
           ],
