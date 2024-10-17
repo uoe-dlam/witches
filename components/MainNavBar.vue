@@ -172,8 +172,8 @@ export default {
           external: false,
           subpages: [
             {
-              name: "Accused Witches Occupations with Unknown Values",
-              url: "/",
+              name: "Accused Witches Occupations",
+              url: "/accused-witches-occupations",
               external: false,
             },
             {
