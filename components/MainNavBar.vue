@@ -171,7 +171,11 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "A Witch-Prickers Journey", url: "/", external: false },
+            {
+              name: "A Witch-Prickers Journey",
+              url: "/witch-pricker",
+              external: false,
+            },
           ],
         },
         {
