@@ -8,6 +8,7 @@ export default defineNuxtConfig({
         process.env.NODE_ENV === "development"
           ? "http://localhost:8181"
           : "https://witches.is.ed.ac.uk",
+      supportEmail: 'ltw-apps-dev@ed.ac.uk'
     },
   },
   app: {

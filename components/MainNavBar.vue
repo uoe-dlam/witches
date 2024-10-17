@@ -103,7 +103,7 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "Death Locations", url: "/", external: false },
+            { name: "Death Locations", url: "/death-locations", external: false },
             {
               name: "Linking Residence to Place of Death",
               url: "/",
@@ -135,7 +135,11 @@ export default {
           external: false,
           subpages: [
             { name: "Named Witches", url: "/", external: false },
-            { name: "Detention Locations", url: "/", external: false },
+            {
+              name: "Detention Locations",
+              url: "/detention-locations",
+              external: false,
+            },
             { name: "Trial Locations", url: "/", external: false },
             {
               name: "Trials in Each Modern Authority",
