@@ -96,7 +96,11 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "Timeline Search", url: "/", external: false },
+            {
+              name: "Timeline Search",
+              url: "/timeline-search",
+              external: false,
+            },
             {
               name: "Residences on ArcGIS",
               url: "/residences-on-argis",
