@@ -287,9 +287,9 @@
         </div>
 
         <!-- Left chevron to hide filters. -->
-        <div class="w-8 flex flex-col justify-center ml-1">
+        <div class="w-8 flex flex-col justify-center ml-1 cursor-pointer">
           <div
-            class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
+            class="flex items-center justify-center w-8 h-8 hover:w-10 hover:h-10 rounded-full bg-slate-200 filters-shadow"
             @click="toggleFiltersBox()"
           >
             <img
@@ -303,12 +303,12 @@
 
     <!-- Right chevron to show filters. -->
     <div
-      class="w-8 flex flex-col justify-center ml-1 h-full"
+      class="w-8 flex flex-col justify-center ml-1 h-full cursor-pointer"
       v-if="!filtersBox"
       style="pointer-events: auto"
     >
       <div
-        class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 filters-shadow"
+        class="flex items-center justify-center w-8 h-8 hover:w-10 hover:h-10 rounded-full bg-slate-200 filters-shadow"
         @click="toggleFiltersBox()"
       >
         <img class="max-w-full max-h-full" src="/images/chevrons-right.svg" />
