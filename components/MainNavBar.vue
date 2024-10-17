@@ -114,7 +114,7 @@ export default {
             { name: "Death Locations", url: "/death-locations", external: false },
             {
               name: "Linking Residence to Place of Death",
-              url: "/",
+              url: "/link-residence-death",
               external: false,
             },
           ],
