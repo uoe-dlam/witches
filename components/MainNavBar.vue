@@ -134,7 +134,7 @@ export default {
           url: "#",
           external: false,
           subpages: [
-            { name: "Named Witches", url: "/", external: false },
+            { name: "Named Witches", url: "/named-witches", external: false },
             {
               name: "Detention Locations",
               url: "/detention-locations",
