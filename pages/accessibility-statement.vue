@@ -58,7 +58,7 @@
     <ul class="ml-5 mb-3">
       <li class="list-disc">
         email the
-        <a href="mailto:ltw-apps-dev@ed.ac.uk" class="text-blue-600"
+        <a :href="`mailto:${supportEmail}`" class="text-blue-600"
           >Digital Learning Applications and Media Team</a
         >
       </li>
@@ -72,7 +72,7 @@
       We're always looking to improve the accessibility of this website. If you
       find any problems not listed on this page or think we are not meeting
       accessibility requirements, contact the
-      <a href="mailto:ltw-apps-dev@ed.ac.uk"
+      <a :href="`mailto:${supportEmail}`" class="text-blue-600"
         >Digital Learning and Applications Media Team</a
       >
     </p>
@@ -177,7 +177,9 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    supportEmail: useRuntimeConfig().public.supportEmail,
+  }),
   methods: {},
   computed: {},
   mounted: function () {},
