@@ -27,7 +27,7 @@
                 <h1 class="text-3xl mx-0 px-2">
                   {{ pageInfo.title }}
                   <div
-                    class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5"
+                    class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 cursor-pointer"
                   >
                     <img
                       src="/images/infoIcon.svg"
@@ -182,7 +182,7 @@
                       {{ propertyItem.label }}
                     </p>
                     <div
-                      class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-5 h-5"
+                      class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-5 h-5 cursor-pointer"
                     >
                       <img
                         src="/images/infoIcon.svg"
