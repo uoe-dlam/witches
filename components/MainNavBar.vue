@@ -194,11 +194,7 @@ export default {
               external: false,
             },
             { name: "The Story of Isobel Young", url: "/", external: false },
-            {
-              name: "Ordeal Bubble Chart",
-              url: "/ordeal-bubble-chart",
-              external: false,
-            },
+            { name: "Ordeal Bubble Chart", url: "/", external: false },
             { name: "Social Bubble Chart", url: "/", external: false },
           ],
         },
