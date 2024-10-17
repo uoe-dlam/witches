@@ -32,6 +32,7 @@
                     <img
                       src="/images/infoIcon.svg"
                       class="w-full h-full pt-0.5"
+                      alt="Page Information Popup"
                       @click="showPageInfo()"
                     />
                   </div>
@@ -186,6 +187,7 @@
                     >
                       <img
                         src="/images/infoIcon.svg"
+                        alt="Filter Information Popup"
                         class="pt-0.5 h-5 inline"
                       />
                     </div>
