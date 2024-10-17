@@ -97,7 +97,11 @@ export default {
               external: false,
             },
             { name: "Timeline Search", url: "/", external: false },
-            { name: "Residences on ArcGIS Online", url: "/", external: false },
+            {
+              name: "Residences on ArcGIS",
+              url: "/residences-on-argis",
+              external: false,
+            },
             {
               name: "Residences Within Each Parish",
               url: "/",
