@@ -5,29 +5,16 @@
         <h1 class="text-sm md:text-xl lg:text-2xl">
           Places of Residence Visualised using ArcGIS Online
         </h1>
-        <span
-          class="rounded-full border-r border-l border-gray-400 w-6 h-6 flex items-center justify-center ml-2"
+        <div
+          class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
         >
-          <!-- icon by feathericons.com -->
-          <svg
-            aria-hidden="true"
-            class=""
-            data-reactid="266"
-            fill="none"
-            height="24"
-            stroke="#606F7B"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <img
+            src="/images/infoIcon.svg"
+            class="w-full h-full pt-0.5"
+            alt="Page Information Popup"
             @click="showPageInfo()"
-          >
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12" y2="8"></line>
-          </svg>
-        </span>
+          />
+        </div>
       </div>
     </div>
     <div>
