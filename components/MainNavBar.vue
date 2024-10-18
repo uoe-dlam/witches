@@ -230,6 +230,11 @@ export default {
             { name: "Overview", url: "/about", external: false },
             { name: "References", url: "/references", external: false },
             { name: "Resources", url: "/resources", external: false },
+            {
+              name: "Further Reading",
+              url: "/further-reading",
+              external: false,
+            },
             { name: "Contact", url: "/contact", external: false },
           ],
         },
