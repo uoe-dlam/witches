@@ -51,6 +51,11 @@
             :subpages="link.subpages"
           >
             {{ link.name }}
+            <img
+              v-if="link.subpages.length"
+              src="/images/arrow-down.svg"
+              class="w-4 h-4 inline-block"
+            />
           </main-nav-bar-item>
         </div>
       </div>
@@ -81,7 +86,6 @@ export default {
     return {
       open: false,
       links: [
-        //will add pages back in one by one
         {
           name: "Accused Witches",
           url: "#",
@@ -92,21 +96,29 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "Timeline Search", url: "/histropedia", external: false },
             {
-              name: "Residences on ArcGIS Online",
-              url: "/gismap",
+              name: "Timeline Search",
+              url: "/timeline-search",
+              external: false,
+            },
+            {
+              name: "Residences on ArcGIS",
+              url: "/residences-on-argis",
               external: false,
             },
             {
               name: "Residences Within Each Parish",
-              url: "/parish",
+              url: "/residences-parish",
               external: false,
             },
-            { name: "Death Locations", url: "/death", external: false },
+            {
+              name: "Death Locations",
+              url: "/death-locations",
+              external: false,
+            },
             {
               name: "Linking Residence to Place of Death",
-              url: "/link",
+              url: "/link-residence-death",
               external: false,
             },
           ],
@@ -118,17 +130,17 @@ export default {
           subpages: [
             {
               name: "Case Characterisations",
-              url: "/PrimarySecondary",
+              url: "/case-characterisations",
               external: false,
             },
             {
               name: "Witches Meetings",
-              url: "/CaseInformation",
+              url: "/witches-meetings",
               external: false,
             },
             {
               name: "Shapeshifting and Ritual Objects",
-              url: "/ritual",
+              url: "/shapeshifting-ritual-objects",
               external: false,
             },
           ],
@@ -138,8 +150,12 @@ export default {
           url: "#",
           external: false,
           subpages: [
-            { name: "Named Witches", url: "/flourish", external: false },
-            { name: "Detention Locations", url: "/detention", external: false },
+            { name: "Named Witches", url: "/named-witches", external: false },
+            {
+              name: "Detention Locations",
+              url: "/detention-locations",
+              external: false,
+            },
             {
               name: "Trial Locations",
               url: "/trial-locations",
@@ -147,7 +163,12 @@ export default {
             },
             {
               name: "Trials in Each Modern Authority",
-              url: "/council",
+              url: "/trials-in-each-modern-authority",
+              external: false,
+            },
+            {
+              name: "Types of Torture at Different Residence Locations",
+              url: "/types-torture-different-residence",
               external: false,
             },
           ],
@@ -159,15 +180,19 @@ export default {
           subpages: [
             {
               name: "People Associated with the Witch Trials: Residence",
-              url: "/peopleloc",
+              url: "/people-associated",
               external: false,
             },
             {
               name: "People Associated with the Witch Trials: Residence and Occupation",
-              url: "/people",
+              url: "/people-associated-residence",
               external: false,
             },
-            { name: "A Witch-Prickers Journey", url: "/john", external: false },
+            {
+              name: "A Witch-Prickers Journey",
+              url: "/witch-pricker",
+              external: false,
+            },
           ],
         },
         {
@@ -176,22 +201,25 @@ export default {
           external: false,
           subpages: [
             {
-              name: "Accused Witches Occupations with Unknown Values",
-              url: "/extravisual",
-              external: false,
-            },
-            {
-              name: "Types of Torture at Different Residence Locations",
-              url: "/torture",
+              name: "Accused Witches Occupations",
+              url: "/accused-witches-occupations",
               external: false,
             },
             {
               name: "The Story of Isobel Young",
-              url: "/storymap",
+              url: "/story-isobel-young",
               external: false,
             },
-            { name: "Ordeal Bubble Chart", url: "/ordeal", external: false },
-            { name: "Social Bubble Chart", url: "/social", external: false },
+            {
+              name: "Ordeal Bubble Chart",
+              url: "/ordeal-bubble-chart",
+              external: false,
+            },
+            {
+              name: "Social Bubble Chart",
+              url: "/social-bubble-chart",
+              external: false,
+            },
           ],
         },
         {
@@ -200,7 +228,7 @@ export default {
           external: false,
           subpages: [
             { name: "Overview", url: "/about", external: false },
-            { name: "References", url: "/reference", external: false },
+            { name: "References", url: "/references", external: false },
             { name: "Resources", url: "/resources", external: false },
             { name: "Contact", url: "/contact", external: false },
           ],
