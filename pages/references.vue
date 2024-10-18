@@ -13,9 +13,7 @@
       >(archived January 2003)
     </p>
     <br />
-    <p class="mt-3 mb-3 text-lg md:text-xl lg:text-xl font-medium">
-      Place-Name References
-    </p>
+    <h2 class="mb-3">Place-Name References</h2>
     <p class="mb-3">
       Alexander, W.M.C. & Third Spalding Club (1952). The place-names of
       Aberdeenshire, Aberdeen: Printed for the Third Spalding Club.
@@ -95,9 +93,7 @@
       Public domain via Wikimedia Commons.
     </p>
     <br />
-    <p class="mt-3 mb-3 text-lg md:text-xl lg:text-xl font-medium">
-      Acknowledgments
-    </p>
+    <h2 class="mb-3">Acknowledgments</h2>
     <p class="mb-3">
       Geographical data located and ArcGIS Online maps produced by Emma Carroll.
     </p>
