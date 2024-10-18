@@ -1,6 +1,6 @@
 <template>
   <div id="main-content" class="text-wrapper">
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">Resources</h1>
+    <h1 class="text-center mb-6">Resources</h1>
     <p class="mb-3 underline hover:text-gray-500">
       <a href="arcgis_online_files.zip" download
         >Download zipfile of CSV files for ArcGIS Online</a
