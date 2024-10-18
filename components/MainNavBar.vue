@@ -228,6 +228,11 @@ export default {
           external: false,
           subpages: [
             { name: "Overview", url: "/about", external: false },
+            {
+              name: "Introduction to Scottish Witchcraft",
+              url: "/introduction",
+              external: false,
+            },
             { name: "References", url: "/references", external: false },
             { name: "Resources", url: "/resources", external: false },
             {
