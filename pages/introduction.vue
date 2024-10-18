@@ -1,8 +1,6 @@
 <template>
   <div id="main-content" class="text-wrapper w-full">
-    <h1 class="text-center mb-6">
-      Survey of Scottish Witchcraft Interactive Map Introduction
-    </h1>
+    <h1 class="text-center mb-6">Introduction to Scottish Witchcraft</h1>
 
     <p class="mb-3 text-justify">
       This interactive map displays the known residences and detention, trial,
