@@ -23,9 +23,9 @@
                 >
                   <!-- Title and info-->
                   <div class="flex text-center mt-1">
-                    <h2 class="mx-0 px-2">
+                    <h3 class="mx-0 px-2">
                       Map of Memorials & Sites of Interest
-                    </h2>
+                    </h3>
                   </div>
 
                   <!-- Display number of active witches. -->
@@ -66,7 +66,7 @@
 
               <!-- Filter Checklist -->
               <div class="ml-3 mb-6">
-                <h1 class="text-2xl mb-3">Filters</h1>
+                <h4 class="mb-3">Filters</h4>
                 <div class="flex space-x-6">
                   <div class="flex flex-col items-center">
                     <label
