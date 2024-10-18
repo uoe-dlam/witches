@@ -191,6 +191,11 @@ export default {
               url: "/storymap",
               external: false,
             },
+            {
+              name: "A Witch Tour of Edinburgh",
+              url: "/witch-tour-edinburgh",
+              external: false,
+            },
             { name: "Ordeal Bubble Chart", url: "/ordeal", external: false },
             { name: "Social Bubble Chart", url: "/social", external: false },
           ],
