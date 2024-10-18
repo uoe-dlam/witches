@@ -381,12 +381,9 @@ export default {
     },
   },
 
-  async mounted() {
+  mounted: function () {
     this.loadTypesDescriptions();
     this.loadMemorials();
-  },
-  beforeUnmount() {
-    this.removeMarkersFromMap();
   },
 };
 </script>
