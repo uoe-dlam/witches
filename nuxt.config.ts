@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     public: {
       baseURL: process.env.NODE_ENV === 'development'
         ? 'http://localhost:8181'
-        : 'https://witches.is.ed.ac.uk'
+        : 'https://witches.is.ed.ac.uk',
+      supportEmail: 'ltw-apps-dev@ed.ac.uk'
     }
   },
   app:{

@@ -18,11 +18,11 @@ import APIDataHandler from "~/assets/js/APIDataHandler";
 import json from "../big-query-output.json";
 import MapComponent from "../components/MapComponent.vue";
 import LoadingMessage from "../components/LoadingMessage.vue";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 definePageMeta({
-   layout: 'default'
- })
+  layout: "default",
+});
 
 export default {
   components: { MapComponent, LoadingMessage },
@@ -51,14 +51,16 @@ export default {
     filterProperties: {
       shapeshifting: {
         label: "Shapeshifting",
-        description:"Shapeshifting was the magical transformation of a human into an animal. This was mainly a popular belief, but educated demonologists accepted it. In the Scottish witch trials, some accused witches confessing to having taken animal form, presumably through coercive interrogation. Less often, neighbours or victims testified that they had seen the witch in animal form. The animal was most often a cat, but we also find transformations into a dog, a 'corbie' (raven or crow), or other creatures. For more information about the shape-shifting terms mentioned below please refer to the Survey’s glossary of terms here:<a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a> ",
+        description:
+          "Shapeshifting was the magical transformation of a human into an animal. This was mainly a popular belief, but educated demonologists accepted it. In the Scottish witch trials, some accused witches confessing to having taken animal form, presumably through coercive interrogation. Less often, neighbours or victims testified that they had seen the witch in animal form. The animal was most often a cat, but we also find transformations into a dog, a 'corbie' (raven or crow), or other creatures. For more information about the shape-shifting terms mentioned below please refer to the Survey’s glossary of terms here:<a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a> ",
         descriptionShowing: false,
         filters: {},
         showing: false,
       },
       ritualObjects: {
         label: "Ritual objects",
-        description:"Two different types of rituals appear in accused witches’ records. First, there were real rituals, mostly carried out by magical practitioners, for healing and other beneficial purposes. Second, there were imaginary rituals, which the accusers thought that witches carried out when they met the Devil; accused witches were forced to confess to these under torture. Each type of ritual could use magical objects. Thus, a ‘belt’ or a ‘sword’ could be used in healing rituals, whereas ‘corpse powder’ appeared in confessions to demonic rituals. For more information about the ritual objects mentioned below please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
+        description:
+          "Two different types of rituals appear in accused witches’ records. First, there were real rituals, mostly carried out by magical practitioners, for healing and other beneficial purposes. Second, there were imaginary rituals, which the accusers thought that witches carried out when they met the Devil; accused witches were forced to confess to these under torture. Each type of ritual could use magical objects. Thus, a ‘belt’ or a ‘sword’ could be used in healing rituals, whereas ‘corpse powder’ appeared in confessions to demonic rituals. For more information about the ritual objects mentioned below please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
         descriptionShowing: false,
         filters: {},
         showing: false,
@@ -124,6 +126,7 @@ export default {
     loadData: async function () {
       this.loadWikiEntries();
       let icon = "/images/witch-single-orange.png";
+      const config = useRuntimeConfig();
 
       try {
         let response = await myFetch("/main.php?type=ritual");
@@ -131,7 +134,7 @@ export default {
       } catch (e) {
         Swal.fire({
           title: "Server Error",
-          html: '<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:ltw-apps-dev.ed.ac.uk">ltw-apps-dev.ed.ac.uk</a></div>',
+          html: `<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:${config.public.supportEmail}">${config.public.supportEmail}</a></div>`,
           footer: "witches.is.ed.ac.uk",
           confirmButtonText: "Close",
           type: "error",
