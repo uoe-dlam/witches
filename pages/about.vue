@@ -421,9 +421,7 @@
     </p>
 
     <!-- Media Responses -->
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
-      Media Responses
-    </h1>
+    <h2 class="text-cente mb-6">Media Responses</h2>
     <ul>
       <li>
         <a

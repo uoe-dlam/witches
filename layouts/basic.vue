@@ -38,6 +38,7 @@ h3 {
   @apply text-3xl;
 }
 h4 {
+  font-family: "EB Garamond", sans-serif;
   @apply text-2xl;
 }
 </style>
