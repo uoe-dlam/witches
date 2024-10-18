@@ -218,6 +218,11 @@ export default {
               external: false,
             },
             {
+              name: "FAQ with Prof. Julian Goodare",
+              url: "/faq",
+              external: false,
+            },
+            {
               name: "Further Reading",
               url: "/further-reading",
               external: false,
