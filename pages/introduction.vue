@@ -100,9 +100,7 @@
         >‘Further Reading’ </a
       >list.
     </p>
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
-      FAQ with Professor Julian Goodare
-    </h1>
+    <h2 class="text-center mb-6">FAQ with Professor Julian Goodare</h2>
     <p class="mb-6 text-justify">
       University of Edinburgh students, Ruby Imrie and Ellie Whitehead, sat down
       with Professor Julian Goodare, lecturer in Scottish History, to ask him
