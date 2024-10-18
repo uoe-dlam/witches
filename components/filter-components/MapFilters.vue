@@ -24,7 +24,7 @@
             >
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h1 class="text-3xl mx-0 px-2">
+                <h3>
                   {{ pageInfo.title }}
                   <div
                     class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5"
@@ -35,7 +35,7 @@
                       @click="showPageInfo()"
                     />
                   </div>
-                </h1>
+                </h3>
               </div>
 
               <!-- Display number of active witches. -->
@@ -75,7 +75,7 @@
               class="flex items-center cursor-pointer"
               @click="toggleTimelineShowing()"
             >
-              <h1 class="font-medium mr-3 py-0 text-2xl">Timeline</h1>
+              <h4 class="font-medium mr-3 py-0">Timeline</h4>
               <img
                 v-if="timelineShowing"
                 src="/images/arrow-up.svg"
@@ -146,9 +146,9 @@
             ]"
             @click="toggleFiltersShowing(property)"
           >
-            <h1 class="font-medium text-2xl">
+            <h4 class="font-medium">
               {{ filtersGeneralInfo.title }}
-            </h1>
+            </h4>
             <img
               src="/images/arrow-down.svg"
               v-if="!filtersGeneralInfo.filtersShowing"

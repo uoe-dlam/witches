@@ -99,7 +99,7 @@ export default {
 
         // Building the popup content as an HTML string
         const popupContent = `
-          <h4>${markerData.location}</h4><br>
+          <h4 style="font-family: Roboto">${markerData.location}</h4><br>
           <div class="${markerData.witches.length > 1 ? "witch-scroller" : "no-witch-scroller"}">
             ${markerData.witches
               .map(
