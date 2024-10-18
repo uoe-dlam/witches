@@ -124,7 +124,8 @@
         href="https://witches.hca.ed.ac.uk/faq/"
         >here</a
       >
-      or contact us using our contact form.
+      or contact us using our
+      <a class="underline hover:text-gray" href="/contact">contact form.</a>
     </p>
     <div class="flex justify-center">
       <iframe
