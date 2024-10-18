@@ -162,6 +162,11 @@ export default {
               url: "/trials-in-each-modern-authority",
               external: false,
             },
+            {
+              name: "Types of Torture at Different Residence Locations",
+              url: "/types-torture-different-residence",
+              external: false,
+            },
           ],
         },
         {
@@ -194,11 +199,6 @@ export default {
             {
               name: "Accused Witches Occupations",
               url: "/accused-witches-occupations",
-              external: false,
-            },
-            {
-              name: "Types of Torture at Different Residence Locations",
-              url: "/",
               external: false,
             },
             {
