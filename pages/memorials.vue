@@ -399,12 +399,6 @@ export default {
 </script>
 
 <style>
-.cluster-img {
-  float: left;
-  width: 72px;
-  height: 55px;
-}
-
 .zoomed-in-img {
   float: left;
   width: 10px;
@@ -412,17 +406,17 @@ export default {
 }
 
 .icon-wrapper img {
-  background: none !important;
-  border: none !important;
+  background: none;
+  border: none;
 }
 
 .icon-shadow {
   position: absolute;
-  top: 15px !important;
+  top: 15px;
   left: 0;
   z-index: -1;
   width: 25.6px;
-  height: 17.6px !important;
-  background: none !important;
+  height: 17.6px;
+  background: none;
 }
 </style>
