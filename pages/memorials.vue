@@ -54,7 +54,7 @@
                     tourist attractions and sites connected to popular belief
                     surrounding witchcraft. These memorials are seperate to the
                     witch hunts, appearing first in the 18th century and
-                    continuing to appear right up to present day. The mzp
+                    continuing to appear right up to present day. The map
                     documents witchcraft memorialisation in Scotland and does
                     not endorse specific sites.
                   </p>
@@ -390,8 +390,10 @@ export default {
   },
 
   mounted: function () {
-    this.loadTypesDescriptions();
-    this.loadMemorials();
+    //descriptions and types need loaded first
+    this.loadTypesDescriptions().then(() => {
+      this.loadMemorials();
+    });
   },
 };
 </script>
