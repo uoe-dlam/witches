@@ -111,19 +111,19 @@
                     </div>
                     <div class="flex flex-col items-center">
                       <label
-                        for="poi-filter"
+                        for="tourist-filter"
                         class="flex flex-col items-center cursor-pointer"
                       >
                         <img
                           class="w-8 mb-2"
                           :src="touristIcon"
-                          alt="Point of Interest Icon"
+                          alt="Tourist Icon"
                         />
                         <span class="text-xs">Tourist Attraction</span>
                       </label>
                       <input
                         type="checkbox"
-                        id="poi-filter"
+                        id="tourist-filter"
                         v-model="filters.tourist"
                       />
                     </div>
