@@ -46,12 +46,15 @@
               <div class="m-3">
                 <p class="mb-3">
                   This map displays some of the locations across Scotland
-                  connected to the Scottish Witch trials (1563-1736). It
-                  includes memorials commemorating and honouring those accused
-                  of witchcraft during this period, as well as highlighting
-                  Points of Interest, such as tourist attractions, sites
-                  connected to popular belief surrounding witchcraft, and
-                  locations where executions took place.
+                  connected to the memory of the Scottish Witch trials
+                  (1563-1736). It includes memorials honouring those accused of
+                  witchcraft during this period, as well as highlighting tourist
+                  attractions and sites connected to popular belief surrounding
+                  witchcraft. These memorials are seperate to the witch hunts,
+                  appearing first in the 18th century and continuing to appear
+                  right up to present day. The mzp documents witchcraft
+                  memorialisation in Scotland and does not endorse specific
+                  sites.
                 </p>
                 <p>
                   If you know of any other memorials or sites of interest
