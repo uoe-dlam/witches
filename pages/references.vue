@@ -15,12 +15,12 @@
     <br />
     <h2 class="mb-3">Place-Name References</h2>
     <p>
-      Alexander, W.M.C. & Third Spalding Club (1952). The place-names of
+      Alexander, W.M.C. &amp; Third Spalding Club (1952). The place-names of
       Aberdeenshire, Aberdeen: Printed for the Third Spalding Club.
     </p>
     <p>Blaeu, J (1654). Blaeu's Atlas novus, volume V.</p>
     <p>
-      Johnston, J.B. & Royal Scottish Geographical Society (1940). The
+      Johnston, J.B. &amp; Royal Scottish Geographical Society (1940). The
       place-names of Berwickshire, Edinburgh: Royal Scottish Geographical
       Society.
     </p>
@@ -33,8 +33,8 @@
       images - National Library of Scotland. [online] Available at:
       <a
         class="underline hover:text-gray-500"
-        href="https://maps.nls.uk/geo/explore/#zoom=5&lat=56.0000&lon=-4.0000&layers=1&b=1"
-        >https://maps.nls.uk/geo/explore/#zoom=5&lat=56.0000&lon=-4.0000&layers=1&b=1
+        href="https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&layers=1&amp;b=1"
+        >https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&amp;layers=1&amp;b=1
       </a>
       [Accessed 16 Aug. 2019].
     </p>
