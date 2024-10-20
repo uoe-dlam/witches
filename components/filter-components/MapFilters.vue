@@ -24,7 +24,7 @@
             >
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h3 class="px-2">
+                <h2 class="px-2">
                   {{ pageInfo.title }}
                   <div
                     class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 cursor-pointer"
@@ -36,7 +36,7 @@
                       @click="showPageInfo()"
                     />
                   </div>
-                </h3>
+                </h2>
               </div>
 
               <!-- Display number of active witches. -->
