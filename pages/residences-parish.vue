@@ -1,20 +1,20 @@
 <template>
   <div>
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
-      <div class="flex content-start items-center">
+      <div class="flex">
         <h1>
           Number of Accused Witches That Resided In Each Modern Civil Parish
+          <div
+            class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 ml-1 cursor-pointer"
+          >
+            <img
+              src="/images/infoIcon.svg"
+              class="w-full h-full pt-0.5"
+              alt="Page Information Popup"
+              @click="showPageInfo()"
+            />
+          </div>
         </h1>
-        <div
-          class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
-        >
-          <img
-            src="/images/infoIcon.svg"
-            class="w-full h-full pt-0.5"
-            alt="Page Information Popup"
-            @click="showPageInfo()"
-          />
-        </div>
       </div>
     </div>
     <div>
