@@ -235,15 +235,11 @@ export default {
         });
 
         // Create new markers and add them to the cluster group
-        this.markers.forEach((marker) => {
-          const newMarker = L.marker([marker.lat, marker.lng], {
-            icon: marker.options.icon,
-          }).bindPopup(marker.popup);
-          markerClusterGroup.addLayer(newMarker);
+        useLMarkerClusterCustom({
+          leafletObject: this.$refs.myMap.leafletObject,
+          markers: this.markers,
+          clusterOptions: this.clusterOptions,
         });
-
-        // Add the complete cluster group to the map
-        this.$refs.myMap.leafletObject.addLayer(markerClusterGroup);
       }
     },
 
