@@ -224,21 +224,19 @@ export default {
       return optionalsWithValue;
     },
     refreshMapMarkers() {
-      if (this.$refs.myMap && this.$refs.myMap.leafletObject) {
-        // clear existing markers
-        this.$refs.myMap.leafletObject.eachLayer((layer) => {
-          if (layer instanceof L.MarkerClusterGroup) {
-            this.$refs.myMap.leafletObject.removeLayer(layer);
-          }
-        });
+      // clear existing markers
+      this.$refs.myMap.leafletObject.eachLayer((layer) => {
+        if (layer instanceof L.MarkerClusterGroup) {
+          this.$refs.myMap.leafletObject.removeLayer(layer);
+        }
+      });
 
-        //re add clusters to map
-        useLMarkerClusterCustom({
-          leafletObject: this.$refs.myMap.leafletObject,
-          markers: this.markers,
-          clusterOptions: this.clusterOptions,
-        });
-      }
+      //re add clusters to map
+      useLMarkerClusterCustom({
+        leafletObject: this.$refs.myMap.leafletObject,
+        markers: this.markers,
+        clusterOptions: this.clusterOptions,
+      });
     },
 
     onMapReady() {
