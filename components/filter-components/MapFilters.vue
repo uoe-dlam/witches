@@ -183,10 +183,10 @@
                       {{ propertyItem.label }}
                     </p>
                     <div
-                      class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-5 h-5 cursor-pointer"
+                      class="inline-flex items-center justify-center align-middle w-5 h-5 ml-1 mb-1 cursor-pointer"
                     >
                       <img
-                        src="/images/infoIcon.svg"
+                        src="/images/questionIcon.svg"
                         alt="Filter Information Popup"
                         class="pt-0.5 h-5 inline"
                       />
