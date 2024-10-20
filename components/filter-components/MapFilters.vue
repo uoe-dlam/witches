@@ -435,30 +435,24 @@ export default {
         this.$emit("changeCurrentProperty", property);
       }
     },
-    selectAll(property, propertyItem) {
-      let updates = {};
+    selectAll: function (property, propertyItem) {
       let filtersList = Object.keys(propertyItem.filters);
 
       filtersList.forEach((type) => {
         propertyItem.filters[type].active = true;
-        updates[type] = true;
+        let filterInfo = [property, type];
+        this.$emit("filterOn", filterInfo);
       });
-
-      this.$emit("filterOn", { property, updates });
     },
-
-    clearAll(property, propertyItem) {
-      let updates = {};
+    clearAll: function (property, propertyItem) {
       let filtersList = Object.keys(propertyItem.filters);
 
       filtersList.forEach((type) => {
         propertyItem.filters[type].active = false;
-        updates[type] = false;
+        let filterInfo = [property, type];
+        this.$emit("filterOff", filterInfo);
       });
-
-      this.$emit("filterOff", { property, updates });
     },
-
     togglePropertyShowing: function (property) {
       // If the property <property> is not showing, sets to showing,
       // and calls setPropertyToCurrent to set the property as the
