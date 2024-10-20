@@ -47,7 +47,7 @@ p {
   @apply mb-3;
 }
 
-a {
+.link {
   @apply underline hover:text-gray-500;
 }
 </style>

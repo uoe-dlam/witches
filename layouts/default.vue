@@ -44,7 +44,7 @@ h4 {
   @apply text-2xl;
 }
 
-a {
+.link {
   @apply underline hover:text-gray-500;
 }
 
