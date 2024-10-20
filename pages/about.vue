@@ -11,10 +11,7 @@
       database is one of those datasets.
     </p>
     <p>
-      <a
-        class="underline hover:text-gray-500"
-        href="http://www.shca.ed.ac.uk/witches"
-        target="_blank"
+      <a class="link" href="http://www.shca.ed.ac.uk/witches" target="_blank"
         >The Survey of Scottish Witchcraft Database</a
       >
     </p>
@@ -81,7 +78,7 @@
     <p>
       You can see a short film of the results:
       <a
-        class="underline hover:text-gray-500"
+        class="link"
         href="https://media.ed.ac.uk/media/1_wn428698"
         target="_blank"
         >An interactive laser cut map of accused witches in Scotland</a
@@ -291,7 +288,7 @@
     <p>
       Read all about his work here:
       <a
-        class="underline hover:text-gray-500"
+        class="link"
         href="https://blogs.ed.ac.uk/witchcraft_visualisation/weeks-3-and-4-site-re-development-is-underway/"
         target="_blank"
         >Josep's blog on the Witch Visualisation site</a
@@ -315,7 +312,7 @@
         <p>
           Read all about her work here:
           <a
-            class="underline hover:text-gray-500"
+            class="link"
             href="https://blogs.ed.ac.uk/witchcraft_visualisation/finding-impossible-witches-part-one/"
             target="_blank"
             >Claire's blog on the Data Quality Assurance process</a
@@ -425,7 +422,7 @@
         <a
           href="https://www.scotsman.com/heritage-and-retro/retro/map-of-scots-women-accused-of-witchcraft-published-for-first-time-637272"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Map of Scots women accused of witchcraft published for first
             time</i
@@ -437,7 +434,7 @@
         <a
           href="https://www.edinburghlive.co.uk/news/edinburgh-news/tragic-tale-edinburgh-woman-strangled-16986490"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Tale of Edinburgh woman 'strangled and burnt' for witchcraft
             brought to life in map</i
@@ -449,19 +446,19 @@
         <a
           href="https://www.pressandjournal.co.uk/fp/news/scotland/1849701/new-interactive-map-highlights-more-than-3000-cases-of-scottish-women-accused-of-being-witches/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >New interactive map shows where women accused of witchcraft lived
             in the north and north-east</i
           >
-          - The Press & Journal, 28 October 2019</a
-        >
+          - The Press & Journal, 28 October 2019
+        </a>
       </li>
       <li>
         <a
           href="https://www.smithsonianmag.com/smart-news/map-visualizes-scale-16th-and-17th-century-scottish-witch-hunts-180973226/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >This Map Shows the Scale of 16th- and 17th-Century Scottish Witch
             Hunts</i
@@ -473,7 +470,7 @@
         <a
           href="https://stv.tv/news/highlands-islands/1441101-scotland-s-last-witch-executed-for-having-dementia/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>'Scotland's last witch' burnt alive almost 300 years ago</i> - STV
           News, 26 September 2019</a
         >
@@ -482,7 +479,7 @@
         <a
           href="https://www.maproomblog.com/2019/09/scottish-witches/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Scottish Witches</i> - The Map Room Blog, 24 September 2019
         </a>
       </li>
@@ -490,7 +487,7 @@
         <a
           href="https://www.reddit.com/r/Scotland/comments/d8j1ux/map_of_scottish_women_accused_of_being_witches/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Map of Scottish women accused of being witches</i> - Reddit,
           2019</a
         >
@@ -499,7 +496,7 @@
         <a
           href="https://www.thecourier.co.uk/fp/news/perth-kinross/987108/interactive-map-reveals-the-stories-of-witches-male-and-female-in-tayside-and-fife/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Interactive map reveals the stories of witches – male and female –
             in Tayside and Fife</i
@@ -511,7 +508,7 @@
         <a
           href="https://ailishsinclair.com/2019/09/a-map-of-witches-and-some-autumn-beauty/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>A Map of Witches and the Beauty of Autumn</i> - Alish Sinclair, 11
           October 2023</a
         >
@@ -520,7 +517,7 @@
         <a
           href="https://www.dumbartonreporter.co.uk/news/17941358.women-accused-witchcraft-dumbarton-bonhill-cardross/?ref=twtrec"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>A Map of Witches and the Beauty of Autumn</i> - Dumbarton
           Reporter, 2 October 2019</a
         >
@@ -529,7 +526,7 @@
         <a
           href="https://www.thetimes.co.uk/article/our-damaged-politics-will-struggle-to-recover-px0tpn80l"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Our damaged politics will struggle to recover</i> - The Times, 1
           October 2019</a
         >
@@ -538,7 +535,7 @@
         <a
           href="https://mentalfloss.com/article/601482/explore-scotlands-witch-hunts-interactive-map"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Explore Scotland’s Witch Hunts With This Interactive Map</i> -
           Mental Floss, 27 September 2019</a
         >
@@ -547,7 +544,7 @@
         <a
           href="https://www.edinburghnews.scotsman.com/heritage-and-retro/retro/map-of-scots-women-accused-of-witchcraft-published-for-first-time-637272"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Map of Scots women accused of witchcraft published for first
             time</i
@@ -559,7 +556,7 @@
         <a
           href="https://www.metafilter.com/183283/Survey-of-Scottish-Witchcraft"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Survey of Scottish Witchcraft</i> - MetaFilter, 24 September
           2019</a
         >
@@ -568,7 +565,7 @@
         <a
           href="http://googlemapsmania.blogspot.com/2019/09/the-witches-of-scotland.html"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           >The Witches of Scotland - Maps Mania, 24 September 2024</a
         >
       </li>
@@ -576,7 +573,7 @@
         <a
           href="https://www.youtube.com/watch?v=QdvLAxB73jk&feature=youtu.be&fbclid=IwAR3XHlAo37-AUrvmU_tCQxlEWIo4JgHkVfKZ14VL1TE7oXDMJTBB6ZILFx0"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>New Project puts Witches on the Map</i> - STV News, 26 September
           2019</a
         >
@@ -585,7 +582,7 @@
         <a
           href="https://www.scotsman.com/heritage/who-were-scotland-s-little-known-male-witches-1-5012366"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Who were Scotland's little-known male witches?</i> - The Scotsman,
           27 September 2019</a
         >
@@ -594,7 +591,7 @@
         <a
           href="https://www.citylab.com/life/2019/10/witch-trial-scotland-history-witchcraft-persecution-europe/598951/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Mapping Scotland’s Grim History of Witch-Hunting</i> - Bloomberg
           UK, 3 October 2019</a
         >
@@ -603,7 +600,7 @@
         <a
           href="https://www.clydebankpost.co.uk/news/17951248.new-map-reveals-three-clydebank-women-branded-witches-1677-trials/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >New map reveals three Clydebank women branded witches in 1677
             trials</i
@@ -615,7 +612,7 @@
         <a
           href="https://www.dailystar.co.uk/news/weird-news/ancient-spellbinding-map-shows-witches-20317887"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Ancient spellbinding map shows where witches once dwelled and were
             burned alive</i
@@ -627,7 +624,7 @@
         <a
           href="https://www.noseygenealogist.com/blog/6211/online-map-pinpoints-scots-women-accused-of-witchcraft"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Online Map pinpoints Scots women accused of witchcraft</i> - Nosey
           Genealogist, 5 October 2019</a
         >
@@ -636,7 +633,7 @@
         <a
           href="https://www.eastlothiancourier.com/news/17957718.interactive-map-shows-east-lothian-residents-accused-witchcraft/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Interactive map shows all East Lothian residents accused of
             witchcraft</i
@@ -648,18 +645,19 @@
         <a
           href="https://mysteriousuniverse.org/2019/10/map-shows-where-17th-century-scottish-witches-lived-and-where-they-were-burned/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
-        ></a
-        ><i
-          >Map shows where 17th century Scottish witches lived and where they
-          were burned</i
+          class="link mb-3"
         >
+          <i
+            >Map shows where 17th century Scottish witches lived and where they
+            were burned</i
+          >
+        </a>
       </li>
       <li>
         <a
           href="https://www.courrierinternational.com/article/histoire-une-carte-devoile-lampleur-de-la-chasse-aux-sorcieres-en-ecosse"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i
             >Histoire. Une carte dévoile l’ampleur de la “chasse aux sorcières”
             en Écosse</i
@@ -671,7 +669,7 @@
         <a
           href="https://www.nytimes.com/2019/10/25/opinion/sunday/thar-be-witches-and-us.html"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Thar Be Witches, and Us</i> - The New York Times, 25 October
           2019</a
         >
@@ -680,7 +678,7 @@
         <a
           href="https://www.ed.ac.uk/arts-humanities-soc-sci/news-events/news/current-news/data-team-creates-map-that-plots-witches-plight"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Data team creates map that plots witches’ plight</i> - The
           University of Edinburgh, 21 October 2019</a
         >
@@ -689,7 +687,7 @@
         <a
           href="https://www.theguardian.com/uk-news/2019/oct/29/calls-for-memorial-to-scotlands-tortured-and-executed-witches?CMP=Share_iOSApp_Other"
           target="_blank"
-          class="underline hover:text-gray-500 mb-3"
+          class="link mb-3"
           ><i>Calls for memorial to Scotland's tortured and executed witches</i>
           - The Guardian, 29 October 2019</a
         >
@@ -698,7 +696,7 @@
         <a
           href="https://www.heraldscotland.com/news/17996591.marianne-taylor-can-learn-wicked-persecution-witches/"
           target="_blank"
-          class="underline hover:text-gray-500 mb-9"
+          class="link mb-9"
           ><i
             >Marianne Taylor: What can we learn from our wicked persecution of
             witches?</i

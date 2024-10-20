@@ -23,10 +23,7 @@
       </li>
     </ul>
     <p>
-      <a
-        href="https://mcmw.abilitynet.org.uk"
-        target="_blank"
-        class="text-blue-600"
+      <a href="https://mcmw.abilitynet.org.uk" target="_blank" class="link"
         >AbilityNet</a
       >
       has advice on making your device easier to use if you have a disability.
@@ -52,7 +49,7 @@
     <ul class="ml-5 mb-3">
       <li class="list-disc">
         email the
-        <a :href="`mailto:${supportEmail}`" class="text-blue-600"
+        <a :href="`mailto:${supportEmail}`" class="link"
           >Digital Learning Applications and Media Team</a
         >
       </li>
@@ -64,7 +61,7 @@
       We're always looking to improve the accessibility of this website. If you
       find any problems not listed on this page or think we are not meeting
       accessibility requirements, contact the
-      <a :href="`mailto:${supportEmail}`" class="text-blue-600"
+      <a :href="`mailto:${supportEmail}`" class="link"
         >Digital Learning and Applications Media Team</a
       >
     </p>
@@ -75,7 +72,10 @@
       enforcing the Public Sector Bodies (Websites and Mobile Applications) (No.
       2) Accessibility Regulations 2018 (the 'accessibility regulations'). If
       you're not happy with how we respond to your complaint,
-      <a href="https://www.equalityadvisoryservice.com" target="_blank"
+      <a
+        class="link"
+        href="https://www.equalityadvisoryservice.com"
+        target="_blank"
         >contact the Equality Advisory and Support Service (EASS).</a
       >
     </p>
@@ -94,10 +94,7 @@
     </p>
     <p>The full guidelines are available at:</p>
     <p>
-      <a
-        href="https://www.w3.org/TR/WCAG21/"
-        target="_blank"
-        class="text-blue-600"
+      <a href="https://www.w3.org/TR/WCAG21/" target="_blank" class="link"
         >Web Content Accessibility Guidelines version 2.1</a
       >
     </p>
@@ -114,7 +111,7 @@
         Page html elements do not have a lang attribute (<a
           href="https://www.w3.org/TR/WCAG21/#language-of-page"
           target="_blank"
-          class="text-blue-600"
+          class="link"
           >3.1.1 Language of Page</a
         >)
       </li>
@@ -122,7 +119,7 @@
         Some images are missing alternative text (<a
           href="https://www.w3.org/TR/WCAG21/#text-alternatives"
           target="_blank"
-          class="text-blue-600"
+          class="link"
           >1.1 Text Alternatives</a
         >)
       </li>
@@ -130,7 +127,7 @@
         Pages don't have one main landmark (<a
           href="https://www.w3.org/TR/WCAG21/#info-and-relationships"
           target="_blank"
-          class="text-blue-600"
+          class="link"
           >1.3.1 Info and Relationships</a
         >)
       </li>
@@ -139,7 +136,7 @@
         using keyboard only ( <a
           href="https://www.w3.org/TR/WCAG21/#keyboard-accessible"
           target="_blank"
-          class="text-blue-600"
+          class="link"
           >2.1 Keyboard Accessible</a
         >).
       </li>
@@ -166,6 +163,10 @@
 </template>
 
 <script>
+definePageMeta({
+  layout: "default",
+});
+
 export default {
   data: () => ({
     supportEmail: useRuntimeConfig().public.supportEmail,
@@ -173,7 +174,6 @@ export default {
   methods: {},
   computed: {},
   mounted: function () {},
-  layout: "basic",
 };
 </script>
 

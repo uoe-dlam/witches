@@ -4,11 +4,7 @@
     <p>
       <span class="font-medium">Database Source:</span> Julian Goodare, Lauren
       Martin, Joyce Miller and Louise Yeoman,
-      <a
-        class="underline hover:text-gray-500"
-        href="http://www.shca.ed.ac.uk/witches/"
-        target="_blank"
-      >
+      <a class="link" href="http://www.shca.ed.ac.uk/witches/" target="_blank">
         'The Survey of Scottish Witchcraft' </a
       >(archived January 2003)
     </p>
@@ -32,7 +28,7 @@
       National Library of Scotland (2019). Explore georeferenced maps - Map
       images - National Library of Scotland. [online] Available at:
       <a
-        class="underline hover:text-gray-500"
+        class="link"
         href="https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&layers=1&amp;b=1"
         >https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&amp;layers=1&amp;b=1
       </a>
@@ -53,19 +49,13 @@
     <p>Pont, T (1583-1614). Pont Maps of Scotland.</p>
     <p>
       Scottish-Places (2019). The Gazetteer for Scotland. [online] Available at:
-      <a
-        class="underline hover:text-gray-500"
-        href="https://www.scottish-places.info/"
-      >
+      <a href="https://www.scottish-places.info/">
         https://www.scottish-places.info/ </a
       >[Accessed 16 Aug. 2019].
     </p>
     <p>
       ScotlandsPlaces (2019). ScotlandsPlaces. [online] Available at:
-      <a
-        class="underline hover:text-gray-500"
-        href="https://scotlandsplaces.gov.uk/"
-      >
+      <a class="link" href="https://scotlandsplaces.gov.uk/">
         https://scotlandsplaces.gov.uk/
       </a>
       [Accessed 16 Aug. 2019].
@@ -73,7 +63,7 @@
     <p>
       Statistical Accounts (2019). Statistical Accounts of Scotland. [online]
       Available at:<a
-        class="underline hover:text-gray-500"
+        class="link"
         href="https://stataccscot.edina.ac.uk/static/statacc/dist/home"
       >
         https://stataccscot.edina.ac.uk/static/statacc/dist/home
