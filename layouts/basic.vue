@@ -46,4 +46,8 @@ p {
   font-family: "Roboto";
   @apply mb-3;
 }
+
+a {
+  @apply underline hover:text-gray-500;
+}
 </style>

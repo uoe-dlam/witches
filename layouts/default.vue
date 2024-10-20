@@ -49,6 +49,10 @@ p {
   @apply mb-3;
 }
 
+a {
+  @apply underline hover:text-gray-500;
+}
+
 .lds-facebook {
   display: inline-block;
   position: relative;
