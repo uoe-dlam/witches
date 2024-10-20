@@ -1,7 +1,7 @@
 <template>
   <div id="main-content" class="text-wrapper">
     <h1 class="text-center mb-6">Project References</h1>
-    <p class="mb-3">
+    <p>
       <span class="font-medium">Database Source:</span> Julian Goodare, Lauren
       Martin, Joyce Miller and Louise Yeoman,
       <a
@@ -14,21 +14,21 @@
     </p>
     <br />
     <h2 class="mb-3">Place-Name References</h2>
-    <p class="mb-3">
+    <p>
       Alexander, W.M.C. & Third Spalding Club (1952). The place-names of
       Aberdeenshire, Aberdeen: Printed for the Third Spalding Club.
     </p>
-    <p class="mb-3">Blaeu, J (1654). Blaeu's Atlas novus, volume V.</p>
-    <p class="mb-3">
+    <p>Blaeu, J (1654). Blaeu's Atlas novus, volume V.</p>
+    <p>
       Johnston, J.B. & Royal Scottish Geographical Society (1940). The
       place-names of Berwickshire, Edinburgh: Royal Scottish Geographical
       Society.
     </p>
-    <p class="mb-3">
+    <p>
       Márkus, G (2012). The place-names of Bute, Donington [Lincolnshire]: Shaun
       Tyas.
     </p>
-    <p class="mb-3">
+    <p>
       National Library of Scotland (2019). Explore georeferenced maps - Map
       images - National Library of Scotland. [online] Available at:
       <a
@@ -38,20 +38,20 @@
       </a>
       [Accessed 16 Aug. 2019].
     </p>
-    <p class="mb-3">
+    <p>
       Ordnance Survey (1885). Map of Great Britain, One Inch 1885-1903. London,
       Ordnance Survey.
     </p>
-    <p class="mb-3">
+    <p>
       Ordnance Survey (1888). Map of Great Britain, Six Inch 1888-1913. London,
       Ordnance Survey.
     </p>
-    <p class="mb-3">
+    <p>
       Ordnance Survey (1892). Map of Great Britain, Twenty Five Inch 1892-1914.
       London, Ordnance Survey.
     </p>
-    <p class="mb-3">Pont, T (1583-1614). Pont Maps of Scotland.</p>
-    <p class="mb-3">
+    <p>Pont, T (1583-1614). Pont Maps of Scotland.</p>
+    <p>
       Scottish-Places (2019). The Gazetteer for Scotland. [online] Available at:
       <a
         class="underline hover:text-gray-500"
@@ -60,7 +60,7 @@
         https://www.scottish-places.info/ </a
       >[Accessed 16 Aug. 2019].
     </p>
-    <p class="mb-3">
+    <p>
       ScotlandsPlaces (2019). ScotlandsPlaces. [online] Available at:
       <a
         class="underline hover:text-gray-500"
@@ -70,7 +70,7 @@
       </a>
       [Accessed 16 Aug. 2019].
     </p>
-    <p class="mb-3">
+    <p>
       Statistical Accounts (2019). Statistical Accounts of Scotland. [online]
       Available at:<a
         class="underline hover:text-gray-500"
@@ -80,40 +80,40 @@
       </a>
       [Accessed 16 Aug. 2019].
     </p>
-    <p class="mb-3">
+    <p>
       Stewart, J (1987). Shetland place-names, Hillhead, Lerwick: Shetland
       Library and Museum.
     </p>
-    <p class="mb-3">
+    <p>
       Watson, W.J (1904). Place-names of Ross and Cromarty, Inverness: The
       Northern Counties Printing and Publishing Company.
     </p>
-    <p class="mb-3">
+    <p>
       Witch icon remixed by Stewart Cromar from North Berwick Witches.jpg,
       Public domain via Wikimedia Commons.
     </p>
     <br />
     <h2 class="mb-3">Acknowledgments</h2>
-    <p class="mb-3">
+    <p>
       Geographical data located and ArcGIS Online maps produced by Emma Carroll.
     </p>
-    <p class="mb-3">
+    <p>
       Wikidata upload from the Survey of Scottish Witchcraft by Emma Carroll and
       Ewan McAndrew.
     </p>
-    <p class="mb-3">Website and Leaflet map produced by Richard Lawson</p>
-    <p class="mb-3">
+    <p>Website and Leaflet map produced by Richard Lawson</p>
+    <p>
       Further place-name advice provided by – the Scottish Place-Name Society,
       Louise Yeoman, Julian Goodare, Simon Taylor, Bruce Gittings, Chris Fleet,
       Gilbert Márkus and Dòmhnall Uilleam Stiùbhart.
     </p>
-    <p class="mb-3">
+    <p>
       Wikimedia support – Ewan McAndrew, Navino Evans, Martin Poulter and Simon
       Cobb.
     </p>
-    <p class="mb-3">Map icons designed by Stewart Cromar</p>
-    <p class="mb-3">Query Service linked map produced by Martin Poulter</p>
-    <p class="mb-3">Isobel Young story map produced by Ewan McAndrew</p>
+    <p>Map icons designed by Stewart Cromar</p>
+    <p>Query Service linked map produced by Martin Poulter</p>
+    <p>Isobel Young story map produced by Ewan McAndrew</p>
   </div>
 </template>
 

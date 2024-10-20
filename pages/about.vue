@@ -1,16 +1,16 @@
 <template>
   <div id="main-content" class="text-wrapper" style="width: 100%">
     <h1 class="text-center mb-6">About The Project</h1>
-    <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">
+    <p class="mt-6 text-lg md:text-xl lg:text-xl font-medium">
       Teaching data science with ‘real-world’ datasets
     </p>
-    <p class="mb-3">
+    <p>
       Since 2017 teams at the University of Edinburgh have been supporting
       students to learn about data science and develop their skills through
       working with a ‘real-world’ datasets. The Survey of Scottish Witchcraft
       database is one of those datasets.
     </p>
-    <p class="mb-3">
+    <p>
       <a
         class="underline hover:text-gray-500"
         href="http://www.shca.ed.ac.uk/witches"
@@ -18,11 +18,11 @@
         >The Survey of Scottish Witchcraft Database</a
       >
     </p>
-    <p class="mb-3">
+    <p>
       We appreciate all feedback and will incorporate it into future iterations
       of the map and the projects delivered by students.
     </p>
-    <p class="mb-3">
+    <p>
       Professor Julian Goodare is a historian and project director for the
       original Survey of Scottish Witchcraft, so his input and suggestions
       continue to be extremely valuable to us. The technical work on this
@@ -33,10 +33,8 @@
       have done and the time they spend supporting students who work on data
       skills curriculum projects and internships.
     </p>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
-      Richard Lawson
-    </p>
-    <p class="mb-3">
+    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">Richard Lawson</p>
+    <p>
       Richard was the person most responsible for creating this website and for
       always giving his time generously to this project; to support student
       learning within the University and to support understanding about the
@@ -52,12 +50,12 @@
     <h2 class="text-center mb-6">
       Work done by University of Edinburgh students
     </h2>
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
+    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
       Data Science for Design MSc Projects 2017-19
     </p>
     <div class="paragraph-container">
       <div class="text">
-        <p class="mb-3">
+        <p>
           During the 2017/2018 and 2018/2019 course programme, the University of
           Edinburgh’s Wikimedian in Residence, Ewan McAndrew, supported students
           to surface selected data from the original MS Access database to
@@ -80,7 +78,7 @@
         </p>
       </div>
     </div>
-    <p class="mb-3">
+    <p>
       You can see a short film of the results:
       <a
         class="underline hover:text-gray-500"
@@ -89,22 +87,22 @@
         >An interactive laser cut map of accused witches in Scotland</a
       >
     </p>
-    <p class="mb-3">
+    <p>
       The success of this project, and the engaging visualisations created as a
       result, made the case that an internship dedicated to geographically
       locating the places recorded in the database as linked open data would be
       the next logical step.
     </p>
-    <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">
+    <p class="mt-6 text-lg md:text-xl lg:text-xl font-medium">
       The ‘Witchfinder General’ Internship
     </p>
     <!-- Emma Carroll  -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
+    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
       Emma Carroll (June to September 2019)
     </p>
     <div class="paragraph-container">
       <div class="text" style="width: calc(65% - 20px)">
-        <p class="mb-3">
+        <p>
           Emma Carroll, a Geology and Physical Geography undergraduate student,
           was recruited in May 2019 as the new Data and Visualisation intern, or
           ‘Witchfinder General’, as part of a three month long Equate Scotland
@@ -124,7 +122,7 @@
     </div>
     <div class="paragraph-container">
       <div class="text" style="width: calc(60% - 20px)">
-        <p class="mb-3">
+        <p>
           As a result of Emma’s work, there was a place of residence recorded
           onto each accused witches’ Wikidata page which could then be queried
           for. Geographical information such as trial location, place of
@@ -138,20 +136,20 @@
       </div>
       <div class="image" style="width: calc(40% - 20px)">
         <img src="~/public/images/emma-map.png" />
-        <p class="text-xs text-center mb-3">
+        <p class="text-xs text-center">
           Emma Carroll exploring collections at the National Library of
           Scotland. CC-BY-SA 4.0
         </p>
       </div>
     </div>
-    <p class="mb-3">
+    <p>
       The uploaded data could then be directly queried for using the Wikidata
       Query Service and geographically projected onto a map using Leaflet or
       downloaded into a CSV file and uploaded onto ArcGIS Online. The
       geographical data was used to create a variety of different
       visualisations.
     </p>
-    <p class="mb-3">
+    <p>
       You can learn about her experiences, the digital skills she learned
       working on the project:
     </p>
@@ -174,7 +172,7 @@
       The Wicked Findings of a Witchfinder General #OEAwards2021. CC-BY-SA 4.0
     </p>
     <!-- Latest Developmemts -->
-    <p class="mb-3">
+    <p>
       Since the site went live in September 2019, work has continued on the
       project. Several more student interns have worked on new features,
       conducted user testing, and imported more data to create an upcoming
@@ -183,12 +181,12 @@
     </p>
 
     <!-- Maggie Lin -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
+    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
       Maggie Lin (June to September 2022)
     </p>
     <div class="paragraph-container">
       <div class="text" style="width: calc(60% - 20px)">
-        <p class="mb-3">
+        <p>
           4th year Computer Science student, Maggie Lin, was employed as our
           second ‘Witchfinder General’: Data Visualisation intern and worked
           incredibly hard to help illuminate what happened in the Scottish
@@ -198,7 +196,7 @@
           visualisations with her developer colleague Josep Garcia-Reyero (also
           an undergrad student).
         </p>
-        <p class="mb-3">
+        <p>
           Maggie’s focus was on the hitherto unexplored temporal data and the
           all the rich information on the witchcraft investigations, which
           encompassed the initial or supposed denunciation, the arrest, the
@@ -223,7 +221,7 @@
         </p>
       </div>
     </div>
-    <p class="mb-3">
+    <p>
       Watch Maggie Lin's tutorial for a guide to bulk data item creation using
       OpenRefine:
     </p>
@@ -250,12 +248,12 @@
     <p class="mt-1 mb-3 text-md md:text-gl lg:text-lg font-medium">
       Josep Garcia-Reyero (June to September 2023)
     </p>
-    <p class="mb-3">
+    <p>
       Josep worked as our Open Source Web Developer intern and had a close
       collaboration with Maggie Lin to embed her new visualisations in the
       website by the end of the Summer.
     </p>
-    <p class="mb-3">His goals were:</p>
+    <p>His goals were:</p>
     <div class="paragraph-container">
       <div class="text">
         <ul class="mb-3">
@@ -290,7 +288,7 @@
         </p>
       </div>
     </div>
-    <p class="mb-3">
+    <p>
       Read all about his work here:
       <a
         class="underline hover:text-gray-500"
@@ -301,12 +299,12 @@
     </p>
 
     <!-- Claire Panella -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
+    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
       Claire Panella (February to May 2023)
     </p>
     <div class="paragraph-container">
       <div class="text" style="width: calc(65% - 20px)">
-        <p class="mb-3">
+        <p>
           Claire Panella worked as the Scottish Witchhunter intern for 1 day a
           week from February to May 2023. During this time she created and
           documented a robust and reusable quality assurance process (using
@@ -314,7 +312,7 @@
           original 2003 Survey of Scottish Witchcraft data with the data shared
           to Wikidata since 2017 to check for any data anomalies.
         </p>
-        <p class="mb-3">
+        <p>
           Read all about her work here:
           <a
             class="underline hover:text-gray-500"
@@ -326,7 +324,7 @@
       </div>
       <div class="image" style="width: calc(35% - 20px)">
         <img src="~/public/images/claire.png" />
-        <p class="text-xs text-center mb-3">
+        <p class="text-xs text-center">
           Claire Panella developing a Data Quality Assurance process. CC-BY-SA
           4.0
         </p>
@@ -352,12 +350,12 @@
     </p>
 
     <!-- Ruby Imrie -->
-    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
+    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
       Ruby Imrie (June 2023 to October 2024)
     </p>
     <div class="paragraph-container">
       <div class="text">
-        <p class="mb-3">
+        <p>
           Ruby has been quality checking and consistency checking the data using
           newly developed quality assurance methods in R Studio created by
           another student intern, Claire Panella, earlier this year that can be
@@ -396,7 +394,7 @@
         title="Ruby Imrie on the Map of Accused Witches in Scotland project and the Witchfinder General data visualisation internship"
       ></iframe>
     </div>
-    <p class="text-xs text-center mb-3">
+    <p class="text-xs text-center">
       Ruby Imrie on the Map of Accused Witches in Scotland project. CC-BY-SA 4.0
     </p>
 
@@ -415,7 +413,7 @@
         title="Map of Accused Witches in Scotland internship - Summer 2023 Summary"
       ></iframe>
     </div>
-    <p class="text-xs text-center mb-3">
+    <p class="text-xs text-center">
       Map of Accused Witches in Scotland internship - Summer 2023 Summary.
       CC-BY-SA 4.0
     </p>
