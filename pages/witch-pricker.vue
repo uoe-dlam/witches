@@ -4,7 +4,7 @@
       <div class="flex content-start items-center">
         <h1>The Journey of a Witch-Pricker - John Kincaid of Tranent</h1>
         <div
-          class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
+          class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
         >
           <img
             src="/images/infoIcon.svg"
