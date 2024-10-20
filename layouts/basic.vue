@@ -41,4 +41,9 @@ h4 {
   font-family: "EB Garamond", sans-serif;
   @apply text-2xl;
 }
+
+p {
+  font-family: "Roboto";
+  @apply mb-3;
+}
 </style>

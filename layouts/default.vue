@@ -46,6 +46,7 @@ h4 {
 
 p {
   font-family: "Roboto";
+  @apply mb-3;
 }
 
 .lds-facebook {
