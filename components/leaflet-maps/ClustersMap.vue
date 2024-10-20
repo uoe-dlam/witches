@@ -91,6 +91,12 @@ export default {
       },
     };
   },
+  watch: {
+    mapMarkers(newMarkers) {
+      this.fillMarkersArray(newMarkers);
+      this.refreshMapMarkers();
+    },
+  },
   methods: {
     fillMarkersArray(mapMarkers) {
       this.markers = mapMarkers.map((markerData) => {
@@ -116,7 +122,7 @@ export default {
               ${this.getLocationsWithValue(witch)
                 .map(
                   (locationOption) => `
-                <b>${this.locationsLabels[locationOption]}:</b> 
+                <b>${this.locationsLabels[locationOption]}:</b>
                 ${witch[locationOption].locations
                   .map(
                     (subLocation, index) => `
@@ -130,7 +136,7 @@ export default {
               ${this.getOptionalsWithValue(witch)
                 .map(
                   (optionalAttribute) => `
-                <b>${this.optionalsLabels[optionalAttribute]}:</b> 
+                <b>${this.optionalsLabels[optionalAttribute]}:</b>
                 ${witch[optionalAttribute].join(", ")}<br>
               `,
                 )
@@ -217,6 +223,30 @@ export default {
 
       return optionalsWithValue;
     },
+    refreshMapMarkers() {
+      if (this.$refs.myMap && this.$refs.myMap.leafletObject) {
+        let markerClusterGroup = L.markerClusterGroup(this.clusterOptions);
+
+        // Clear existing markers if any
+        this.$refs.myMap.leafletObject.eachLayer((layer) => {
+          if (layer instanceof L.MarkerClusterGroup) {
+            this.$refs.myMap.leafletObject.removeLayer(layer);
+          }
+        });
+
+        // Create new markers and add them to the cluster group
+        this.markers.forEach((marker) => {
+          const newMarker = L.marker([marker.lat, marker.lng], {
+            icon: marker.options.icon,
+          }).bindPopup(marker.popup);
+          markerClusterGroup.addLayer(newMarker);
+        });
+
+        // Add the complete cluster group to the map
+        this.$refs.myMap.leafletObject.addLayer(markerClusterGroup);
+      }
+    },
+
     onMapReady() {
       this.fillMarkersArray(this.mapMarkers);
       useLMarkerClusterCustom({
