@@ -27,7 +27,7 @@
                 <h3>
                   {{ pageInfo.title }}
                   <div
-                    class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-0.5 cursor-pointer"
+                    class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1 cursor-pointer"
                   >
                     <img
                       src="/images/infoIcon.svg"
