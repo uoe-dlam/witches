@@ -225,16 +225,14 @@ export default {
     },
     refreshMapMarkers() {
       if (this.$refs.myMap && this.$refs.myMap.leafletObject) {
-        let markerClusterGroup = L.markerClusterGroup(this.clusterOptions);
-
-        // Clear existing markers if any
+        // clear existing markers
         this.$refs.myMap.leafletObject.eachLayer((layer) => {
           if (layer instanceof L.MarkerClusterGroup) {
             this.$refs.myMap.leafletObject.removeLayer(layer);
           }
         });
 
-        // Create new markers and add them to the cluster group
+        //re add clusters to map
         useLMarkerClusterCustom({
           leafletObject: this.$refs.myMap.leafletObject,
           markers: this.markers,
