@@ -187,7 +187,7 @@
                     >
                       <img
                         src="/images/infoIcon.svg"
-                        alt="Filter Information Popup"
+                        aria-label="Filter Description Tooltip"
                         class="pt-0.5 h-5 inline"
                       />
                     </div>
