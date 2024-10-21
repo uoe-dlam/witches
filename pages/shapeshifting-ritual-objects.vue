@@ -19,6 +19,7 @@ import json from "../big-query-output.json";
 import MapComponent from "../components/MapComponent.vue";
 import LoadingMessage from "../components/LoadingMessage.vue";
 import Swal from "sweetalert2";
+import filterDescriptions from "../public/filterDescriptions.json";
 
 definePageMeta({
   layout: "default",
@@ -51,16 +52,14 @@ export default {
     filterProperties: {
       shapeshifting: {
         label: "Shapeshifting",
-        description:
-          "Shapeshifting was the magical transformation of a human into an animal. This was mainly a popular belief, but educated demonologists accepted it. In the Scottish witch trials, some accused witches confessing to having taken animal form, presumably through coercive interrogation. Less often, neighbours or victims testified that they had seen the witch in animal form. The animal was most often a cat, but we also find transformations into a dog, a 'corbie' (raven or crow), or other creatures. For more information about the shape-shifting terms mentioned below please refer to the Survey’s glossary of terms here:<a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a> ",
+        description: "",
         descriptionShowing: false,
         filters: {},
         showing: false,
       },
       ritualObjects: {
         label: "Ritual objects",
-        description:
-          "Two different types of rituals appear in accused witches’ records. First, there were real rituals, mostly carried out by magical practitioners, for healing and other beneficial purposes. Second, there were imaginary rituals, which the accusers thought that witches carried out when they met the Devil; accused witches were forced to confess to these under torture. Each type of ritual could use magical objects. Thus, a ‘belt’ or a ‘sword’ could be used in healing rituals, whereas ‘corpse powder’ appeared in confessions to demonic rituals. For more information about the ritual objects mentioned below please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
+        description: "",
         descriptionShowing: false,
         filters: {},
         showing: false,
@@ -110,7 +109,7 @@ export default {
     },
     loadDataFromLocalStorage: function () {
       this.originalMarkers = JSON.parse(
-        localStorage.getItem("residenceMarkers")
+        localStorage.getItem("residenceMarkers"),
       );
       let allFilters = JSON.parse(localStorage.getItem("allFilters"));
       this.setFilters(allFilters);
@@ -148,13 +147,13 @@ export default {
         this.queryOutput,
         this.wikiPages,
         null,
-        icon
+        icon,
       );
       let filtersFound = null;
 
       [this.originalMarkers, filtersFound] = getData.loadAccussed(
         "residence",
-        this.filtersToFind
+        this.filtersToFind,
       );
 
       this.setFilters(filtersFound);
@@ -164,6 +163,12 @@ export default {
   },
 
   mounted: function () {
+    // Load descriptions from the JSON file
+    Object.keys(filterDescriptions).forEach((key) => {
+      if (this.filterProperties[key]) {
+        this.filterProperties[key].description = filterDescriptions[key];
+      }
+    });
     this.loadData();
   },
 };
