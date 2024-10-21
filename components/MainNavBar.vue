@@ -209,7 +209,7 @@ export default {
             },
             {
               name: "Social Bubble Chart",
-              url: "/",
+              url: "/social-bubble-chart",
               external: false,
             },
           ],
