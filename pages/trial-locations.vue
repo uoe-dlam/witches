@@ -5,19 +5,19 @@
         <br />
         <div class="flex content-start items-center">
           <h2>
-            Locations of trials for accused witches
-            <span v-if="noItems > 0">(total no trials: {{ noItems }})</span>
+            Locations of Trials for Accused Witches
+            <div
+              class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
+            >
+              <img
+                src="/images/infoIcon.svg"
+                class="w-full h-full pt-0.5"
+                aria-label="Page Information Popup"
+                @click="showPageInfo()"
+              />
+              <span class="visually-hidden">Page Information Pop Up</span>
+            </div>
           </h2>
-          <div
-            class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
-          >
-            <img
-              src="/images/infoIcon.svg"
-              class="w-full h-full pt-0.5"
-              alt="Page Information Popup"
-              @click="showPageInfo()"
-            />
-          </div>
         </div>
         <div>
           <br />
