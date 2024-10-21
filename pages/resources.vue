@@ -1,17 +1,17 @@
 <template>
   <div id="main-content" class="text-wrapper">
     <h1 class="text-center mb-6">Resources</h1>
-    <p>
+    <p class="mb-3">
       Here, you’ll find a collection of materials developed during the creation
       of this website, which may be useful for research or personal interest.
     </p>
-    <p>
+    <p class="mb-3">
       Download the CSV files used to create maps on ArcGIS Online:
       <a href="arcgis_online_files.zip" class="link" download
         >Download ZIP file of CSV files for ArcGIS Online</a
       >
     </p>
-    <p>
+    <p class="mb-3">
       Not all place names have been located; this spreadsheet lists the places
       that remain to be identified:
       <a
@@ -21,7 +21,7 @@
         >Spreadsheet of Unfound Place Names</a
       >
     </p>
-    <p>
+    <p class="mb-3">
       This document outlines the items and properties that have been uploaded to
       Wikidata:
       <a
@@ -31,13 +31,13 @@
         >Items Added to Wikidata Document</a
       >
     </p>
-    <p>
+    <p class="mb-3">
       Explore the query used to map the residences of accused witches:
       <a href="https://w.wiki/6rX" target="_blank" class="link"
         >Query for Accused Witches Residence Map</a
       >
     </p>
-    <p>
+    <p class="mb-3">
       Scotland's Accused Witches Project page on wikidata. This includes a list
       and descriptions of each property, query examples, and documentation of
       our quality assurance process:
