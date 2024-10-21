@@ -54,4 +54,13 @@ h4 {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+p {
+  font-family: "Roboto";
+  @apply mb-3;
+}
+
+.link {
+  @apply underline hover:text-gray-500;
+}
 </style>
