@@ -140,7 +140,7 @@ export default {
             },
             {
               name: "Shapeshifting and Ritual Objects",
-              url: "/",
+              url: "/shapeshifting-ritual-objects",
               external: false,
             },
           ],
