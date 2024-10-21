@@ -201,7 +201,11 @@ export default {
               url: "/",
               external: false,
             },
-            { name: "The Story of Isobel Young", url: "/", external: false },
+            {
+              name: "The Story of Isobel Young",
+              url: "/story-isobel-young",
+              external: false,
+            },
             {
               name: "Ordeal Bubble Chart",
               url: "/ordeal-bubble-chart",
