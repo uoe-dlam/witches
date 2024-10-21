@@ -1,8 +1,6 @@
 <template>
   <main id="main-content" class="text-wrapper">
-    <h1 class="text-sm md:text-xl lg:text-2xl mb-3">
-      Accessibility statement for witches.is.ed.ac.uk
-    </h1>
+    <h1 class="mb-3">Accessibility statement for witches.is.ed.ac.uk</h1>
     <p class="mb-3">
       This accessibility statement applies to witches.is.ed.ac.uk
     </p>
