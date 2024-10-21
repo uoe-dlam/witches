@@ -244,7 +244,7 @@ export default {
     showPageInfo() {
       Swal.fire({
         title: "Trial Location Map",
-        html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <b class="font-bold">multiple trials</b>, which could have been held in <b class="font-bold">different locations</b>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <b class="font-bold">432</b> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
+        html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <strong>multiple trials</strong>, which could have been held in <strong>different locations</strong>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <strong>432</strong> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
         footer: "witches.is.ed.ac.uk",
         confirmButtonText: "Close",
         type: "info",
