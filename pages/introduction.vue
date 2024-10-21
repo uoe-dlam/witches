@@ -28,7 +28,7 @@
       ></iframe>
     </div>
     <div>
-      <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
+      <div class="lg:float-right lg:w-1/2 w-3/4 pr-5 pt-3">
         <img
           src="../public/images/map.png"
           class="w-full lg:ml-6 border border-gray-300"
@@ -72,7 +72,7 @@
       torture, with the most common kind of torture being sleep deprivation.
     </p>
     <div>
-      <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
+      <div class="lg:float-right lg:w-1/2 w-3/4 pr-5 py-3">
         <img
           src="../public/images/intro.jpg"
           class="w-full lg:ml-6 border border-gray-300"
