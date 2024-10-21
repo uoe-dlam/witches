@@ -13,12 +13,12 @@
         The Survey of Scottish Witchcraft </a
       >.
     </p>
-    <div class="flex justify-center mb-3">
+    <div class="flex justify-center mt-6 mb-6 w-full">
       <iframe
         id="kaltura_player"
         type="text/javascript"
         src='https://cdnapisec.kaltura.com/p/2010292/embedPlaykitJs/uiconf_id/55171522?iframeembed=true&entry_id=1_yj5c097l&config[provider]={"widgetId":"1_buq8663s"}'
-        style="width: 400px; height: 285px; border: 0"
+        style="width: 100%; height: 500px; border: 0"
         allowfullscreen
         webkitallowfullscreen
         mozAllowFullScreen
