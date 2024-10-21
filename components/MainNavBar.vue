@@ -128,7 +128,11 @@ export default {
           url: "#",
           external: false,
           subpages: [
-            { name: "Case Characterisations", url: "/", external: false },
+            {
+              name: "Case Characterisations",
+              url: "/case-characterisations",
+              external: false,
+            },
             {
               name: "Witches Meetings",
               url: "/witches-meetings",
