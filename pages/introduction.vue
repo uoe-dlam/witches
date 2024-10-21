@@ -1,8 +1,6 @@
 <template>
   <div id="main-content" class="text-wrapper w-full">
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
-      Survey of Scottish Witchcraft Interactive Map Introduction
-    </h1>
+    <h1 class="text-center mb-6">Introduction to Scottish Witchcraft</h1>
 
     <p class="mb-3 text-justify">
       This interactive map displays the known residences and detention, trial,
@@ -15,6 +13,20 @@
         The Survey of Scottish Witchcraft </a
       >.
     </p>
+    <div class="flex justify-center mb-3">
+      <iframe
+        id="kaltura_player"
+        type="text/javascript"
+        src='https://cdnapisec.kaltura.com/p/2010292/embedPlaykitJs/uiconf_id/55171522?iframeembed=true&entry_id=1_yj5c097l&config[provider]={"widgetId":"1_buq8663s"}'
+        style="width: 400px; height: 285px; border: 0"
+        allowfullscreen
+        webkitallowfullscreen
+        mozAllowFullScreen
+        allow="autoplay *; fullscreen *; encrypted-media *"
+        sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+        title="Kaltura Player"
+      ></iframe>
+    </div>
     <div>
       <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
         <img src="../public/images/map.png" class="w-full lg:ml-6" />
@@ -59,7 +71,9 @@
     <div>
       <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
         <img src="../public/images/intro.jpg" class="w-full lg:ml-6" />
-        <p class="text-xs text-center">Map of Accused Witches. CC-BY-SA 4.0</p>
+        <p class="text-xs text-center">
+          Newes from Scotland - Woodcut of North Berwick Witches. Public Domain
+        </p>
       </div>
       <p class="mb-3 text-justify">
         Of these people accused as witches it is estimated that around 2,500,

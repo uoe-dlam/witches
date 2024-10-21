@@ -1,6 +1,6 @@
 <template>
   <div id="main-content" class="text-wrapper w-full">
-    <h1 class="text-center text-2xl md:text-3xl lg:text-4xl mb-6">
+    <h1 class="text-center mb-6">
       Witchcraft trial procedure and evidence in Scotland
     </h1>
     <div>
