@@ -103,12 +103,12 @@
       included on this map for whom the evidence is too sparse, or unfortunately
       just does not exist. If you are interested in learning more about the
       witch-hunts in Scotland, there are various books and articles that we can
-      recommend. Our Further Reading page gives you a list of up-to-date work on
-      witchcraft and witch-hunting in Scotland, for an older but more detailed
-      list of works, see the Survey of Scottish Witchcraft’s
-      <a
-        href="https://witches.hca.ed.ac.uk/reading/"
-        class="underline hover:text-gray-500"
+      recommend. Our
+      <a href="/further-reading" class="link">Further Reading</a> page gives you
+      a list of up-to-date work on witchcraft and witch-hunting in Scotland, for
+      an older but more detailed list of works, see the Survey of Scottish
+      Witchcraft’s
+      <a href="https://witches.hca.ed.ac.uk/reading/" class="link"
         >‘Further Reading’ </a
       >list.
     </p>
