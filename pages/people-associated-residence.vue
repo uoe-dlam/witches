@@ -3,7 +3,7 @@
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
       <div class="flex">
         <h1>
-          Places of Residence Visualised using ArcGIS Online
+          People Associated with the Witch Trials: Residence and Occupation
           <div
             class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 ml-1 cursor-pointer"
           >
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div>
-      <div class="embed-container-gismap">
+      <div class="embed-location-people">
         <iframe
           width="500"
           height="400"
@@ -27,8 +27,8 @@
           scrolling="no"
           marginheight="0"
           marginwidth="0"
-          title="Residence Location of Accused Scottish Witches (1563-1736)"
-          src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=59369467c3a24fbe8c9fbe1a31bd707f&extent=-12.3301,51.9848,3.8967,57.4271&zoom=true&previewImage=false&scale=true&search=true&searchextent=true&legend=true&disable_scroll=false&theme=light"
+          title="People Associated With Trial - Residence Location with Recorded Occupation"
+          src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=5d874d36222f45209a6faf7a348b5bd8&extent=-7.4825,54.0427,0.6309,56.7221&zoom=true&previewImage=false&scale=true&search=true&searchextent=true&legend=true&disable_scroll=false&theme=light"
         ></iframe>
       </div>
     </div>
@@ -39,7 +39,7 @@
 import Swal from "sweetalert2";
 
 definePageMeta({
-  layout: "default",
+  layout: "basic",
 });
 
 export default {
@@ -47,8 +47,9 @@ export default {
   methods: {
     showPageInfo() {
       Swal.fire({
-        title: "Places of Residence",
-        html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
+        title:
+          "People Associated with the Witch Trials: Residence and Occupation",
+        html: "<div>This map shows the occupations of the people associated with the trials, where that is recorded. There are quite a few parish ministers and bailies (local magistrates in burghs), and a variety of other such occupations are recorded in smaller numbers.</div>",
         footer: "witches.is.ed.ac.uk",
         confirmButtonText: "Close",
         type: "info",
@@ -58,21 +59,20 @@ export default {
   },
   computed: {},
   mounted() {},
-  layout: "basic",
 };
 </script>
 
 <style>
-.embed-container-gismap {
+.embed-location-people {
   position: relative;
   padding-bottom: 80%;
   height: 0;
   max-width: 100%;
 }
 
-.embed-container-gismap iframe,
-.embed-container-gismap object,
-.embed-container-gismap iframe {
+.embed-location-people iframe,
+.embed-location-people object,
+.embed-location-people iframe {
   position: absolute;
   top: 0;
   left: 0;
