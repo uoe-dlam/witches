@@ -29,7 +29,10 @@
     </div>
     <div>
       <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
-        <img src="../public/images/map.png" class="w-full lg:ml-6" />
+        <img
+          src="../public/images/map.png"
+          class="w-full lg:ml-6 border border-gray-300"
+        />
         <p class="text-xs text-center">Map of Accused Witches. CC-BY-SA 4.0</p>
       </div>
       <p class="mb-3 text-justify">
@@ -70,7 +73,10 @@
     </p>
     <div>
       <div class="lg:float-right lg:w-1/2 w-3/4 mx-auto">
-        <img src="../public/images/intro.jpg" class="w-full lg:ml-6" />
+        <img
+          src="../public/images/intro.jpg"
+          class="w-full lg:ml-6 border border-gray-300"
+        />
         <p class="text-xs text-center">
           Newes from Scotland - Woodcut of North Berwick Witches. Public Domain
         </p>
