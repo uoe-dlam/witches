@@ -10,7 +10,7 @@
             <img
               src="/images/infoIcon.svg"
               class="w-full h-full pt-0.5"
-              aria-label="Page Information Popup"
+              aria-label="Page Information"
               @click="showPageInfo()"
             />
             <span class="visually-hidden">Page Information Pop Up</span>
