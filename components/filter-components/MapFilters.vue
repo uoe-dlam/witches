@@ -24,15 +24,17 @@
             >
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h1 class="flex gap-1 items-baseline px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x">
+                <h1
+                  class="flex gap-1 items-baseline px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x"
+                >
                   {{ pageInfo.title }}
-                    <img
-                      src="/images/infoIcon.svg"
-                      class="box-border w-6 h-6 cursor-pointer"
-                      alt="Page Information Popup"
-                      @click="showPageInfo()"
-                    />
-                    <span class="visually-hidden">Page Information Pop Up</span>
+                  <img
+                    src="/images/infoIcon.svg"
+                    class="box-border w-6 h-6 cursor-pointer"
+                    alt="Page Information Popup"
+                    @click="showPageInfo()"
+                  />
+                  <span class="visually-hidden">Page Information Pop Up</span>
                 </h1>
               </div>
 
@@ -193,7 +195,7 @@
                     </div>
                   </span>
                   <span class="tooltiptext text-xs">
-                    <h4 class="font-semibold">{{ propertyItem.label }}</h4>
+                    <h4 class="font-semibold mb-2">{{ propertyItem.label }}</h4>
                     <div v-html="propertyItem.description"></div>
                   </span>
                 </div>
