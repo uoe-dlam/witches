@@ -35,6 +35,7 @@
                       alt="Page Information Popup"
                       @click="showPageInfo()"
                     />
+                    <span class="visually-hidden">Page Information Pop Up</span>
                   </div>
                 </h2>
               </div>
@@ -190,6 +191,9 @@
                         aria-label="Filter Description Tooltip"
                         class="pt-0.5 h-5 inline"
                       />
+                      <span class="visually-hidden"
+                        >Filter Description Pop Up</span
+                      >
                     </div>
                   </span>
                   <span class="tooltiptext text-xs">

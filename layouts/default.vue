@@ -219,4 +219,14 @@ div.leaflet-popup.leaflet-zoom-animated {
 .text-wrapper {
   @apply mx-auto max-w-screen-lg px-5 py-3;
 }
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0); /* Legacy property for Internet Explorer */
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 </style>
