@@ -112,6 +112,12 @@
         >‘Further Reading’ </a
       >list.
     </p>
+    <p class="mb-3 text-justify">
+      For more information visit our
+      <a href="/faq" class="underline hover:text-gray">FAQ page</a> where
+      Professor Julian Goodare answers questions about the Scottish witch trials
+      and the Survey of Scottish Witchcraft.
+    </p>
   </div>
 </template>
 
