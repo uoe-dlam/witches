@@ -47,8 +47,8 @@ h4 {
   @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
 }
 
-p {
-  font-family: "Roboto";
+.link {
+  @apply underline hover:text-gray-500;
 }
 
 .lds-facebook {
