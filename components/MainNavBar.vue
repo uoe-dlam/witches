@@ -156,7 +156,11 @@ export default {
               url: "/detention-locations",
               external: false,
             },
-            { name: "Trial Locations", url: "/", external: false },
+            {
+              name: "Trial Locations",
+              url: "/trial-locations",
+              external: false,
+            },
             {
               name: "Trials in Each Modern Authority",
               url: "/trials-in-each-modern-authority",
