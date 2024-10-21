@@ -15,11 +15,11 @@
       class="flex justify-between"
     >
       <div>
-        <p class="mt-6 mb-3 text-lg md:text-xl lg:text-xl font-medium">
+        <p class="mt-6 text-lg font-medium">
           {{ book.title }}
         </p>
-        <p class="mb-3">{{ book.author }}</p>
-        <p class="mb-3">
+        <p class="mb-0">{{ book.author }}</p>
+        <p>
           Access Here:
           <a class="hover:text-gray-500 underline" :href="book.link">{{
             book.name
