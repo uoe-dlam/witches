@@ -29,23 +29,26 @@ body {
 
 h1 {
   font-family: "EB Garamond", sans-serif;
-  @apply text-5xl font-semibold mt-0;
-}
-h2 {
-  font-family: "EB Garamond", sans-serif;
-  @apply text-4xl;
-}
-h3 {
-  font-family: "EB Garamond", sans-serif;
-  @apply text-3xl;
-}
-h4 {
-  font-family: "EB Garamond", sans-serif;
-  @apply text-2xl;
+  @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold;
 }
 
-p {
-  font-family: "Roboto";
+h2 {
+  font-family: "EB Garamond", sans-serif;
+  @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+}
+
+h3 {
+  font-family: "EB Garamond", sans-serif;
+  @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+}
+
+h4 {
+  font-family: "EB Garamond", sans-serif;
+  @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+}
+
+.link {
+  @apply underline hover:text-gray-500;
 }
 
 .lds-facebook {
@@ -215,5 +218,15 @@ div.leaflet-popup.leaflet-zoom-animated {
 
 .text-wrapper {
   @apply mx-auto max-w-screen-lg px-5 py-3;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0); /* Legacy property for Internet Explorer */
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 </style>
