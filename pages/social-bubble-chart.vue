@@ -21,7 +21,7 @@
         sandbox="allow-scripts allow-same-origin allow-popups"
       ></iframe>
 
-      <h2>Social Class without Unknown Values</h2>
+      <h2>Social Class with Unknown Values omitted</h2>
       <iframe
         style="width: 80vw; height: 70vh; border: none"
         src="https://query.wikidata.org/embed.html#%23Social%20class%20of%20the%20accused%20witches%20in%20the%20Survey%20of%20Scottish%20witchcraft%0A%0A%23defaultView%3ABubbleChart%0ASELECT%20%3Fclass%20%3FclassLabel%20%3Fcount%0AWHERE%0A%7B%0A%20%20%7B%0A%20%20%20%20SELECT%20%3Fclass%20(COUNT(%3Fperson)%20AS%20%3Fcount)%20WHERE%20%7B%0A%20%20%20%20%20%20%3Fperson%20wdt%3AP4478%20%3Faccused%20.%0A%20%20%20%20%20%20%3Fperson%20wdt%3AP3716%20%3Fclass.%0A%20%20%20%20%7D%0A%20%20%20%20GROUP%20BY%20%3Fclass%0A%20%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fcount)%0ALIMIT%204000"
