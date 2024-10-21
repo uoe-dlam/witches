@@ -24,20 +24,16 @@
             >
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h2 class="px-2">
+                <h1 class="flex gap-1 items-baseline px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x">
                   {{ pageInfo.title }}
-                  <div
-                    class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 cursor-pointer"
-                  >
                     <img
                       src="/images/infoIcon.svg"
-                      class="w-full h-full pt-0.5"
+                      class="box-border w-6 h-6 cursor-pointer"
                       alt="Page Information Popup"
                       @click="showPageInfo()"
                     />
                     <span class="visually-hidden">Page Information Pop Up</span>
-                  </div>
-                </h2>
+                </h1>
               </div>
 
               <!-- Display number of active witches. -->
