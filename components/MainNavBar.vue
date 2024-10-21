@@ -221,7 +221,7 @@ export default {
           subpages: [
             { name: "Overview", url: "/about", external: false },
             { name: "References", url: "/references", external: false },
-            { name: "Resources", url: "/", external: false },
+            { name: "Resources", url: "/resources", external: false },
             { name: "Contact", url: "/contact", external: false },
           ],
         },
