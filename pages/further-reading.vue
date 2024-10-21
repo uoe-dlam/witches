@@ -2,8 +2,13 @@
   <div id="main-content" class="text-wrapper">
     <h1 class="text-center">Further Reading</h1>
     <p class="text-justify">
-      The following list of works, curated by Professor Julian Goodare, a
-      lecturer in Scottish History and Project Director of the Survey of
+      The following list of works, curated by
+      <a
+        href="https://www.ed.ac.uk/profile/julian-goodare"
+        target="_blank"
+        class="link"
+        >Professor Julian Goodare</a
+      >, a lecturer in Scottish History and Project Director of the Survey of
       Scottish Witchcraft, along with Ellie Whitehead, Assistant Wikimedian in
       Residence and and MScR researcher at the University of Edinburgh, is
       highly recommended for anyone seeking to learn more about history of the
