@@ -13,7 +13,7 @@
               aria-label="Page Information"
               @click="showPageInfo()"
             />
-            <span class="visually-hidden">Page Information Pop Up</span>
+            <span class="visually-hidden">Page Information</span>
           </div>
         </h1>
       </div>
