@@ -167,7 +167,7 @@ export default {
           subpages: [
             {
               name: "People Associated with the Witch Trials: Residence",
-              url: "/",
+              url: "/people-associated",
               external: false,
             },
             {
