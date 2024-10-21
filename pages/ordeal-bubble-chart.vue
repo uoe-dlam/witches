@@ -21,7 +21,7 @@
           sandbox="allow-scripts allow-same-origin allow-popups"
         ></iframe>
       </div>
-      <h2 class="mt-3">Trial Ordeal without Unknown Values</h2>
+      <h2 class="mt-3">Trial Ordeal with Unknown Values omitted</h2>
       <iframe
         style="width: 80vw; height: 70vh; border: none"
         src="https://query.wikidata.org/embed.html#%23ORDEAL%0A%23defaultView%3ABubbleChart%0ASELECT%20%3FordealLabel%20(COUNT(%3Ftrial)%20as%20%3Fcount)%20%0AWHERE%20%0A%7B%0A%20%20%3Fitem%20wdt%3AP4532%20%3Ftrial.%0A%20%0A%20%20%3Fitem%20wdt%3AP7209%20%3Fordeal.%20%0A%20%20%0A%20%20%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%7D%0AGROUP%20BY%20%3FordealLabel%0A%0AORDER%20BY%20DESC%20(%3Fcount)"
