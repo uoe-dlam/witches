@@ -29,7 +29,7 @@
       images - National Library of Scotland. [online] Available at:
       <a
         class="link"
-        href="https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&layers=1&amp;b=1"
+        href="https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&amp;layers=1&amp;b=1"
         >https://maps.nls.uk/geo/explore/#zoom=5&amp;lat=56.0000&amp;lon=-4.0000&amp;layers=1&amp;b=1
       </a>
       [Accessed 16 Aug. 2019].
