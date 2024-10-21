@@ -21,6 +21,7 @@ import json from "../big-query-output.json";
 import MapComponent from "../components/MapComponent.vue";
 import LoadingMessage from "../components/LoadingMessage.vue";
 import Swal from "sweetalert2";
+import filterDescriptions from "../public/filterDescriptions.json";
 
 definePageMeta({
   layout: "default",
@@ -53,8 +54,7 @@ export default {
     filterProperties: {
       sex: {
         label: "Gender",
-        description:
-          "84% of the accused were women and 15% men. The sex is not known for 1% of those accused.  A gender division of 85% women and 15% men is seen in most other parts of Europe, but in areas like Estonia, Russia and Finland the percentage of men accused is as high and in some areas higher than of women. In Iceland the percentage of men executed was as high as 90%. ",
+        description: "",
         descriptionShowing: false,
         filters: {
           male: {
@@ -77,24 +77,21 @@ export default {
       },
       socialClass: {
         label: "Social Classification",
-        description:
-          "Were they poor? No, not by contemporary standards. It is difficult to classify early modern people into socio-economic categories, but where status was indicated the majority fell into the middle range—64%. The total of those who came from lower socio-economic categories—lower, very poor and landless—accounted for 29%, with upper, lairds and nobility accounting for 6%. We do not know this information for the majority of accused, but these figures may be typical.",
+        description: "",
         descriptionShowing: false,
         filters: {},
         showing: false,
       },
       occupation: {
         label: "Occupations",
-        description:
-          "Were the witches midwives or healers? Only 9 individuals have an occupation recorded as being a midwife. A tiny percentage. Folk healing was more common and featured in 141 witchcraft accusations (about 4%). Even so, it was not something that the typical accused seems to have engaged in—though the beliefs that underpinned folk healing were closely related to witchcraft beliefs. If magic could be used to heal, it could also be used to harm.",
+        description: "",
         descriptionShowing: false,
         filters: {},
         showing: false,
       },
       hasWikiPage: {
         label: "Wikipedia Page",
-        description:
-          'Some of the accused witches have wikipedia pages written about them, to find out more about thier stories follow the link "View Wiki Page" when you are on an accused witch',
+        description: "",
         descriptionShowing: false,
         filters: {
           hasWiki: {
@@ -235,6 +232,12 @@ export default {
     },
   },
   mounted: function () {
+    // Load descriptions from the JSON file
+    Object.keys(filterDescriptions).forEach((key) => {
+      if (this.filterProperties[key]) {
+        this.filterProperties[key].description = filterDescriptions[key];
+      }
+    });
     this.loadData();
   },
 };
