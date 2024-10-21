@@ -233,6 +233,7 @@ export default {
               url: "/introduction",
               external: false,
             },
+            { name: "Glossary", url: "/glossary", external: false },
             { name: "References", url: "/references", external: false },
             { name: "Resources", url: "/resources", external: false },
             {
