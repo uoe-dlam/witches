@@ -225,6 +225,11 @@ export default {
               url: "/social-bubble-chart",
               external: false,
             },
+            {
+              name: "A Witch Tour of Edinburgh",
+              url: "/witch-tour-edinburgh",
+              external: false,
+            },
           ],
         },
         {
