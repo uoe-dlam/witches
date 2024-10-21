@@ -187,9 +187,12 @@
                     >
                       <img
                         src="/images/questionIcon.svg"
-                        alt="Filter Information Popup"
+                        aria-label="Filter Description Tooltip"
                         class="pt-0.5 h-5 inline"
                       />
+                      <span class="visually-hidden"
+                        >Filter Description Pop Up</span
+                      >
                     </div>
                   </span>
                   <span class="tooltiptext text-xs">
