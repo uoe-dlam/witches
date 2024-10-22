@@ -347,7 +347,8 @@
     </p>
 
     <!-- Ruby Imrie -->
-    <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
+    <a id="ruby-imrie"></a>
+    <p class="mt-6 mb-3 text-md md:text-gl lg:text-lg font-medium">
       Ruby Imrie (June 2023 to October 2024)
     </p>
     <div class="paragraph-container">

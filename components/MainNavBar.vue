@@ -253,6 +253,11 @@ export default {
             { name: "References", url: "/references", external: false },
             { name: "Resources", url: "/resources", external: false },
             {
+              name: "Interview with Prof. Julian Goodare",
+              url: "/interview",
+              external: false,
+            },
+            {
               name: "Further Reading",
               url: "/further-reading",
               external: false,
