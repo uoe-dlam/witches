@@ -24,19 +24,18 @@
             >
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h3>
+                <h1
+                  class="flex gap-1 items-baseline px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x"
+                >
                   {{ pageInfo.title }}
-                  <div
-                    class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 cursor-pointer"
-                  >
-                    <img
-                      src="/images/infoIcon.svg"
-                      class="w-full h-full pt-0.5"
-                      alt="Page Information Popup"
-                      @click="showPageInfo()"
-                    />
-                  </div>
-                </h3>
+                  <img
+                    src="/images/infoIcon.svg"
+                    class="box-border w-6 h-6 cursor-pointer"
+                    alt="Page Information Popup"
+                    @click="showPageInfo()"
+                  />
+                  <span class="visually-hidden">Page Information Pop Up</span>
+                </h1>
               </div>
 
               <!-- Display number of active witches. -->
@@ -183,17 +182,18 @@
                       {{ propertyItem.label }}
                     </p>
                     <div
-                      class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-5 h-5 cursor-pointer"
+                      class="inline-flex items-center justify-center align-middle w-5 h-5 ml-1 mb-1 cursor-pointer"
                     >
                       <img
-                        src="/images/infoIcon.svg"
-                        alt="Filter Information Popup"
+                        src="/images/questionIcon.svg"
+                        aria-label="Filter Description"
                         class="pt-0.5 h-5 inline"
                       />
+                      <span class="visually-hidden">Filter Description</span>
                     </div>
                   </span>
                   <span class="tooltiptext text-xs">
-                    <h4 class="font-semibold">{{ propertyItem.label }}</h4>
+                    <h4 class="font-semibold mb-2">{{ propertyItem.label }}</h4>
                     <div v-html="propertyItem.description"></div>
                   </span>
                 </div>

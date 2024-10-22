@@ -5,19 +5,19 @@
         <br />
         <div class="flex content-start items-center">
           <h2>
-            Locations of trials for accused witches
-            <span v-if="noItems > 0">(total no trials: {{ noItems }})</span>
+            Locations of Trials for Accused Witches
+            <div
+              class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
+            >
+              <img
+                src="/images/infoIcon.svg"
+                class="w-full h-full pt-0.5"
+                aria-label="Page Information Popup"
+                @click="showPageInfo()"
+              />
+              <span class="visually-hidden">Page Information Pop Up</span>
+            </div>
           </h2>
-          <div
-            class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
-          >
-            <img
-              src="/images/infoIcon.svg"
-              class="w-full h-full pt-0.5"
-              alt="Page Information Popup"
-              @click="showPageInfo()"
-            />
-          </div>
         </div>
         <div>
           <br />
@@ -118,7 +118,7 @@ export default {
     sparqlUrl: "https://query.wikidata.org/sparql",
     url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     attribution:
-      'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
+      'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
     zoom: 7,
     center: [55.95, -3.198888888],
     markers: [],
@@ -244,7 +244,7 @@ export default {
     showPageInfo() {
       Swal.fire({
         title: "Trial Location Map",
-        html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <b class="font-bold">multiple trials</b>, which could have been held in <b class="font-bold">different locations</b>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <b class="font-bold">432</b> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
+        html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <strong>multiple trials</strong>, which could have been held in <strong>different locations</strong>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <strong>432</strong> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
         footer: "witches.is.ed.ac.uk",
         confirmButtonText: "Close",
         type: "info",

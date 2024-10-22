@@ -6,7 +6,7 @@
       <NuxtLink to="/">
         <div class="flex items-center mr-3">
           <div class="mr-4">
-            <h1 class="text-xl lg:text-4xl">Witches</h1>
+            <h1>Witches</h1>
             <span class="text-xs -mt-5">Survey of Scottish Witchcraft</span>
           </div>
           <img
