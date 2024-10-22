@@ -5,7 +5,10 @@
     </h1>
     <div>
       <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/trial.png" class="w-full" />
+        <img
+          src="../public/images/trial.png"
+          class="w-full border border-gray-300"
+        />
         <p class="text-xs text-center mx-auto">
           Figure 1. Suspected witches from North Berwick appear before James VI
           and two Scottish magistrates, from the English pamphlet Newes from
@@ -47,8 +50,11 @@
       Devil?'.
     </p>
     <div>
-      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/oldtolbooth.png" class="w-full" />
+      <div class="lg:float-left lg:w-1/2 lg:mr-6 w-3/4 mx-auto">
+        <img
+          src="../public/images/oldtolbooth.png"
+          class="w-full border-gray-300"
+        />
         <p class="text-xs text-center mx-auto">
           Figure 2. The Old Tolbooth, Edinburgh. An engraving based on an 18th
           century painting by Alexander Naysmith.Accused witches in Edinburgh
@@ -81,7 +87,7 @@
     </p>
     <div>
       <div class="lg:float-right lg:w-1/3 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/heart.png" class="w-full" />
+        <img src="../public/images/heart.png" class="w-full border-gray-300" />
         <p class="text-xs text-center mx-auto">
           Figure 3. The Heart of Midlothian is a mosaic located outside St
           Giles' Cathedral in Edinburgh. It marks the location of the entrance
