@@ -1,6 +1,6 @@
 <template>
   <div id="main-content" class="text-wrapper">
-    <h1 class="text-center mb-6">FAQ with Professor Julian Goodare</h1>
+    <h1 class="text-center mb-6">Interview with Professor Julian Goodare</h1>
     <p class="mb-6 text-justify">
       University of Edinburgh students,
       <a class="link" href="/about#ruby-imrie">Ruby Imrie</a> and Ellie
