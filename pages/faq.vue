@@ -8,20 +8,18 @@
       History, to ask him some questions about the Scottish witch trials and the
       Survey of Scottish Witchcraft. Here are his answers in the video playlist
       below. For more FAQ, please refer to the
-      <a
-        class="underline hover:text-gray"
-        href="https://witches.hca.ed.ac.uk/faq/"
+      <a class="link" href="https://witches.hca.ed.ac.uk/faq/"
         >Survey of Scottish Witchcraft FAQ page
       </a>
       or
-      <a class="underline hover:text-gray" href="/contact">contact us.</a>
+      <a class="link" href="/contact">contact us.</a>
     </p>
-    <div class="flex flex-col items-center mb-3">
+    <div class="flex flex-col mb-3 w-full">
       <h2>The Scottish Witch Trials</h2>
       <iframe
         src="https://media.ed.ac.uk/embedplaylist/secure/embed/v2/0/playlistId/1_3fijkxq7/uiConfId/55171522"
-        width="640px"
-        height="360px"
+        width="100%"
+        height="500"
         allowfullscreen
         webkitallowfullscreen
         mozAllowFullScreen
@@ -32,12 +30,12 @@
         title="Kaltura Player"
       ></iframe>
     </div>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col w-full mb-6">
       <h2>The Survey of Scottish Witchcraft</h2>
       <iframe
         src="https://media.ed.ac.uk/embedplaylist/secure/embed/v2/0/playlistId/1_09hfj9yo/uiConfId/55171522"
-        width="640px"
-        height="360px"
+        width="100%"
+        height="500px"
         allowfullscreen
         webkitallowfullscreen
         mozAllowFullScreen
