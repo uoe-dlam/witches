@@ -6,7 +6,7 @@
     <div>
       <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
         <img
-          src="../public/images/trial.png"
+          src="../public/images/trial.jpeg"
           class="w-full border border-gray-300"
         />
         <p class="text-xs text-center mx-auto">
@@ -53,7 +53,7 @@
     <div>
       <div class="lg:float-left lg:w-1/2 lg:mr-6 w-3/4 mx-auto">
         <img
-          src="../public/images/oldtolbooth.png"
+          src="../public/images/oldtolbooth.jpeg"
           class="w-full border-gray-300"
         />
         <p class="text-xs text-center mx-auto">
@@ -88,7 +88,7 @@
     </p>
     <div>
       <div class="lg:float-right lg:w-1/3 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/heart.png" class="w-full border-gray-300" />
+        <img src="../public/images/heart.jpeg" class="w-full border-gray-300" />
         <p class="text-xs text-center mx-auto">
           Figure 3. The Heart of Midlothian is a mosaic located outside St
           Giles' Cathedral in Edinburgh. It marks the location of the entrance
