@@ -225,7 +225,7 @@ export default {
         {
           name: "Memorials & Sites of Interest",
           url: "/memorials",
-          external: true,
+          external: false,
           subpages: [],
         },
         {
