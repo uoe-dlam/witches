@@ -4,10 +4,12 @@
     <p class="mb-6 text-justify">
       University of Edinburgh students,
       <a class="link" href="/about#ruby-imrie">Ruby Imrie</a> and Ellie
-      Whitehead, sat down with Professor Julian Goodare, lecturer in Scottish
-      History, to ask him some questions about the Scottish witch trials and the
-      Survey of Scottish Witchcraft. Here are his answers in the video playlist
-      below. For more FAQ, please refer to the
+      Whitehead, sat down with
+      <a class="link" href="https://www.ed.ac.uk/profile/julian-goodare"
+        >Professor Julian Goodare</a
+      >, lecturer in Scottish History, to ask him some questions about the
+      Scottish witch trials and the Survey of Scottish Witchcraft. Here are his
+      answers in the video playlist below. For more FAQ, please refer to the
       <a class="link" href="https://witches.hca.ed.ac.uk/faq/"
         >Survey of Scottish Witchcraft FAQ page
       </a>
