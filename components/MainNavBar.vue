@@ -223,6 +223,12 @@ export default {
           ],
         },
         {
+          name: "Memorials & Sites of Interest",
+          url: "/memorials",
+          external: false,
+          subpages: [],
+        },
+        {
           name: "About",
           url: "#",
           external: false,
