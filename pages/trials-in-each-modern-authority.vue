@@ -1,18 +1,21 @@
 <template>
   <div>
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
-      <div class="flex content-start items-center">
-        <h1>Number of Trials Recorded in Each Modern Council Authority</h1>
-        <div
-          class="inline-flex items-center justify-center align-middle rounded-full border-r-2 border-l-2 border-gray-400 w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
-        >
-          <img
-            src="/images/infoIcon.svg"
-            class="w-full h-full pt-0.5"
-            alt="Page Information Popup"
-            @click="showPageInfo()"
-          />
-        </div>
+      <div class="flex">
+        <h1>
+          Number of Trials Recorded in Each Modern Council Authority
+          <div
+            class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 ml-1 cursor-pointer"
+          >
+            <img
+              src="/images/infoIcon.svg"
+              class="w-full h-full pt-0.5"
+              aria-label="Page Information Popup"
+              @click="showPageInfo()"
+            />
+            <span class="visually-hidden">Page Information Pop Up</span>
+          </div>
+        </h1>
       </div>
     </div>
     <div>

@@ -6,7 +6,7 @@
       <NuxtLink to="/">
         <div class="flex items-center mr-3">
           <div class="mr-4">
-            <h1 class="text-xl lg:text-4xl">Witches</h1>
+            <h1>Witches</h1>
             <span class="text-xs -mt-5">Survey of Scottish Witchcraft</span>
           </div>
           <img
@@ -230,7 +230,7 @@ export default {
         {
           name: "Memorials & Sites of Interest",
           url: "/memorials",
-          external: true,
+          external: false,
           subpages: [],
         },
         {
@@ -248,8 +248,8 @@ export default {
             { name: "References", url: "/references", external: false },
             { name: "Resources", url: "/resources", external: false },
             {
-              name: "FAQ with Prof. Julian Goodare",
-              url: "/faq",
+              name: "Interview with Prof. Julian Goodare",
+              url: "/interview",
               external: false,
             },
             {

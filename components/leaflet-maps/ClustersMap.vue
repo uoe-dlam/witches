@@ -42,7 +42,7 @@ export default {
     return {
       baseMapUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution:
-        'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>',
+        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>',
       markers: [],
       clusterOptions: {
         iconCreateFunction: function (cluster) {
@@ -91,6 +91,12 @@ export default {
       },
     };
   },
+  watch: {
+    mapMarkers(newMarkers) {
+      this.fillMarkersArray(newMarkers);
+      this.refreshMapMarkers();
+    },
+  },
   methods: {
     fillMarkersArray(mapMarkers) {
       this.markers = mapMarkers.map((markerData) => {
@@ -116,7 +122,7 @@ export default {
               ${this.getLocationsWithValue(witch)
                 .map(
                   (locationOption) => `
-                <b>${this.locationsLabels[locationOption]}:</b> 
+                <b>${this.locationsLabels[locationOption]}:</b>
                 ${witch[locationOption].locations
                   .map(
                     (subLocation, index) => `
@@ -130,7 +136,7 @@ export default {
               ${this.getOptionalsWithValue(witch)
                 .map(
                   (optionalAttribute) => `
-                <b>${this.optionalsLabels[optionalAttribute]}:</b> 
+                <b>${this.optionalsLabels[optionalAttribute]}:</b>
                 ${witch[optionalAttribute].join(", ")}<br>
               `,
                 )
@@ -217,6 +223,22 @@ export default {
 
       return optionalsWithValue;
     },
+    refreshMapMarkers() {
+      // clear existing markers
+      this.$refs.myMap.leafletObject.eachLayer((layer) => {
+        if (layer instanceof L.MarkerClusterGroup) {
+          this.$refs.myMap.leafletObject.removeLayer(layer);
+        }
+      });
+
+      //re add clusters to map
+      useLMarkerClusterCustom({
+        leafletObject: this.$refs.myMap.leafletObject,
+        markers: this.markers,
+        clusterOptions: this.clusterOptions,
+      });
+    },
+
     onMapReady() {
       this.fillMarkersArray(this.mapMarkers);
       useLMarkerClusterCustom({
