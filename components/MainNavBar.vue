@@ -171,6 +171,11 @@ export default {
               url: "/types-torture-different-residence",
               external: false,
             },
+            {
+              name: "Trial Procedures",
+              url: "/trial-procedures",
+              external: false,
+            },
           ],
         },
         {
