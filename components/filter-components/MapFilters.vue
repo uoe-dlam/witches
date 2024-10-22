@@ -10,15 +10,7 @@
       <div class="w-full h-full flex" v-if="filtersBox">
         <!-- Filters box -->
         <div
-          class="
-            h-full
-            flex flex-col
-            bg-white
-            rounded-tr-xl rounded-br-xl
-            filters-shadow
-            overflow-y-visible overflow-x-hidden
-            relative
-          "
+          class="h-full flex flex-col bg-white rounded-tr-xl rounded-br-xl filters-shadow overflow-y-visible overflow-x-hidden relative"
           style="width: 90%"
         >
           <!-- Header -->
@@ -32,55 +24,29 @@
             >
               <!-- Title and info-->
               <div class="flex text-center mt-1">
-                <h1 class="text-3xl mx-0 px-2">
+                <h1
+                  class="flex gap-1 items-baseline px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x"
+                >
                   {{ pageInfo.title }}
-                  <div
-                    class="
-                      inline-flex
-                      items-center
-                      justify-center
-                      align-middle
-                      rounded-full
-                      border-r-2 border-l-2 border-gray-400
-                      w-6
-                      h-6
-                      hover:w-7 hover:h-7
-                      mb-0.5
-                    "
-                  >
-                    <img
-                      src="/images/infoIcon.svg"
-                      class="w-full h-full pt-0.5"
-                      @click="showPageInfo()"
-                    />
-                  </div>
+                  <img
+                    src="/images/infoIcon.svg"
+                    class="box-border w-6 h-6 cursor-pointer"
+                    alt="Page Information Popup"
+                    @click="showPageInfo()"
+                  />
+                  <span class="visually-hidden">Page Information Pop Up</span>
                 </h1>
               </div>
 
               <!-- Display number of active witches. -->
               <div class="ml-3 flex mt-3 items-center pb-1">
-                <p class="mr-2 text-lg witchy-text">Showing</p>
-                <div
-                  class="
-                    h-6
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white
-                    font-medium
-                    bg-slate-500
-                    border-slate-700
-                  "
+                <p class="mr-2 text-lg witchy-text mb-0">Showing</p>
+                <span
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700 mb-0"
                 >
-                  <p>
-                    {{ noWitches }}
-                  </p>
-                </div>
-                <p class="mr-1 text-lg witchy-text">Accused Witches</p>
+                  {{ noWitches }}
+                </span>
+                <p class="mr-1 text-lg witchy-text mb-0">Accused Witches</p>
               </div>
               <div
                 class="ml-3 flex mt-1y items-center pb-2"
@@ -90,24 +56,11 @@
                   Colour of map icons indicating
                 </p>
                 <div
-                  class="
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white text-base
-                    bg-slate-500
-                    border-slate-700
-                    font
-                    medium
-                  "
+                  class="px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white text-base bg-slate-500 border-slate-700 font-semibold"
                 >
-                  <p>
+                  <span>
                     {{ filterProperties[currentProperty].label }}
-                  </p>
+                  </span>
                 </div>
               </div>
             </div>
@@ -120,7 +73,7 @@
               class="flex items-center cursor-pointer"
               @click="toggleTimelineShowing()"
             >
-              <h1 class="font-medium mr-3 py-0 text-2xl">Timeline</h1>
+              <h4 class="font-medium mr-3 py-0">Timeline</h4>
               <img
                 v-if="timelineShowing"
                 src="/images/arrow-up.svg"
@@ -141,16 +94,7 @@
             </transition>
 
             <button
-              class="
-                rounded-lg
-                w-24
-                text-white
-                ml-4
-                bg-sky-600
-                py-1
-                hover:bg-sky-700
-                text-sm
-              "
+              class="rounded-lg w-24 text-white ml-4 bg-sky-600 py-1 hover:bg-sky-700 text-sm"
               :style="[
                 timelineOn
                   ? { 'margin-top': '20px' }
@@ -172,20 +116,7 @@
               </p>
               <div class="flex items-center mt-3 justify-center">
                 <div
-                  class="
-                    h-6
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white
-                    font-medium
-                    bg-slate-500
-                    border-slate-700
-                  "
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
                 >
                   <p class="text-sm">
                     {{ dateRangeFormatted[0] }}
@@ -193,20 +124,7 @@
                 </div>
                 <p class="mr-2 text-lg witchy-text">and</p>
                 <div
-                  class="
-                    h-6
-                    px-1
-                    flex
-                    items-center
-                    justify-center
-                    mr-2
-                    border-2
-                    rounded-md
-                    text-white
-                    font-medium
-                    bg-slate-500
-                    border-slate-700
-                  "
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
                 >
                   <p class="text-sm">
                     {{ dateRangeFormatted[1] }}
@@ -226,9 +144,9 @@
             ]"
             @click="toggleFiltersShowing(property)"
           >
-            <h1 class="font-medium text-2xl">
+            <h4 class="font-medium">
               {{ filtersGeneralInfo.title }}
-            </h1>
+            </h4>
             <img
               src="/images/arrow-down.svg"
               v-if="!filtersGeneralInfo.filtersShowing"
@@ -251,45 +169,29 @@
             >
               <!-- Property titles -->
               <div
-                class="
-                  flex
-                  pl-2
-                  py-1
-                  flex-wrap
-                  items-center
-                  mt-2
-                  cursor-pointer
-                  w-full
-                "
+                class="flex pl-2 py-1 flex-wrap items-center mt-2 cursor-pointer w-full"
                 @click="togglePropertyShowing(property)"
               >
                 <div class="title-point"></div>
                 <!--Descriptions-->
                 <div class="tooltip">
                   <span class="label-and-icon">
-                    <p style="font-weight: 500; display: inline">
+                    <p style="font-weight: 500; display: inline" class="mr-1">
                       {{ propertyItem.label }}
                     </p>
                     <div
-                      class="
-                        inline-flex
-                        items-center
-                        justify-center
-                        align-middle
-                        rounded-full
-                        border-r-2 border-l-2 border-gray-400
-                        w-5
-                        h-5
-                      "
+                      class="inline-flex items-center justify-center align-middle w-5 h-5 ml-1 mb-1 cursor-pointer"
                     >
                       <img
-                        src="/images/infoIcon.svg"
+                        src="/images/questionIcon.svg"
+                        aria-label="Filter Description"
                         class="pt-0.5 h-5 inline"
                       />
+                      <span class="visually-hidden">Filter Description</span>
                     </div>
                   </span>
                   <span class="tooltiptext text-xs">
-                    <h4 class="font-semibold">{{ propertyItem.label }}</h4>
+                    <h4 class="font-semibold mb-2">{{ propertyItem.label }}</h4>
                     <div v-html="propertyItem.description"></div>
                   </span>
                 </div>
@@ -306,6 +208,21 @@
               </div>
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
+                <div>
+                  <button
+                    @click="selectAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    Select All
+                  </button>
+                  <button
+                    @click="clearAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    Clear All
+                  </button>
+                </div>
+
                 <icon-dependent-filters-list
                   v-if="!iconsConstant"
                   :currentProperty="currentProperty"
@@ -326,57 +243,16 @@
                   @filterOn="emitFilterOn($event)"
                 >
                 </normal-filters-list>
-
-                <button
-                  @click="selectAll(property, propertyItem)"
-                  class="
-                    inline-block
-                    rounded
-                    hover:bg-gray-300
-                    text-black
-                    px-1
-                    pb-1
-                    pt-1
-                    text-xs
-                    leading-normal
-                    border border-gray-200
-                    hover:shadow-md hover:-translate-y-1
-                    transform
-                    transition-all
-                    duration-200
-                    focus:outline-none
-                    focus:ring
-                    focus:ring-blue-300
-                    focus:ring-opacity-50
-                  "
+                <NuxtLink
+                  v-if="getGlossaryLabel(propertyItem.label)"
+                  :to="{
+                    path: '/glossary',
+                    query: { category: getGlossaryLabel(propertyItem.label) },
+                  }"
+                  class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2"
                 >
-                  Select All
-                </button>
-                <button
-                  @click="clearAll(property, propertyItem)"
-                  class="
-                    inline-block
-                    rounded
-                    hover:bg-gray-300
-                    text-black
-                    px-1
-                    pb-1
-                    pt-1
-                    text-xs
-                    leading-normal
-                    border border-gray-200
-                    hover:shadow-md hover:-translate-y-1
-                    transform
-                    transition-all
-                    duration-200
-                    focus:outline-none
-                    focus:ring
-                    focus:ring-blue-300
-                    focus:ring-opacity-50
-                  "
-                >
-                  Clear All
-                </button>
+                  {{ getGlossaryLabel(propertyItem.label) }} Glossary
+                </NuxtLink>
               </div>
             </div>
           </div>
@@ -389,7 +265,7 @@
               <p class="text-sm mr-0.5">-</p>
               <img
                 class="witch-icon mb-1 ml-1"
-                src="/images/witch-single-purple.png"
+                src="public/images/witch-single-purple.png"
               />
               <p class="ml-1 text-sm">= Mixed.</p>
             </div>
@@ -407,16 +283,7 @@
 
             <!-- Map tiles -->
             <div
-              class="
-                w-full
-                flex
-                justify-between
-                px-2
-                sm:px-3
-                md:px-5
-                lg:px-10
-                mb-3
-              "
+              class="w-full flex justify-between px-2 sm:px-3 md:px-5 lg:px-10 mb-3"
             >
               <div v-for="tile in tiles">
                 <input
@@ -432,18 +299,9 @@
         </div>
 
         <!-- Left chevron to hide filters. -->
-        <div class="w-8 flex flex-col justify-center ml-1">
+        <div class="w-8 flex flex-col justify-center ml-1 cursor-pointer">
           <div
-            class="
-              flex
-              items-center
-              justify-center
-              w-8
-              h-8
-              rounded-full
-              bg-slate-200
-              filters-shadow
-            "
+            class="flex items-center justify-center w-8 h-8 hover:w-10 hover:h-10 rounded-full bg-slate-200 filters-shadow"
             @click="toggleFiltersBox()"
           >
             <img
@@ -457,21 +315,12 @@
 
     <!-- Right chevron to show filters. -->
     <div
-      class="w-8 flex flex-col justify-center ml-1 h-full"
+      class="w-8 flex flex-col justify-center ml-1 h-full cursor-pointer"
       v-if="!filtersBox"
       style="pointer-events: auto"
     >
       <div
-        class="
-          flex
-          items-center
-          justify-center
-          w-8
-          h-8
-          rounded-full
-          bg-slate-200
-          filters-shadow
-        "
+        class="flex items-center justify-center w-8 h-8 hover:w-10 hover:h-10 rounded-full bg-slate-200 filters-shadow"
         @click="toggleFiltersBox()"
       >
         <img class="max-w-full max-h-full" src="/images/chevrons-right.svg" />
@@ -485,6 +334,7 @@ import TimelineRangeSelector from "./TimelineRangeSelector.vue";
 import IconDependentFiltersList from "./IconDependentFiltersList.vue";
 import NormalFiltersList from "./NormalFiltersList.vue";
 import TimelineMethods from "../../assets/js/TimelineMethods";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -535,7 +385,7 @@ export default {
       filtersBox: true,
       currentTileName: "Modern Map",
       filtersGeneralInfo: JSON.parse(
-        JSON.stringify(this.startingFiltersGeneralInfo)
+        JSON.stringify(this.startingFiltersGeneralInfo),
       ),
       filterProperties: JSON.parse(JSON.stringify(this.startingFilters)),
       tiles: [
@@ -661,7 +511,7 @@ export default {
       this.$emit("deactivatedTimeline");
     },
     showPageInfo: function () {
-      this.$swal(this.pageInfo);
+      Swal.fire(this.pageInfo);
     },
     scrollHeaderIntoView() {
       const el = this.$refs.FiltersHeader;
@@ -669,6 +519,19 @@ export default {
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       }
+    },
+    getGlossaryLabel: function (label) {
+      if (
+        label === "Gender" ||
+        label === "Shapeshifting" ||
+        label === "Wikipedia Page"
+      ) {
+        return null;
+      }
+      if (label === "Primary" || label === "Secondary") {
+        return "Case Characterisations";
+      }
+      return label;
     },
   },
   computed: {
