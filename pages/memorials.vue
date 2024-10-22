@@ -25,12 +25,14 @@
                   >
                     <!-- Title and info-->
                     <div class="flex text-center mt-1">
-                      <h3 class="mx-0 px-2">
-                        Map of Memorials & Sites of Interest
-                      </h3>
+                      <h1
+                        class="mx-0 px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x"
+                      >
+                        Map of Memorials &amp; Sites of Interest
+                      </h1>
                     </div>
 
-                    <!-- Display number of active witches. -->
+                    <!-- Display number of active locations. -->
                     <div class="ml-3 flex mt-3 items-center pb-2">
                       <p class="mr-2 text-lg witchy-text">Showing</p>
                       <div
@@ -263,7 +265,7 @@ export default {
       zoom: 7,
       center: [57.0, -4],
       attribution:
-        'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
+        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
       markers: [],
       originalMarkers: [],
       sparqlUrl: "https://query.wikidata.org/sparql",

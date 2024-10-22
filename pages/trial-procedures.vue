@@ -5,7 +5,10 @@
     </h1>
     <div>
       <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/trial.png" class="w-full" />
+        <img
+          src="../public/images/trial.jpeg"
+          class="w-full border border-gray-300"
+        />
         <p class="text-xs text-center mx-auto">
           Figure 1. Suspected witches from North Berwick appear before James VI
           and two Scottish magistrates, from the English pamphlet Newes from
@@ -27,6 +30,7 @@
         people were acquitted.
       </p>
     </div>
+    <h2>Gathering Evidence</h2>
     <p class="mb-3 text-justify">
       Evidence against the accused person had to be gathered beforehand. This
       was often done by local church courts - kirk sessions or presbyteries.
@@ -47,8 +51,11 @@
       Devil?'.
     </p>
     <div>
-      <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/oldtolbooth.png" class="w-full" />
+      <div class="lg:float-left lg:w-1/2 lg:mr-6 w-3/4 mx-auto">
+        <img
+          src="../public/images/oldtolbooth.jpeg"
+          class="w-full border-gray-300"
+        />
         <p class="text-xs text-center mx-auto">
           Figure 2. The Old Tolbooth, Edinburgh. An engraving based on an 18th
           century painting by Alexander Naysmith.Accused witches in Edinburgh
@@ -66,7 +73,7 @@
         find this mark.
       </p>
     </div>
-
+    <h2>Witch Pricking</h2>
     <p class="mb-3 text-justify">
       It is important to distinguish witch-pricking from 'torture'. Torture
       inflicted pain in order to make the suspect confess; the aim was to obtain
@@ -81,7 +88,7 @@
     </p>
     <div>
       <div class="lg:float-right lg:w-1/3 lg:ml-6 w-3/4 mx-auto">
-        <img src="../public/images/heart.png" class="w-full" />
+        <img src="../public/images/heart.jpeg" class="w-full border-gray-300" />
         <p class="text-xs text-center mx-auto">
           Figure 3. The Heart of Midlothian is a mosaic located outside St
           Giles' Cathedral in Edinburgh. It marks the location of the entrance
@@ -105,6 +112,7 @@
         disguise, named Christian Cadell
       </p>
     </div>
+    <h2>Swimming Test</h2>
     <p class="mb-3 text-justify">
       It should be noted that Scottish courts hardly ever used the 'swimming
       test' or 'water ordeal' in which suspects were dropped in water; this was
@@ -114,6 +122,7 @@
       myth. Nobody drowned; suspects had a rope tied to them and were pulled
       out.)
     </p>
+    <h2>Decline of Interrogation Techniques</h2>
     <p class="mb-3 text-justify">
       The use of these techniques in interrogations declined in Scotland towards
       the end of the 17th century. This is due to a growth in judicial
