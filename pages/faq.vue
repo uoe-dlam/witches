@@ -12,8 +12,8 @@
         href="https://witches.hca.ed.ac.uk/faq/"
         >Survey of Scottish Witchcraft FAQ page
       </a>
-      or contact us using our
-      <a class="underline hover:text-gray" href="/contact">contact form.</a>
+      or
+      <a class="underline hover:text-gray" href="/contact">contact us.</a>
     </p>
     <div class="flex flex-col items-center mb-3">
       <h2>The Scottish Witch Trials</h2>
