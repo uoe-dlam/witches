@@ -184,11 +184,6 @@ export default {
           external: false,
           subpages: [
             {
-              name: "People Associated with the Witch Trials: Residence",
-              url: "/people-associated",
-              external: false,
-            },
-            {
               name: "People Associated with the Witch Trials: Residence and Occupation",
               url: "/people-associated-residence",
               external: false,
