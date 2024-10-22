@@ -42,7 +42,7 @@
               <div class="ml-3 flex mt-3 items-center pb-1">
                 <p class="mr-2 text-lg witchy-text mb-0">Showing</p>
                 <span
-                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700 mb-0"
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700 mb-0"
                 >
                   {{ noWitches }}
                 </span>
@@ -56,7 +56,7 @@
                   Colour of map icons indicating
                 </p>
                 <div
-                  class="px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white text-base bg-slate-500 border-slate-700 font medium"
+                  class="px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white text-base bg-slate-500 border-slate-700 font-semibold"
                 >
                   <span>
                     {{ filterProperties[currentProperty].label }}
