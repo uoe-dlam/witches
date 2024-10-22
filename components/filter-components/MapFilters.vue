@@ -178,7 +178,7 @@
                 <!--Descriptions-->
                 <div class="tooltip">
                   <span class="label-and-icon">
-                    <p style="font-weight: 500; display: inline">
+                    <p style="font-weight: 500; display: inline" class="mr-1">
                       {{ propertyItem.label }}
                     </p>
                     <div
@@ -210,6 +210,21 @@
               </div>
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
+                <div>
+                <button
+                  @click="selectAll(property, propertyItem)"
+                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                >
+                  Select All
+                </button>
+                <button
+                  @click="clearAll(property, propertyItem)"
+                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                >
+                  Clear All
+                </button>
+              </div>
+
                 <icon-dependent-filters-list
                   v-if="!iconsConstant"
                   :currentProperty="currentProperty"
@@ -230,19 +245,10 @@
                   @filterOn="emitFilterOn($event)"
                 >
                 </normal-filters-list>
-
-                <button
-                  @click="selectAll(property, propertyItem)"
-                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                >
-                  Select All
-                </button>
-                <button
-                  @click="clearAll(property, propertyItem)"
-                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                >
-                  Clear All
-                </button>
+                <NuxtLink v-if="getGlossaryLabel(propertyItem.label)" :to="{ path: '/glossary', query: { category: getGlossaryLabel(propertyItem.label) } }" 
+                          class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2">
+                  {{ getGlossaryLabel(propertyItem.label) }} Glossary
+                </NuxtLink>
               </div>
             </div>
           </div>
@@ -510,6 +516,15 @@ export default {
         el.scrollIntoView({ behavior: "smooth" });
       }
     },
+    getGlossaryLabel: function (label) {
+      if (label === 'Gender' || label === 'Shapeshifting' || label === 'Wikipedia Page' ){
+        return null
+      }
+      if (label === 'Primary' || label === 'Secondary' ){
+        return 'Case Characterisations'
+      }
+     return label 
+    }
   },
   computed: {
     dateRangeFormatted() {

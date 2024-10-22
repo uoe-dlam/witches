@@ -17,11 +17,12 @@ import APIDataHandler from "~/assets/js/APIDataHandler";
 import json from "../big-query-output.json";
 import MapComponent from "../components/MapComponent.vue";
 import LoadingMessage from "../components/LoadingMessage.vue";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import filterDescriptions from "../public/filterDescriptions.json";
 
 definePageMeta({
-   layout: 'default'
- })
+  layout: "default",
+});
 
 export default {
   components: { MapComponent, LoadingMessage },
@@ -50,14 +51,14 @@ export default {
     filterProperties: {
       primary: {
         label: "Primary",
-        description: "In examining, the documents of the 3,837 people who were accused of witchcraft in Scotland, the Survey of Scottish Witchcraft project team determined there were primary and secondary aspects of the cases that could be used to characterise them. For more information about the characteristics used below, please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
+        description: "",
         descriptionShowing: false,
         filters: {},
-        showing: true
+        showing: true,
       },
       secondary: {
         label: "Secondary",
-        description: "In examining, the documents of the 3,837 people who were accused of witchcraft in Scotland, the Survey of Scottish Witchcraft project team determined there were primary and secondary aspects of the cases that could be used to characterise them. For more information about the characteristics used below, please refer to the Survey’s glossary of terms here: <a href='https://witches.hca.ed.ac.uk/glossary/' target='_blank'>Survey Glossary</a>",
+        description: "",
         descriptionShowing: false,
         filters: {},
         showing: false,
@@ -98,7 +99,7 @@ export default {
     },
     loadDataFromLocalStorage: function () {
       this.originalMarkers = JSON.parse(
-        localStorage.getItem("residenceMarkers")
+        localStorage.getItem("residenceMarkers"),
       );
       let allFilters = JSON.parse(localStorage.getItem("allFilters"));
       this.filterProperties.primary.filters = allFilters.primary;
@@ -136,13 +137,13 @@ export default {
         this.queryOutput,
         this.wikiPages,
         null,
-        icon
+        icon,
       );
       let filtersFound = null;
 
       [this.originalMarkers, filtersFound] = getData.loadAccussed(
         "residence",
-        this.filtersToFind
+        this.filtersToFind,
       );
 
       this.filterProperties.primary.filters = filtersFound.primary;
@@ -153,6 +154,12 @@ export default {
   },
 
   mounted: function () {
+    // Load descriptions from the JSON file
+    Object.keys(filterDescriptions).forEach((key) => {
+      if (this.filterProperties[key]) {
+        this.filterProperties[key].description = filterDescriptions[key];
+      }
+    });
     this.loadData();
   },
 };
