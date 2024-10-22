@@ -30,7 +30,7 @@
                       </h3>
                     </div>
 
-                    <!-- Display number of active witches. -->
+                    <!-- Display number of active locations. -->
                     <div class="ml-3 flex mt-3 items-center pb-2">
                       <p class="mr-2 text-lg witchy-text">Showing</p>
                       <div
