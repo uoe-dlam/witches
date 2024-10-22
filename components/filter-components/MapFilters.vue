@@ -559,6 +559,12 @@ export default {
 </script>
 
 <style>
+@tailwind base;
+
+.p {
+  @apply mb-0;
+}
+
 .label-and-icon {
   position: relative;
   display: inline-block;
