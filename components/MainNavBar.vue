@@ -201,7 +201,7 @@ export default {
           external: false,
           subpages: [
             {
-              name: "Accused Witches Occupations",
+              name: "Accused Witches' Occupations",
               url: "/accused-witches-occupations",
               external: false,
             },
