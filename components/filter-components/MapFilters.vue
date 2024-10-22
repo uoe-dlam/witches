@@ -40,15 +40,13 @@
 
               <!-- Display number of active witches. -->
               <div class="ml-3 flex mt-3 items-center pb-1">
-                <p class="mr-2 text-lg witchy-text">Showing</p>
-                <div
-                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
+                <p class="mr-2 text-lg witchy-text mb-0">Showing</p>
+                <span
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700 mb-0"
                 >
-                  <p>
-                    {{ noWitches }}
-                  </p>
-                </div>
-                <p class="mr-1 text-lg witchy-text">Accused Witches</p>
+                  {{ noWitches }}
+                </span>
+                <p class="mr-1 text-lg witchy-text mb-0">Accused Witches</p>
               </div>
               <div
                 class="ml-3 flex mt-1y items-center pb-2"
@@ -60,9 +58,9 @@
                 <div
                   class="px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white text-base bg-slate-500 border-slate-700 font medium"
                 >
-                  <p>
+                  <span>
                     {{ filterProperties[currentProperty].label }}
-                  </p>
+                  </span>
                 </div>
               </div>
             </div>
@@ -211,19 +209,19 @@
               <!-- Filters list if property is showing. -->
               <div v-if="propertyItem.showing" class="w-full">
                 <div>
-                <button
-                  @click="selectAll(property, propertyItem)"
-                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                >
-                  Select All
-                </button>
-                <button
-                  @click="clearAll(property, propertyItem)"
-                  class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                >
-                  Clear All
-                </button>
-              </div>
+                  <button
+                    @click="selectAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    Select All
+                  </button>
+                  <button
+                    @click="clearAll(property, propertyItem)"
+                    class="inline-block rounded hover:bg-gray-300 text-black px-1 pb-1 pt-1 text-xs leading-normal border border-gray-200 hover:shadow-md hover:-translate-y-1 transform transition-all duration-200 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    Clear All
+                  </button>
+                </div>
 
                 <icon-dependent-filters-list
                   v-if="!iconsConstant"
@@ -245,8 +243,14 @@
                   @filterOn="emitFilterOn($event)"
                 >
                 </normal-filters-list>
-                <NuxtLink v-if="getGlossaryLabel(propertyItem.label)" :to="{ path: '/glossary', query: { category: getGlossaryLabel(propertyItem.label) } }" 
-                          class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2">
+                <NuxtLink
+                  v-if="getGlossaryLabel(propertyItem.label)"
+                  :to="{
+                    path: '/glossary',
+                    query: { category: getGlossaryLabel(propertyItem.label) },
+                  }"
+                  class="block font-sans text-gray-500 text-xs underline hover:text-gray-800 ml-2"
+                >
                   {{ getGlossaryLabel(propertyItem.label) }} Glossary
                 </NuxtLink>
               </div>
@@ -517,14 +521,18 @@ export default {
       }
     },
     getGlossaryLabel: function (label) {
-      if (label === 'Gender' || label === 'Shapeshifting' || label === 'Wikipedia Page' ){
-        return null
+      if (
+        label === "Gender" ||
+        label === "Shapeshifting" ||
+        label === "Wikipedia Page"
+      ) {
+        return null;
       }
-      if (label === 'Primary' || label === 'Secondary' ){
-        return 'Case Characterisations'
+      if (label === "Primary" || label === "Secondary") {
+        return "Case Characterisations";
       }
-     return label 
-    }
+      return label;
+    },
   },
   computed: {
     dateRangeFormatted() {
