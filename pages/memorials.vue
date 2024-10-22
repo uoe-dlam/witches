@@ -26,7 +26,7 @@
                     <!-- Title and info-->
                     <div class="flex text-center mt-1">
                       <h3 class="mx-0 px-2">
-                        Map of Memorials & Sites of Interest
+                        Map of Memorials &amp; Sites of Interest
                       </h3>
                     </div>
 
@@ -263,7 +263,7 @@ export default {
       zoom: 7,
       center: [57.0, -4],
       attribution:
-        'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
+        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
       markers: [],
       originalMarkers: [],
       sparqlUrl: "https://query.wikidata.org/sparql",
