@@ -25,9 +25,11 @@
                   >
                     <!-- Title and info-->
                     <div class="flex text-center mt-1">
-                      <h3 class="mx-0 px-2">
+                      <h1
+                        class="mx-0 px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5x"
+                      >
                         Map of Memorials &amp; Sites of Interest
-                      </h3>
+                      </h1>
                     </div>
 
                     <!-- Display number of active locations. -->
