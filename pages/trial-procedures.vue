@@ -30,6 +30,7 @@
         people were acquitted.
       </p>
     </div>
+    <h2>Gathering Evidence</h2>
     <p class="mb-3 text-justify">
       Evidence against the accused person had to be gathered beforehand. This
       was often done by local church courts - kirk sessions or presbyteries.
@@ -72,7 +73,7 @@
         find this mark.
       </p>
     </div>
-
+    <h2>Witch Pricking</h2>
     <p class="mb-3 text-justify">
       It is important to distinguish witch-pricking from 'torture'. Torture
       inflicted pain in order to make the suspect confess; the aim was to obtain
@@ -111,6 +112,7 @@
         disguise, named Christian Cadell
       </p>
     </div>
+    <h2>Swimming Test</h2>
     <p class="mb-3 text-justify">
       It should be noted that Scottish courts hardly ever used the 'swimming
       test' or 'water ordeal' in which suspects were dropped in water; this was
@@ -120,6 +122,7 @@
       myth. Nobody drowned; suspects had a rope tied to them and were pulled
       out.)
     </p>
+    <h2>Decline of Interrogation Techniques</h2>
     <p class="mb-3 text-justify">
       The use of these techniques in interrogations declined in Scotland towards
       the end of the 17th century. This is due to a growth in judicial
