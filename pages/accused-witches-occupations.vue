@@ -2,7 +2,7 @@
   <div>
     <div id="main-content" class="pl-5 pr-5 pt-3 pb-3">
       <div class="flex content-start items-center">
-        <h1 class="mb-3">Accused Witches Occupations</h1>
+        <h1 class="mb-3">Accused Witches' Occupations</h1>
       </div>
       <div>
         These bubble charts show the different occupations recorded for the
