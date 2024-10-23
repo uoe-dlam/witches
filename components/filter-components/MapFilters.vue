@@ -111,14 +111,14 @@
               class="flex flex-col ml-4 mt-4"
             >
               <div class="border" style="width: 300px"></div>
-              <p class="text-lg witchy-text mt-2 ml-1">
+              <p class="text-lg witchy-text mt-2 ml-1 mb-0">
                 Showing accused witches between:
               </p>
               <div class="flex items-center mt-3 justify-center">
                 <div
                   class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                 >
-                  <p class="text-sm">
+                  <p class="text-sm mb-0">
                     {{ dateRangeFormatted[0] }}
                   </p>
                 </div>
@@ -126,7 +126,7 @@
                 <div
                   class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                 >
-                  <p class="text-sm">
+                  <p class="text-sm mb-0">
                     {{ dateRangeFormatted[1] }}
                   </p>
                 </div>
