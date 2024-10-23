@@ -14,7 +14,7 @@
           />
           <img class="witch-icon mb-1 ml-0.5" :src="filterItem.iconUrl" />
         </div>
-        <p class="text-xs text-center">{{ filterItem.label }}</p>
+        <p class="text-xs text-center mb-0">{{ filterItem.label }}</p>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
               @change="filterEmit(filterType)"
               type="checkbox"
             />
-            <p class="text-xs text-center ml-1">
+            <p class="text-xs text-center ml-1 mb-0">
               {{ filterItem.label }}
             </p>
           </div>
