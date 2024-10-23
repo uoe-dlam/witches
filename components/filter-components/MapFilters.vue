@@ -116,17 +116,17 @@
               </p>
               <div class="flex items-center mt-3 justify-center">
                 <div
-                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                 >
-                  <p class="text-sm">
+                  <p class="text-sm mb-0">
                     {{ dateRangeFormatted[0] }}
                   </p>
                 </div>
                 <p class="mr-2 text-lg witchy-text">and</p>
                 <div
-                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
+                  class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                 >
-                  <p class="text-sm">
+                  <p class="text-sm mb-0">
                     {{ dateRangeFormatted[1] }}
                   </p>
                 </div>
@@ -559,6 +559,12 @@ export default {
 </script>
 
 <style>
+@tailwind base;
+
+.p {
+  @apply mb-0;
+}
+
 .label-and-icon {
   position: relative;
   display: inline-block;
