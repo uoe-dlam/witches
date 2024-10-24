@@ -332,7 +332,7 @@ export default {
 
       const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
       queryDispatcher.query(sparqlQuery).then((result) => {
-        const uniqueCoords = new Set(); // Set to track unique coordinates
+        const uniqueCoords = new Set(); // used to track unique coordinates
 
         for (let i = 0; i < result.results.bindings.length; i++) {
           let item = result.results.bindings[i];
@@ -340,9 +340,9 @@ export default {
             ? this.convertPointToLongLatArray(item.coords.value)
             : null;
 
-          // Check if coordinates are not null and not already in the set
+          // check if coordinates are not null and not already in the set
           if (memorialCoords && !uniqueCoords.has(memorialCoords.join(","))) {
-            uniqueCoords.add(memorialCoords.join(",")); // Add to the set
+            uniqueCoords.add(memorialCoords.join(","));
 
             let id = item.item.value;
             let instance = item.hasOwnProperty("instanceLabel")
@@ -372,7 +372,7 @@ export default {
               type: type,
             };
 
-            this.markers.push(memorial); // Add unique memorial to markers
+            this.markers.push(memorial);
           }
         }
 
