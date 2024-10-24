@@ -225,6 +225,11 @@ export default {
               url: "/witch-tour-edinburgh",
               external: false,
             },
+            {
+              name: "The Devil in Scotland",
+              url: "/devil-in-scotland",
+              external: false,
+            },
           ],
         },
         {
