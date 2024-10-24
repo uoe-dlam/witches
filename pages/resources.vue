@@ -48,6 +48,21 @@
         >WikiProject Scotland's Accused Witches</a
       >
     </p>
+    <h2>User Guide</h2>
+    <div class="w-full">
+      <iframe
+        id="kaltura_player"
+        type="text/javascript"
+        src='https://cdnapisec.kaltura.com/p/2010292/embedPlaykitJs/uiconf_id/55171522?iframeembed=true&entry_id=1_1xuxosg0&config[provider]={"widgetId":"1_ujdjje0e"}'
+        style="width: 100%; height: 500px; border: 0"
+        allowfullscreen
+        webkitallowfullscreen
+        mozAllowFullScreen
+        allow="autoplay *; fullscreen *; encrypted-media *"
+        sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
+        title="Kaltura Player"
+      ></iframe>
+    </div>
   </div>
 </template>
 
