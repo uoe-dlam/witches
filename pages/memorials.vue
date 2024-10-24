@@ -36,7 +36,7 @@
                     <div class="ml-3 flex mt-3 items-center pb-2">
                       <p class="mr-2 text-lg witchy-text">Showing</p>
                       <div
-                        class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
+                        class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                       >
                         <p>{{ filteredMarkers.length }}</p>
                       </div>
@@ -318,54 +318,62 @@ export default {
     },
     loadMemorials() {
       const sparqlQuery = `
-          SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address ?url
-          WHERE {
-              ?item wdt:P5008 wd:Q123249004 .
-              OPTIONAL { ?item wdt:P31 ?instance . }
-              OPTIONAL { ?item wdt:P131 ?location . }
-              OPTIONAL { ?item wdt:P625 ?coords . }
-              OPTIONAL { ?item wdt:P18 ?image . }
-              OPTIONAL { ?item wdt:P6375 ?address . }
-              OPTIONAL { ?item wdt:P973 ?url . }
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-          }`;
+      SELECT DISTINCT ?item ?itemLabel ?instanceLabel ?image ?coords ?locationLabel ?address ?url
+      WHERE {
+          ?item wdt:P5008 wd:Q123249004 .
+          OPTIONAL { ?item wdt:P31 ?instance . }
+          OPTIONAL { ?item wdt:P131 ?location . }
+          OPTIONAL { ?item wdt:P625 ?coords . }
+          OPTIONAL { ?item wdt:P18 ?image . }
+          OPTIONAL { ?item wdt:P6375 ?address . }
+          OPTIONAL { ?item wdt:P973 ?url . }
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+      }`;
 
       const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl);
       queryDispatcher.query(sparqlQuery).then((result) => {
+        const uniqueCoords = new Set(); // used to track unique coordinates
+
         for (let i = 0; i < result.results.bindings.length; i++) {
           let item = result.results.bindings[i];
-          let id = item.item.value;
-          let instance = item.hasOwnProperty("instanceLabel")
-            ? item.instanceLabel.value
-            : "unknown";
           let memorialCoords = item.hasOwnProperty("coords")
             ? this.convertPointToLongLatArray(item.coords.value)
-            : "";
-          let memorialLocation = item.hasOwnProperty("locationLabel")
-            ? item.locationLabel.value
-            : "";
-          let imageUrl = item.hasOwnProperty("image") ? item.image.value : "";
-          let streetAddress = item.hasOwnProperty("address")
-            ? item.address.value
-            : "";
-          let url = item.hasOwnProperty("url") ? item.url.value : "";
-          let description = this.descriptions[id.split("/").pop()] || "";
-          let type = this.types[id.split("/").pop()] || "";
+            : null;
 
-          let memorial = {
-            id: id.split("/").pop(),
-            name: item.itemLabel.value,
-            longLat: memorialCoords,
-            location: memorialLocation,
-            instance: instance,
-            imageUrl: imageUrl,
-            streetAddress: streetAddress,
-            url: url,
-            description: description,
-            type: type,
-          };
+          // check if coordinates are not null and not already in the set
+          if (memorialCoords && !uniqueCoords.has(memorialCoords.join(","))) {
+            uniqueCoords.add(memorialCoords.join(","));
 
-          this.markers.push(memorial);
+            let id = item.item.value;
+            let instance = item.hasOwnProperty("instanceLabel")
+              ? item.instanceLabel.value
+              : "unknown";
+            let memorialLocation = item.hasOwnProperty("locationLabel")
+              ? item.locationLabel.value
+              : "";
+            let imageUrl = item.hasOwnProperty("image") ? item.image.value : "";
+            let streetAddress = item.hasOwnProperty("address")
+              ? item.address.value
+              : "";
+            let url = item.hasOwnProperty("url") ? item.url.value : "";
+            let description = this.descriptions[id.split("/").pop()] || "";
+            let type = this.types[id.split("/").pop()] || "";
+
+            let memorial = {
+              id: id.split("/").pop(),
+              name: item.itemLabel.value,
+              longLat: memorialCoords,
+              location: memorialLocation,
+              instance: instance,
+              imageUrl: imageUrl,
+              streetAddress: streetAddress,
+              url: url,
+              description: description,
+              type: type,
+            };
+
+            this.markers.push(memorial);
+          }
         }
 
         this.noItems = this.markers.length;
