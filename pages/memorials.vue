@@ -36,7 +36,7 @@
                     <div class="ml-3 flex mt-3 items-center pb-2">
                       <p class="mr-2 text-lg witchy-text">Showing</p>
                       <div
-                        class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-medium bg-slate-500 border-slate-700"
+                        class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                       >
                         <p>{{ filteredMarkers.length }}</p>
                       </div>
