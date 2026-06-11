@@ -265,7 +265,7 @@
               <p class="text-sm mr-0.5">-</p>
               <img
                 class="witch-icon mb-1 ml-1"
-                src="public/images/witch-single-purple.png"
+                src="/images/witch-single-purple.png"
               />
               <p class="ml-1 text-sm">= Mixed.</p>
             </div>
