@@ -89,9 +89,9 @@ npm run start
 
 The commands will:
 
-- Install all required node packages
-- Generate the static web files used to serve the site
-- npm run start will show you what the site looks like when in production mode
+-   Install all required node packages
+-   Generate the static web files used to serve the site
+-   npm run start will show you what the site looks like when in production mode
 
 You should deploy the content of the dist folder to your server's root directory.
 You should also push the content of the witches-php project to the root directory too.
