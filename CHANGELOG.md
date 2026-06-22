@@ -16,81 +16,31 @@ Semantic Versioning 2.0.0
 - Added user guide video to the resources page (PR #180)
 - Added a different visual for the devil in scotland which is compatible with mobile devices (PR #179)
 - Added github link to the resources page (PR #178)
+- Enabled Nuxt bridge for use on the project (PR 124)
+- Added descriptions for filters (PR #112)
+- Added embedded Microsoft form to the contact page (PR #83)
+- Added histropedia info to the pop up box (PR #75)
+- Added scroll event styling to the site layout (PR #74)
 
 ### Fixed
 
 - Fixed a spelling mistake which was preventing some memorials details from being loaded (PR #177)
 - Made user interface changes to improve user experience (PR #176, PR #175, 174)
-
-## 2022-10-22
-
-### Changed
-
-- Upgraded Nuxt to version 3 (PR #173)
-
-## 2024-05-29
-
-### Added
-
-- Enabled Nuxt bridge for use on the project (PR 124)
-
-## 2024-03-01
-
-### Added
-
-- Added descriptions for filters (PR #112)
-
-### Fixed
-
 - Fixed an issue with the icon colours on mobile view (PR #116)
 - Fixed an incorrect number that was being displayed for the number of located witches (PR #115)
-
-### Changed
-
-- Map icons have been moved around for better user experience (PR #113)
-
-## 2023-11-09
-
-### Changed
-
-- Updated the about page to add in more information regarding what the site is for (PR #108)
-
-### Fixed
-
 - Removed unnecessary html elements that were part of the page Map filters component (PR #100)
-
-## 2023-09-20
-
-### Fixed
-
 - Updated user interface elements to improve user experience across the site (PR #98, PR #97, PR #95, PR #94, PR #93)
-
-## 2023-08-22
-
-### Added
-
-- Added Microsoft form to the site (PR #83)
-
-### Changed
-
-- Queries used in the site are now specific to ensure that only the required data is retrieved (PR #92)
-- Filter lists are now in alphabetical order, with Unknown being the first value (PR #90)
-
-### Fixed
-
 - Embeds linked to Isobel Young's story map, flourish and histropedia have been fixed (PR #89)
 - Captioning on the historical map has been fixed (PR #87)
 - Navbar has been fixed to account to differences between test and live server (PR #85)
 
-## 2023-07-10
-
-### Added
-
-- Added histropedia info to the pop up box (PR #75)
-- Added scroll event styling to the site layout (PR #74)
-
 ### Changed
 
+- Upgraded Nuxt to version 3 (PR #173)
+- Map icons have been moved around for better user experience (PR #113)
+- Updated the about page to add in more information regarding what the site is for (PR #108)
+- Queries used in the site are now specific to ensure that only the required data is retrieved (PR #92)
+- Filter lists are now in alphabetical order, with Unknown being the first value (PR #90)
 - Updated the user interface elements to improve user experience (PR #81, PR #80, PR #79, PR #78)
 - Historic maps have been updated to improve clarity and readability (PR #77)
 
