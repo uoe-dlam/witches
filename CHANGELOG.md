@@ -9,7 +9,7 @@ Semantic Versioning 2.0.0
 
 ## [Unreleased]
 
-## 2024-10-30
+## [1.5.0] - 2026-06-22
 
 ### Added
 
@@ -100,3 +100,6 @@ Semantic Versioning 2.0.0
 
 - Updated readme (PR #37)
 - Updated json packages (PR #37)
+
+[unreleased]: https://github.com/uoe-dlam/witches/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/uoe-dlam/witches/releases/tag/v1.5.0
