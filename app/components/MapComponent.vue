@@ -4,21 +4,21 @@
         <div class="relative h-full w-full">
             <div class="absolute flex flex-col w-full h-full">
                 <map-filters
-                    :pageInfo="pageInfo"
-                    :startingFiltersGeneralInfo="filtersGeneralInfo"
-                    :startingFilters="filterProperties"
+                    :dateRange="timelineOutputRange"
                     :iconBehaviour="iconBehaviour"
                     :includeTimeline="includeTimeline"
-                    :timelineOn="timelineOn"
-                    :dateRange="timelineOutputRange"
                     :noWitches="Filtering.getNoWitches()"
+                    :pageInfo="pageInfo"
+                    :startingFilters="filterProperties"
+                    :startingFiltersGeneralInfo="filtersGeneralInfo"
+                    :timelineOn="timelineOn"
+                    @changeCurrentProperty="changeCurrentProperty($event)"
                     @filterOff="setWitchesOff($event[0], $event[1])"
                     @filterOn="setWitchesOn($event[0], $event[1])"
-                    @changeCurrentProperty="changeCurrentProperty($event)"
-                    @updatedTile="url = $event"
+                    @resetDates="resetDates()"
                     @selectedDateRange="setTimeline($event[0], $event[1])"
                     @turnTimelineOff="setTimelineOff()"
-                    @resetDates="resetDates()"
+                    @updatedTile="url = $event"
                 >
                 </map-filters>
                 <timeline
@@ -35,9 +35,9 @@
                 </timeline>
             </div>
             <leaflet-map-main
-                :mapUrl="url"
-                :mapMarkers="Filtering.getOutputMarkers(markers)"
                 :clustersInitial="clustersOn"
+                :mapMarkers="Filtering.getOutputMarkers(markers)"
+                :mapUrl="url"
             >
             </leaflet-map-main>
         </div>
@@ -50,6 +50,7 @@ import Timeline from './filter-components/Timeline.vue'
 import MapFilters from './filter-components/MapFilters.vue'
 import FilteringMethods from '../assets/js/FilteringMethods'
 import TimelineMethods from '../assets/js/TimelineMethods'
+import Swal from 'sweetalert2'
 
 export default {
     components: { LeafletMapMain, MapFilters, Timeline },
@@ -110,7 +111,7 @@ export default {
             this.timelineOn = status // Assuming 'timelineOn' is a data property in the parent
         },
         showPageInfo: function () {
-            this.$swal({
+            Swal.fire({
                 title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
                 html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
 
