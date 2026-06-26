@@ -28,30 +28,34 @@
 </template>
 
 <script setup>
+import { optIn, optOut, pageview } from 'vue-gtag'
+
+const route = useRoute()
+const consent = useCookie('edW')
 const hideBanner = ref(true)
 
 const consentCookies = () => {
-    $cookies.set('edW', 'yes')
+    consent.value = 'yes'
     hideBanner.value = true
 
     if (import.meta.client) {
         localStorage.setItem('GDPR:accepted', 'yes')
-        this.$gtag.optIn()
-        this.$gtag.pageview(this.$route.fullPath)
+        optIn()
+        pageview(route.fullPath)
     }
 }
 const rejectCookies = () => {
-    $cookies.set('edW', 'yes')
+    consent.value = 'yes'
     hideBanner.value = true
 
     if (import.meta.client) {
         localStorage.setItem('GDPR:accepted', 'no')
-        this.$gtag.optOut()
+        optOut()
     }
 }
 
 onMounted(() => {
-    if ($cookies.get('edW') === null) {
+    if (consent.value === null || consent.value === undefined) {
         hideBanner.value = false
     }
 })
