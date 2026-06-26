@@ -1,7 +1,7 @@
 <template>
     <div
-        class="w-full flex flex-col z-40 py-2 bg-slate-400 pr-3 fixed bottom-0"
         v-if="!hideBanner"
+        class="w-full flex flex-col z-40 py-2 bg-slate-400 pr-3 fixed bottom-0"
     >
         <p class="text-xs md:text-sm ml-2 mt-1">
             We use cookies to analyse site traffic to understand our users'
@@ -27,43 +27,34 @@
     </div>
 </template>
 
-<script>
-import VueCookies from 'vue-cookies'
+<script setup>
+const hideBanner = ref(true)
 
-export default {
-    components: { VueCookies },
-    data: () => ({
-        hideBanner: true,
-    }),
-    methods: {
-        consentCookies: function () {
-            $cookies.set('edW', 'yes')
-            this.hideBanner = true
+const consentCookies = () => {
+    $cookies.set('edW', 'yes')
+    hideBanner.value = true
 
-            if (process.client) {
-                this.isOpen = false
-                localStorage.setItem('GDPR:accepted', 'yes')
-                this.$gtag.optIn()
-                this.$gtag.pageview(this.$route.fullPath)
-            }
-        },
-        rejectCookies: function () {
-            $cookies.set('edW', 'yes')
-            this.hideBanner = true
-
-            if (process.client) {
-                this.isOpen = false
-                localStorage.setItem('GDPR:accepted', 'no')
-                this.$gtag.optOut()
-            }
-        },
-    },
-    mounted: function () {
-        if ($cookies.get('edW') === null) {
-            this.hideBanner = false
-        }
-    },
+    if (import.meta.client) {
+        localStorage.setItem('GDPR:accepted', 'yes')
+        this.$gtag.optIn()
+        this.$gtag.pageview(this.$route.fullPath)
+    }
 }
+const rejectCookies = () => {
+    $cookies.set('edW', 'yes')
+    hideBanner.value = true
+
+    if (import.meta.client) {
+        localStorage.setItem('GDPR:accepted', 'no')
+        this.$gtag.optOut()
+    }
+}
+
+onMounted(() => {
+    if ($cookies.get('edW') === null) {
+        hideBanner.value = false
+    }
+})
 </script>
 
 <style>
