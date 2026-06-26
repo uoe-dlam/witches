@@ -2,14 +2,14 @@
     <div>
         <div class="text-right mb-5 mr-[10%]">
             <button
-                @click="expandAll"
                 class="hover:text-gray-400 text-gray-800 font-bold py-2 px-1 underline text-xs"
+                @click="expandAll"
             >
                 Expand All
             </button>
             <button
-                @click="collapseAll"
                 class="hover:text-gray-400 text-gray-800 font-bold py-2 px-1 underline text-xs"
+                @click="collapseAll"
             >
                 Collapse All
             </button>
@@ -18,9 +18,9 @@
             <div v-for="categoryObj in categories" :key="categoryObj.category">
                 <!-- Assign ref dynamically based on category name -->
                 <h2
-                    :ref="`category-${categoryObj.category}`"
-                    @click="toggleShowingCategory(categoryObj.category)"
+                    :ref="(el) => setCategoryRef(el, categoryObj.category)"
                     class="flex justify-between items-center cursor-pointer px-4"
+                    @click="toggleShowingCategory(categoryObj.category)"
                 >
                     <span>{{ categoryObj.category }}</span>
                     <span v-if="categoryObj.expanded">-</span
@@ -45,112 +45,103 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        glossary: {
-            type: Array,
-            required: true,
-        },
-        initialCategory: {
-            type: String,
-            default: null,
-        },
-    },
-    data() {
-        return {
-            categories: [], // Array to track categories and their expanded states
-        }
-    },
-    computed: {
-        sortedGlossary() {
-            let grouped = {}
+<script setup>
+const props = defineProps({
+    glossary: { type: Array, required: true },
+    initialCategory: { type: String, default: null },
+})
+const categories = ref([])
+const categoryRefs = {}
+const route = useRoute()
 
-            this.glossary.forEach((item) => {
-                let category = item.category || 'Uncategorized'
-                if (!grouped[category]) {
-                    grouped[category] = []
-                }
-                grouped[category].push(item)
-            })
-
-            const sortedGroups = {}
-            Object.keys(grouped)
-                .sort()
-                .forEach((key) => {
-                    sortedGroups[key] = grouped[key].sort((a, b) =>
-                        a.word.localeCompare(b.word)
-                    )
-                })
-
-            return sortedGroups
-        },
-    },
-    mounted() {
-        this.categories = Object.keys(this.sortedGlossary)
-            .sort()
-            .map((category) => {
-                return { category, expanded: false }
-            })
-
-        this.handleCategoryFromQuery()
-    },
-    watch: {
-        '$route.query.category': {
-            handler() {
-                // to add a slight delay to ensure the DOM and route updates are complete -nextTick alone wasn't working
-                setTimeout(() => {
-                    this.handleCategoryFromQuery()
-                }, 300) // 300ms
-            },
-            immediate: true,
-        },
-    },
-    methods: {
-        handleCategoryFromQuery() {
-            const queryCategory =
-                this.initialCategory || this.$route.query.category
-            if (queryCategory) {
-                const categoryObj = this.categories.find(
-                    (c) => c.category === queryCategory
-                )
-                if (categoryObj) {
-                    categoryObj.expanded = true
-
-                    // Scroll after the DOM has updated
-                    this.$nextTick(() => {
-                        setTimeout(() => {
-                            const categoryHeader =
-                                this.$refs[`category-${queryCategory}`]
-                            if (categoryHeader && categoryHeader[0]) {
-                                categoryHeader[0].scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start',
-                                })
-                            }
-                        }, 100) // Small delay before scrolling
-                    })
-                }
-            }
-        },
-        toggleShowingCategory(category) {
-            const categoryObj = this.categories.find(
-                (c) => c.category === category
-            )
-            if (categoryObj) {
-                categoryObj.expanded = !categoryObj.expanded
-            }
-        },
-        expandAll() {
-            this.categories.forEach((categoryObj) => {
-                categoryObj.expanded = true
-            })
-        },
-        collapseAll() {
-            this.categories.forEach((categoryObj) => {
-                categoryObj.expanded = false
-            })
-        },
-    },
+const setCategoryRef = (el, category) => {
+    if (el) {
+        categoryRefs[category] = el
+    }
 }
+
+const sortedGlossary = computed(() => {
+    const grouped = {}
+
+    props.glossary.forEach((item) => {
+        const category = item.category || 'Uncategorized'
+        if (!grouped[category]) {
+            grouped[category] = []
+        }
+        grouped[category].push(item)
+    })
+
+    const sortedGroups = {}
+    Object.keys(grouped)
+        .sort()
+        .forEach((key) => {
+            sortedGroups[key] = grouped[key].sort((a, b) =>
+                a.word.localeCompare(b.word)
+            )
+        })
+
+    return sortedGroups
+})
+
+const handleCategoryFromQuery = () => {
+    const queryCategory = props.initialCategory || route.query.category
+
+    if (queryCategory) {
+        const categoryObj = categories.value.find(
+            (c) => c.category === queryCategory
+        )
+
+        if (categoryObj) {
+            categoryObj.expanded = true
+
+            // Scroll after the DOM has updated
+            nextTick(() => {
+                setTimeout(() => {
+                    const categoryHeader = categoryRefs[queryCategory]
+                    if (categoryHeader) {
+                        categoryHeader.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                        })
+                    }
+                }, 100) // Small delay before scrolling
+            })
+        }
+    }
+}
+
+const toggleShowingCategory = (category) => {
+    const categoryObj = categories.value.find((c) => c.category === category)
+
+    if (categoryObj) {
+        categoryObj.expanded = !categoryObj.expanded
+    }
+}
+
+const expandAll = () => {
+    categories.value.forEach((categoryObj) => {
+        categoryObj.expanded = true
+    })
+}
+const collapseAll = () => {
+    categories.value.forEach((categoryObj) => {
+        categoryObj.expanded = false
+    })
+}
+
+watch(
+    () => route.query.category,
+    () => {
+        setTimeout(() => handleCategoryFromQuery(), 300)
+    },
+    { immediate: true }
+)
+
+onMounted(() => {
+    categories.value = Object.keys(sortedGlossary.value)
+        .sort()
+        .map((category) => ({ category, expanded: false }))
+
+    handleCategoryFromQuery()
+})
 </script>
