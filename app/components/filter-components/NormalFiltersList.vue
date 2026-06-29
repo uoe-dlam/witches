@@ -47,10 +47,10 @@ const filterEmit = (filterType) => {
 
     if (isActive) {
         setFilterInactive(filterType)
-        emit('filterOff', [this.property, filterType])
+        emit('filterOff', [props.property, filterType])
     } else {
         setFilterActive(filterType)
-        emit('filterOn', [this.property, filterType])
+        emit('filterOn', [props.property, filterType])
     }
 }
 
