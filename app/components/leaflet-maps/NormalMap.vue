@@ -1,16 +1,16 @@
 <template>
     <LMap
-        class="w-full h-full z-0 absolute"
-        :zoom="zoom"
-        :center="center"
         ref="myMap"
+        :center="center"
+        :zoom="zoom"
+        class="w-full h-full z-0 absolute"
     >
         <LControlZoom position="bottomright"></LControlZoom>
-        <LTileLayer :url="baseMapUrl" :attribution="attribution"></LTileLayer>
+        <LTileLayer :attribution="attribution" :url="baseMapUrl"></LTileLayer>
 
         <!--historic layer-->
         <div v-if="mapUrl.startsWith('https://mapseries')">
-            <LTileLayer :url="mapUrl" :attribution="attribution"></LTileLayer>
+            <LTileLayer :attribution="attribution" :url="mapUrl"></LTileLayer>
         </div>
 
         <LMarker
@@ -65,6 +65,7 @@
                                 ].locations"
                             >
                                 <a
+                                    :style="{ cursor: 'pointer' }"
                                     @click="
                                         flyTo(
                                             witch[locationOption].coordinates[
@@ -72,7 +73,6 @@
                                             ]
                                         )
                                     "
-                                    :style="{ cursor: 'pointer' }"
                                     >{{ subLocation }}</a
                                 >
                                 <template
@@ -135,7 +135,7 @@
                         {{ marker.witches.length }}
                     </div>
                     <img :src="marker.markerIcon" class="zoomed-in-img" />
-                    <img class="icon-shadow" :src="shadowUrl" />
+                    <img :src="shadowUrl" class="icon-shadow" />
                 </div>
             </LIcon>
         </LMarker>
@@ -159,7 +159,7 @@ export default {
         },
         zoom: {
             type: Number,
-            requried: true,
+            required: true,
         },
     },
     data() {
@@ -201,68 +201,6 @@ export default {
             },
         }
     },
-    methods: {
-        hasWikiEntry: function (marker) {
-            let witchesWithEntry = marker.witches.filter(
-                (witch) => witch.wikiPage !== ''
-            )
-            return witchesWithEntry.length > 0
-        },
-        flyTo: function (coords) {
-            this.$refs.myMap.leafletObject.flyTo(coords, 14)
-        },
-        emitMapData: function () {
-            // Emits an object containing the information about
-            // where the center of the map is, the zoom, and what
-            // map type to change to when the map is turned off,
-            // in this case changing to clustersOn.
-
-            let centerInfo = this.$refs.myMap.leafletObject.getCenter()
-            let centerArray = [centerInfo.lat, centerInfo.lng]
-            let changeInfo = {
-                center: centerArray,
-                zoom: this.$refs.myMap.leafletObject.getZoom(),
-                changeTo: 'clustersOn',
-            }
-            this.$emit('changeMaps', changeInfo)
-        },
-        getLocationsWithValue: function (witch) {
-            let locationsWithValue = []
-
-            this.locationOptions.map((option) => {
-                if (witch[option].locations.length !== 0) {
-                    locationsWithValue.push(option)
-                }
-            })
-
-            return locationsWithValue
-        },
-        getStandardAttributesWithValue: function (witch) {
-            let standardAttributesWithValue = []
-
-            this.standardAttributes.map((option) => {
-                if (witch[option] !== 'unknown') {
-                    standardAttributesWithValue.push(option)
-                }
-            })
-
-            return standardAttributesWithValue
-        },
-        getOptionalsWithValue: function (witch) {
-            let optionalsWithValue = []
-
-            this.optionalAttributes.map((option) => {
-                if (
-                    witch.hasOwnProperty(option) &&
-                    witch[option][0] !== 'unknown'
-                ) {
-                    optionalsWithValue.push(option)
-                }
-            })
-
-            return optionalsWithValue
-        },
-    },
     computed: {
         iconAnchor: function () {
             return [11, 41]
@@ -276,6 +214,68 @@ export default {
     },
     beforeUnmount: function () {
         this.emitMapData()
+    },
+    methods: {
+        hasWikiEntry: function (marker) {
+            const witchesWithEntry = marker.witches.filter(
+                (witch) => witch.wikiPage !== ''
+            )
+            return witchesWithEntry.length > 0
+        },
+        flyTo: function (coords) {
+            this.$refs.myMap.leafletObject.flyTo(coords, 14)
+        },
+        emitMapData: function () {
+            // Emits an object containing the information about
+            // where the center of the map is, the zoom, and what
+            // map type to change to when the map is turned off,
+            // in this case changing to clustersOn.
+
+            const centerInfo = this.$refs.myMap.leafletObject.getCenter()
+            const centerArray = [centerInfo.lat, centerInfo.lng]
+            const changeInfo = {
+                center: centerArray,
+                zoom: this.$refs.myMap.leafletObject.getZoom(),
+                changeTo: 'clustersOn',
+            }
+            this.$emit('changeMaps', changeInfo)
+        },
+        getLocationsWithValue: function (witch) {
+            const locationsWithValue = []
+
+            this.locationOptions.map((option) => {
+                if (witch[option].locations.length !== 0) {
+                    locationsWithValue.push(option)
+                }
+            })
+
+            return locationsWithValue
+        },
+        getStandardAttributesWithValue: function (witch) {
+            const standardAttributesWithValue = []
+
+            this.standardAttributes.map((option) => {
+                if (witch[option] !== 'unknown') {
+                    standardAttributesWithValue.push(option)
+                }
+            })
+
+            return standardAttributesWithValue
+        },
+        getOptionalsWithValue: function (witch) {
+            const optionalsWithValue = []
+
+            this.optionalAttributes.map((option) => {
+                if (
+                    witch.hasOwnProperty(option) &&
+                    witch[option][0] !== 'unknown'
+                ) {
+                    optionalsWithValue.push(option)
+                }
+            })
+
+            return optionalsWithValue
+        },
     },
 }
 </script>
