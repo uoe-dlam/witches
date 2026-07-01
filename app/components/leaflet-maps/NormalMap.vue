@@ -142,142 +142,142 @@
     </LMap>
 </template>
 
-<script>
-export default {
-    props: {
-        mapMarkers: {
-            type: Array,
-            required: true,
-        },
-        mapUrl: {
-            type: String,
-            required: true,
-        },
-        center: {
-            type: Array,
-            required: true,
-        },
-        zoom: {
-            type: Number,
-            required: true,
-        },
+<script setup>
+const props = defineProps({
+    mapMarkers: {
+        type: Array,
+        required: true,
     },
-    data() {
-        return {
-            baseMapUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            attribution:
-                'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>',
-            locationOptions: ['residence', 'detention', 'placeOfDeath'],
-            locationsLabels: {
-                residence: 'Residence',
-                detention: 'Detention',
-                placeOfDeath: 'Place of Death',
-            },
-            standardAttributes: ['sex', 'occupation', 'socialClass'],
-            standardAttributeLabels: {
-                sex: 'Gender',
-                occupation: 'Occupation',
-                socialClass: 'Social Class',
-            },
-            optionalAttributes: [
-                'demonicPact',
-                'propertyDamage',
-                'meetingsInfo',
-                'meetingsPlaces',
-                'shapeshifting',
-                'ritualObjects',
-                'primary',
-                'secondary',
-            ],
-            optionalsLabels: {
-                demonicPact: 'Alleged Pacts with the devil',
-                propertyDamage: 'Alleged Property Damage',
-                meetingsPlaces: 'Alleged meetings places',
-                meetingsInfo: 'Alleged nature of meetings',
-                shapeshifting: 'Alleged shapeshifting',
-                ritualObjects: 'Alleged ritual objects',
-                primary: 'Primary Characteristics',
-                secondary: 'Secondary Characteristics',
-            },
-        }
+    mapUrl: {
+        type: String,
+        required: true,
     },
-    computed: {
-        iconAnchor: function () {
-            return [11, 41]
-        },
-        shadowAnchor: function () {
-            return [11, 26]
-        },
-        shadowUrl: function () {
-            return '/images/North-Berwick-witch-shadow.png'
-        },
+    center: {
+        type: Array,
+        required: true,
     },
-    beforeUnmount: function () {
-        this.emitMapData()
+    zoom: {
+        type: Number,
+        required: true,
     },
-    methods: {
-        hasWikiEntry: function (marker) {
-            const witchesWithEntry = marker.witches.filter(
-                (witch) => witch.wikiPage !== ''
-            )
-            return witchesWithEntry.length > 0
-        },
-        flyTo: function (coords) {
-            this.$refs.myMap.leafletObject.flyTo(coords, 14)
-        },
-        emitMapData: function () {
-            // Emits an object containing the information about
-            // where the center of the map is, the zoom, and what
-            // map type to change to when the map is turned off,
-            // in this case changing to clustersOn.
+})
 
-            const centerInfo = this.$refs.myMap.leafletObject.getCenter()
-            const centerArray = [centerInfo.lat, centerInfo.lng]
-            const changeInfo = {
-                center: centerArray,
-                zoom: this.$refs.myMap.leafletObject.getZoom(),
-                changeTo: 'clustersOn',
-            }
-            this.$emit('changeMaps', changeInfo)
-        },
-        getLocationsWithValue: function (witch) {
-            const locationsWithValue = []
+const myMap = ref(null)
+const baseMapUrl = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+const attribution = ref(
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>'
+)
+const locationOptions = ref(['residence', 'detention', 'placeOfDeath'])
+const locationsLabels = ref({
+    residence: 'Residence',
+    detention: 'Detention',
+    placeOfDeath: 'Place of Death',
+})
+const standardAttributes = ref(['sex', 'occupation', 'socialClass'])
+const standardAttributeLabels = ref({
+    sex: 'Gender',
+    occupation: 'Occupation',
+    socialClass: 'Social Class',
+})
+const optionalAttributes = ref([
+    'demonicPact',
+    'propertyDamage',
+    'meetingsInfo',
+    'meetingsPlaces',
+    'shapeshifting',
+    'ritualObjects',
+    'primary',
+    'secondary',
+])
+const optionalsLabels = ref({
+    demonicPact: 'Alleged Pacts with the devil',
+    propertyDamage: 'Alleged Property Damage',
+    meetingsPlaces: 'Alleged meetings places',
+    meetingsInfo: 'Alleged nature of meetings',
+    shapeshifting: 'Alleged shapeshifting',
+    ritualObjects: 'Alleged ritual objects',
+    primary: 'Primary Characteristics',
+    secondary: 'Secondary Characteristics',
+})
 
-            this.locationOptions.map((option) => {
-                if (witch[option].locations.length !== 0) {
-                    locationsWithValue.push(option)
-                }
-            })
-
-            return locationsWithValue
-        },
-        getStandardAttributesWithValue: function (witch) {
-            const standardAttributesWithValue = []
-
-            this.standardAttributes.map((option) => {
-                if (witch[option] !== 'unknown') {
-                    standardAttributesWithValue.push(option)
-                }
-            })
-
-            return standardAttributesWithValue
-        },
-        getOptionalsWithValue: function (witch) {
-            const optionalsWithValue = []
-
-            this.optionalAttributes.map((option) => {
-                if (
-                    witch.hasOwnProperty(option) &&
-                    witch[option][0] !== 'unknown'
-                ) {
-                    optionalsWithValue.push(option)
-                }
-            })
-
-            return optionalsWithValue
-        },
-    },
+const hasWikiEntry = (marker) => {
+    const witchesWithEntry = marker.witches.filter(
+        (witch) => witch.wikiPage !== ''
+    )
+    return witchesWithEntry.length > 0
 }
+
+const flyTo = (coords) => {
+    myMap.value.leafletObject.flyTo(coords, 14)
+}
+
+const emit = defineEmits(['changeMaps'])
+const emitMapData = () => {
+    // Emits an object containing the information about
+    // where the center of the map is, the zoom, and what
+    // map type to change to when the map is turned off,
+    // in this case changing to clustersOn.
+
+    const centerInfo = myMap.value.leafletObject.getCenter()
+    const centerArray = [centerInfo.lat, centerInfo.lng]
+    const changeInfo = {
+        center: centerArray,
+        zoom: myMap.value.leafletObject.getZoom(),
+        changeTo: 'clustersOn',
+    }
+
+    emit('changeMaps', changeInfo)
+}
+
+const getLocationsWithValue = (witch) => {
+    const locationsWithValue = []
+
+    locationOptions.value.map((option) => {
+        if (witch[option].locations.length !== 0) {
+            locationsWithValue.push(option)
+        }
+    })
+
+    return locationsWithValue
+}
+
+const getStandardAttributesWithValue = (witch) => {
+    const standardAttributesWithValue = []
+
+    standardAttributes.value.map((option) => {
+        if (witch[option] !== 'unknown') {
+            standardAttributesWithValue.push(option)
+        }
+    })
+
+    return standardAttributesWithValue
+}
+
+const getOptionalsWithValue = (witch) => {
+    const optionalsWithValue = []
+
+    optionalAttributes.value.map((option) => {
+        if (witch.hasOwnProperty(option) && witch[option][0] !== 'unknown') {
+            optionalsWithValue.push(option)
+        }
+    })
+
+    return optionalsWithValue
+}
+
+const iconAnchor = computed(() => {
+    return [11, 41]
+})
+const shadowAnchor = computed(() => {
+    return [11, 26]
+})
+const shadowUrl = computed(() => {
+    return '/images/North-Berwick-witch-shadow.png'
+})
+
+onBeforeUnmount(() => {
+    emitMapData()
+})
 </script>
 
 <style>
