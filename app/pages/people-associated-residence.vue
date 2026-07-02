@@ -9,9 +9,9 @@
                         class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 ml-1 cursor-pointer"
                     >
                         <img
-                            src="/images/infoIcon.svg"
-                            class="w-full h-full pt-0.5"
                             aria-label="Page Information Popup"
+                            class="w-full h-full pt-0.5"
+                            src="/images/infoIcon.svg"
                             @click="showPageInfo()"
                         />
                         <span class="visually-hidden"
@@ -24,43 +24,36 @@
         <div>
             <div class="embed-location-people">
                 <iframe
-                    width="500"
-                    height="400"
                     frameborder="0"
-                    scrolling="no"
+                    height="400"
                     marginheight="0"
                     marginwidth="0"
-                    title="People Associated With Trial - Residence Location with Recorded Occupation"
+                    scrolling="no"
                     src="//edinuniv.maps.arcgis.com/apps/Embed/index.html?webmap=5d874d36222f45209a6faf7a348b5bd8&extent=-7.4825,54.0427,0.6309,56.7221&zoom=true&previewImage=false&scale=true&search=true&searchextent=true&legend=true&disable_scroll=false&theme=light"
+                    title="People Associated With Trial - Residence Location with Recorded Occupation"
+                    width="500"
                 ></iframe>
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import Swal from 'sweetalert2'
 
 definePageMeta({
     layout: 'basic',
 })
 
-export default {
-    data: () => ({}),
-    methods: {
-        showPageInfo() {
-            Swal.fire({
-                title: 'People Associated with the Witch Trials: Residence and Occupation',
-                html: '<div>This map shows the occupations of the people associated with the trials, where that is recorded. There are quite a few parish ministers and bailies (local magistrates in burghs), and a variety of other such occupations are recorded in smaller numbers.</div>',
-                footer: 'witches.is.ed.ac.uk',
-                confirmButtonText: 'Close',
-                type: 'info',
-                showCloseButton: true,
-            })
-        },
-    },
-    computed: {},
-    mounted() {},
+const showPageInfo = () => {
+    Swal.fire({
+        title: 'People Associated with the Witch Trials: Residence and Occupation',
+        html: '<div>This map shows the occupations of the people associated with the trials, where that is recorded. There are quite a few parish ministers and bailies (local magistrates in burghs), and a variety of other such occupations are recorded in smaller numbers.</div>',
+        footer: 'witches.is.ed.ac.uk',
+        confirmButtonText: 'Close',
+        type: 'info',
+        showCloseButton: true,
+    })
 }
 </script>
 
