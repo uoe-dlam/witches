@@ -6,9 +6,11 @@
         <div>
             <div class="lg:float-right lg:w-1/2 lg:ml-6 w-3/4 mx-auto">
                 <img
-                    src="../public/images/trial.jpeg"
+                    alt="Suspected witches from North Berwick appear before
+                    James VI and two Scottish magistrates, from the English
+                    pamphlet Newes from Scotland (1591)"
                     class="w-full border border-gray-300"
-                />
+                    src="/images/trial.jpeg" />
                 <p class="text-xs text-center mx-auto">
                     Figure 1. Suspected witches from North Berwick appear before
                     James VI and two Scottish magistrates, from the English
@@ -56,8 +58,9 @@
         <div>
             <div class="lg:float-left lg:w-1/2 lg:mr-6 w-3/4 mx-auto">
                 <img
-                    src="../public/images/oldtolbooth.jpeg"
+                    alt="The Old Tolbooth, Edinburgh"
                     class="w-full border-gray-300"
+                    src="/images/oldtolbooth.jpeg"
                 />
                 <p class="text-xs text-center mx-auto">
                     Figure 2. The Old Tolbooth, Edinburgh. An engraving based on
@@ -94,8 +97,10 @@
         <div>
             <div class="lg:float-right lg:w-1/3 lg:ml-6 w-3/4 mx-auto">
                 <img
-                    src="../public/images/heart.jpeg"
+                    alt="The Heart of Midlothian is a mosaic located outside
+                    St Giles' Cathedral in Edinburgh."
                     class="w-full border-gray-300"
+                    src="/images/heart.jpeg"
                 />
                 <p class="text-xs text-center mx-auto">
                     Figure 3. The Heart of Midlothian is a mosaic located
@@ -155,7 +160,8 @@ export default {
     data: () => ({}),
     methods: {},
     computed: {},
-    mounted: function () {},
+    mounted: function() {
+    },
 }
 </script>
 

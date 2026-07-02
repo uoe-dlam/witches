@@ -7,8 +7,8 @@
             trial, and death locations of over 3000 accused witches in Scotland,
             based upon information provided by
             <a
-                href="https://witches.hca.ed.ac.uk/"
                 class="underline hover:text-gray-500"
+                href="https://witches.hca.ed.ac.uk/"
             >
                 The Survey of Scottish Witchcraft </a
             >.
@@ -16,23 +16,23 @@
         <div class="flex justify-center mt-6 mb-6 w-full">
             <iframe
                 id="kaltura_player"
-                type="text/javascript"
+                allow="autoplay *; fullscreen *; encrypted-media *"
+                allowfullscreen
+                mozAllowFullScreen
+                sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
                 src='https://cdnapisec.kaltura.com/p/2010292/embedPlaykitJs/uiconf_id/55171522?iframeembed=true&entry_id=1_yj5c097l&config[provider]={"widgetId":"1_buq8663s"}'
                 style="width: 100%; height: 500px; border: 0"
-                allowfullscreen
-                webkitallowfullscreen
-                mozAllowFullScreen
-                allow="autoplay *; fullscreen *; encrypted-media *"
-                sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
                 title="Kaltura Player"
+                type="text/javascript"
+                webkitallowfullscreen
             ></iframe>
         </div>
         <div>
             <div class="lg:float-right lg:w-1/2 w-3/4 pr-5 pt-3">
                 <img
-                    src="../public/images/map.png"
+                    alt="Map of Accused Witches"
                     class="w-full lg:ml-6 border border-gray-300"
-                />
+                    src="/images/map.png" />
                 <p class="text-xs text-center">
                     Map of Accused Witches. CC-BY-SA 4.0
                 </p>
@@ -79,9 +79,9 @@
         <div>
             <div class="lg:float-right lg:w-1/2 w-3/4 pr-5 py-3">
                 <img
-                    src="../public/images/intro.jpg"
+                    alt="Newes from Scotland"
                     class="w-full lg:ml-6 border border-gray-300"
-                />
+                    src="/images/intro.jpg" />
                 <p class="text-xs text-center">
                     Newes from Scotland - Woodcut of North Berwick Witches.
                     Public Domain
@@ -118,18 +118,18 @@
             sparse, or unfortunately just does not exist. If you are interested
             in learning more about the witch-hunts in Scotland, there are
             various books and articles that we can recommend. Our
-            <a href="/further-reading" class="link">Further Reading</a> page
+            <a class="link" href="/further-reading">Further Reading</a> page
             gives you a list of up-to-date work on witchcraft and witch-hunting
             in Scotland, for an older but more detailed list of works, see the
             Survey of Scottish Witchcraft’s
-            <a href="https://witches.hca.ed.ac.uk/reading/" class="link"
-                >‘Further Reading’ </a
+            <a class="link" href="https://witches.hca.ed.ac.uk/reading/"
+            >‘Further Reading’ </a
             >list.
         </p>
         <p class="mb-3 text-justify">
             For more information visit our
-            <a href="/interview" class="underline hover:text-gray"
-                >Interview with Prof. Julian Goodare</a
+            <a class="underline hover:text-gray" href="/interview"
+            >Interview with Prof. Julian Goodare</a
             >
             where he answers questions about the Scottish witch trials and the
             Survey of Scottish Witchcraft.
@@ -146,7 +146,8 @@ export default {
     data: () => ({}),
     methods: {},
     computed: {},
-    mounted: function () {},
+    mounted: function() {
+    },
 }
 </script>
 
