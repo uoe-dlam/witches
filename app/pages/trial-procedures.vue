@@ -10,7 +10,8 @@
                     James VI and two Scottish magistrates, from the English
                     pamphlet Newes from Scotland (1591)"
                     class="w-full border border-gray-300"
-                    src="/images/trial.jpeg" />
+                    src="/images/trial.jpeg"
+                />
                 <p class="text-xs text-center mx-auto">
                     Figure 1. Suspected witches from North Berwick appear before
                     James VI and two Scottish magistrates, from the English
@@ -151,18 +152,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
 definePageMeta({
     layout: 'basic',
 })
-
-export default {
-    data: () => ({}),
-    methods: {},
-    computed: {},
-    mounted: function() {
-    },
-}
 </script>
-
-<style scoped></style>
