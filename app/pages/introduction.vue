@@ -32,7 +32,8 @@
                 <img
                     alt="Map of Accused Witches"
                     class="w-full lg:ml-6 border border-gray-300"
-                    src="/images/map.png" />
+                    src="/images/map.png"
+                />
                 <p class="text-xs text-center">
                     Map of Accused Witches. CC-BY-SA 4.0
                 </p>
@@ -81,7 +82,8 @@
                 <img
                     alt="Newes from Scotland"
                     class="w-full lg:ml-6 border border-gray-300"
-                    src="/images/intro.jpg" />
+                    src="/images/intro.jpg"
+                />
                 <p class="text-xs text-center">
                     Newes from Scotland - Woodcut of North Berwick Witches.
                     Public Domain
@@ -123,13 +125,13 @@
             in Scotland, for an older but more detailed list of works, see the
             Survey of Scottish Witchcraft’s
             <a class="link" href="https://witches.hca.ed.ac.uk/reading/"
-            >‘Further Reading’ </a
+                >‘Further Reading’ </a
             >list.
         </p>
         <p class="mb-3 text-justify">
             For more information visit our
             <a class="underline hover:text-gray" href="/interview"
-            >Interview with Prof. Julian Goodare</a
+                >Interview with Prof. Julian Goodare</a
             >
             where he answers questions about the Scottish witch trials and the
             Survey of Scottish Witchcraft.
@@ -137,18 +139,8 @@
     </div>
 </template>
 
-<script>
+<script setup>
 definePageMeta({
     layout: 'basic',
 })
-
-export default {
-    data: () => ({}),
-    methods: {},
-    computed: {},
-    mounted: function() {
-    },
-}
 </script>
-
-<style scoped></style>
