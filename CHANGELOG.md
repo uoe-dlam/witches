@@ -11,11 +11,12 @@ Semantic Versioning 2.0.0
 
 ### Changed
 
-- Upgrade Nuxt from version 3 to version 4 which is the latest version available (PR# 184)
+- Upgrade Nuxt from version 3 to version 4 which is the latest version available (PR# 184, PR #191)
 
 ### Fixed
 
-- Fixed broken images on the site. These were not loading correctly due to a change in the image path expected by Nuxt 4 (PR #190)
+- Fixed broken images on the site. These were not loading correctly due to a change in the image path expected by Nuxt
+  4 (PR #190)
 
 ## [1.5.0] - 2026-06-22
 
