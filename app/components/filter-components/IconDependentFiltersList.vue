@@ -6,6 +6,7 @@
         >
             <div
                 v-for="(filterItem, filterType) in sortedFiltersList"
+                :key="filterType"
                 class="flex flex-col items-center mx-3 mb-2"
                 style="width: 50px"
             >
@@ -28,7 +29,10 @@
         to current. -->
         <div v-else class="flex flex-col items-start w-full mt-2 mb-2">
             <div class="w-full flex flex-wrap px-2">
-                <div v-for="(filterItem, filterType) in sortedFiltersList">
+                <div
+                    v-for="(filterItem, filterType) in sortedFiltersList"
+                    :key="filterType"
+                >
                     <div class="flex mb-3 mx-2 w-full items-center">
                         <input
                             :checked="filterItem.active"
