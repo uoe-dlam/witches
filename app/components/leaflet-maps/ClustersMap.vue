@@ -160,18 +160,6 @@ const fillMarkersArray = (mapMarkers) => {
     })
 }
 
-const hasWikiEntry = (marker) => {
-    const witchesWithEntry = marker.witches.filter(
-        (witch) => witch.wikiPage !== ''
-    )
-
-    return witchesWithEntry.length > 0
-}
-
-const flyTo = (coordinates) => {
-    myMap.value.leafletObject.flyTo(coordinates, 14)
-}
-
 const emit = defineEmits(['changeMaps'])
 
 const emitMapData = () => {
