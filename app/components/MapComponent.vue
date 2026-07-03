@@ -50,7 +50,6 @@ import Timeline from './filter-components/Timeline.vue'
 import MapFilters from './filter-components/MapFilters.vue'
 import FilteringMethods from '../assets/js/FilteringMethods'
 import TimelineMethods from '../assets/js/TimelineMethods'
-import Swal from 'sweetalert2'
 
 const props = defineProps({
     pageInfo: {
@@ -84,11 +83,7 @@ const props = defineProps({
 })
 
 const url = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-const sliderYear = ref([1550, 1750])
-const sliderYears = ref([1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750])
-const wikiPages = ref([])
 const markers = ref(JSON.parse(JSON.stringify(props.originalMarkers)))
-const currentTileName = ref('Modern Map')
 const Filtering = ref(new FilteringMethods(props.filterProperties, 'sex'))
 const fullRange = ref([
     new Date('1562-02-21T00:00:00.000Z'),
@@ -103,18 +98,7 @@ const timelineKey = ref(0)
 const clustersOn = ref(props.clustersOnInitial)
 
 const updateTimelineStatus = (status) => {
-    timelineOn.value = status // Assuming 'timelineOn' is a data property in the parent
-}
-
-const showPageInfo = () => {
-    Swal.fire({
-        title: 'Places of Residence for Accused Witches (total named accused witches: 3141)',
-        html: '<div>This map shows the geographical residence location for each accused witch in Scotland taken from the Survey of Scottish Witchcraft Database. Out of the <b class="font-bold">3212</b> accused witches whose names are known, the residence for <b class="font-bold">3141</b> witches has been located. The majority of the residences are accurately located down to the precise settlement, while others range from parish to county depending on the records surviving for each accused witch. There is a total of 821 different locations recorded in the database; all but 25 of these have been identified. The remaining unidentified place-names are currently recorded as \‘County of’\ on the map.</div>',
-        footer: 'witches.is.ed.ac.uk',
-        confirmButtonText: 'Close',
-        type: 'info',
-        showCloseButton: true,
-    })
+    timelineOn.value = status
 }
 
 const formatDateForFiltering = (dateRange) => {
@@ -242,11 +226,7 @@ const resetTimelineWithNewRange = (dateRange) => {
         TimelineMethods.getTimelineData(dateRange)
 
     // Remounting the timeline if it was already on.
-    timelineKey.value = !timelineKey.value
-}
-
-const checkDateInRange = (date, dateRange) => {
-    return date >= dateRange[0] && date <= dateRange[1]
+    timelineKey.value++
 }
 
 const setTimeline = (dateRange, startRange) => {
@@ -291,8 +271,6 @@ const resetDatesFully = () => {
 
         getMarkerState(marker)
     }
-
-    props.timelineRange = null
 }
 
 const setTimelineOff = () => {
