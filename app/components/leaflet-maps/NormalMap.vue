@@ -42,6 +42,7 @@
                             v-for="standardAttribute in getStandardAttributesWithValue(
                                 witch
                             )"
+                            :key="standardAttribute"
                         >
                             <strong
                                 >{{
@@ -55,6 +56,7 @@
                             v-for="locationOption in getLocationsWithValue(
                                 witch
                             )"
+                            :key="locationOption"
                         >
                             <strong
                                 >{{ locationsLabels[locationOption] }}:</strong
@@ -63,6 +65,7 @@
                                 v-for="(subLocation, index) in witch[
                                     locationOption
                                 ].locations"
+                                :key="index"
                             >
                                 <a
                                     :style="{ cursor: 'pointer' }"
@@ -91,6 +94,7 @@
                             v-for="optionalAttribute in getOptionalsWithValue(
                                 witch
                             )"
+                            :key="optionalAttribute"
                         >
                             <strong
                                 >{{
@@ -101,6 +105,7 @@
                                 v-for="(subAtribute, index) in witch[
                                     optionalAttribute
                                 ]"
+                                :key="index"
                             >
                                 {{ subAtribute.toLowerCase()
                                 }}<template
@@ -143,7 +148,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
     mapMarkers: {
         type: Array,
         required: true,
@@ -199,13 +204,6 @@ const optionalsLabels = ref({
     primary: 'Primary Characteristics',
     secondary: 'Secondary Characteristics',
 })
-
-const hasWikiEntry = (marker) => {
-    const witchesWithEntry = marker.witches.filter(
-        (witch) => witch.wikiPage !== ''
-    )
-    return witchesWithEntry.length > 0
-}
 
 const flyTo = (coords) => {
     myMap.value.leafletObject.flyTo(coords, 14)
