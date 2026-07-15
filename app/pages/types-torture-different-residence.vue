@@ -8,6 +8,7 @@
                         class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-1.5 ml-1 cursor-pointer"
                     >
                         <img
+                            alt="Page Information"
                             aria-label="Page Information"
                             class="w-full h-full pt-0.5"
                             src="/images/infoIcon.svg"

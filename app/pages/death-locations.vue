@@ -16,7 +16,6 @@
 <script setup>
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import APIDataHandler from '~/assets/js/APIDataHandler'
-import json from '../big-query-output.json'
 import FilteringMethods from '../assets/js/FilteringMethods'
 import MapComponent from '../components/MapComponent.vue'
 import LoadingMessage from '../components/LoadingMessage.vue'
@@ -37,7 +36,7 @@ const pageInfo = ref({
 })
 const sparqlUrl = ref('https://query.wikidata.org/sparql')
 const wikiPages = ref([])
-const queryOutput = ref(json)
+const queryOutput = ref(null)
 const loading = ref(true)
 const originalMarkers = ref([])
 const filtersToFind = ref([
@@ -140,22 +139,7 @@ const setMarkersIcons = () => {
 }
 
 const updatePageInfo = () => {
-    pageInfo.value.html = `<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <strong">execution under the charge of witchcraft</strong>. Although there were <strong>3212</strong> accused witches named, there are recorded places of death for only <stong>${totalWitches.value}<strong> of them. Many of these locations are recorded as precise sites of execution. There are another <strong>119</strong> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>`
-}
-
-const hasLocalStorageExpired = () => {
-    const hours = 24 // Reset when storage is more than 24hours
-    const now = new Date().getTime()
-    const setupTime = localStorage.getItem('setupTime')
-
-    return setupTime === null || now - setupTime > hours * 60 * 60 * 1000
-}
-
-const loadDataFromLocalStorage = () => {
-    const allFilters = JSON.parse(localStorage.getItem('allFilters'))
-
-    filterProperties.value.socialClass.filters = allFilters.socialClass
-    filterProperties.value.occupation.filters = allFilters.occupation
+    pageInfo.value.html = `<div>This map communicates the recorded locations for accused witches’ places of death. These deaths are the result of <strong>execution under the charge of witchcraft</strong>. Although there were <strong>3212</strong> accused witches named, there are recorded places of death for only <stong>${totalWitches.value}<strong> of them. Many of these locations are recorded as precise sites of execution. There are another <strong>119</strong> accused witches who were executed without a recorded geographical location. Many of the accused witches were executed by being strangled and then burned. For most of the accused witches, the surviving documentation does not show their fate. Most of them were probably executed, but the records that would have shown this no longer survive.</div>`
 }
 
 const loadData = async () => {
@@ -166,7 +150,7 @@ const loadData = async () => {
     try {
         queryOutput.value = await myFetch('/main.php?type=death')
     } catch {
-        Swal.fire({
+        await Swal.fire({
             title: 'Server Error',
             html: `<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:${config.public.supportEmail}">${config.public.supportEmail}</a></div>`,
             footer: 'witches.is.ed.ac.uk',
