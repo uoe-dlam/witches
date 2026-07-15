@@ -7,7 +7,7 @@
                 max-height: 17%;
                 width: 95%;
                 position: absolute;
-                bottom: 0%;
+                bottom: 0;
             "
         >
             <!-- Add the cross (close) button -->
@@ -64,7 +64,6 @@ const props = defineProps({
 })
 
 const dates = ref(props.timelineDates)
-const markers = ref(props.timelineMarkers)
 const timelineShowing = ref(true)
 const numberRangeValue = ref([0, 0]) // Initialize with dummy values
 
@@ -74,17 +73,15 @@ const max = computed(() => {
 
 const emit = defineEmits(['updatedRangeValue', 'timelineToggled'])
 
-const emitRange = (rangeValue) => {
-    emit('updatedRangeValue', rangeValue)
-}
-
 const toggleTimelineShowing = () => {
     timelineShowing.value = !timelineShowing.value
     emit('timelineToggled', timelineShowing.value)
 }
 
 const getDateLabel = (value) => {
-    return dates.value[value].label
+    const index = Math.round(value)
+
+    return dates.value[index]?.label ?? ''
 }
 
 const handleCustomInputRangeChange = (newCustomInputRange) => {

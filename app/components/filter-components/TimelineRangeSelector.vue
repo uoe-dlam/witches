@@ -6,7 +6,6 @@
         </div>
 
         <div
-            ref="PresetRanges"
             class="flex pl-2 py-1 flex-wrap items-center mt-2 cursor-pointer ml-1"
             @click="toggleRecommended()"
         >
@@ -14,11 +13,13 @@
             <p style="font-weight: 500">Pre-set ranges showing panics</p>
             <img
                 v-if="!recommendedOn"
+                alt="Arrow down"
                 class="w-6 h-6"
                 src="/images/arrow-down.svg"
             />
             <img
                 v-if="recommendedOn"
+                alt="Arrow up"
                 class="w-6 h-6"
                 src="/images/arrow-up.svg"
             />
@@ -31,6 +32,7 @@
             >
                 <option
                     v-for="option in recommendedOptions"
+                    :key="option.value"
                     :value="option.value"
                 >
                     {{ option.label }}
@@ -47,11 +49,13 @@
             <p style="font-weight: 500">Custom range</p>
             <img
                 v-if="!customSelectorOn"
+                alt="Arrow down"
                 class="w-6 h-6"
                 src="/images/arrow-down.svg"
             />
             <img
                 v-if="customSelectorOn"
+                alt="Arrow up"
                 class="w-6 h-6"
                 src="/images/arrow-up.svg"
             />
@@ -101,7 +105,6 @@ const panicsRanges = ref([
     [new Date('01/01/1661'), new Date('12/31/1662')],
     [new Date('01/01/1663'), new Date('12/31/1736')],
 ])
-const fullRange = ref([new Date('21/02/1562'), new Date('12/06/1727')])
 const recommendedOptions = ref([
     { value: null, label: '(recommended ranges)' }, //placeholder
     { value: 0, label: '1563-89 (non-panic period)' },
@@ -125,17 +128,6 @@ const recommendedRange = ref(null)
 const customSelectorOn = ref(false)
 const customInputRange = ref(null)
 const defaultRangeCustom = ref([new Date('01/01/1650'), new Date('01/01/1670')])
-const defaultRangeCustomSrt = ref(['01/01/1650', '01/01/1670'])
-const lang = ref({
-    formatLocale: {
-        firstDayOfWeek: true,
-    },
-})
-const monthBeforeYear = ref(true)
-
-const getEnabledDateRange = (date) => {
-    return date < fullRange.value[0] || date > fullRange.value[1]
-}
 
 const handleCustomInputRange = (newCustomInputRange) => {
     customInputRange.value = newCustomInputRange
@@ -148,18 +140,6 @@ const toggleCustomSelector = () => {
 const toggleRecommended = () => {
     recommendedOn.value = !recommendedOn.value
 }
-
-const PresetRanges = useTemplateRef('PresetRanges')
-
-const scrollRecommendedIntoView = () => {
-    if (PresetRanges) {
-        PresetRanges.value.scrollIntoView({ behavior: 'smooth' })
-    }
-}
-
-const defaultMessage = computed(() => {
-    return 'Default Date Range: '
-})
 
 const emit = defineEmits(['scrollHeaderIntoView', 'selectedDateRange'])
 
