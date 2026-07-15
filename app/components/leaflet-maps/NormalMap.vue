@@ -266,9 +266,6 @@ const getOptionalsWithValue = (witch) => {
 const iconAnchor = computed(() => {
     return [11, 41]
 })
-const shadowAnchor = computed(() => {
-    return [11, 26]
-})
 const shadowUrl = computed(() => {
     return '/images/North-Berwick-witch-shadow.png'
 })

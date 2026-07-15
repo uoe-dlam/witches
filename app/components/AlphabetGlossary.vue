@@ -58,6 +58,7 @@ const props = defineProps({
 
 const toggleShowingLetter = (letter) => {
     const letterObj = letters.value.find((l) => l.letter === letter)
+
     if (letterObj) {
         letterObj.expanded = !letterObj.expanded
     }
