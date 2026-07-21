@@ -183,6 +183,7 @@
               property the key. -->
                         <div
                             v-for="(propertyItem, property) in filterProperties"
+                            :key="property"
                             class="w-full flex flex-col ml-4"
                         >
                             <!-- Property titles -->
@@ -326,7 +327,7 @@
                         <div
                             class="w-full flex justify-between px-2 sm:px-3 md:px-5 lg:px-10 mb-3"
                         >
-                            <div v-for="tile in tiles">
+                            <div v-for="tile in tiles" :key="tile.name">
                                 <input
                                     :checked="tile.name === currentTileName"
                                     name="tile"
@@ -418,7 +419,6 @@ const props = defineProps({
     },
 })
 
-const isTooltipVisible = ref(false)
 const timelineSelectorOn = ref(false) // Set to true on mounted if includeTimeline.
 const timelineSelectorKey = ref(0)
 const filtersBox = ref(true)
@@ -442,24 +442,6 @@ const tiles = ref([
 const currentProperty = ref('sex') // Determines the property the icons of which are showing.
 const timelineShowing = ref(true)
 
-const toggleTooltip = (propertyItem) => {
-    if (isMobileDevice.value) {
-        propertyItem.descriptionShowing = !propertyItem.descriptionShowing
-    }
-}
-
-const closeTooltip = (propertyItem) => {
-    propertyItem.descriptionShowing = false
-}
-
-const setFilterInactive = (property, filterType) => {
-    filterProperties.value[property].filters[filterType].active = false
-}
-
-const setFilterActive = (property, filterType) => {
-    filterProperties.value[property].filters[filterType].active = true
-}
-
 const emit = defineEmits([
     'filterOff',
     'filterOn',
@@ -470,18 +452,6 @@ const emit = defineEmits([
     'selectedDateRange',
     'deactivatedTimeline',
 ])
-
-const filterEmit = (property, filterType) => {
-    const isActive = filterProperties.value[property].filters[filterType].active
-
-    if (isActive) {
-        setFilterInactive(property, filterType)
-        emit('filterOff', [property, filterType])
-    } else {
-        setFilterActive(property, filterType)
-        emit('filterOn', [property, filterType])
-    }
-}
 
 const emitFilterOff = (filterInfo) => {
     emit('filterOff', filterInfo)
@@ -552,14 +522,6 @@ const toggleFiltersBox = () => {
     filtersBox.value = !filtersBox.value
 }
 
-const toggleTimelineSelector = () => {
-    timelineSelectorOn.value = !timelineSelectorOn.value
-
-    if (!timelineSelectorOn.value) {
-        emit('turnTimelineOff')
-    }
-}
-
 const toggleTimelineShowing = () => {
     timelineShowing.value = !timelineShowing.value
 }
@@ -609,10 +571,6 @@ const dateRangeFormatted = computed(() => {
 
 const iconsConstant = computed(() => {
     return props.iconBehaviour === 'constant'
-})
-
-const isMobileDevice = computed(() => {
-    return window.innerWidth <= 768 // You can adjust the width as needed
 })
 
 const FiltersHeader = useTemplateRef('FiltersHeader')

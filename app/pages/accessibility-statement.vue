@@ -145,11 +145,11 @@
             </li>
             <li class="list-disc">
                 Some links (e.g. drop downs on main menu and filters) are not
-                navigable using keyboard only ( <a
+                navigable using keyboard only (<a
                     class="link"
                     href="https://www.w3.org/TR/WCAG21/#keyboard-accessible"
                     target="_blank"
-                    >2.1 Keyboard Accessible</a
+                    >2.1 Keyboard Accessible</a
                 >).
             </li>
         </ul>

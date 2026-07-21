@@ -86,8 +86,10 @@
                                     "
                                 >
                                     <div
-                                        v-for="(trial, index) in marker.trials"
-                                        :key="index"
+                                        v-for="(
+                                            trial, trialIndex
+                                        ) in marker.trials"
+                                        :key="trialIndex"
                                     >
                                         <strong>{{ trial.witchName }}</strong
                                         ><br />
@@ -128,7 +130,7 @@ definePageMeta({
 const sparqlUrl = ref('https://query.wikidata.org/sparql')
 const url = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 const attribution = ref(
-    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>'
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://maps.nls.uk/projects/api/">NLS Maps API</a>'
 )
 const zoom = ref(7)
 const center = ref([55.95, -3.198888888])
@@ -151,10 +153,6 @@ const sliderYear = ref([1550, 1750])
 const sliderYears = ref([1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750])
 const noItems = ref('')
 const numberRangeValue = ref([0, 8])
-
-const max = computed(() => {
-    return sliderYears.value.length - 1
-})
 
 const convertPointToLongLatArray = (pointString) => {
     pointString = pointString.substr(6)
@@ -203,7 +201,7 @@ const loadTrials = () => {
                 location: item.residenceLabel.value,
                 witchName: item.personLabel.value,
                 link:
-                    'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.trialrecord&search_string&trialref=' +
+                    'https://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.trialrecord&search_string&trialref=' +
                     item.link.value,
                 longLat: convertPointToLongLatArray(item.coords.value),
                 date: trialDate,
@@ -233,7 +231,7 @@ const loadTrials = () => {
     })
 }
 
-const getIcon = (marker) => {
+const getIcon = () => {
     return '/images/North-Berwick-witch.png'
 }
 
@@ -300,19 +298,5 @@ onMounted(() => {
 .slider-year {
     font-size: 14px;
     color: #606f7b;
-}
-.zoomed-in-img {
-    float: left;
-    width: 25px;
-    height: 38px;
-}
-
-.icon-shadow {
-    position: absolute;
-    top: 15px !important;
-    left: 0;
-    z-index: -1;
-    width: 32px;
-    height: 22px !important;
 }
 </style>

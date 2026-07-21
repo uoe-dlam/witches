@@ -170,6 +170,7 @@
                                     @click="toggleFiltersBox"
                                 >
                                     <img
+                                        alt="Chevron Left"
                                         class="max-w-full max-h-full"
                                         src="/images/chevrons-left.svg"
                                     />
@@ -189,6 +190,7 @@
                             @click="toggleFiltersBox"
                         >
                             <img
+                                alt="Chevron Right"
                                 class="max-w-full max-h-full"
                                 src="/images/chevrons-right.svg"
                             />
@@ -262,12 +264,20 @@
                         <LIcon :icon-anchor="iconAnchor" class-name="">
                             <div class="icon-wrapper">
                                 <div v-if="memorial.type === 'memorial'">
-                                    <img :src="memIcon" class="zoomed-in-img" />
+                                    <img
+                                        :src="memIcon"
+                                        alt="Memorial Icon"
+                                        class="zoomed-in-img"
+                                    />
                                 </div>
                                 <div
                                     v-if="memorial.type === 'site of interest'"
                                 >
-                                    <img :src="poiIcon" class="zoomed-in-img" />
+                                    <img
+                                        :src="poiIcon"
+                                        alt="Site of Interest Icon"
+                                        class="zoomed-in-img"
+                                    />
                                 </div>
                                 <div
                                     v-if="
@@ -276,10 +286,15 @@
                                 >
                                     <img
                                         :src="touristIcon"
+                                        alt="Tourist Attraction Icon"
                                         class="zoomed-in-img"
                                     />
                                 </div>
-                                <img :src="shadow" class="icon-shadow" />
+                                <img
+                                    :src="shadow"
+                                    alt="Icon Shadow"
+                                    class="icon-shadow"
+                                />
                             </div>
                         </LIcon>
                     </LMarker>
@@ -314,7 +329,6 @@ const originalMarkers = ref([])
 const sparqlUrl = ref('https://query.wikidata.org/sparql')
 const descriptions = ref({})
 const types = ref({})
-const memorials = ref([])
 const filters = ref({
     poi: true,
     memorial: true,
@@ -430,13 +444,6 @@ const convertPointToLongLatArray = (pointString) => {
     const pointArray = pointString.split(' ')
 
     return [pointArray[1], pointArray[0]]
-}
-
-const removeMarkersFromMap = () => {
-    markers.value.forEach((marker) => {
-        this.$refs.myMap.mapObject.removeLayer(marker)
-    })
-    markers.value = []
 }
 
 const toggleFiltersBox = () => {

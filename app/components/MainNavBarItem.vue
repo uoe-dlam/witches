@@ -1,5 +1,5 @@
 <template>
-    <span class="dropdown block lg:inline-block">
+    <div class="dropdown block lg:inline-block">
         <a
             v-if="external"
             :href="url"
@@ -21,17 +21,31 @@
         >
             <a
                 v-for="page in subpages"
+                :key="page.url"
                 :class="{ subMenuItemActive: isSubActive(page.url) }"
                 :href="page.url"
                 class="block pt-3 pb-0 pl-2 pr-2 lg:p-2 hover:text-black"
                 >{{ page.name }}</a
             >
         </div>
-    </span>
+    </div>
 </template>
 
 <script setup>
-defineProps(['url', 'external', 'subpages'])
+defineProps({
+    url: {
+        type: String,
+        default: '',
+    },
+    external: {
+        type: Boolean,
+        default: false,
+    },
+    subpages: {
+        type: Array,
+        default: () => [],
+    },
+})
 
 const route = useRoute()
 

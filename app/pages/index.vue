@@ -16,7 +16,6 @@ import { useIcons } from '@/composables/useIcons'
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import APIDataHandler from '~/assets/js/APIDataHandler'
 import FilteringMethods from '~/assets/js/FilteringMethods'
-import json from '../big-query-output.json'
 import MapComponent from '../components/MapComponent.vue'
 import LoadingMessage from '../components/LoadingMessage.vue'
 import Swal from 'sweetalert2'
@@ -34,7 +33,7 @@ const pageInfo = ref({
     type: 'info',
     showCloseButton: true,
 })
-const queryOutput = ref(json)
+const queryOutput = ref(null)
 const sparqlUrl = ref('https://query.wikidata.org/sparql')
 const wikiPages = ref([])
 const loading = ref(true)
@@ -128,33 +127,6 @@ const loadWikiEntries = () => {
     })
 }
 
-// Local storage functions:
-const hasLocalStorageExpired = () => {
-    const hours = 24 // Reset when storage is more than 24hours
-    const now = new Date().getTime()
-    const setupTime = localStorage.getItem('setupTime')
-
-    return setupTime === null || now - setupTime > hours * 60 * 60 * 1000
-}
-
-const loadDataFromLocalStorage = () => {
-    originalMarkers.value = JSON.parse(localStorage.getItem('residenceMarkers'))
-    const allFilters = JSON.parse(localStorage.getItem('allFilters'))
-
-    filterProperties.value.socialClass.filters = allFilters.socialClass
-    filterProperties.value.occupation.filters = allFilters.occupation
-}
-
-const saveDataToLocalStorage = (foundFilters) => {
-    const now = new Date().getTime()
-    localStorage.setItem('setupTime', now)
-    localStorage.setItem(
-        'residenceMarkers',
-        JSON.stringify(originalMarkers.value)
-    )
-    localStorage.setItem('allFilters', JSON.stringify(foundFilters))
-}
-
 const setMarkersIcons = () => {
     const Filtering = new FilteringMethods(filterProperties.value, 'sex')
 
@@ -173,8 +145,8 @@ const loadData = async () => {
         queryOutput.value = await $fetch('/main.php?type=accused', {
             baseURL: config.public.baseURL,
         })
-    } catch (e) {
-        Swal.fire({
+    } catch {
+        await Swal.fire({
             title: 'Server Error',
             html: `<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:${config.public.supportEmail}">${config.public.supportEmail}</a></div>`,
             footer: 'witches.is.ed.ac.uk',

@@ -39,6 +39,7 @@ const props = defineProps({
 })
 
 const myMap = ref(null)
+const mapReady = ref(false)
 const baseMapUrl = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 const attribution = ref(
     'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>'
@@ -91,6 +92,8 @@ const optionalsLabels = ref({
 })
 
 const fillMarkersArray = (mapMarkers) => {
+    const fallbackMarkerIcon = '/images/witch-single-purple.png'
+
     markers.value = mapMarkers.map((markerData) => {
         const lat = markerData.longLat[0]
         const lng = markerData.longLat[1]
@@ -147,7 +150,7 @@ const fillMarkersArray = (mapMarkers) => {
             lng: lng,
             options: {
                 icon: L.icon({
-                    iconUrl: markerData.markerIcon,
+                    iconUrl: markerData.markerIcon ?? fallbackMarkerIcon,
                     iconSize: [25, 38],
                     iconAnchor: iconAnchor.value,
                     shadowUrl: shadowUrl.value,
@@ -160,21 +163,13 @@ const fillMarkersArray = (mapMarkers) => {
     })
 }
 
-const hasWikiEntry = (marker) => {
-    const witchesWithEntry = marker.witches.filter(
-        (witch) => witch.wikiPage !== ''
-    )
-
-    return witchesWithEntry.length > 0
-}
-
-const flyTo = (coordinates) => {
-    myMap.value.leafletObject.flyTo(coordinates, 14)
-}
-
 const emit = defineEmits(['changeMaps'])
 
 const emitMapData = () => {
+    if (!myMap.value?.leafletObject) {
+        return
+    }
+
     // Emmits an object containing the information about
     // where the center of the map is, the zoom, and what
     // map type to change to when the map is turned off,
@@ -226,7 +221,11 @@ const getOptionalsWithValue = (witch) => {
     return optionalsWithValue
 }
 
-const refreshMapMarkers = () => {
+const refreshMapMarkers = async () => {
+    if (!mapReady.value || !myMap.value?.leafletObject) {
+        return
+    }
+
     // clear existing markers
     myMap.value.leafletObject.eachLayer((layer) => {
         if (layer instanceof L.MarkerClusterGroup) {
@@ -243,6 +242,7 @@ const refreshMapMarkers = () => {
 }
 
 const onMapReady = () => {
+    mapReady.value = true
     fillMarkersArray(props.mapMarkers)
     useLMarkerClusterCustom({
         leafletObject: myMap.value.leafletObject,
@@ -263,14 +263,16 @@ const shadowUrl = computed(() => {
 })
 
 onBeforeUnmount(() => {
-    emitMapData()
+    if (myMap.value?.leafletObject) {
+        emitMapData()
+    }
 })
 
 watch(
     () => props.mapMarkers,
-    () => {
-        fillMarkersArray(props.mapMarkers)
-        refreshMapMarkers()
+    async (newMarkers) => {
+        fillMarkersArray(newMarkers)
+        await refreshMapMarkers()
     }
 )
 </script>

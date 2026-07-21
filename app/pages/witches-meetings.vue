@@ -15,7 +15,6 @@
 <script setup>
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import APIDataHandler from '~/assets/js/APIDataHandler'
-import json from '../big-query-output.json'
 import MapComponent from '../components/MapComponent.vue'
 import LoadingMessage from '../components/LoadingMessage.vue'
 import Swal from 'sweetalert2'
@@ -33,7 +32,7 @@ const pageInfo = ref({
     type: 'info',
     showCloseButton: true,
 })
-const queryOutput = ref(json)
+const queryOutput = ref(null)
 const sparqlUrl = ref('https://query.wikidata.org/sparql')
 const wikiPages = ref([])
 const loading = ref(true)
@@ -114,23 +113,6 @@ const setFilters = (filtersFound) => {
     })
 }
 
-// Local storage functions:
-const hasLocalStorageExpired = () => {
-    const hours = 24 // Reset when storage is more than 24hours
-    const now = new Date().getTime()
-    const setupTime = localStorage.getItem('setupTime')
-
-    return setupTime === null || now - setupTime > hours * 60 * 60 * 1000
-}
-
-const loadDataFromLocalStorage = () => {
-    originalMarkers.value = JSON.parse(localStorage.getItem('residenceMarkers'))
-    const allFilters = JSON.parse(localStorage.getItem('allFilters'))
-
-    setFilters(allFilters)
-    setMarkersIcons()
-}
-
 const setMarkersIcons = () => {
     for (let i = 0; i < originalMarkers.value.length; i++) {
         const marker = originalMarkers.value[i]
@@ -146,7 +128,7 @@ const loadData = async () => {
     try {
         queryOutput.value = await myFetch('/main.php?type=meetings')
     } catch {
-        Swal.fire({
+        await Swal.fire({
             title: 'Server Error',
             html: `<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:${config.public.supportEmail}">${config.public.supportEmail}</a></div>`,
             footer: 'witches.is.ed.ac.uk',

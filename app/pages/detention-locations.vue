@@ -137,20 +137,6 @@ const setMarkersIcons = () => {
     }
 }
 
-const hasLocalStorageExpired = () => {
-    const hours = 24 // Reset when storage is more than 24hours
-    const now = new Date().getTime()
-    const setupTime = localStorage.getItem('setupTime')
-
-    return setupTime === null || now - setupTime > hours * 60 * 60 * 1000
-}
-
-const loadDataFromLocalStorage = () => {
-    const allFilters = JSON.parse(localStorage.getItem('allFilters'))
-    filterProperties.value.socialClass.filters = allFilters.socialClass
-    filterProperties.value.occupation.filters = allFilters.occupation
-}
-
 const loadData = async () => {
     loadWikiEntries()
 
@@ -158,7 +144,7 @@ const loadData = async () => {
     try {
         queryOutput.value = await myFetch('/main.php?type=detention')
     } catch {
-        Swal.fire({
+        await Swal.fire({
             title: 'Server Error',
             html: `<div>We are unable to connect to the server to pull in map info. Please refresh the page and try again. If this error persists, please contact <a href="mailto:${config.public.supportEmail}">${config.public.supportEmail}</a></div>`,
             footer: 'witches.is.ed.ac.uk',

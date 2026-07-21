@@ -6,7 +6,7 @@
             Lauren Martin, Joyce Miller and Louise Yeoman,
             <a
                 class="link"
-                href="http://www.shca.ed.ac.uk/witches/"
+                href="https://www.shca.ed.ac.uk/witches/"
                 target="_blank"
             >
                 'The Survey of Scottish Witchcraft' </a

@@ -45,8 +45,8 @@
 </template>
 
 <script setup>
-import ClustersMap from "./ClustersMap.vue";
-import NormalMap from "./NormalMap.vue";
+import ClustersMap from './ClustersMap.vue'
+import NormalMap from './NormalMap.vue'
 
 const props = defineProps({
     mapUrl: {
