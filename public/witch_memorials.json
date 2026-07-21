@@ -183,5 +183,10 @@
         "wikidata_code": "Q123250399",
         "description": "Known as 'The Witch’s Well', this well was a site of execution in the early modern witch trials. Plaque reads 'Fornicatress, adulteress, sorceress, apostate, blasphemer, traitor'.",
         "type": "site of interest"
+    },
+    {
+        "wikidata_code": "Q140628772",
+        "description": "The Abernethy memorial is carved in sandstone and is a beautiful piece of art in its own right. At the heart are the names of the three women caught up in this time of persecution whilst a Rowan tree, with interlacing Celtic knot ‘roots’, symbolizes lives cut short but remembered. Thanks to a grant from Perth and Kinross Heritage Trust and commissioned by Abernethy Museum (where more information about the local witch hunts can be found) the memorial can be found outside Abernethy Williamson Hall on Kirk Wynd. The stone has been created by heritage stone carver David McGovern (from Monikie Rock Art).",
+        "type": "memorial"
     }
 ]
