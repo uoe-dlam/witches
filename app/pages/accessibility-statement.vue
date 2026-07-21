@@ -24,9 +24,9 @@
         </ul>
         <p>
             <a
+                class="link"
                 href="https://mcmw.abilitynet.org.uk"
                 target="_blank"
-                class="link"
                 >AbilityNet</a
             >
             has advice on making your device easier to use if you have a
@@ -102,7 +102,7 @@
         </p>
         <p>The full guidelines are available at:</p>
         <p>
-            <a href="https://www.w3.org/TR/WCAG21/" target="_blank" class="link"
+            <a class="link" href="https://www.w3.org/TR/WCAG21/" target="_blank"
                 >Web Content Accessibility Guidelines version 2.1</a
             >
         </p>
@@ -121,35 +121,35 @@
         <ul class="ml-5 mb-3">
             <li class="list-disc">
                 Page html elements do not have a lang attribute (<a
+                    class="link"
                     href="https://www.w3.org/TR/WCAG21/#language-of-page"
                     target="_blank"
-                    class="link"
                     >3.1.1 Language of Page</a
                 >)
             </li>
             <li class="list-disc">
                 Some images are missing alternative text (<a
+                    class="link"
                     href="https://www.w3.org/TR/WCAG21/#text-alternatives"
                     target="_blank"
-                    class="link"
                     >1.1 Text Alternatives</a
                 >)
             </li>
             <li class="list-disc">
                 Pages don't have one main landmark (<a
+                    class="link"
                     href="https://www.w3.org/TR/WCAG21/#info-and-relationships"
                     target="_blank"
-                    class="link"
                     >1.3.1 Info and Relationships</a
                 >)
             </li>
             <li class="list-disc">
                 Some links (e.g. drop downs on main menu and filters) are not
-                navigable using keyboard only ( <a
+                navigable using keyboard only (<a
+                    class="link"
                     href="https://www.w3.org/TR/WCAG21/#keyboard-accessible"
                     target="_blank"
-                    class="link"
-                    >2.1 Keyboard Accessible</a
+                    >2.1 Keyboard Accessible</a
                 >).
             </li>
         </ul>
@@ -174,19 +174,12 @@
     </main>
 </template>
 
-<script>
+<script setup>
 definePageMeta({
     layout: 'default',
 })
 
-export default {
-    data: () => ({
-        supportEmail: useRuntimeConfig().public.supportEmail,
-    }),
-    methods: {},
-    computed: {},
-    mounted: function () {},
-}
+const supportEmail = ref(useRuntimeConfig().public.supportEmail)
 </script>
 
 <style></style>

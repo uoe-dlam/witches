@@ -22,49 +22,40 @@
         <div class="flex flex-col mb-3 w-full">
             <h2>The Scottish Witch Trials</h2>
             <iframe
-                src="https://media.ed.ac.uk/embedplaylist/secure/embed/v2/0/playlistId/1_3fijkxq7/uiConfId/55171522"
-                width="100%"
-                height="500"
-                allowfullscreen
-                webkitallowfullscreen
-                mozAllowFullScreen
                 allow="autoplay *; fullscreen *; encrypted-media *"
+                allowfullscreen
+                frameborder="0"
+                height="500"
+                mozAllowFullScreen
                 referrerpolicy="no-referrer-when-downgrade"
                 sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-                frameborder="0"
+                src="https://media.ed.ac.uk/embedplaylist/secure/embed/v2/0/playlistId/1_3fijkxq7/uiConfId/55171522"
                 title="Kaltura Player"
+                webkitallowfullscreen
+                width="100%"
             ></iframe>
         </div>
         <div class="flex flex-col w-full mb-6">
             <h2>The Survey of Scottish Witchcraft</h2>
             <iframe
-                src="https://media.ed.ac.uk/embedplaylist/secure/embed/v2/0/playlistId/1_09hfj9yo/uiConfId/55171522"
-                width="100%"
-                height="500px"
-                allowfullscreen
-                webkitallowfullscreen
-                mozAllowFullScreen
                 allow="autoplay *; fullscreen *; encrypted-media *"
+                allowfullscreen
+                frameborder="0"
+                height="500px"
+                mozAllowFullScreen
                 referrerpolicy="no-referrer-when-downgrade"
                 sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation"
-                frameborder="0"
+                src="https://media.ed.ac.uk/embedplaylist/secure/embed/v2/0/playlistId/1_09hfj9yo/uiConfId/55171522"
                 title="Kaltura Player"
+                webkitallowfullscreen
+                width="100%"
             ></iframe>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 definePageMeta({
     layout: 'basic',
 })
-
-export default {
-    data: () => ({}),
-    methods: {},
-    computed: {},
-    mounted: function () {},
-}
 </script>
-
-<style></style>

@@ -10,9 +10,9 @@
                             class="inline-flex items-center justify-center align-middle w-6 h-6 hover:w-7 hover:h-7 mb-0.5 ml-1 cursor-pointer"
                         >
                             <img
-                                src="/images/infoIcon.svg"
-                                class="w-full h-full pt-0.5"
                                 aria-label="Page Information Popup"
+                                class="w-full h-full pt-0.5"
+                                src="/images/infoIcon.svg"
                                 @click="showPageInfo()"
                             />
                             <span class="visually-hidden"
@@ -25,9 +25,9 @@
                     <br />
                     <span v-for="(tile, index) in tiles" :key="index">
                         <input
-                            type="radio"
-                            name="tile"
                             :checked="tile.name === currentTileName"
+                            name="tile"
+                            type="radio"
                             @change="filterTiles(tile)"
                         />&nbsp;{{ tile.name }}&nbsp;
                     </span>
@@ -36,15 +36,15 @@
                 <h2>Year: {{ sliderYear[0] }} - {{ sliderYear[1] }}</h2>
                 <div class="p-2">
                     <Slider
-                        name="slider"
                         v-model="numberRangeValue"
-                        :min="0"
-                        :max="8"
                         :format="getYearLabel"
-                        showTooltip="drag"
-                        :merge="1"
-                        @change="filterDates()"
                         :lazy="false"
+                        :max="8"
+                        :merge="1"
+                        :min="0"
+                        name="slider"
+                        show-tooltip="drag"
+                        @change="filterDates()"
                     />
                 </div>
                 <!-- Display slider years below the slider -->
@@ -61,13 +61,13 @@
             <div id="map-wrapper">
                 <client-only>
                     <LMap
-                        style="height: 100%; width: 100%"
-                        :zoom="zoom"
                         :center="center"
+                        :zoom="zoom"
+                        style="height: 100%; width: 100%"
                     >
                         <LTileLayer
-                            :url="url"
                             :attribution="attribution"
+                            :url="url"
                         ></LTileLayer>
 
                         <LMarker
@@ -86,8 +86,10 @@
                                     "
                                 >
                                     <div
-                                        v-for="(trial, index) in marker.trials"
-                                        :key="index"
+                                        v-for="(
+                                            trial, trialIndex
+                                        ) in marker.trials"
+                                        :key="trialIndex"
                                     >
                                         <strong>{{ trial.witchName }}</strong
                                         ><br />
@@ -100,12 +102,12 @@
                                 </div>
                             </LPopup>
                             <LIcon
-                                :icon-size="[25, 38]"
                                 :icon-anchor="iconAnchor"
-                                :iconUrl="getIcon(marker)"
-                                :shadowUrl="shadowUrl"
-                                :shadowSize="[32, 22]"
-                                :shadowAnchor="shadowAnchor"
+                                :icon-size="[25, 38]"
+                                :icon-url="getIcon(marker)"
+                                :shadow-anchor="shadowAnchor"
+                                :shadow-size="[32, 22]"
+                                :shadow-url="shadowUrl"
                             >
                             </LIcon>
                         </LMarker>
@@ -116,7 +118,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { SPARQLQueryDispatcher } from '~/assets/js/SPARQLQueryDispatcher'
 import Swal from 'sweetalert2'
 import Slider from '@vueform/slider'
@@ -125,53 +127,47 @@ definePageMeta({
     layout: 'default',
 })
 
-export default {
-    components: { Slider },
-    data: () => ({
-        sparqlUrl: 'https://query.wikidata.org/sparql',
+const sparqlUrl = ref('https://query.wikidata.org/sparql')
+const url = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+const attribution = ref(
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="https://maps.nls.uk/projects/api/">NLS Maps API</a>'
+)
+const zoom = ref(7)
+const center = ref([55.95, -3.198888888])
+const markers = ref([])
+const originalMarkers = ref([])
+const currentTileName = ref('Modern Map')
+const tiles = ref([
+    {
+        name: 'Modern Map',
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution:
-            'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, 1919-1947 from the <a href="http://maps.nls.uk/projects/api/">NLS Maps API</a>',
-        zoom: 7,
-        center: [55.95, -3.198888888],
-        markers: [],
-        originalMarkers: [],
-        currentTileName: 'Modern Map',
-        tiles: [
-            {
-                name: 'Modern Map',
-                url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                active: true,
-            },
-            {
-                name: 'Historic Map',
-                url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
-                active: false,
-            },
-        ],
-        sliderYear: [1550, 1750],
-        sliderYears: [1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750],
-        noItems: '',
-        numberRangeValue: [0, 8],
-    }),
-    computed: {
-        max() {
-            return this.sliderYears.length - 1
-        },
+        active: true,
     },
-    methods: {
-        convertPointToLongLatArray: function (pointString) {
-            pointString = pointString.substr(6)
-            pointString = pointString.slice(0, -1)
-            let pointArray = pointString.split(' ')
-            let longLatArray = [pointArray[1], pointArray[0]]
-            return longLatArray
-        },
-        getYearLabel(value) {
-            return this.sliderYears[value]
-        },
-        loadTrials: function () {
-            const sparqlQuery = `SELECT ?item ?residenceLabel ?coords ?personLabel ?date ?link
+    {
+        name: 'Historic Map',
+        url: 'https://nls.tileserver.com/nls/{z}/{x}/{y}.jpg',
+        active: false,
+    },
+])
+const sliderYear = ref([1550, 1750])
+const sliderYears = ref([1550, 1575, 1600, 1625, 1650, 1675, 1700, 1725, 1750])
+const noItems = ref('')
+const numberRangeValue = ref([0, 8])
+
+const convertPointToLongLatArray = (pointString) => {
+    pointString = pointString.substr(6)
+    pointString = pointString.slice(0, -1)
+    const pointArray = pointString.split(' ')
+
+    return [pointArray[1], pointArray[0]]
+}
+
+const getYearLabel = (value) => {
+    return sliderYears.value[value]
+}
+
+const loadTrials = () => {
+    const sparqlQuery = `SELECT ?item ?residenceLabel ?coords ?personLabel ?date ?link
             WHERE
             {
               ?item wdt:P4532 ?witch .
@@ -183,113 +179,113 @@ export default {
               SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
             }`
 
-            const queryDispatcher = new SPARQLQueryDispatcher(this.sparqlUrl)
-            queryDispatcher.query(sparqlQuery).then((result) => {
-                this.noItems = result.results.bindings.length
+    const queryDispatcher = new SPARQLQueryDispatcher(sparqlUrl.value)
+    queryDispatcher.query(sparqlQuery).then((result) => {
+        noItems.value = result.results.bindings.length
 
-                for (let i = 0; i < result.results.bindings.length; i++) {
-                    let item = result.results.bindings[i]
+        for (let i = 0; i < result.results.bindings.length; i++) {
+            const item = result.results.bindings[i]
 
-                    let trialDate = item.date.value
-                    trialDate = trialDate.substr(0, 10)
+            let trialDate = item.date.value
+            trialDate = trialDate.substr(0, 10)
 
-                    let trialYear = item.date.value
-                    trialYear = trialDate.substr(0, 4)
-                    let trialMonth = trialDate.substr(5, 2)
-                    let trialDay = trialDate.substr(8, 2)
+            let trialYear = item.date.value
+            trialYear = trialDate.substr(0, 4)
+            const trialMonth = trialDate.substr(5, 2)
+            const trialDay = trialDate.substr(8, 2)
 
-                    trialDate = trialDay + '/' + trialMonth + '/' + trialYear
+            trialDate = trialDay + '/' + trialMonth + '/' + trialYear
 
-                    let trial = {
-                        id: item.item.value,
-                        location: item.residenceLabel.value,
-                        witchName: item.personLabel.value,
-                        link:
-                            'http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.trialrecord&search_string&trialref=' +
-                            item.link.value,
-                        longLat: this.convertPointToLongLatArray(
-                            item.coords.value
-                        ),
-                        date: trialDate,
-                        year: trialYear,
-                    }
+            const trial = {
+                id: item.item.value,
+                location: item.residenceLabel.value,
+                witchName: item.personLabel.value,
+                link:
+                    'https://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.trialrecord&search_string&trialref=' +
+                    item.link.value,
+                longLat: convertPointToLongLatArray(item.coords.value),
+                date: trialDate,
+                year: trialYear,
+            }
 
-                    let marker = this.markers.find((marker) => {
-                        return marker.location === trial.location
-                    })
+            const marker = markers.value.find((marker) => {
+                return marker.location === trial.location
+            })
 
-                    if (marker) {
-                        marker.trials.push(trial)
-                    } else {
-                        let marker = {
-                            location: item.residenceLabel.value,
-                            longLat: this.convertPointToLongLatArray(
-                                item.coords.value
-                            ),
-                            trials: [trial],
-                        }
-
-                        this.markers.push(marker)
-                    }
+            if (marker) {
+                marker.trials.push(trial)
+            } else {
+                const marker = {
+                    location: item.residenceLabel.value,
+                    longLat: convertPointToLongLatArray(item.coords.value),
+                    trials: [trial],
                 }
 
-                this.originalMarkers = JSON.parse(JSON.stringify(this.markers))
+                markers.value.push(marker)
+            }
+        }
 
-                this.filterDates()
-            })
-        },
-        getIcon: function (marker) {
-            return '/images/North-Berwick-witch.png'
-        },
-        filterTiles: function (tile) {
-            this.currentTileName = tile.name
-            this.url = tile.url
-        },
-        filterDates: function () {
-            let markers = JSON.parse(JSON.stringify(this.originalMarkers))
+        originalMarkers.value = JSON.parse(JSON.stringify(markers.value))
 
-            markers.forEach((marker) => {
-                marker.trials = marker.trials.filter(
-                    (trial) =>
-                        trial.year >=
-                            this.sliderYears[this.numberRangeValue[0]] &&
-                        trial.year <= this.sliderYears[this.numberRangeValue[1]]
-                )
-            })
-
-            this.markers = markers
-        },
-        showPageInfo() {
-            Swal.fire({
-                title: 'Trial Location Map',
-                html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <strong>multiple trials</strong>, which could have been held in <strong>different locations</strong>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <strong>432</strong> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
-                footer: 'witches.is.ed.ac.uk',
-                confirmButtonText: 'Close',
-                type: 'info',
-                showCloseButton: true,
-            })
-        },
-    },
-    computed: {
-        activeMarkers: function () {
-            return this.markers.filter(function (marker) {
-                return marker.trials.length > 0
-            })
-        },
-        iconAnchor: function () {
-            return [11, 41]
-        },
-        shadowUrl: function () {
-            return '/images/North-Berwick-witch-shadow.png'
-        },
-        shadowAnchor: function () {
-            return [11, 26]
-        },
-    },
-    mounted: function () {
-        this.loadTrials()
-    },
+        filterDates()
+    })
 }
+
+const getIcon = () => {
+    return '/images/North-Berwick-witch.png'
+}
+
+const filterTiles = (tile) => {
+    currentTileName.value = tile.name
+    url.value = tile.url
+}
+
+const filterDates = () => {
+    const markers = JSON.parse(JSON.stringify(originalMarkers.value))
+
+    markers.forEach((marker) => {
+        marker.trials = marker.trials.filter(
+            (trial) =>
+                trial.year >= sliderYears.value[numberRangeValue.value[0]] &&
+                trial.year <= sliderYears.value[numberRangeValue.value[1]]
+        )
+    })
+
+    markers.value = markers
+}
+
+const showPageInfo = () => {
+    Swal.fire({
+        title: 'Trial Location Map',
+        html: '<div>This map indicates the location of trial for the accused witches. There is an option to change the year, to show how the numbers of trials changed with time. A few people had <strong>multiple trials</strong>, which could have been held in <strong>different locations</strong>. There are <b class="font-bold">3211</b> recorded trials which have been related to witchcraft within the database. However, there are geographical locations noted for only <strong>432</strong> trials, meaning that many trial locations were not recorded in the surviving documents.</div>',
+        footer: 'witches.is.ed.ac.uk',
+        confirmButtonText: 'Close',
+        type: 'info',
+        showCloseButton: true,
+    })
+}
+
+const activeMarkers = computed(() => {
+    return markers.value.filter(function (marker) {
+        return marker.trials.length > 0
+    })
+})
+
+const iconAnchor = computed(() => {
+    return [11, 41]
+})
+
+const shadowUrl = computed(() => {
+    return '/images/North-Berwick-witch-shadow.png'
+})
+
+const shadowAnchor = computed(() => {
+    return [11, 26]
+})
+
+onMounted(() => {
+    loadTrials()
+})
 </script>
 
 <style>
@@ -302,19 +298,5 @@ export default {
 .slider-year {
     font-size: 14px;
     color: #606f7b;
-}
-.zoomed-in-img {
-    float: left;
-    width: 25px;
-    height: 38px;
-}
-
-.icon-shadow {
-    position: absolute;
-    top: 15px !important;
-    left: 0;
-    z-index: -1;
-    width: 32px;
-    height: 22px !important;
 }
 </style>

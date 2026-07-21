@@ -1,110 +1,105 @@
 <template>
     <LMap
-        class="w-full h-full z-0 absolute"
-        :zoom="zoom"
+        ref="myMap"
         :center="center"
         :options="{ zoomControl: false }"
-        ref="myMap"
         :use-global-leaflet="true"
+        :zoom="zoom"
+        class="w-full h-full z-0 absolute"
         @ready="onMapReady"
     >
         <LControlZoom position="bottomright"></LControlZoom>
-        <LTileLayer :url="baseMapUrl" :attribution="attribution"></LTileLayer>
+        <LTileLayer :attribution="attribution" :url="baseMapUrl"></LTileLayer>
 
         <!--historic layer-->
         <div v-if="mapUrl.startsWith('https://mapseries')">
-            <LTileLayer :url="mapUrl" :attribution="attribution"></LTileLayer>
+            <LTileLayer :attribution="attribution" :url="mapUrl"></LTileLayer>
         </div>
     </LMap>
 </template>
 
-<script>
-export default {
-    props: {
-        mapMarkers: {
-            type: Array,
-            required: true,
-        },
-        mapUrl: {
-            type: String,
-            required: true,
-        },
-        center: {
-            type: Array,
-            required: true,
-        },
-        zoom: {
-            type: Number,
-            requried: true,
-        },
+<script setup>
+const props = defineProps({
+    mapMarkers: {
+        type: Array,
+        required: true,
     },
-    data() {
-        return {
-            baseMapUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            attribution:
-                'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>',
-            markers: [],
-            clusterOptions: {
-                iconCreateFunction: function (cluster) {
-                    var iconHtml =
-                        '<img class="cluster-img" src="/images/witches-cluster-composite-yellow.png">'
-                    return L.divIcon({
-                        html: iconHtml,
-                        className: 'mycluster',
-                        iconSize: null,
-                    })
-                },
-                disableClusteringAtZoom: 12,
-                spiderfyOnMaxZoom: false,
-            },
-            locationOptions: ['residence', 'detention', 'placeOfDeath'],
-            locationsLabels: {
-                residence: 'Residence',
-                detention: 'Detention',
-                placeOfDeath: 'Place of Death',
-            },
-            standardAttributes: ['sex', 'occupation', 'socialClass'],
-            standardAttributeLabels: {
-                sex: 'Gender',
-                occupation: 'Occupation',
-                socialClass: 'Social Class',
-            },
-            optionalAttributes: [
-                'demonicPact',
-                'propertyDamage',
-                'meetingsInfo',
-                'meetingsPlaces',
-                'shapeshifting',
-                'ritualObjects',
-                'primary',
-                'secondary',
-            ],
-            optionalsLabels: {
-                demonicPact: 'Alleged Pacts with the devil',
-                propertyDamage: 'Alleged Property Damage',
-                meetingsPlaces: 'Alleged meetings places',
-                meetingsInfo: 'Alleged nature of meetings',
-                shapeshifting: 'Alleged shapeshifting',
-                ritualObjects: 'Alleged ritual objects',
-                primary: 'Primary Characteristics',
-                secondary: 'Secondary Characteristics',
-            },
-        }
+    mapUrl: {
+        type: String,
+        required: true,
     },
-    watch: {
-        mapMarkers(newMarkers) {
-            this.fillMarkersArray(newMarkers)
-            this.refreshMapMarkers()
-        },
+    center: {
+        type: Array,
+        required: true,
     },
-    methods: {
-        fillMarkersArray(mapMarkers) {
-            this.markers = mapMarkers.map((markerData) => {
-                const lat = markerData.longLat[0]
-                const lng = markerData.longLat[1]
+    zoom: {
+        type: Number,
+        required: true,
+    },
+})
 
-                // Building the popup content as an HTML string
-                const popupContent = `
+const myMap = ref(null)
+const mapReady = ref(false)
+const baseMapUrl = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+const attribution = ref(
+    'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Historical Maps Layer, James Dorret 1750 from the <a href="https://maps.nls.uk/geo/explore/#zoom=6.6&lat=57.29330&lon=-5.04553&layers=125140579&b=1">NLS Maps API</a>'
+)
+const markers = ref([])
+const clusterOptions = ref({
+    iconCreateFunction: function (cluster) {
+        const iconHtml =
+            '<img class="cluster-img" src="/images/witches-cluster-composite-yellow.png">'
+        return L.divIcon({
+            html: iconHtml,
+            className: 'mycluster',
+            iconSize: null,
+        })
+    },
+    disableClusteringAtZoom: 12,
+    spiderfyOnMaxZoom: false,
+})
+const locationOptions = ref(['residence', 'detention', 'placeOfDeath'])
+const locationsLabels = ref({
+    residence: 'Residence',
+    detention: 'Detention',
+    placeOfDeath: 'Place of Death',
+})
+const standardAttributes = ref(['sex', 'occupation', 'socialClass'])
+const standardAttributeLabels = ref({
+    sex: 'Gender',
+    occupation: 'Occupation',
+    socialClass: 'Social Class',
+})
+const optionalAttributes = ref([
+    'demonicPact',
+    'propertyDamage',
+    'meetingsInfo',
+    'meetingsPlaces',
+    'shapeshifting',
+    'ritualObjects',
+    'primary',
+    'secondary',
+])
+const optionalsLabels = ref({
+    demonicPact: 'Alleged Pacts with the devil',
+    propertyDamage: 'Alleged Property Damage',
+    meetingsPlaces: 'Alleged meetings places',
+    meetingsInfo: 'Alleged nature of meetings',
+    shapeshifting: 'Alleged shapeshifting',
+    ritualObjects: 'Alleged ritual objects',
+    primary: 'Primary Characteristics',
+    secondary: 'Secondary Characteristics',
+})
+
+const fillMarkersArray = (mapMarkers) => {
+    const fallbackMarkerIcon = '/images/witch-single-purple.png'
+
+    markers.value = mapMarkers.map((markerData) => {
+        const lat = markerData.longLat[0]
+        const lng = markerData.longLat[1]
+
+        // Building the popup content as an HTML string
+        const popupContent = `
           <h4 style="font-family: Roboto">${markerData.location}</h4><br>
           <div class="${markerData.witches.length > 1 ? 'witch-scroller' : 'no-witch-scroller'}">
             ${markerData.witches
@@ -112,20 +107,20 @@ export default {
                     (witch) => `
               <div class="font-semibold text-base">${witch.name}</div><br>
               <div><b>Investigation Date:</b> ${witch.investigationDates[1]}</div>
-              ${this.getStandardAttributesWithValue(witch)
+              ${getStandardAttributesWithValue(witch)
                   .map(
                       (attr) => `
-                <b>${this.standardAttributeLabels[attr]}:</b> ${witch[attr]}<br>
+                <b>${standardAttributeLabels.value[attr]}:</b> ${witch[attr]}<br>
               `
                   )
                   .join('')}
-              ${this.getLocationsWithValue(witch)
+              ${getLocationsWithValue(witch)
                   .map(
                       (locationOption) => `
-                <b>${this.locationsLabels[locationOption]}:</b>
+                <b>${locationsLabels.value[locationOption]}:</b>
                 ${witch[locationOption].locations
                     .map(
-                        (subLocation, index) => `
+                        (subLocation) => `
                   ${subLocation}
                 `
                     )
@@ -133,10 +128,10 @@ export default {
               `
                   )
                   .join('')}
-              ${this.getOptionalsWithValue(witch)
+              ${getOptionalsWithValue(witch)
                   .map(
                       (optionalAttribute) => `
-                <b>${this.optionalsLabels[optionalAttribute]}:</b>
+                <b>${optionalsLabels.value[optionalAttribute]}:</b>
                 ${witch[optionalAttribute].join(', ')}<br>
               `
                   )
@@ -149,123 +144,137 @@ export default {
                 .join('')}
           </div>`
 
-                // Return the formatted marker object
-                return {
-                    lat: lat,
-                    lng: lng,
-                    options: {
-                        icon: L.icon({
-                            iconUrl: markerData.markerIcon,
-                            iconSize: [25, 38],
-                            iconAnchor: this.iconAnchor,
-                            shadowUrl: this.shadowUrl,
-                            shadowSize: [25.6, 17.6],
-                            shadowAnchor: this.shadowAnchor,
-                        }),
-                    },
-                    popup: popupContent,
-                }
-            })
-        },
-        hasWikiEntry: function (marker) {
-            let witchesWithEntry = marker.witches.filter(
-                (witch) => witch.wikiPage !== ''
-            )
-            return witchesWithEntry.length > 0
-        },
-        flyTo: function (coords) {
-            this.$refs.myMap.leafletObject.flyTo(coords, 14)
-        },
-        emitMapData: function () {
-            // Emmits an object containing the information about
-            // where the center of the map is, the zoom, and what
-            // map type to change to when the map is turned off,
-            // in this case changing to clustersOff.
-            let centerInfo = this.$refs.myMap.leafletObject.getCenter()
-            let centerArray = [centerInfo.lat, centerInfo.lng]
-            let changeInfo = {
-                center: centerArray,
-                zoom: this.$refs.myMap.leafletObject.getZoom(),
-                changeTo: 'clustersOff',
-            }
-            this.$emit('changeMaps', changeInfo)
-        },
-        getLocationsWithValue: function (witch) {
-            let locationsWithValue = []
-
-            this.locationOptions.map((option) => {
-                if (witch[option].locations.length !== 0) {
-                    locationsWithValue.push(option)
-                }
-            })
-
-            return locationsWithValue
-        },
-        getStandardAttributesWithValue: function (witch) {
-            let standardAttributesWithValue = []
-
-            this.standardAttributes.map((option) => {
-                if (witch[option] !== 'unknown') {
-                    standardAttributesWithValue.push(option)
-                }
-            })
-
-            return standardAttributesWithValue
-        },
-        getOptionalsWithValue: function (witch) {
-            let optionalsWithValue = []
-
-            this.optionalAttributes.map((option) => {
-                if (
-                    witch.hasOwnProperty(option) &&
-                    witch[option][0] !== 'unknown'
-                ) {
-                    optionalsWithValue.push(option)
-                }
-            })
-
-            return optionalsWithValue
-        },
-        refreshMapMarkers() {
-            // clear existing markers
-            this.$refs.myMap.leafletObject.eachLayer((layer) => {
-                if (layer instanceof L.MarkerClusterGroup) {
-                    this.$refs.myMap.leafletObject.removeLayer(layer)
-                }
-            })
-
-            //re add clusters to map
-            useLMarkerClusterCustom({
-                leafletObject: this.$refs.myMap.leafletObject,
-                markers: this.markers,
-                clusterOptions: this.clusterOptions,
-            })
-        },
-
-        onMapReady() {
-            this.fillMarkersArray(this.mapMarkers)
-            useLMarkerClusterCustom({
-                leafletObject: this.$refs.myMap.leafletObject,
-                markers: this.markers,
-                clusterOptions: this.clusterOptions,
-            })
-        },
-    },
-    computed: {
-        iconAnchor: function () {
-            return [11, 41]
-        },
-        shadowAnchor: function () {
-            return [11, 26]
-        },
-        shadowUrl: function () {
-            return '/images/North-Berwick-witch-shadow.png'
-        },
-    },
-    beforeUnmount: function () {
-        this.emitMapData()
-    },
+        // Return the formatted marker object
+        return {
+            lat: lat,
+            lng: lng,
+            options: {
+                icon: L.icon({
+                    iconUrl: markerData.markerIcon ?? fallbackMarkerIcon,
+                    iconSize: [25, 38],
+                    iconAnchor: iconAnchor.value,
+                    shadowUrl: shadowUrl.value,
+                    shadowSize: [25.6, 17.6],
+                    shadowAnchor: shadowAnchor.value,
+                }),
+            },
+            popup: popupContent,
+        }
+    })
 }
+
+const emit = defineEmits(['changeMaps'])
+
+const emitMapData = () => {
+    if (!myMap.value?.leafletObject) {
+        return
+    }
+
+    // Emmits an object containing the information about
+    // where the center of the map is, the zoom, and what
+    // map type to change to when the map is turned off,
+    // in this case changing to clustersOff.
+    const centerInfo = myMap.value.leafletObject.getCenter()
+    const centerArray = [centerInfo.lat, centerInfo.lng]
+    const changeInfo = {
+        center: centerArray,
+        zoom: myMap.value.leafletObject.getZoom(),
+        changeTo: 'clustersOff',
+    }
+
+    emit('changeMaps', changeInfo)
+}
+
+const getLocationsWithValue = (witch) => {
+    const locationsWithValue = []
+
+    locationOptions.value.map((option) => {
+        if (witch[option].locations.length !== 0) {
+            locationsWithValue.push(option)
+        }
+    })
+
+    return locationsWithValue
+}
+
+const getStandardAttributesWithValue = (witch) => {
+    const standardAttributesWithValue = []
+
+    standardAttributes.value.map((option) => {
+        if (witch[option] !== 'unknown') {
+            standardAttributesWithValue.push(option)
+        }
+    })
+
+    return standardAttributesWithValue
+}
+
+const getOptionalsWithValue = (witch) => {
+    const optionalsWithValue = []
+
+    optionalAttributes.value.map((option) => {
+        if (witch.hasOwnProperty(option) && witch[option][0] !== 'unknown') {
+            optionalsWithValue.push(option)
+        }
+    })
+
+    return optionalsWithValue
+}
+
+const refreshMapMarkers = async () => {
+    if (!mapReady.value || !myMap.value?.leafletObject) {
+        return
+    }
+
+    // clear existing markers
+    myMap.value.leafletObject.eachLayer((layer) => {
+        if (layer instanceof L.MarkerClusterGroup) {
+            myMap.value.leafletObject.removeLayer(layer)
+        }
+    })
+
+    //re add clusters to map
+    useLMarkerClusterCustom({
+        leafletObject: myMap.value.leafletObject,
+        markers: markers.value,
+        clusterOptions: clusterOptions.value,
+    })
+}
+
+const onMapReady = () => {
+    mapReady.value = true
+    fillMarkersArray(props.mapMarkers)
+    useLMarkerClusterCustom({
+        leafletObject: myMap.value.leafletObject,
+        markers: markers.value,
+        clusterOptions: clusterOptions.value,
+    })
+}
+
+const iconAnchor = computed(() => {
+    return [11, 41]
+})
+
+const shadowAnchor = computed(() => {
+    return [11, 26]
+})
+const shadowUrl = computed(() => {
+    return '/images/North-Berwick-witch-shadow.png'
+})
+
+onBeforeUnmount(() => {
+    if (myMap.value?.leafletObject) {
+        emitMapData()
+    }
+})
+
+watch(
+    () => props.mapMarkers,
+    async (newMarkers) => {
+        fillMarkersArray(newMarkers)
+        await refreshMapMarkers()
+    }
+)
 </script>
 
 <style>

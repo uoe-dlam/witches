@@ -16,93 +16,87 @@
                     <label class="switch relative pr-2">
                         <input
                             :checked="clustersInitial"
-                            @change="toggleActive()"
                             type="checkbox"
+                            @change="toggleActive()"
                         />
                         <span class="slider round"></span>
                     </label>
                 </div>
                 <clusters-map
                     v-if="clusterState.clustersOn"
-                    :mapMarkers="mapMarkers"
-                    :mapUrl="mapUrl"
                     :center="center"
+                    :map-markers="mapMarkers"
+                    :map-url="mapUrl"
                     :zoom="zoom"
-                    @changeMaps="changeMaps($event)"
+                    @change-maps="changeMaps($event)"
                 />
 
                 <normal-map
                     v-if="clusterState.clustersOff"
-                    :mapMarkers="mapMarkers"
-                    :mapUrl="mapUrl"
                     :center="center"
+                    :map-markers="mapMarkers"
+                    :map-url="mapUrl"
                     :zoom="zoom"
-                    @changeMaps="changeMaps($event)"
+                    @change-maps="changeMaps($event)"
                 />
             </div>
         </client-only>
     </div>
 </template>
 
-<script>
+<script setup>
 import ClustersMap from './ClustersMap.vue'
 import NormalMap from './NormalMap.vue'
 
-export default {
-    components: { ClustersMap, NormalMap },
-    props: {
-        mapUrl: {
-            type: String,
-            required: true,
-        },
-        mapMarkers: {
-            type: Array,
-            required: true,
-        },
-        clustersInitial: {
-            type: Boolean,
-            required: true,
-        },
+const props = defineProps({
+    mapUrl: {
+        type: String,
+        required: true,
     },
-    data() {
-        return {
-            zoom: 7,
-            center: [56.0, -6], // making second entry more negative moves map to the right.
-            clusterState: {
-                clustersOn: this.clustersInitial,
-                clustersOff: !this.clustersInitial,
-            },
-        }
+    mapMarkers: {
+        type: Array,
+        required: true,
     },
-    watch: {
-        clustersInitial(newClustersInitial, oldQuestion) {
-            this.toggleActive()
-        },
+    clustersInitial: {
+        type: Boolean,
+        required: true,
     },
-    methods: {
-        changeMaps: function (changeInfo) {
-            // Called when either of the two map components emits
-            // "changeMaps". It sets the map state inherited from the
-            // map being turned off, and turns the new map on, which will
-            // in turn inherit the map state so that the new map appears in the
-            // same place, same zoom as the old one.
+})
 
-            this.center = changeInfo.center
-            this.zoom = changeInfo.zoom
-            this.clusterState[changeInfo.changeTo] = true
-        },
-        toggleActive: function () {
-            // Turns whichever map is on to false to trigger a map
-            // change.
+const zoom = ref(7)
+const center = ref([56.0, -6]) // making second entry more negative moves map to the right.
+const clusterState = ref({
+    clustersOn: props.clustersInitial,
+    clustersOff: !props.clustersInitial,
+})
 
-            if (this.clusterState.clustersOn) {
-                this.clusterState.clustersOn = false
-            } else {
-                this.clusterState.clustersOff = false
-            }
-        },
-    },
+const changeMaps = (changeInfo) => {
+    // Called when either of the two map components emits
+    // "changeMaps". It sets the map state inherited from the
+    // map being turned off, and turns the new map on, which will
+    // in turn inherit the map state so that the new map appears in the
+    // same place, same zoom as the old one.
+
+    center.value = changeInfo.center
+    zoom.value = changeInfo.zoom
+    clusterState.value[changeInfo.changeTo] = true
 }
+
+const toggleActive = () => {
+    // Turns whichever map is on to false to trigger a map change.
+    if (clusterState.value.clustersOn) {
+        clusterState.value.clustersOn = false
+    } else {
+        clusterState.value.clustersOff = false
+    }
+}
+
+watch(
+    () => props.clustersInitial,
+    () => {
+        toggleActive()
+    }
+)
 </script>
 
 <style>

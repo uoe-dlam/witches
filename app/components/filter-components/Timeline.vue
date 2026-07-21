@@ -7,7 +7,7 @@
                 max-height: 17%;
                 width: 95%;
                 position: absolute;
-                bottom: 0%;
+                bottom: 0;
             "
         >
             <!-- Add the cross (close) button -->
@@ -23,95 +23,90 @@
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
+                        d="M6 18L18 6M6 6l12 12"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12"
                     ></path>
                 </svg>
             </div>
             <Slider
-                name="slider"
                 v-model="numberRangeValue"
-                :min="0"
-                :max="max"
                 :format="getDateLabel"
-                :merge="5"
-                @change="handleCustomInputRangeChange"
                 :lazy="false"
+                :max="max"
+                :merge="5"
+                :min="0"
+                name="slider"
+                @change="handleCustomInputRangeChange"
             />
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import Slider from '@vueform/slider'
 import '@vueform/slider/themes/default.css'
 
-export default {
-    components: { Slider },
-    props: {
-        startRange: {
-            required: true,
-            type: Array,
-        },
-        timelineDates: {
-            required: true,
-            type: Array,
-        },
-        timelineMarkers: {
-            required: true,
-            type: Object,
-        },
+const props = defineProps({
+    startRange: {
+        required: true,
+        type: Array,
     },
-    data() {
-        return {
-            dates: this.timelineDates,
-            markers: this.timelineMarkers,
-            timelineShowing: true,
-            numberRangeValue: [0, 0], // Initialize with dummy values
-        }
+    timelineDates: {
+        required: true,
+        type: Array,
     },
-    mounted() {
-        // Set initial range after `max` is computed
-        this.numberRangeValue = [0, this.max]
+    timelineMarkers: {
+        required: true,
+        type: Object,
     },
-    watch: {
-        numberRangeValue(newRange) {
-            // Convert the slider range values to Date objects
-            const dateRange = [
-                this.parseDate(this.dates[newRange[0]].label),
-                this.parseDate(this.dates[newRange[1]].label),
-            ]
-            this.$emit('updatedRangeValue', dateRange)
-        },
-    },
-    computed: {
-        max() {
-            return this.dates.length - 1
-        },
-    },
-    methods: {
-        emitRange(rangeValue) {
-            this.$emit('updatedRangeValue', rangeValue)
-        },
-        toggleTimelineShowing() {
-            this.timelineShowing = !this.timelineShowing
-            this.$emit('timelineToggled', this.timelineShowing)
-        },
-        getDateLabel(value) {
-            return this.dates[value].label
-        },
-        handleCustomInputRangeChange(newCustomInputRange) {
-            this.numberRangeValue = newCustomInputRange
-        },
-        parseDate(dateStr) {
-            const [day, month, year] = dateStr.split('/').map(Number)
-            //  JavaScript Date months are 0-indexed, so subtract 1 from month and day
-            return new Date(year, month - 1, day - 1)
-        },
-    },
+})
+
+const dates = ref(props.timelineDates)
+const timelineShowing = ref(true)
+const numberRangeValue = ref([0, 0]) // Initialize with dummy values
+
+const max = computed(() => {
+    return dates.value.length - 1
+})
+
+const emit = defineEmits(['updatedRangeValue', 'timelineToggled'])
+
+const toggleTimelineShowing = () => {
+    timelineShowing.value = !timelineShowing.value
+    emit('timelineToggled', timelineShowing.value)
 }
+
+const getDateLabel = (value) => {
+    const index = Math.round(value)
+
+    return dates.value[index]?.label ?? ''
+}
+
+const handleCustomInputRangeChange = (newCustomInputRange) => {
+    numberRangeValue.value = newCustomInputRange
+}
+
+const parseDate = (dateString) => {
+    const [day, month, year] = dateString.split('/').map(Number)
+    //  JavaScript Date months are 0-indexed, so subtract 1 from month and day
+    return new Date(year, month - 1, day - 1)
+}
+
+onMounted(() => {
+    numberRangeValue.value = [0, max.value]
+})
+
+watch(numberRangeValue, (newRange) => {
+    // Convert the slider range values to Date objects
+    const dateRange = [
+        parseDate(dates.value[newRange[0]].label),
+        parseDate(dates.value[newRange[1]].label),
+    ]
+
+    emit('updatedRangeValue', dateRange)
+})
 </script>
 
 <style>

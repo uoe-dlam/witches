@@ -1,17 +1,17 @@
 <template>
-    <span class="dropdown block lg:inline-block">
+    <div class="dropdown block lg:inline-block">
         <a
+            v-if="external"
             :href="url"
             class="block mt-4 xl:pt-1 xl:pb-1 xl:inline-block lg:mt-0 text-gray-500 hover:text-black lg:mr-2 xl:mr-4"
-            v-if="external"
         >
             <slot></slot>
         </a>
         <NuxtLink
+            v-else
+            :class="{ menuBarItemActive: isSubpageActive(subpages) }"
             :to="url"
             class="block xl:pt-1 xl:pb-1 mt-4 lg:inline-block lg:mt-0 text-gray-500 hover:text-black lg:mr-2 xl:mr-4"
-            :class="{ menuBarItemActive: isSubpageActive(subpages) }"
-            v-else
         >
             <slot></slot>
         </NuxtLink>
@@ -20,31 +20,43 @@
             class="block dropdown-content lg:absolute lg:hidden lg:bg-gray-200 lg:shadow-xl text-gray-500"
         >
             <a
-                v-for="(page, index) in subpages"
+                v-for="page in subpages"
+                :key="page.url"
+                :class="{ subMenuItemActive: isSubActive(page.url) }"
                 :href="page.url"
                 class="block pt-3 pb-0 pl-2 pr-2 lg:p-2 hover:text-black"
-                :class="{ subMenuItemActive: isSubActive(page.url) }"
                 >{{ page.name }}</a
             >
         </div>
-    </span>
+    </div>
 </template>
 
-<script>
-export default {
-    props: ['url', 'external', 'subpages'],
-    methods: {
-        isSubActive: function (url) {
-            return url === this.$route.path || url + '/' === this.$route.path
-        },
-        isSubpageActive: function (subpages) {
-            return subpages.some(
-                (page) =>
-                    page.url === this.$route.path ||
-                    page.url + '/' === this.$route.path
-            )
-        },
+<script setup>
+defineProps({
+    url: {
+        type: String,
+        default: '',
     },
+    external: {
+        type: Boolean,
+        default: false,
+    },
+    subpages: {
+        type: Array,
+        default: () => [],
+    },
+})
+
+const route = useRoute()
+
+const isSubActive = (url) => {
+    return url === route.path || url + '/' === route.path
+}
+
+const isSubpageActive = (subpages) => {
+    return subpages.some(
+        (page) => page.url === route.path || page.url + '/' === route.path
+    )
 }
 </script>
 

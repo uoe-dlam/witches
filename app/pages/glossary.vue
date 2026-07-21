@@ -7,7 +7,6 @@
         </p>
         <div class="flex justify-center mb-5">
             <button
-                @click="setSortMode('letters')"
                 :class="[
                     'px-4 py-2 mx-2',
                     {
@@ -16,11 +15,11 @@
                     },
                 ]"
                 class="bg-white border rounded"
+                @click="setSortMode('letters')"
             >
                 Sort Alphabetically
             </button>
             <button
-                @click="setSortMode('category')"
                 :class="[
                     'px-4 py-2 mx-2',
                     {
@@ -29,6 +28,7 @@
                     },
                 ]"
                 class="bg-white border rounded"
+                @click="setSortMode('category')"
             >
                 Sort by Category
             </button>
@@ -41,13 +41,13 @@
             <CategoryGlossary
                 v-if="sortMode === 'category'"
                 :glossary="glossary"
-                :initialCategory="initialCategory"
+                :initial-category="initialCategory"
             />
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import AlphabetGlossary from '@/components/AlphabetGlossary.vue'
 import CategoryGlossary from '@/components/CategoryGlossary.vue'
 import glossaryJSON from '../public/glossary.json'
@@ -56,31 +56,23 @@ definePageMeta({
     layout: 'basic',
 })
 
-export default {
-    components: {
-        AlphabetGlossary,
-        CategoryGlossary,
-    },
-    data() {
-        return {
-            sortMode: 'letters', // Default sort mode
-            glossary: glossaryJSON,
-            initialCategory: null, // Store initial category from query
-        }
-    },
-    mounted() {
-        const queryCategory = this.$route.query.category || null // Access query params using this.$route
+const route = useRoute()
+const sortMode = ref('letters') // Default sort mode
+const glossary = ref(glossaryJSON)
+const initialCategory = ref(null) // Store initial category from query
 
-        // If a category is passed, switch to 'category' sort mode
-        if (queryCategory) {
-            this.setSortMode('category')
-            this.initialCategory = queryCategory // Set the initial category
-        }
-    },
-    methods: {
-        setSortMode(mode) {
-            this.sortMode = mode
-        },
-    },
+const setSortMode = (mode) => {
+    sortMode.value = mode
 }
+
+onMounted(() => {
+    const queryCategory = route.query.category || null // Access query params using this.$route
+
+    // If a category is passed, switch to 'category' sort mode
+    if (queryCategory) {
+        setSortMode('category')
+
+        initialCategory.value = queryCategory // Set the initial category
+    }
+})
 </script>
