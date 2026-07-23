@@ -45,7 +45,13 @@ export default defineNuxtConfig({
     vite: {
         plugins: [tailwindcss()],
         optimizeDeps: {
-            include: ['leaflet', 'leaflet.markercluster', 'vue-gtag'],
+            include: [
+                '@vue-leaflet/vue-leaflet',
+                '@vueform/slider',
+                'leaflet',
+                'leaflet.markercluster',
+                'sweetalert2',
+                'vue-gtag',],
         },
     },
     fontLoader: {
