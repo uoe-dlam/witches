@@ -51,21 +51,7 @@ export default defineNuxtConfig({
                 'leaflet',
                 'leaflet.markercluster',
                 'sweetalert2',
-                'vue-gtag',
-            ],
-        },
-        build: {
-            rollupOptions: {
-                onwarn(warning, defaultHandler) {
-                    if (
-                        typeof warning.message === 'string' &&
-                        warning.message.includes('check-if-page-unused')
-                    ) {
-                        return
-                    }
-                    defaultHandler(warning)
-                },
-            },
+                'vue-gtag',],
         },
     },
     fontLoader: {
