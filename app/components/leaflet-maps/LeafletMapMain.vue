@@ -5,10 +5,10 @@
             <div id="map" class="w-full h-full relative">
                 <!-- Clusters on-off button -->
                 <div
-                    class="absolute flex justify-center w-100 md:w-200 items-center top-0 right-0 z-10 bg-gray-400/80 px-2 py-0.5 rounded-sm"
+                    class="absolute flex justify-center w-fit items-center top-0 right-0 z-10 bg-gray-400/80 px-2 py-0.5 rounded-sm"
                 >
                     <p
-                        class="mr-2 font-medium text-lg"
+                        class="mr-2 font-medium text-lg mb-0"
                         style="font-family: EB Garamond"
                     >
                         Group witches:

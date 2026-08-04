@@ -47,9 +47,9 @@
                                             <div
                                                 class="h-6 px-1 flex items-center justify-center mr-2 border-2 rounded-md text-white font-semibold bg-slate-500 border-slate-700"
                                             >
-                                                <p>
+                                                <span>
                                                     {{ filteredMarkers.length }}
-                                                </p>
+                                                </span>
                                             </div>
                                             <p class="mr-1 text-lg witchy-text">
                                                 Locations
