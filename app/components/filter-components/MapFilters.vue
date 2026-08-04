@@ -591,7 +591,7 @@ onMounted(() => {
 </script>
 
 <style>
-@tailwind base;
+@reference '~/assets/css/tailwind.css';
 
 .p {
     @apply mb-0;

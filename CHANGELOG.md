@@ -9,6 +9,10 @@ Semantic Versioning 2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Abernethy witches memorial to the maps of Memorials & Sites of Interest page (PR #196)
+
 ### Changed
 
 - Upgrade Nuxt from version 3 to version 4 which is the latest version available (PR# 184, PR #191)

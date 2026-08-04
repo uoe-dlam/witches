@@ -17,7 +17,7 @@ body {
     background: #f8fafc;
 }
 
-@tailwind base;
+@reference '~/assets/css/tailwind.css';
 
 h1 {
     font-family: 'EB Garamond', sans-serif;
