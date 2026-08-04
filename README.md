@@ -6,7 +6,8 @@ trials, and associated persons.
 
 ## Backend and running the site locally
 
-The witches project now includes a PHP backend, which can be found at: [https://github.com/uoe-dlam/witches-php](https://github.com/uoe-dlam/witches-php)
+The witches project now includes a PHP backend, which can be found
+at: [https://github.com/uoe-dlam/witches-php](https://github.com/uoe-dlam/witches-php)
 
 To test locally, you should clone the backend:
 
@@ -56,7 +57,8 @@ Wikidata upload from the Survey of Scottish Witchcraft by Emma Carroll and Ewan 
 
 Website and Leaflet map produced by Richard Lawson
 
-Further place-name advice provided by – the Scottish Place-Name Society, Louise Yeoman, Julian Goodare, Simon Taylor, Bruce Gittings, Chris Fleet, Gilbert Márkus and Dòmhnall Uilleam Stiùbhart.
+Further place-name advice provided by – the Scottish Place-Name Society, Louise Yeoman, Julian Goodare, Simon Taylor,
+Bruce Gittings, Chris Fleet, Gilbert Márkus and Dòmhnall Uilleam Stiùbhart.
 
 Wikimedia support – Ewan McAndrew, Navino Evans, Martin Poulter and Simon Cobb.
 
@@ -77,9 +79,9 @@ This project is actively maintained by the University of Edinburgh's Digital Lea
 
 ## Deploying the site
 
-This site is built using the [Nuxt.js](https://nuxtjs.org) framework. If you would like to get this site ready to deploy,
-simply run the following commands in the project's root directory. Please note, you must have node
-and node package manager installed locally to issue these commands:
+This site is built using the [Nuxt.js](https://nuxtjs.org) framework. If you would like to get this site ready to
+deploy, simply run the following commands in the project's root directory. Please note, you must have node and node
+package manager installed locally to issue these commands:
 
 ```
 npm i
@@ -89,10 +91,10 @@ npm run start
 
 The commands will:
 
--   Install all required node packages
--   Generate the static web files used to serve the site
--   npm run start will show you what the site looks like when in production mode
+- Install all required node packages
+- Generate the static web files used to serve the site
+- npm run start will show you what the site looks like when in production mode
 
-You should deploy the content of the dist folder to your server's root directory.
-You should also push the content of the witches-php project to the root directory too.
-This includes the vendor folder and main.php
+You should deploy the content of the /.output/public/ folder to your server's root directory. You should also push the
+content of the witches-php project to the root directory too, if any changes have been made. This includes the vendor
+folder and main.php
