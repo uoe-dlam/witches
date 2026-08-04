@@ -22,7 +22,7 @@
         "@vuepic/vue-datepicker": "^14.0.0",
         "eslint": "^10.7.0",
         "leaflet.markercluster": "^1.5.3",
-        "nuxt": "^4.5.0",
+        "nuxt": "^4.5.1",
         "prettier": "^3.9.6",
         "sweetalert2": "^11.26.25",
         "tailwindcss": "^4.3.3",
