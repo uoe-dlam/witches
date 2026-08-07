@@ -61,8 +61,12 @@
                     </main-nav-bar-item>
                 </div>
             </div>
-            <div class="flex items-center text-white mr-6 hidden xl:block">
-                <img alt="logo" src="~/assets/img/main-logo.png" width="225" />
+            <div class="hidden min-[1350px]:block items-center text-white mr-6">
+                <img
+                    alt="logo"
+                    src="~/assets/img/main-logo-badge.png"
+                    width="75"
+                />
             </div>
         </nav>
         <div
