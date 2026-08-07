@@ -9,6 +9,20 @@ Semantic Versioning 2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Abernethy witches memorial to the maps of Memorials & Sites of Interest page (PR #196)
+
+### Changed
+
+- Upgrade Nuxt from version 3 to version 4 which is the latest version available (PR# 184, PR #191, PR #205)
+
+### Fixed
+
+- Fixed broken images on the site. These were not loading correctly due to a change in the image path expected by Nuxt
+  4 (PR #190)
+- Cleaned up the codebase and removed unused functions and variables (PR #195)
+
 ## [1.5.0] - 2026-06-22
 
 ### Added
@@ -102,4 +116,5 @@ Semantic Versioning 2.0.0
 - Updated json packages (PR #37)
 
 [unreleased]: https://github.com/uoe-dlam/witches/compare/v1.5.0...HEAD
+
 [1.5.0]: https://github.com/uoe-dlam/witches/releases/tag/v1.5.0
