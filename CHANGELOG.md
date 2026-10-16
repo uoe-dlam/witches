@@ -21,7 +21,6 @@ Semantic Versioning 2.0.0
 
 - Fixed broken images on the site. These were not loading correctly due to a change in the image path expected by Nuxt
   4 (PR #190)
-- Cleaned up the codebase and removed unused functions and variables (PR #195)
 
 ## [1.5.0] - 2026-06-22
 
@@ -116,5 +115,4 @@ Semantic Versioning 2.0.0
 - Updated json packages (PR #37)
 
 [unreleased]: https://github.com/uoe-dlam/witches/compare/v1.5.0...HEAD
-
 [1.5.0]: https://github.com/uoe-dlam/witches/releases/tag/v1.5.0

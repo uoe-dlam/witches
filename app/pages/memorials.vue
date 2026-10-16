@@ -447,7 +447,7 @@ const convertPointToLongLatArray = (pointString) => {
 }
 
 const toggleFiltersBox = () => {
-    filters.value.valueBox = !filters.value.valueBox
+    filtersBox.value = !filtersBox.value
 }
 
 onMounted(() => {

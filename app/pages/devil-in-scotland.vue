@@ -64,10 +64,10 @@ const getScreenSize = () => {
 onMounted(() => {
     getScreenSize()
 
-    window.addEventListener('resize', getScreenSize.value)
+    window.addEventListener('resize', getScreenSize)
 })
 
 onBeforeUnmount(() => {
-    window.removeEventListener('resize', getScreenSize.value)
+    window.removeEventListener('resize', getScreenSize)
 })
 </script>

@@ -103,7 +103,7 @@ const links = ref([
             },
             {
                 name: 'Residences on ArcGIS',
-                url: '/residences-on-argis',
+                url: '/residences-on-arcgis',
                 external: false,
             },
             {

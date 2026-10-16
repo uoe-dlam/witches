@@ -56,7 +56,7 @@
                             :checked="false"
                             name="radio"
                             type="radio"
-                            @change="emitSetPropertyToCurrent(property)"
+                            @change="emitSetPropertyToCurrent()"
                         />
                         <span class="checkmark"></span>
                     </label>
