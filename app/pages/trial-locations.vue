@@ -241,9 +241,14 @@ const filterTiles = (tile) => {
 }
 
 const filterDates = () => {
-    const markers = JSON.parse(JSON.stringify(originalMarkers.value))
+    sliderYear.value = [
+        sliderYears.value[numberRangeValue.value[0]],
+        sliderYears.value[numberRangeValue.value[1]],
+    ]
 
-    markers.forEach((marker) => {
+    const updatedMarkers = JSON.parse(JSON.stringify(originalMarkers.value))
+
+    updatedMarkers.forEach((marker) => {
         marker.trials = marker.trials.filter(
             (trial) =>
                 trial.year >= sliderYears.value[numberRangeValue.value[0]] &&
@@ -251,8 +256,12 @@ const filterDates = () => {
         )
     })
 
-    markers.value = markers
+    markers.value = updatedMarkers
 }
+
+watch(numberRangeValue, () => {
+    filterDates()
+})
 
 const showPageInfo = () => {
     Swal.fire({
