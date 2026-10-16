@@ -27,11 +27,11 @@
             original Survey of Scottish Witchcraft, so his input and suggestions
             continue to be extremely valuable to us. The technical work on this
             project has been led by colleagues in our Digital Learning and Media
-            Teams and in Wikimedia UK . Most notably Karen Howie, Ewan McAndrew,
-            Anne-Marie Scott, Richard Lawson, Stewart Cromar, Andrew Middleton,
-            Navino Evans, Martin Poulter and Simon Cobb. We are indebted to them
-            for the work they have done and the time they spend supporting
-            students who work on data skills curriculum projects and
+            Teams and in Wikimedia UK. Most notably Andrew Millington,
+            Anne-Marie Scott, Ewan McAndrew, Karen Howie, Martin Poulter, Navino
+            Evans, Richard Lawson, Simon Cobb and Stewart Cromar. We are
+            indebted to them for the work they have done and the time they spend
+            supporting students who work on data skills curriculum projects and
             internships.
         </p>
         <p class="mt-6 text-md md:text-gl lg:text-lg font-medium">
