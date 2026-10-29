@@ -113,7 +113,7 @@
             Emma Carroll (June to September 2019)
         </p>
         <div class="paragraph-container">
-            <div class="text" style="width: calc(65% - 20px)">
+            <div class="text w-65">
                 <p>
                     Emma Carroll, a Geology and Physical Geography undergraduate
                     student, was recruited in May 2019 as the new Data and
@@ -126,7 +126,7 @@
                     sister project, Wikidata
                 </p>
             </div>
-            <div class="image" style="width: calc(35% - 20px)">
+            <div class="image w-35">
                 <img
                     alt="Emma Carroll locating the accused witches residencies."
                     src="/images/emma.png"
@@ -138,7 +138,7 @@
             </div>
         </div>
         <div class="paragraph-container">
-            <div class="text" style="width: calc(60% - 20px)">
+            <div class="text w-60">
                 <p>
                     As a result of Emma’s work, there was a place of residence
                     recorded onto each accused witches’ Wikidata page which
@@ -152,7 +152,7 @@
                     each accused witch on the website maps.
                 </p>
             </div>
-            <div class="image" style="width: calc(40% - 20px)">
+            <div class="image w-40">
                 <img
                     alt="Emma Carroll exploring collections at the National Library of Scotland."
                     src="/images/emma-map.png"
@@ -208,7 +208,7 @@
             Maggie Lin (June to September 2022)
         </p>
         <div class="paragraph-container">
-            <div class="text" style="width: calc(60% - 20px)">
+            <div class="text w-60">
                 <p>
                     4th year Computer Science student, Maggie Lin, was employed
                     as our second ‘Witchfinder General’: Data Visualisation
@@ -240,7 +240,7 @@
                     interview.
                 </p>
             </div>
-            <div class="image" style="width: calc(40% - 20px)">
+            <div class="image w-40">
                 <img
                     alt="Maggie Lin at the University of Edinburgh's Gender Ed 5th anniversary event on 29 May 2023 "
                     src="/images/Maggie.png"
@@ -342,7 +342,7 @@
             Claire Panella (February to May 2023)
         </p>
         <div class="paragraph-container">
-            <div class="text" style="width: calc(65% - 20px)">
+            <div class="text w-65">
                 <p>
                     Claire Panella worked as the Scottish Witchhunter intern for
                     1 day a week from February to May 2023. During this time she
@@ -362,7 +362,7 @@
                     >
                 </p>
             </div>
-            <div class="image" style="width: calc(35% - 20px)">
+            <div class="image w-35">
                 <img
                     alt="Claire Panella developing a Data Quality Assurance process."
                     src="/images/claire.png"
@@ -782,11 +782,6 @@ definePageMeta({
 </script>
 
 <style scoped>
-.custom-margin {
-    margin-left: 8%;
-    margin-right: 8%;
-}
-
 .paragraph-container {
     overflow: hidden;
 }
@@ -803,12 +798,20 @@ definePageMeta({
     margin-left: 20px;
 }
 
-.video-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+.w-35 {
+    width: calc(35% - 20px);
+}
+
+.w-40 {
+    width: calc(40% - 20px);
+}
+
+.w-60 {
+    width: calc(60% - 20px);
+}
+
+.w-65 {
+    width: calc(65% - 20px);
 }
 
 @media screen and (max-width: 767px) {

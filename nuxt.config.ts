@@ -30,7 +30,7 @@ export default defineNuxtConfig({
             link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         },
     },
-    css: ['~/assets/css/tailwind.css'],
+    css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
     plugins: [
         { src: '~/plugins/vue-gtag', mode: 'client' },
         { src: '~/plugins/leaflet', mode: 'client' },
