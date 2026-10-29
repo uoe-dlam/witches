@@ -1,5 +1,6 @@
 {
     "name": "witches",
+    "type": "module",
     "description": "Witches",
     "author": "DLAM Applications Development Team, University of Edinburgh",
     "private": false,
