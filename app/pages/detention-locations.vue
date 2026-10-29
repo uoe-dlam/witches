@@ -159,7 +159,7 @@ const loadData = async () => {
     const getData = new APIDataHandler(
         queryOutput.value,
         wikiPages.value,
-        icons,
+        icons.value,
         null
     )
     let filtersFound = null

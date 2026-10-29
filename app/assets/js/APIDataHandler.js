@@ -4,10 +4,20 @@ class APIDataHandler {
 
     constructor(queryOutput, wikiPages, icons, constantIcon) {
         this.originalMarkers = []
-        this.icons = icons
+        this.icons = icons && icons.value ? icons.value : icons
         this.constantIcon = constantIcon
-        this.queryOutput = queryOutput
-        this.wikiPages = wikiPages
+        this.queryOutput =
+            queryOutput && queryOutput.value ? queryOutput.value : queryOutput
+        this.wikiPages =
+            wikiPages && wikiPages.value ? wikiPages.value : wikiPages
+
+        if (typeof this.queryOutput === 'string') {
+            try {
+                this.queryOutput = JSON.parse(this.queryOutput)
+            } catch (e) {
+                console.error('Failed to parse queryOutput JSON', e)
+            }
+        }
 
         // Object with the filter propeties the filterTypes of
         // which are built dynamically.
@@ -352,8 +362,13 @@ class APIDataHandler {
     loadAccussed(plotByField, filtersToProduce) {
         let witches = []
 
-        for (let i = 0; i < this.queryOutput.results.bindings.length; i++) {
-            let item = this.queryOutput.results.bindings[i]
+        const bindings =
+            this.queryOutput?.results?.bindings ||
+            this.queryOutput?.bindings ||
+            (Array.isArray(this.queryOutput) ? this.queryOutput : [])
+
+        for (let i = 0; i < bindings.length; i++) {
+            let item = bindings[i]
 
             if (item.hasOwnProperty(this.plotFieldsLabels[plotByField])) {
                 let repeatedWitch = witches.find((existingWitch) => {

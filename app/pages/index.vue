@@ -142,9 +142,7 @@ const loadData = async () => {
 
     const config = useRuntimeConfig()
     try {
-        queryOutput.value = await $fetch('/main.php?type=accused', {
-            baseURL: config.public.baseURL,
-        })
+        queryOutput.value = await myFetch('/main.php?type=accused')
     } catch {
         await Swal.fire({
             title: 'Server Error',
@@ -158,10 +156,14 @@ const loadData = async () => {
         return
     }
 
+    if (!queryOutput.value) {
+        return
+    }
+
     const getData = new APIDataHandler(
         queryOutput.value,
         wikiPages.value,
-        icons,
+        icons.value,
         null
     )
     let filtersFound = null

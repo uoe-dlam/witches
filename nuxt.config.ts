@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
     compatibilityDate: '2026-06-12',
     devtools: { enabled: false },
@@ -34,11 +35,7 @@ export default defineNuxtConfig({
         { src: '~/plugins/vue-gtag', mode: 'client' },
         { src: '~/plugins/leaflet', mode: 'client' },
     ],
-    modules: [
-        'nuxt-font-loader',
-        '@nuxtjs/leaflet',
-        '@nuxt/eslint',
-    ],
+    modules: ['nuxt-font-loader', '@nuxtjs/leaflet', '@nuxt/eslint'],
     build: {
         transpile: ['@vuepic/vue-datepicker'],
     },
@@ -51,7 +48,8 @@ export default defineNuxtConfig({
                 'leaflet',
                 'leaflet.markercluster',
                 'sweetalert2',
-                'vue-gtag',],
+                'vue-gtag',
+            ],
         },
     },
     fontLoader: {
